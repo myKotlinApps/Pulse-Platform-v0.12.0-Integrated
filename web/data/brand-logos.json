@@ -1,5 +1,5 @@
 {
-  "version": "1.3",
+  "version": "1.4",
   "sources": [
     {
       "name": "Simple Icons",
@@ -10,6 +10,12 @@
     {
       "name": "Wikimedia Commons",
       "license": "Per-file license"
+    },
+    {
+      "name": "User supplied drawable-night-hdpi pack",
+      "version": "v130",
+      "license": "User-provided assets; trademarks remain property of their owners",
+      "origin": "drawable-night-hdpi.zip"
     }
   ],
   "brands": [
@@ -237,9 +243,12 @@
       "file": "assets/logos/peugeot.svg",
       "fallback": "assets/logos/fallback/peugeot.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "peugeot.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_pgt.png",
+      "png": "assets/logos/peugeot-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "citroen",
@@ -249,9 +258,12 @@
       "file": "assets/logos/citroen.svg",
       "fallback": "assets/logos/fallback/citroen.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "citroen.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_ctr.png",
+      "png": "assets/logos/citroen-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "renault",
@@ -285,9 +297,12 @@
       "file": "assets/logos/mercedesbenz.svg",
       "fallback": "assets/logos/fallback/mercedesbenz.svg",
       "local": true,
-      "source": "@cardog-icons/core 1.2.0",
-      "license": "MIT",
-      "origin_file": "MB Icon.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_mbz.png",
+      "png": "assets/logos/mercedesbenz-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "bmw",
@@ -297,9 +312,12 @@
       "file": "assets/logos/bmw.svg",
       "fallback": "assets/logos/fallback/bmw.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "bmw.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_bmw.png",
+      "png": "assets/logos/bmw-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "mini",
@@ -321,9 +339,12 @@
       "file": "assets/logos/toyota.svg",
       "fallback": "assets/logos/fallback/toyota.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "toyota.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_tyt.png",
+      "png": "assets/logos/toyota-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "lexus",
@@ -333,9 +354,12 @@
       "file": "assets/logos/lexus.svg",
       "fallback": "assets/logos/fallback/lexus.svg",
       "local": true,
-      "source": "@cardog-icons/core 1.2.0",
-      "license": "MIT",
-      "origin_file": "Lexus Icon.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_lex.png",
+      "png": "assets/logos/lexus-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "hyundai",
@@ -345,9 +369,12 @@
       "file": "assets/logos/hyundai.svg",
       "fallback": "assets/logos/fallback/hyundai.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "hyundai.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_hyd.png",
+      "png": "assets/logos/hyundai-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "kia",
@@ -357,9 +384,12 @@
       "file": "assets/logos/kia.svg",
       "fallback": "assets/logos/fallback/kia.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "kia.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_nbk.png",
+      "png": "assets/logos/kia-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "nissan",
@@ -381,9 +411,12 @@
       "file": "assets/logos/mazda.svg",
       "fallback": "assets/logos/fallback/mazda.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "mazda.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_mzd.png",
+      "png": "assets/logos/mazda-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "mitsubishi",
@@ -405,9 +438,12 @@
       "file": "assets/logos/honda.svg",
       "fallback": "assets/logos/fallback/honda.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "honda.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_hda.png",
+      "png": "assets/logos/honda-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "suzuki",
@@ -417,9 +453,12 @@
       "file": "assets/logos/suzuki.svg",
       "fallback": "assets/logos/fallback/suzuki.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "suzuki.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_szk.png",
+      "png": "assets/logos/suzuki-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "subaru",
@@ -429,9 +468,12 @@
       "file": "assets/logos/subaru.svg",
       "fallback": "assets/logos/fallback/subaru.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "subaru.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_sbr.png",
+      "png": "assets/logos/subaru-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "ford",
@@ -441,9 +483,12 @@
       "file": "assets/logos/ford.svg",
       "fallback": "assets/logos/fallback/ford.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "ford.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_frd.png",
+      "png": "assets/logos/ford-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "chevrolet",
@@ -453,9 +498,12 @@
       "file": "assets/logos/chevrolet.svg",
       "fallback": "assets/logos/fallback/chevrolet.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "chevrolet.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_chv.png",
+      "png": "assets/logos/chevrolet-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "volkswagen",
@@ -477,9 +525,12 @@
       "file": "assets/logos/audi.svg",
       "fallback": "assets/logos/fallback/audi.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "audi.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_aud.png",
+      "png": "assets/logos/audi-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "skoda",
@@ -489,9 +540,12 @@
       "file": "assets/logos/skoda.svg",
       "fallback": "assets/logos/fallback/skoda.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "skoda.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_skd.png",
+      "png": "assets/logos/skoda-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "opel",
@@ -501,9 +555,12 @@
       "file": "assets/logos/opel.svg",
       "fallback": "assets/logos/fallback/opel.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "opel.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_ope.png",
+      "png": "assets/logos/opel-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "volvo",
@@ -525,9 +582,12 @@
       "file": "assets/logos/scania.svg",
       "fallback": "assets/logos/fallback/scania.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "scania.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_sca.png",
+      "png": "assets/logos/scania-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "man",
@@ -549,9 +609,12 @@
       "file": "assets/logos/iveco.svg",
       "fallback": "assets/logos/fallback/iveco.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "iveco.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_ivc.png",
+      "png": "assets/logos/iveco-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "daf",
@@ -593,9 +656,12 @@
       "file": "assets/logos/hyundaicommercial.svg",
       "fallback": "assets/logos/fallback/hyundaicommercial.svg",
       "local": true,
-      "source": "Simple Icons 16.27.0",
-      "license": "CC0-1.0",
-      "origin_file": "hyundai.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_hyd.png",
+      "png": "assets/logos/hyundaicommercial-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "isuzu",
@@ -605,9 +671,12 @@
       "file": "assets/logos/isuzu.svg",
       "fallback": "assets/logos/fallback/isuzu.svg",
       "local": true,
-      "source": "car-brand-logos 1.0.0",
-      "license": "MIT",
-      "origin_file": "isuzu-logo.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_isz.png",
+      "png": "assets/logos/isuzu-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "mack",
@@ -652,9 +721,12 @@
       "file": "assets/logos/faw.svg",
       "fallback": "assets/logos/fallback/faw.svg",
       "local": true,
-      "source": "car-brand-logos 1.0.0",
-      "license": "MIT",
-      "origin_file": "faw-logo.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_faw.png",
+      "png": "assets/logos/faw-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "dongfeng",
@@ -664,9 +736,12 @@
       "file": "assets/logos/dongfeng.svg",
       "fallback": "assets/logos/fallback/dongfeng.svg",
       "local": true,
-      "source": "car-brand-logos 1.0.0 (vectorized from bundled PNG)",
-      "license": "MIT",
-      "origin_file": "dongfeng-logo.png"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_dfs.png",
+      "png": "assets/logos/dongfeng-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "dayun",
@@ -684,9 +759,12 @@
       "file": "assets/logos/jac.svg",
       "fallback": "assets/logos/fallback/jac.svg",
       "local": true,
-      "source": "car-brand-logos 1.0.0 (vectorized from bundled PNG)",
-      "license": "MIT",
-      "origin_file": "jac-logo.png"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_jac.png",
+      "png": "assets/logos/jac-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "geely",
@@ -696,9 +774,12 @@
       "file": "assets/logos/geely.svg",
       "fallback": "assets/logos/fallback/geely.svg",
       "local": true,
-      "source": "car-brand-logos 1.0.0",
-      "license": "MIT",
-      "origin_file": "geely-logo.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_gly.png",
+      "png": "assets/logos/geely-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "byd",
@@ -708,9 +789,12 @@
       "file": "assets/logos/byd.svg",
       "fallback": "assets/logos/fallback/byd.svg",
       "local": true,
-      "source": "@cardog-icons/core 1.2.0",
-      "license": "MIT",
-      "origin_file": "BYD Icon.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_byd.png",
+      "png": "assets/logos/byd-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "mg",
@@ -743,9 +827,12 @@
       "file": "assets/logos/haval.svg",
       "fallback": "assets/logos/fallback/haval.svg",
       "local": true,
-      "source": "car-brand-logos 1.0.0 (vectorized from bundled PNG)",
-      "license": "MIT",
-      "origin_file": "haval-logo.png"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_hvl.png",
+      "png": "assets/logos/haval-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "changan",
@@ -767,9 +854,12 @@
       "file": "assets/logos/greatwall.svg",
       "fallback": "assets/logos/fallback/greatwall.svg",
       "local": true,
-      "source": "car-brand-logos 1.0.0 (vectorized from bundled PNG)",
-      "license": "MIT",
-      "origin_file": "great-wall-logo.png"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_gwm.png",
+      "png": "assets/logos/greatwall-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "baic",
@@ -779,9 +869,12 @@
       "file": "assets/logos/baic.svg",
       "fallback": "assets/logos/fallback/baic.svg",
       "local": true,
-      "source": "car-brand-logos 1.0.0",
-      "license": "MIT",
-      "origin_file": "baic-logo.svg"
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_bic.png",
+      "png": "assets/logos/baic-pack-v130.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "bestune",
@@ -805,7 +898,13 @@
       "initials": "LI",
       "file": "assets/logos/lifan.svg",
       "fallback": "assets/logos/fallback/lifan.svg",
-      "local": false
+      "local": false,
+      "png": "assets/logos/lifan-pack-v130.png",
+      "source": "User supplied drawable-night-hdpi pack; visually matched by brand emblem",
+      "license": "Trademark reference; identification use only",
+      "origin_file": "img_lif.png",
+      "verified": true,
+      "verifiedVersion": "v130"
     },
     {
       "key": "generic",
@@ -818,5 +917,5 @@
       "license": "Project asset"
     }
   ],
-  "notes": "نسخه 1.3: نشان‌های برندهای ایرانی با PNG شفاف و یک‌دست v120 جایگزین شده‌اند. علائم تجاری متعلق به مالکانشان هستند و صرفاً برای شناسایی خودرو در رابط کاربری استفاده می‌شوند."
+  "notes": "نسخه 1.4: لوگوهای PNG پک drawable-night-hdpi برای ۳۰ برند با تطبیق بصری مطمئن جایگزین و در Web/Android/Shared همگام شدند. لوگوهای ایرانی v120 و SVGها فقط به‌عنوان fallback حفظ شده‌اند. علائم تجاری متعلق به مالکانشان هستند."
 }

@@ -64,11 +64,13 @@ object BrandLogoResolver {
         if (!explicit.isNullOrBlank() && exists(context, explicit)) return explicit
         val text = "$make $model"
         val key = rules.firstOrNull { it.second.containsMatchIn(text) }?.first ?: "generic"
+        val packV130 = "logos/${key}-pack-v130.png"
         val officialV120 = "logos/${key}-official-v120.png"
         val verifiedV110 = "logos/${key}-verified-v110.png"
         val png = "logos/$key.png"
         val svg = "logos/$key.svg"
         return when {
+            exists(context, packV130) -> packV130
             exists(context, officialV120) -> officialV120
             exists(context, verifiedV110) -> verifiedV110
             exists(context, png) -> png

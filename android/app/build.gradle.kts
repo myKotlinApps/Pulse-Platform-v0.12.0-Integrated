@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId = "com.ecupulse.app"
         targetSdk = 36
-        versionName = "0.12.0"
+        versionName = "0.13.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -18,14 +18,14 @@ android {
         create("legacy") {
             dimension = "platform"
             minSdk = 21
-            versionCode = 101200
+            versionCode = 101300
             versionNameSuffix = "-legacy"
             buildConfigField("String", "PLATFORM_FLAVOR", "\"legacy\"")
         }
         create("modern") {
             dimension = "platform"
             minSdk = 30
-            versionCode = 201200
+            versionCode = 201300
             versionNameSuffix = "-modern"
             buildConfigField("String", "PLATFORM_FLAVOR", "\"modern\"")
         }

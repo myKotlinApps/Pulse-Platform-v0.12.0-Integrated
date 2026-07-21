@@ -26,3 +26,8 @@ Activity در Rotation بازسازی می‌شود ولی ViewModel و Session 
 - Web از همان PNG در Leaflet و SVG آفلاین استفاده می‌کند.
 - Android WebView از همان PNG در `trip-map.html` استفاده می‌کند.
 - تمام دارایی‌های لوگو در `shared/logos/*-official-v120.png` نگهداری و با `tools/sync_shared.py` توزیع می‌شوند.
+
+
+## Brand PNG pack v0.13.0
+
+Brand metadata remains centralized in `shared/data/brand-logos.json`. Web reads the synchronized manifest and Android resolves `logos/<key>-pack-v130.png` before older PNG/SVG fallbacks. The raw 93-image pack is retained for audit and future mappings.

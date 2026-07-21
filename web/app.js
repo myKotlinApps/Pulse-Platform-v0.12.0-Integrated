@@ -1,6 +1,6 @@
-import {EpsThemeRegistry,EPS_THEME_IDS} from './themes/eps-themes.js?v=0.12.0';
+import {EpsThemeRegistry,EPS_THEME_IDS} from './themes/eps-themes.js?v=0.13.0';
 const $=(s,p=document)=>p.querySelector(s), $$=(s,p=document)=>[...p.querySelectorAll(s)];
-const APP_VERSION='0.12.0';
+const APP_VERSION='0.13.0';
 const DEV_PRO_CODE='1234';
 const epsThemeRegistry=new EpsThemeRegistry();
 const THEME_CYCLE=['mydiag','dark','ivory',...EPS_THEME_IDS];
@@ -217,5 +217,5 @@ $('#clearParking').onclick=()=>{localStorage.removeItem('ecuParking');renderPark
 $('#dashcamInput').onchange=e=>{const file=e.target.files?.[0];if(!file)return;const video=$('#dashcamVideo');if(video.dataset.url)URL.revokeObjectURL(video.dataset.url);const url=URL.createObjectURL(file);video.dataset.url=url;video.src=url;video.play().catch(()=>{})};
 renderParking();
 
-async function init(){try{[state.data,state.tiers,state.logos,state.demo]=await Promise.all([loadJson('data/core-data.json'),loadJson('data/product-tiers.json'),loadJson('data/brand-logos.json?v=1.3'),loadJson('data/demo-profile.json')]);applyTheme(state.theme);$('#remoteApi').value=localStorage.getItem('ecuRemoteApi')||'https://diageman.ir';$('#localApi').value=localStorage.getItem('ecuLocalApi')||'http://127.0.0.1:4030';$('#apiBase').value=$('#localApi').value;seedDemoTrip();renderActiveVehicle();syncMyDiagHome();renderVehicles();renderDtcs();renderTripSelect();renderErrors();applyPlan();if(state.demoMode)startDemo();setInterval(syncMyDiagHome,750);setTimeout(()=>initMap(),350)}catch(e){reportError(e,{feature:'startup'})}}
+async function init(){try{[state.data,state.tiers,state.logos,state.demo]=await Promise.all([loadJson('data/core-data.json'),loadJson('data/product-tiers.json'),loadJson('data/brand-logos.json?v=1.4'),loadJson('data/demo-profile.json')]);applyTheme(state.theme);$('#remoteApi').value=localStorage.getItem('ecuRemoteApi')||'https://diageman.ir';$('#localApi').value=localStorage.getItem('ecuLocalApi')||'http://127.0.0.1:4030';$('#apiBase').value=$('#localApi').value;seedDemoTrip();renderActiveVehicle();syncMyDiagHome();renderVehicles();renderDtcs();renderTripSelect();renderErrors();applyPlan();if(state.demoMode)startDemo();setInterval(syncMyDiagHome,750);setTimeout(()=>initMap(),350)}catch(e){reportError(e,{feature:'startup'})}}
 init();

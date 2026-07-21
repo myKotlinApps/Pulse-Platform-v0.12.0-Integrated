@@ -1,6 +1,14 @@
-# ECU Pulse Platform v0.12.0
+# ECU Pulse Platform v0.13.0
 
 مونوریپوی مشترک وب، Android/Kotlin، سرور تحلیل Node.js و پنل مدیریت.
+
+## v0.13.0 — User logo pack integration
+
+- پک `drawable-night-hdpi.zip` شامل ۹۳ PNG شفاف به پروژه اضافه شد.
+- ۳۰ تطبیق مطمئن برند مستقیماً جایگزین SVG در Web و همه Variantهای Android شدند.
+- Android ابتدا `*-pack-v130.png` را بارگذاری می‌کند و فقط در نبود آن سراغ PNG/SVG قبلی می‌رود.
+- تمام ۹۳ فایل خام برای بررسی و نگاشت بعدی در `shared/logos/pack-v130-raw` نگهداری شده‌اند.
+- Workflow ساخت APK با `android-actions/setup-android@v3` مقاوم‌تر شد.
 
 ## تجربه شروع
 در اولین اجرای وب یا Android، «پروفایل نمایشی OBD-II» خودکار فعال می‌شود:
@@ -125,3 +133,13 @@ Each theme has a Web class, an Android theme class, live OBD bindings, reusable 
 ## GitHub Auto Build
 
 روی ویندوز فایل `PUSH_BUILD_DOWNLOAD_APK.bat` را اجرا کنید. این فایل Repository را در اجرای اول می‌سازد، تغییرات را Commit و Push می‌کند، Workflow اندروید را اجرا می‌کند و APKهای ساخته‌شده را در `GitHub_APK_Artifacts` دانلود می‌کند. راهنمای فارسی کامل در `docs/GITHUB_AUTO_BUILD_FA.md` قرار دارد.
+
+## آپدیت مستقیم ریپوی فعلی GitHub
+
+برای فرستادن نسخه v0.13 روی همان ریپوی فعلی و ساخت APKها، فایل زیر را دوبارکلیک کنید:
+
+```text
+UPDATE_EXISTING_GITHUB_REPO_AND_BUILD.bat
+```
+
+این اسکریپت ریپوی `myKotlinApps/ECU-Pulse-Platform-v0.12.0-Full-Integrated` را در پوشه موقت Clone می‌کند، محتوای نسخه جدید را روی آن قرار می‌دهد، Push می‌کند، Workflow را دنبال می‌کند و Artifactهای APK را در `GitHub_APK_Artifacts` دانلود می‌کند.

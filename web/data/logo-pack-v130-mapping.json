@@ -1,0 +1,158 @@
+{
+  "version": "v130",
+  "source": "drawable-night-hdpi.zip",
+  "rawCount": 93,
+  "activeCount": 30,
+  "activeMappings": [
+    {
+      "brandKey": "audi",
+      "sourceFile": "img_aud.png",
+      "outputFile": "audi-pack-v130.png"
+    },
+    {
+      "brandKey": "baic",
+      "sourceFile": "img_bic.png",
+      "outputFile": "baic-pack-v130.png"
+    },
+    {
+      "brandKey": "bmw",
+      "sourceFile": "img_bmw.png",
+      "outputFile": "bmw-pack-v130.png"
+    },
+    {
+      "brandKey": "byd",
+      "sourceFile": "img_byd.png",
+      "outputFile": "byd-pack-v130.png"
+    },
+    {
+      "brandKey": "chevrolet",
+      "sourceFile": "img_chv.png",
+      "outputFile": "chevrolet-pack-v130.png"
+    },
+    {
+      "brandKey": "citroen",
+      "sourceFile": "img_ctr.png",
+      "outputFile": "citroen-pack-v130.png"
+    },
+    {
+      "brandKey": "dongfeng",
+      "sourceFile": "img_dfs.png",
+      "outputFile": "dongfeng-pack-v130.png"
+    },
+    {
+      "brandKey": "faw",
+      "sourceFile": "img_faw.png",
+      "outputFile": "faw-pack-v130.png"
+    },
+    {
+      "brandKey": "ford",
+      "sourceFile": "img_frd.png",
+      "outputFile": "ford-pack-v130.png"
+    },
+    {
+      "brandKey": "geely",
+      "sourceFile": "img_gly.png",
+      "outputFile": "geely-pack-v130.png"
+    },
+    {
+      "brandKey": "greatwall",
+      "sourceFile": "img_gwm.png",
+      "outputFile": "greatwall-pack-v130.png"
+    },
+    {
+      "brandKey": "haval",
+      "sourceFile": "img_hvl.png",
+      "outputFile": "haval-pack-v130.png"
+    },
+    {
+      "brandKey": "honda",
+      "sourceFile": "img_hda.png",
+      "outputFile": "honda-pack-v130.png"
+    },
+    {
+      "brandKey": "hyundai",
+      "sourceFile": "img_hyd.png",
+      "outputFile": "hyundai-pack-v130.png"
+    },
+    {
+      "brandKey": "hyundaicommercial",
+      "sourceFile": "img_hyd.png",
+      "outputFile": "hyundaicommercial-pack-v130.png"
+    },
+    {
+      "brandKey": "isuzu",
+      "sourceFile": "img_isz.png",
+      "outputFile": "isuzu-pack-v130.png"
+    },
+    {
+      "brandKey": "iveco",
+      "sourceFile": "img_ivc.png",
+      "outputFile": "iveco-pack-v130.png"
+    },
+    {
+      "brandKey": "jac",
+      "sourceFile": "img_jac.png",
+      "outputFile": "jac-pack-v130.png"
+    },
+    {
+      "brandKey": "kia",
+      "sourceFile": "img_nbk.png",
+      "outputFile": "kia-pack-v130.png"
+    },
+    {
+      "brandKey": "lexus",
+      "sourceFile": "img_lex.png",
+      "outputFile": "lexus-pack-v130.png"
+    },
+    {
+      "brandKey": "lifan",
+      "sourceFile": "img_lif.png",
+      "outputFile": "lifan-pack-v130.png"
+    },
+    {
+      "brandKey": "mazda",
+      "sourceFile": "img_mzd.png",
+      "outputFile": "mazda-pack-v130.png"
+    },
+    {
+      "brandKey": "mercedesbenz",
+      "sourceFile": "img_mbz.png",
+      "outputFile": "mercedesbenz-pack-v130.png"
+    },
+    {
+      "brandKey": "opel",
+      "sourceFile": "img_ope.png",
+      "outputFile": "opel-pack-v130.png"
+    },
+    {
+      "brandKey": "peugeot",
+      "sourceFile": "img_pgt.png",
+      "outputFile": "peugeot-pack-v130.png"
+    },
+    {
+      "brandKey": "scania",
+      "sourceFile": "img_sca.png",
+      "outputFile": "scania-pack-v130.png"
+    },
+    {
+      "brandKey": "skoda",
+      "sourceFile": "img_skd.png",
+      "outputFile": "skoda-pack-v130.png"
+    },
+    {
+      "brandKey": "subaru",
+      "sourceFile": "img_sbr.png",
+      "outputFile": "subaru-pack-v130.png"
+    },
+    {
+      "brandKey": "suzuki",
+      "sourceFile": "img_szk.png",
+      "outputFile": "suzuki-pack-v130.png"
+    },
+    {
+      "brandKey": "toyota",
+      "sourceFile": "img_tyt.png",
+      "outputFile": "toyota-pack-v130.png"
+    }
+  ]
+}

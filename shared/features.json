@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "release": "0.12.0",
+  "release": "0.13.0",
   "features": [
     {
       "id": "startup_obd_demo_profile",
@@ -175,6 +175,12 @@
       "web": "requestAnimationFrame-shortest-angle",
       "android": "requestAnimationFrame-shortest-angle",
       "status": "implemented"
+    },
+    {
+      "id": "vehicle_logo_pack_png_v130",
+      "web": "manifest-preferred-png",
+      "android": "resolver-pack-v130-first-all-flavors",
+      "status": "implemented-30-matched-brands-93-raw-assets"
     }
   ]
 }

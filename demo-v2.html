@@ -1,0 +1,432 @@
+ <!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#07111f"/>
+<title>ECU Pulse — دیاگ هوشمند خودرو</title>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<link crossorigin href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+<script crossorigin src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root{--bg:#07111f;--surface:#0b1a2e;--card:#112240;--border:#1d3557;--accent:#3b82f6;--accent-hover:#2563eb;--muted:#8892b0;--bright:#ccd6f6;--green:#10b981;--red:#ef4444;--amber:#f59e0b;--purple:#8b5cf6;--mydiag-surface:#0d2137}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-family:"Segoe UI","Tahoma",system-ui,sans-serif;scroll-behavior:smooth}
+body{min-height:100dvh;background:var(--bg);color:var(--bright);overflow:hidden}
+button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit;font-size:inherit}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+#root{display:flex;height:100dvh}
+.sidebar{width:260px;background:var(--surface);border-left:1px solid var(--border);flex-shrink:0;display:flex;flex-direction:column}
+.sidebar-brand{padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.sidebar-brand .ep{width:32px;height:32px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.sidebar-nav{flex:1;overflow-y:auto;padding:8px}
+.nav-btn{width:100%;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;font-size:13px;text-align:right;transition:all .15s;color:var(--muted)}
+.nav-btn:hover{background:rgba(59,130,246,.08);color:var(--bright)}
+.nav-btn.active{background:var(--card);border:1px solid var(--border);color:var(--accent)}
+.nav-btn svg{width:18px;height:18px;flex-shrink:0}
+.sidebar-foot{padding:12px 16px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);text-transform:uppercase}
+.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.header{height:52px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 16px;flex-shrink:0}
+.header-left{display:flex;align-items:center;gap:12px}
+.header-eyebrow{font-size:10px;color:var(--muted);letter-spacing:2px;display:block}
+.header-title{font-size:14px;font-weight:600}
+.content{flex:1;overflow-y:auto;padding:16px 20px}
+.glass{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px}
+.hero-card{background:linear-gradient(135deg,var(--mydiag-surface),var(--bg));border:1px solid var(--border);border-radius:16px;padding:24px;position:relative;overflow:hidden}
+.hero-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:var(--accent);opacity:.04;border-radius:50%}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.menu-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 12px;display:flex;flex-direction:column;align-items:center;gap:8px;transition:all .2s;text-align:center}
+.menu-card:hover{border-color:var(--accent);background:var(--card)}
+.menu-card svg{width:24px;height:24px;flex-shrink:0}
+.menu-card strong{font-size:13px;font-weight:600}
+.menu-card small{font-size:11px;color:var(--muted)}
+.btn-primary{background:var(--accent);color:#fff;padding:10px 22px;border-radius:10px;font-weight:600;font-size:13px;transition:all .2s}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-ghost{border:1px solid var(--border);color:var(--bright);padding:6px 14px;border-radius:10px}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.gauges-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.gauge-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:130px}
+.gauge-ring{position:relative;width:110px;height:110px}
+.gauge-ring svg{transform:rotate(-90deg)}
+.gauge-value{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gauge-value strong{font-size:22px;font-family:'Courier New',monospace}
+.gauge-value small{font-size:9px;color:var(--muted)}
+.terminal{background:#020b16;border:1px solid var(--border);border-radius:12px;height:350px;overflow-y:auto;padding:12px;font-family:'Courier New',monospace;font-size:12px}
+.terminal .tx{color:var(--accent)}
+.terminal .rx{color:var(--green)}
+.terminal .info{color:var(--muted)}
+.qcmd{display:inline-flex;padding:4px 10px;margin:3px;border:1px solid var(--border);border-radius:6px;font-size:11px;font-family:'Courier New',monospace;cursor:pointer;transition:all .15s}
+.qcmd:hover{border-color:var(--accent);color:var(--accent)}
+.badge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600}
+.badge-pending{background:rgba(245,158,11,.15);color:#f59e0b}
+.badge-confirmed{background:rgba(249,115,22,.15);color:#f97316}
+.badge-permanent{background:rgba(239,68,68,.15);color:#ef4444}
+.badge-green{background:rgba(16,185,129,.15);color:#10b981}
+.health-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.health-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;align-items:center;gap:10px}
+.health-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.map-container{height:350px;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.score-ring{position:relative;width:140px;height:140px;margin:0 auto}
+.score-ring svg{transform:rotate(-90deg)}
+.score-val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-val strong{font-size:40px;font-family:'Courier New',monospace}
+.stats-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.stat-chip{padding:5px 12px;border-radius:20px;font-size:11px;background:rgba(29,53,87,.5);color:var(--muted)}
+.stat-chip.pro{background:rgba(234,179,8,.15);color:#eab308}
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.page-in{animation:slideUp .25s ease-out}
+.input-field{padding:8px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--bright);font-size:13px;font-family:'Courier New',monospace;outline:none;flex:1}
+.input-field:focus{border-color:var(--accent)}
+@media(max-width:768px){.sidebar{display:none}.menu-grid{grid-template-columns:repeat(3,1fr)}.gauges-row{gap:8px}.gauge-card{min-width:100px;padding:12px}.gauge-ring{width:90px;height:90px}}
+</style>
+</head>
+<body><div id="root"></div>
+<script>
+var e = React.createElement;
+var SI = function(d,sz,clr){return e('svg',{width:sz||20,height:sz||20,fill:'none',stroke:clr||'currentColor',strokeWidth:1.5,viewBox:'0 0 24 24'},e('path',{d:d}))};
+var IP = {
+  home:'M3 11l9-8 9 8v10h-6v-6H9v6H3z',
+  gauge:'M4 15a8 8 0 1 1 16 0M12 15l4-5M12 15a1 1 0 1 0 0-2',
+  car:'M5 11l2-5h10l2 5M3 14h18v5H3zM6 19v2M18 19v2',
+  route:'M6 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM18 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM8 18c7 0 1-10 8-10',
+  scan:'M4 7V4h3M17 4h3v3M20 17v3h-3M7 20H4v-3M7 12h10M12 7v10',
+  crown:'M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01z',
+  err:'M12 3 2 21h20zM12 9v5M12 18h.01',
+  theme:'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.3 1A7 7 0 0 0 15 6l-.3-2.5h-4L10.4 6A7 7 0 0 0 8.7 7L6.4 6l-2 3.4L6.3 11a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.3-1A7 7 0 0 0 10 18l.3 2.5h4L14.6 18a7 7 0 0 0 1.7-1l2.3 1 2-3.4-1.9-1.5a7 7 0 0 0 .3-1.1z',
+  plug:'M8 3v5M16 3v5M6 8h12v3a6 6 0 0 1-6 6v4M9 21h6',
+  shop:'M4 9h16l-1 12H5zM7 9l1-6h8l1 6M9 13h6',
+  style:'M13 10V3L4 14h7v7l9-11h-7z',
+  park:'M18 10l-6-6-6 6h3v8h6v-8h3zM9 21h6',
+  cam:'M15 10l4.5-4.5M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8',
+  speed:'M20 12c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8 8 3.58 8 8zm-8 6c3.31 0 6-2.69 6-6s-2.69-6-6-6-6 2.69-6 6 2.69 6 6 6z',
+  temp:'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z',
+  bolt:'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
+  eng:'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM6 20V4h7v5h5v11z',
+};
+var NAV = [
+  {id:'home',icon:IP.home,label:'خانه MyDiag'},
+  {id:'dashboard',icon:IP.gauge,label:'داشبورد'},
+  {id:'vehicles',icon:IP.car,label:'خودرو'},
+  {id:'trips',icon:IP.route,label:'سفرها'},
+  {id:'analysis',icon:IP.scan,label:'تحلیل ماشین من'},
+  {id:'pro',icon:IP.crown,label:'نسخه Pro'},
+  {id:'store',icon:IP.shop,label:'فروشگاه'},
+  {id:'errors',icon:IP.err,label:'خطا و پشتیبانی'},
+  {id:'scanner',icon:IP.plug,label:'اسکنر ECU'},
+  {id:'settings',icon:IP.theme,label:'تنظیمات'},
+];
+var TITLES = {
+  home:['SMART VEHICLE','خانه خودرو'], dashboard:['LIVE VEHICLE','داشبورد خودرو'],
+  vehicles:['VEHICLE PROFILE','انتخاب خودرو'], trips:['GPS TRIP LOGGER','سفرها'],
+  analysis:['DIAGEMAN API','تحلیل ماشین من'], pro:['ADVANCED CENTER','مرکز نسخه پیشرفته'],
+  store:['UPGRADE','خرید و فعال‌سازی'], errors:['FAULT CENTER','خطا و پشتیبانی'],
+  scanner:['ELM327 CONSOLE','اسکنر و کنسول ECU'], settings:['SETTINGS','تنظیمات'],
+  'driving-style':['DRIVING STYLE','سبک رانندگی'], parking:['PARKING MEMORY','محل پارک'],
+  dashcam:['DASHCAM','دوربین خودرو'],
+};
+
+function Gauge(props){
+  var pct = props.value!=null ? Math.min(100,Math.max(0,((props.value-props.min)/(props.max-props.min))*100)) : 0;
+  var r=46, circ=2*Math.PI*r, off=circ-(pct/100)*circ;
+  return e('div',{className:'gauge-card'},
+    SI(props.icon,18,props.color),
+    e('span',{style:{fontSize:10,color:'#8892b0'}},props.label),
+    e('div',{className:'gauge-ring'},
+      e('svg',{viewBox:'0 0 120 120',width:'100%',height:'100%'},
+        e('circle',{cx:60,cy:60,r:r,fill:'none',stroke:'#1d3557',strokeWidth:8}),
+        e('circle',{cx:60,cy:60,r:r,fill:'none',stroke:props.color,strokeWidth:8,strokeLinecap:'round',
+          strokeDasharray:circ,strokeDashoffset:off,
+          style:{transition:'stroke-dashoffset .5s ease'}})
+      ),
+      e('div',{className:'gauge-value'},
+        e('strong',null,props.value!=null?props.value:'--'),
+        e('small',null,props.unit)
+      )
+    )
+  );
+}
+
+function NavBtn(props){
+  return e('button',{className:'nav-btn'+(props.active?' active':''),onClick:function(){props.onClick(props.id)}},
+    SI(props.icon,17), props.label);
+}
+
+function SimplePage(title,body){
+  return e('div',{className:'glass page-in',style:{textAlign:'center',padding:40}},
+    e('h2',{style:{fontSize:18,fontWeight:700,marginBottom:12}},title),
+    e('p',{style:{color:'#8892b0',fontSize:13}},body));
+}
+
+function HomePage(props){
+  var items = [
+    {id:'dashboard',icon:IP.gauge,label:'داشبورد خودرو',desc:'نمایش زنده گیج‌ها و سنسورها',color:'#3b82f6'},
+    {id:'analysis',icon:IP.scan,label:'تحلیل ماشین من',desc:'بررسی سلامت و عیب‌یابی',color:'#10b981'},
+    {id:'vehicles',icon:IP.car,label:'مدیریت خودرو',desc:'پروفایل و انتخاب خودرو',color:'#f59e0b'},
+    {id:'trips',icon:IP.route,label:'سوابق سفر',desc:'نقشه و بازپخش مسیرها',color:'#8b5cf6'},
+    {id:'scanner',icon:IP.plug,label:'اسکنر ECU',desc:'کنسول ELM327 و دیاگ',color:'#ec4899'},
+    {id:'errors',icon:IP.err,label:'خطا و پشتیبانی',desc:'کدهای خطا و گزارش',color:'#ef4444'},
+    {id:'driving-style',icon:IP.style,label:'سبک رانندگی',desc:'امتیاز و تحلیل رانندگی',color:'#06b6d4'},
+    {id:'parking',icon:IP.park,label:'محل پارک',desc:'ذخیره و پیدا کردن ماشین',color:'#f97316'},
+    {id:'dashcam',icon:IP.cam,label:'دوربین خودرو',desc:'ضبط و پخش ویدئو',color:'#a855f7'},
+    {id:'store',icon:IP.shop,label:'فروشگاه',desc:'خرید تجهیزات و اشتراک',color:'#fbbf24'},
+    {id:'pro',icon:IP.crown,label:'نسخه Pro',desc:'امکانات پیشرفته',color:'#eab308'},
+    {id:'settings',icon:IP.theme,label:'تنظیمات',desc:'تنظیمات اپ و اتصال',color:'#6b7280'},
+  ];
+  return e('div',{className:'page-in'},
+    e('div',{className:'hero-card',style:{marginBottom:16}},
+      e('div',{style:{position:'relative',zIndex:1}},
+        e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',flexWrap:'wrap',gap:12}},
+          e('div',null,
+            e('small',{style:{color:'#8892b0',fontSize:11,letterSpacing:2}},'SMART VEHICLE DIAGNOSTIC'),
+            e('h2',{style:{fontSize:22,fontWeight:700,marginTop:4}},'ECU Pulse'),
+            e('p',{style:{color:'#3b82f6',marginTop:6,fontWeight:500}},'ECU Pulse Demo — ۲۰۲۴')
+          ),
+          e('div',{style:{display:'flex',gap:20,textAlign:'center'}},
+            e('div',null,e('strong',{style:{display:'block',fontSize:22,fontFamily:'Courier New,monospace'}},'0'),e('small',{style:{color:'#8892b0',fontSize:10}},'km/h')),
+            e('div',null,e('strong',{style:{display:'block',fontSize:22,fontFamily:'Courier New,monospace'}},'0'),e('small',{style:{color:'#8892b0',fontSize:10}},'RPM')),
+            e('div',null,e('strong',{style:{display:'block',fontSize:22,fontFamily:'Courier New,monospace'}},'--'),e('small',{style:{color:'#8892b0',fontSize:10}},'°C'))
+          )
+        ),
+        e('div',{className:'stats-row'},
+          e('span',{className:'stat-chip'},'FREE'),
+          e('span',{className:'stat-chip'},'بدون خطا'),
+          e('span',{className:'stat-chip'},'تم: MyDiag')
+        )
+      )
+    ),
+    e('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:12}},
+      e('div',null,e('small',{style:{color:'#8892b0',fontSize:10,letterSpacing:2}},'SMART VEHICLE MANAGEMENT'),e('h2',{style:{fontSize:16,fontWeight:600}},'منوهای اصلی')),
+      e('span',{style:{fontSize:12,color:'#8892b0'}},'۱۳ بخش')
+    ),
+    e('div',{className:'menu-grid'},
+      items.map(function(m){return e('button',{key:m.id,className:'menu-card',onClick:function(){props.onNav(m.id)}},
+        SI(m.icon,26,m.color), e('strong',null,m.label), e('small',null,m.desc))})
+    )
+  );
+}
+
+function DashboardPage(){
+  var _s=React.useState({rpm:800,speedKph:0,coolantC:82,voltage:13.8,engineLoad:22}),live=_s[0],setLive=_s[1];
+  React.useEffect(function(){
+    var t=setInterval(function(){setLive({
+      rpm:Math.floor(600+Math.random()*2600), speedKph:Math.floor(Math.random()*120),
+      coolantC:Math.floor(75+Math.random()*25), voltage:+(13.2+Math.random()*1.4).toFixed(1),
+      engineLoad:Math.floor(15+Math.random()*70)
+    })},1500);
+    return function(){clearInterval(t)};
+  },[]);
+  var gauges=[
+    {label:'دور موتور',value:live.rpm,unit:'RPM',min:0,max:8000,color:'#ef4444',icon:IP.gauge},
+    {label:'سرعت',value:live.speedKph,unit:'km/h',min:0,max:240,color:'#3b82f6',icon:IP.speed},
+    {label:'دمای موتور',value:live.coolantC,unit:'°C',min:60,max:120,color:'#f59e0b',icon:IP.temp},
+    {label:'ولتاژ باتری',value:live.voltage,unit:'V',min:10,max:16,color:'#10b981',icon:IP.bolt},
+    {label:'بار موتور',value:live.engineLoad,unit:'%',min:0,max:100,color:'#8b5cf6',icon:IP.eng},
+  ];
+  return e('div',{className:'page-in'},
+    e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}},
+      e('h2',{style:{fontSize:18,fontWeight:700}},'داشبورد زنده خودرو'),
+      e('span',{className:'badge badge-green'},'حالت دمو')
+    ),
+    e('div',{className:'gauges-row'},
+      gauges.map(function(g,i){return e(Gauge,Object.assign({},g,{key:i}))})
+    )
+  );
+}
+
+function ScannerPage(){
+  var _s=React.useState([{dir:'info',text:'ECU Pulse ELM327 Console v1.0.0',time:Date.now()},{dir:'info',text:'حالت دمو — شبیه‌سازی ELM327',time:Date.now()}]),lines=_s[0],setLines=_s[1];
+  var _i=React.useState(''),input=_i[0],setInput=_i[1];
+  var _c=React.useState(false),conn=_c[0],setConn=_c[1];
+  var botRef=React.useRef(null);
+  var DEMO={'ATZ':'ELM327 v2.1','ATL0':'OK','ATH1':'OK','0100':'41 00 BE 1F B8 10','010C':'41 0C 1A F8','010D':'41 0D 30','0105':'41 0D 46','ATDPN':'6','ATI':'ELM327 v2.1','ATRV':'13.8V'};
+  function send(cmd){
+    var c=(cmd||input).trim().toUpperCase(); if(!c) return;
+    setLines(function(p){return p.concat([{dir:'tx',text:'> '+c,time:Date.now()}])});
+    setTimeout(function(){setLines(function(p){return p.concat([{dir:'rx',text:DEMO[c]||'?',time:Date.now()}])})},300);
+    setInput('');
+  }
+  React.useEffect(function(){if(botRef.current) botRef.current.scrollIntoView({behavior:'smooth'})},[lines]);
+  return e('div',{className:'page-in'},
+    e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}},
+      e('div',{style:{display:'flex',alignItems:'center',gap:10}},
+        e('h2',{style:{fontSize:18,fontWeight:700}},'کنسول ECU'),
+        e('span',{style:{width:8,height:8,borderRadius:'50%',background:conn?'#10b981':'#8892b0'}}),
+        e('span',{style:{fontSize:12,color:'#8892b0'}},conn?'متصل':'قطع')
+      ),
+      e('div',{style:{display:'flex',gap:8}},
+        e('button',{className:'btn-ghost',style:{fontSize:11},onClick:function(){setLines([{dir:'info',text:'console cleared',time:Date.now()}])}},'پاک کردن'),
+        e('button',{className:conn?'btn-ghost':'btn-primary',style:{fontSize:11},onClick:function(){var nc=!conn;setConn(nc);setLines(function(p){return p.concat([{dir:'info',text:nc?'اتصال به ELM327...':'قطع ارتباط',time:Date.now()},{dir:'info',text:nc?'متصل — حالت دمو':'آفلاین',time:Date.now()}])})}},conn?'قطع':'اتصال')
+      )
+    ),
+    e('div',{className:'terminal'},
+      lines.map(function(l,i){return e('div',{key:i,className:l.dir,style:{lineHeight:1.6}},l.text)}),
+      e('div',{ref:botRef})
+    ),
+    e('div',{style:{display:'flex',gap:8,marginTop:10,flexWrap:'wrap'}},
+      ['ATZ','010C','010D','0105','ATDPN','ATRV'].map(function(c){return e('button',{key:c,className:'qcmd',onClick:function(){send(c)}},c)})
+    ),
+    e('div',{style:{display:'flex',gap:8,marginTop:8}},
+      e('input',{value:input,onChange:function(ev){setInput(ev.target.value)},onKeyDown:function(ev){if(ev.key==='Enter') send()},
+        className:'input-field',placeholder:'دستور AT / OBD ...'}),
+      e('button',{className:'btn-primary',style:{padding:'8px 16px'},onClick:function(){send()}},'ارسال')
+    )
+  );
+}
+
+function AnalysisPage(){
+  var _r=React.useState(false),ran=_r[0],setRan=_r[1];
+  var items=[
+    {name:'موتور',status:'ok',score:92},{name:'گیربکس',status:'ok',score:88},
+    {name:'ترمز',status:'warning',score:72,note:'لنت‌ها نزدیک به پایان عمر'},
+    {name:'باتری',status:'ok',score:95},{name:'آلایندگی',status:'ok',score:90},
+    {name:'سیستم خنک‌کننده',status:'ok',score:87},{name:'برق',status:'ok',score:91},
+    {name:'تعلیق',status:'ok',score:85},
+  ];
+  var avg=ran?Math.round(items.reduce(function(a,i){return a+i.score},0)/items.length):0;
+  var sc=avg>80?'#10b981':avg>60?'#f59e0b':'#ef4444';
+  var r=65,circ=2*Math.PI*r;
+  return e('div',{className:'page-in'},
+    e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}},
+      e('h2',{style:{fontSize:18,fontWeight:700}},'تحلیل سلامت خودرو'),
+      e('button',{className:'btn-primary',onClick:function(){setRan(true)}},'اجرای تحلیل')
+    ),
+    ran?e('div',null,
+      e('div',{style:{textAlign:'center',marginBottom:20}},
+        e('div',{className:'score-ring'},
+          e('svg',{viewBox:'0 0 160 160',width:'100%',height:'100%'},
+            e('circle',{cx:80,cy:80,r:r,fill:'none',stroke:'#1d3557',strokeWidth:10}),
+            e('circle',{cx:80,cy:80,r:r,fill:'none',stroke:sc,strokeWidth:10,strokeLinecap:'round',
+              strokeDasharray:circ,strokeDashoffset:circ-(avg/100)*circ,
+              style:{transition:'stroke-dashoffset .8s ease'}})
+          ),
+          e('div',{className:'score-val'},e('strong',null,avg),e('small',{style:{fontSize:11,color:'#8892b0'}},'از ۱۰۰'))
+        )
+      ),
+      e('div',{className:'health-grid'},
+        items.map(function(i){return e('div',{key:i.name,className:'health-card'},
+          e('div',{className:'health-dot',style:{background:i.status==='ok'?'#10b981':i.status==='warning'?'#f59e0b':'#ef4444'}}),
+          e('div',{style:{flex:1}},e('strong',{style:{fontSize:13}},i.name),e('div',{style:{fontSize:11,color:'#8892b0',marginTop:2}},i.note||('امتیاز '+i.score))),
+          e('span',{style:{fontSize:14,fontWeight:700,fontFamily:'Courier New,monospace'}},i.score)
+        )})
+      )
+    ):e('div',{className:'glass',style:{textAlign:'center',padding:40}},
+      SI(IP.scan,40,'#8892b0'),
+      e('p',{style:{marginTop:12,color:'#8892b0'}},'برای شروع تحلیل سلامت خودرو، دکمه بالا را بزنید')
+    )
+  );
+}
+
+function TripsPage(){
+  var mapRef=React.useRef(null), mapInst=React.useRef(null);
+  var trips=[{id:'1',name:'تهران — مسیر غرب به شرق',startedAt:Date.now()-3600000,distanceKm:18.5},{id:'2',name:'تهران — میرداماد تا تجریش',startedAt:Date.now()-7200000,distanceKm:8.2},{id:'3',name:'تهران — اتوبان همت',startedAt:Date.now()-86400000,distanceKm:42.1}];
+  React.useEffect(function(){
+    if(!mapRef.current||mapInst.current) return;
+    mapInst.current=L.map(mapRef.current).setView([35.7219,51.3347],12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OSM'}).addTo(mapInst.current);
+    var d=[[35.7219,51.3347],[35.7320,51.3500],[35.7440,51.3650],[35.7540,51.3850],[35.7600,51.4100]];
+    L.polyline(d,{color:'#3b82f6',weight:4}).addTo(mapInst.current);
+    L.circleMarker(d[0],{radius:6,color:'#10b981',fillColor:'#10b981'}).addTo(mapInst.current).bindPopup('شروع');
+    L.circleMarker(d[4],{radius:6,color:'#ef4444',fillColor:'#ef4444'}).addTo(mapInst.current).bindPopup('پایان');
+  },[]);
+  return e('div',{className:'page-in'},
+    e('h2',{style:{fontSize:18,fontWeight:700,marginBottom:12}},'سفرها'),
+    e('div',{ref:mapRef,className:'map-container',style:{marginBottom:12}}),
+    e('div',{style:{display:'flex',gap:8,marginBottom:16}},
+      e('button',{className:'btn-ghost',style:{fontSize:12}},'▶ پخش'),
+      e('button',{className:'btn-ghost',style:{fontSize:12}},'⏸ توقف'),
+      e('button',{className:'btn-ghost',style:{fontSize:12}},'↺ شروع مجدد')
+    ),
+    trips.map(function(t){return e('div',{key:t.id,className:'glass',style:{padding:12,display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}},
+      e('div',null,e('strong',{style:{fontSize:13}},t.name),e('div',{style:{fontSize:11,color:'#8892b0',marginTop:2}},new Date(t.startedAt).toLocaleString('fa-IR'))),
+      e('span',{style:{fontSize:13,fontWeight:600}},t.distanceKm+' km')
+    )})
+  );
+}
+
+function ErrorsPage(){
+  var dtcs=[{code:'P0133',desc:'پاسخ کند سنسور اکسیژن — بانک ۱ سنسور ۱',kind:'CONFIRMED'},{code:'P0420',desc:'بازدهی پایین کاتالیست — بانک ۱',kind:'PERMANENT'},{code:'P0301',desc:'میسفایر سیلندر ۱',kind:'PENDING'}];
+  var bc=function(k){return k==='PERMANENT'?'badge-permanent':k==='CONFIRMED'?'badge-confirmed':'badge-pending'};
+  var bl=function(k){return k==='PERMANENT'?'دائمی':k==='CONFIRMED'?'تأییدشده':'در حال بررسی'};
+  return e('div',{className:'page-in'},
+    e('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}},
+      e('h2',{style:{fontSize:18,fontWeight:700}},'کدهای خطا (DTC)'),
+      e('div',{style:{display:'flex',gap:8}},e('button',{className:'btn-ghost',style:{fontSize:11}},'پاک کردن همه'),e('button',{className:'btn-primary',style:{fontSize:11}},'ارسال گزارش'))
+    ),
+    dtcs.map(function(d){return e('div',{key:d.code,className:'glass',style:{padding:14,marginBottom:8,display:'flex',alignItems:'center',gap:12}},
+      e('div',{style:{width:40,height:40,borderRadius:10,background:'rgba(239,68,68,.1)',display:'flex',alignItems:'center',justifyContent:'center'}},SI(IP.err,20,'#ef4444')),
+      e('div',{style:{flex:1}},
+        e('div',{style:{display:'flex',alignItems:'center',gap:8}},e('strong',{style:{fontSize:14,fontFamily:'Courier New,monospace'}},d.code),e('span',{className:'badge '+bc(d.kind)},bl(d.kind))),
+        e('p',{style:{fontSize:12,color:'#8892b0',marginTop:4}},d.desc)
+      )
+    )})
+  );
+}
+
+function SettingsPage(){
+  var themes=['mydiag','dark','ivory','neon-analytics','color-metrics','mobile-gradient','industrial-infographic'];
+  var _t=React.useState('mydiag'),theme=_t[0],setTheme=_t[1];
+  return e('div',{className:'page-in'},
+    e('h2',{style:{fontSize:18,fontWeight:700,marginBottom:16}},'تنظیمات'),
+    e('div',{className:'glass',style:{marginBottom:12}},
+      e('strong',{style:{fontSize:14}},'انتخاب تم'),
+      e('div',{style:{display:'flex',flexWrap:'wrap',gap:8,marginTop:10}},
+        themes.map(function(t){return e('button',{key:t,onClick:function(){setTheme(t)},className:theme===t?'btn-primary':'btn-ghost',style:{fontSize:11}},t==='mydiag'?'MyDiag':t)})
+      )
+    ),
+    e('div',{className:'glass',style:{marginBottom:12}},
+      e('strong',{style:{fontSize:14}},'حالت دمو'),e('p',{style:{fontSize:12,color:'#8892b0',marginTop:4}},'اتصال شبیه‌سازی‌شده برای آزمایش'),e('span',{className:'badge badge-green',style:{marginTop:8,display:'inline-block'}},'فعال')
+    ),
+    e('div',{className:'glass'},
+      e('strong',{style:{fontSize:14}},'کد Pro'),e('div',{style:{display:'flex',gap:8,marginTop:8}},e('input',{className:'input-field',placeholder:'1234'}),e('button',{className:'btn-primary',style:{padding:'8px 16px'}},'فعال‌سازی'))
+    ),
+    e('p',{style:{textAlign:'center',marginTop:20,fontSize:11,color:'#8892b0'}},'ECU Pulse v1.0.0 — DIAGEMAN.IR')
+  );
+}
+
+function StorePage(){
+  var prods=['دانگل ELM327','کابل OBD','اشتراک ۱ ماهه Pro','اشتراک ۶ ماهه Pro','اشتراک ۱۲ ماهه Pro','دوره آموزشی'];
+  return e('div',{className:'page-in'},e('h2',{style:{fontSize:18,fontWeight:700,marginBottom:12}},'فروشگاه'),
+    e('div',{className:'menu-grid'},prods.map(function(p,i){return e('div',{key:i,className:'menu-card'},e('strong',null,p),e('small',{style:{color:'#10b981'}},'موجود'))}))
+  );
+}
+
+function App(){
+  var _p=React.useState('home'),page=_p[0],setPage=_p[1];
+  var t=TITLES[page]||TITLES.home;
+
+  var pages={};
+  pages.home=e(HomePage,{onNav:setPage});
+  pages.dashboard=e(DashboardPage);
+  pages.scanner=e(ScannerPage);
+  pages.analysis=e(AnalysisPage);
+  pages.trips=e(TripsPage);
+  pages.errors=e(ErrorsPage);
+  pages.settings=e(SettingsPage);
+  pages.store=e(StorePage);
+  pages.vehicles=SimplePage('مدیریت خودرو','پروفایل خودروها در نسخه کامل قابل مدیریت است.');
+  pages.pro=e('div',{className:'glass page-in'},e('h2',{style:{fontSize:18,fontWeight:700,marginBottom:12}},'نسخه Pro'),e('p',{style:{color:'#8892b0',fontSize:13,marginBottom:12}},'کد 1234 را برای ارتقا به Pro وارد کنید.'),e('div',{style:{display:'flex',gap:8}},e('input',{className:'input-field',placeholder:'کد تخفیف'}),e('button',{className:'btn-primary'},'ارتقا به Pro')));
+  pages['driving-style']=e('div',{className:'glass page-in',style:{textAlign:'center'}},e('h2',{style:{fontSize:18,fontWeight:700,marginBottom:16}},'سبک رانندگی'),(function(){var r=65,circ=2*Math.PI*r;return e('div',{className:'score-ring'},e('svg',{viewBox:'0 0 160 160',width:'100%',height:'100%'},e('circle',{cx:80,cy:80,r:r,fill:'none',stroke:'#1d3557',strokeWidth:10}),e('circle',{cx:80,cy:80,r:r,fill:'none',stroke:'#10b981',strokeWidth:10,strokeLinecap:'round',strokeDasharray:circ,strokeDashoffset:circ-(92/100)*circ})),e('div',{className:'score-val'},e('strong',null,'۹۲'),e('small',{style:{fontSize:11,color:'#8892b0'}},'از ۱۰۰')))})(),e('p',{style:{marginTop:12,color:'#8892b0',fontSize:13}},'رانندگی متعادل — امتیاز عالی'));
+  pages.parking=SimplePage('محل پارک','تهران، ولیعصر — ۲۱ جولای ۲۰۲۶');
+  pages.dashcam=SimplePage('دوربین خودرو','۴ کلیپ ضبط شده — ضبط غیرفعال');
+
+  return e(React.Fragment,null,
+    e('div',{className:'sidebar'},
+      e('div',{className:'sidebar-brand'},e('div',{className:'ep'},'EP'),e('div',null,e('strong',{style:{fontSize:13}},'ECU Pulse'),e('small',{style:{display:'block',fontSize:9,color:'#8892b0'}},'DIAGEMAN.IR'))),
+      e('nav',{className:'sidebar-nav'},NAV.map(function(n){return e(NavBtn,Object.assign({},n,{key:n.id,active:page===n.id,onClick:setPage}))})),
+      e('div',{className:'sidebar-foot'},'FREE')
+    ),
+    e('div',{className:'main-area'},
+      e('div',{className:'header'},
+        e('div',{className:'header-left'},e('span',{style:{fontSize:18}},'☰'),e('div',null,e('small',{className:'header-eyebrow'},t[0]),e('strong',{className:'header-title'},t[1]))),
+        e('button',{className:'theme-btn'},SI(IP.theme,15))
+      ),
+      e('div',{className:'content',key:page},pages[page]||pages.home)
+    )
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(e(App));
+</script>
+</body>
+</html>

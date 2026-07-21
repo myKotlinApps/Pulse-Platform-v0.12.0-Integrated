@@ -1,0 +1,444 @@
+{
+  "schemaVersion": 1,
+  "count": 49,
+  "profiles": [
+    {
+      "id": "auto",
+      "nameFa": "خودکار استاندارد",
+      "protocol": "AUTO",
+      "commands": [
+        "ATSP0"
+      ]
+    },
+    {
+      "id": "sae-j1850-pwm",
+      "nameFa": "SAE J1850 PWM",
+      "protocol": "1",
+      "commands": [
+        "ATSP1"
+      ]
+    },
+    {
+      "id": "sae-j1850-vpw",
+      "nameFa": "SAE J1850 VPW",
+      "protocol": "2",
+      "commands": [
+        "ATSP2"
+      ]
+    },
+    {
+      "id": "iso9141-2",
+      "nameFa": "ISO 9141-2",
+      "protocol": "3",
+      "commands": [
+        "ATSP3"
+      ]
+    },
+    {
+      "id": "kwp-fast",
+      "nameFa": "ISO 14230-4 KWP Fast Init",
+      "protocol": "4",
+      "commands": [
+        "ATSP4"
+      ]
+    },
+    {
+      "id": "kwp-5baud",
+      "nameFa": "ISO 14230-4 KWP 5-baud",
+      "protocol": "5",
+      "commands": [
+        "ATSP5"
+      ]
+    },
+    {
+      "id": "can-11-500",
+      "nameFa": "CAN 11-bit / 500 kbit/s",
+      "protocol": "6",
+      "commands": [
+        "ATSP6"
+      ]
+    },
+    {
+      "id": "can-29-500",
+      "nameFa": "CAN 29-bit / 500 kbit/s",
+      "protocol": "7",
+      "commands": [
+        "ATSP7"
+      ]
+    },
+    {
+      "id": "can-11-250",
+      "nameFa": "CAN 11-bit / 250 kbit/s",
+      "protocol": "8",
+      "commands": [
+        "ATSP8"
+      ]
+    },
+    {
+      "id": "can-29-250",
+      "nameFa": "CAN 29-bit / 250 kbit/s",
+      "protocol": "9",
+      "commands": [
+        "ATSP9"
+      ]
+    },
+    {
+      "id": "can-11-125",
+      "nameFa": "CAN 11-bit / 125 kbit/s",
+      "protocol": "A",
+      "commands": [
+        "ATSPA"
+      ]
+    },
+    {
+      "id": "can-user1",
+      "nameFa": "CAN User 1",
+      "protocol": "B",
+      "commands": [
+        "ATSPB"
+      ]
+    },
+    {
+      "id": "can-user2",
+      "nameFa": "CAN User 2",
+      "protocol": "C",
+      "commands": [
+        "ATSPC"
+      ]
+    },
+    {
+      "id": "can11-7e0",
+      "nameFa": "CAN 11-bit Header 7E0",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7E0"
+      ]
+    },
+    {
+      "id": "can11-7e1",
+      "nameFa": "CAN 11-bit Header 7E1",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7E1"
+      ]
+    },
+    {
+      "id": "can11-7e2",
+      "nameFa": "CAN 11-bit Header 7E2",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7E2"
+      ]
+    },
+    {
+      "id": "can11-7e3",
+      "nameFa": "CAN 11-bit Header 7E3",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7E3"
+      ]
+    },
+    {
+      "id": "can11-7e4",
+      "nameFa": "CAN 11-bit Header 7E4",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7E4"
+      ]
+    },
+    {
+      "id": "can11-7e5",
+      "nameFa": "CAN 11-bit Header 7E5",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7E5"
+      ]
+    },
+    {
+      "id": "can11-7e6",
+      "nameFa": "CAN 11-bit Header 7E6",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7E6"
+      ]
+    },
+    {
+      "id": "can11-7e7",
+      "nameFa": "CAN 11-bit Header 7E7",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7E7"
+      ]
+    },
+    {
+      "id": "can11-7df",
+      "nameFa": "CAN 11-bit Header 7DF",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7DF"
+      ]
+    },
+    {
+      "id": "can11-7a0",
+      "nameFa": "CAN 11-bit Header 7A0",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7A0"
+      ]
+    },
+    {
+      "id": "can11-7a1",
+      "nameFa": "CAN 11-bit Header 7A1",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7A1"
+      ]
+    },
+    {
+      "id": "can11-7a2",
+      "nameFa": "CAN 11-bit Header 7A2",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7A2"
+      ]
+    },
+    {
+      "id": "can11-7a3",
+      "nameFa": "CAN 11-bit Header 7A3",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7A3"
+      ]
+    },
+    {
+      "id": "can11-7a4",
+      "nameFa": "CAN 11-bit Header 7A4",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7A4"
+      ]
+    },
+    {
+      "id": "can11-7a5",
+      "nameFa": "CAN 11-bit Header 7A5",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7A5"
+      ]
+    },
+    {
+      "id": "can11-7a6",
+      "nameFa": "CAN 11-bit Header 7A6",
+      "protocol": "6",
+      "commands": [
+        "ATSP6",
+        "ATSH 7A6"
+      ]
+    },
+    {
+      "id": "can29-18da10f1",
+      "nameFa": "CAN 29-bit Header 18DA10F1",
+      "protocol": "7",
+      "commands": [
+        "ATSP7",
+        "ATSH 18DA10F1"
+      ]
+    },
+    {
+      "id": "can29-18da11f1",
+      "nameFa": "CAN 29-bit Header 18DA11F1",
+      "protocol": "7",
+      "commands": [
+        "ATSP7",
+        "ATSH 18DA11F1"
+      ]
+    },
+    {
+      "id": "can29-18da12f1",
+      "nameFa": "CAN 29-bit Header 18DA12F1",
+      "protocol": "7",
+      "commands": [
+        "ATSP7",
+        "ATSH 18DA12F1"
+      ]
+    },
+    {
+      "id": "can29-18da13f1",
+      "nameFa": "CAN 29-bit Header 18DA13F1",
+      "protocol": "7",
+      "commands": [
+        "ATSP7",
+        "ATSH 18DA13F1"
+      ]
+    },
+    {
+      "id": "can29-18da14f1",
+      "nameFa": "CAN 29-bit Header 18DA14F1",
+      "protocol": "7",
+      "commands": [
+        "ATSP7",
+        "ATSH 18DA14F1"
+      ]
+    },
+    {
+      "id": "can29-18da15f1",
+      "nameFa": "CAN 29-bit Header 18DA15F1",
+      "protocol": "7",
+      "commands": [
+        "ATSP7",
+        "ATSH 18DA15F1"
+      ]
+    },
+    {
+      "id": "can29-18da16f1",
+      "nameFa": "CAN 29-bit Header 18DA16F1",
+      "protocol": "7",
+      "commands": [
+        "ATSP7",
+        "ATSH 18DA16F1"
+      ]
+    },
+    {
+      "id": "can29-18da17f1",
+      "nameFa": "CAN 29-bit Header 18DA17F1",
+      "protocol": "7",
+      "commands": [
+        "ATSP7",
+        "ATSH 18DA17F1"
+      ]
+    },
+    {
+      "id": "can29-18da18f1",
+      "nameFa": "CAN 29-bit Header 18DA18F1",
+      "protocol": "7",
+      "commands": [
+        "ATSP7",
+        "ATSH 18DA18F1"
+      ]
+    },
+    {
+      "id": "can29-18da19f1",
+      "nameFa": "CAN 29-bit Header 18DA19F1",
+      "protocol": "7",
+      "commands": [
+        "ATSP7",
+        "ATSH 18DA19F1"
+      ]
+    },
+    {
+      "id": "kwp-13",
+      "nameFa": "KWP Target 13",
+      "protocol": "4",
+      "commands": [
+        "ATSP4",
+        "ATIIA13",
+        "ATSH 68 6A F1"
+      ]
+    },
+    {
+      "id": "kwp-7a",
+      "nameFa": "KWP Target 7A",
+      "protocol": "4",
+      "commands": [
+        "ATSP4",
+        "ATIIA7A",
+        "ATSH C2 33 F1"
+      ]
+    },
+    {
+      "id": "kwp-10",
+      "nameFa": "KWP Target 10",
+      "protocol": "4",
+      "commands": [
+        "ATSP4",
+        "ATIIA10",
+        "ATSH 81 10 F1"
+      ]
+    },
+    {
+      "id": "kwp-11",
+      "nameFa": "KWP Target 11",
+      "protocol": "4",
+      "commands": [
+        "ATSP4",
+        "ATIIA11",
+        "ATSH 81 11 F1"
+      ]
+    },
+    {
+      "id": "kwp-12",
+      "nameFa": "KWP Target 12",
+      "protocol": "4",
+      "commands": [
+        "ATSP4",
+        "ATIIA12",
+        "ATSH 81 12 F1"
+      ]
+    },
+    {
+      "id": "kwp-14",
+      "nameFa": "KWP Target 14",
+      "protocol": "4",
+      "commands": [
+        "ATSP4",
+        "ATIIA14",
+        "ATSH 81 14 F1"
+      ]
+    },
+    {
+      "id": "kwp-15",
+      "nameFa": "KWP Target 15",
+      "protocol": "4",
+      "commands": [
+        "ATSP4",
+        "ATIIA15",
+        "ATSH 81 15 F1"
+      ]
+    },
+    {
+      "id": "kwp-16",
+      "nameFa": "KWP Target 16",
+      "protocol": "4",
+      "commands": [
+        "ATSP4",
+        "ATIIA16",
+        "ATSH 81 16 F1"
+      ]
+    },
+    {
+      "id": "kwp-17",
+      "nameFa": "KWP Target 17",
+      "protocol": "4",
+      "commands": [
+        "ATSP4",
+        "ATIIA17",
+        "ATSH 81 17 F1"
+      ]
+    },
+    {
+      "id": "kwp-18",
+      "nameFa": "KWP Target 18",
+      "protocol": "4",
+      "commands": [
+        "ATSP4",
+        "ATIIA18",
+        "ATSH 81 18 F1"
+      ]
+    }
+  ]
+}

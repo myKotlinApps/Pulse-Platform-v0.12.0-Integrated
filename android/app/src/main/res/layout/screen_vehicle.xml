@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true"><LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="شناسایی و انتخاب خودرو" android:textColor="@color/text" android:textStyle="bold" android:textSize="22sp"/>
+<Button android:id="@+id/autoDetectButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:text="شناسایی خودکار پروتکل، VIN و ECU"/>
+<TextView android:id="@+id/detectResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/bg_card" android:text="هنوز شناسایی اجرا نشده است." android:textColor="@color/muted"/>
+<ImageView android:id="@+id/selectedLogo" android:layout_width="84dp" android:layout_height="84dp" android:layout_gravity="center_horizontal" android:layout_marginTop="12dp" android:contentDescription="لوگوی برند" android:scaleType="fitCenter"/>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp" android:text="انتخاب دستی" android:textColor="@color/cyan" android:textStyle="bold"/>
+<Spinner android:id="@+id/brandSpinner" android:layout_width="match_parent" android:layout_height="52dp" android:layout_marginTop="8dp" android:background="@drawable/bg_input"/>
+<Spinner android:id="@+id/modelSpinner" android:layout_width="match_parent" android:layout_height="52dp" android:layout_marginTop="8dp" android:background="@drawable/bg_input"/>
+<Button android:id="@+id/saveVehicleButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="فعال‌کردن پروفایل خودرو"/>
+</LinearLayout></ScrollView>

@@ -1,0 +1,84 @@
+{
+  "version": "0.10.0",
+  "uploadedFiles": {
+    "duplicates": [
+      "2323929.eps",
+      "2323929(1).eps",
+      "4402630_2323929.eps"
+    ],
+    "uniqueThemes": 4
+  },
+  "themes": [
+    {
+      "id": "eps-neon",
+      "classWeb": "NeonAnalyticsTheme",
+      "classAndroid": "EpsDashboardTheme.NeonAnalytics",
+      "source": "6145222_3173108.eps",
+      "elements": [
+        "line chart",
+        "radial clock/dial",
+        "progress rings",
+        "sliders",
+        "area graph",
+        "map markers"
+      ],
+      "assets": [
+        "neon-line-chart.svg",
+        "neon-ring-meter.svg"
+      ]
+    },
+    {
+      "id": "eps-color",
+      "classWeb": "ColorMetricsTheme",
+      "classAndroid": "EpsDashboardTheme.ColorMetrics",
+      "source": "6402304_3276515.eps",
+      "elements": [
+        "donut meters",
+        "segmented arc",
+        "calendar",
+        "bar chart",
+        "line chart",
+        "control sliders",
+        "flat icons"
+      ],
+      "assets": [
+        "color-donut.svg",
+        "color-slider.svg"
+      ]
+    },
+    {
+      "id": "eps-mobile",
+      "classWeb": "MobileGradientTheme",
+      "classAndroid": "EpsDashboardTheme.MobileGradient",
+      "source": "5185757_2660690.eps",
+      "elements": [
+        "segmented radial gauge",
+        "gradient metric rows",
+        "sparklines",
+        "mobile header",
+        "tooltip bubble"
+      ],
+      "assets": [
+        "mobile-radial.svg",
+        "mobile-spark-row.svg"
+      ]
+    },
+    {
+      "id": "eps-industrial",
+      "classWeb": "IndustrialInfographicTheme",
+      "classAndroid": "EpsDashboardTheme.IndustrialInfographic",
+      "source": "2323929.eps (+ two exact duplicates)",
+      "elements": [
+        "bevel circular meters",
+        "timeline",
+        "vertical meters",
+        "step cards",
+        "indicator LEDs"
+      ],
+      "assets": [
+        "industrial-gauge.svg",
+        "industrial-vertical-meter.svg"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 190" role="img" aria-label="Lamari">
+<path d="M140 20 63 105h46l31-35 31 35h46z" fill="none" stroke="#171717" stroke-width="12" stroke-linejoin="round"/>
+<path d="M112 105h56l-28 34z" fill="#c79b45"/>
+<text x="140" y="174" text-anchor="middle" font-family="Arial,sans-serif" font-size="31" font-weight="700" letter-spacing="8" fill="#171717">LAMARI</text>
+</svg>

@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+set -eu
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+VER=9.5.0
+BOOT="$ROOT/.gradle-bootstrap"
+GRADLE="$BOOT/gradle-$VER/bin/gradle"
+if [ ! -x "$GRADLE" ]; then
+  echo "Downloading Gradle $VER for the first build..."
+  mkdir -p "$BOOT"
+  ZIP="$BOOT/gradle-$VER-bin.zip"
+  if command -v curl >/dev/null 2>&1; then curl -fL "https://services.gradle.org/distributions/gradle-$VER-bin.zip" -o "$ZIP"; else wget -O "$ZIP" "https://services.gradle.org/distributions/gradle-$VER-bin.zip"; fi
+  unzip -q -o "$ZIP" -d "$BOOT"
+  rm -f "$ZIP"
+fi
+exec "$GRADLE" "$@"

@@ -1,0 +1,14 @@
+{
+  "name": "Example licensed J1939 subset",
+  "type": "j1939-database",
+  "permissions": ["read"],
+  "pids": [
+    {
+      "command": "PGN65262-SPN110",
+      "name_en": "Engine Coolant Temperature",
+      "formula": "A-40",
+      "unit": "°C",
+      "category": "custom"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="16dp">
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="اسکنر، کنسول و شنود ECU" android:textColor="@color/text"
+            android:textStyle="bold" android:textSize="22sp"/>
+        <TextView android:id="@+id/scannerStatus" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" android:background="@drawable/bg_input" android:padding="10dp"
+            android:text="قطع" android:textColor="@color/orange"/>
+
+        <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:scrollbars="none">
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                <Button android:id="@+id/tabConnection" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="اتصال"/>
+                <Button android:id="@+id/tabConsole" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="کنسول ECU"/>
+                <Button android:id="@+id/tabMonitor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="شنود Bus"/>
+                <Button android:id="@+id/tabLogs" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="فایل‌های لاگ"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout android:id="@+id/scannerConnectionPanel" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:orientation="vertical" android:background="@drawable/bg_card" android:padding="14dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="اتصال و پروفایل ELM327" android:textColor="@color/text" android:textStyle="bold" android:textSize="18sp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp"
+                android:text="اتصال Bluetooth Classic، Wi‑Fi و Demo از تنظیمات اصلی انجام می‌شود. سپس یکی از ۴۹ پروفایل را اجرا کن."
+                android:textColor="@color/muted"/>
+            <Button android:id="@+id/openConnectionSettings" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" android:text="بازکردن تنظیمات اتصال"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="پروفایل پروتکل" android:textColor="@color/muted"/>
+            <Spinner android:id="@+id/protocolProfileSpinner" android:layout_width="match_parent" android:layout_height="52dp" android:background="@drawable/bg_input"/>
+            <Button android:id="@+id/runProfileInit" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="اجرای Init پروفایل"/>
+            <TextView android:id="@+id/profileResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp"
+                android:background="@drawable/bg_input" android:fontFamily="monospace" android:padding="10dp" android:text="در انتظار اتصال" android:textColor="@color/muted" android:textDirection="ltr"/>
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/scannerConsolePanel" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:orientation="vertical" android:visibility="gone" android:background="@drawable/bg_card" android:padding="14dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="کنسول مستقیم ECU · Read-only" android:textColor="@color/text" android:textStyle="bold" android:textSize="18sp"/>
+            <TextView android:id="@+id/consoleOutput" android:layout_width="match_parent" android:layout_height="320dp" android:layout_marginTop="10dp"
+                android:background="#04101B" android:fontFamily="monospace" android:gravity="bottom|start" android:padding="12dp" android:scrollbars="vertical"
+                android:textColor="#BFE9FF" android:textDirection="ltr" android:textIsSelectable="true"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal">
+                <EditText android:id="@+id/consoleCommand" android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1" android:background="@drawable/bg_input"
+                    android:hint="010C یا ATI" android:inputType="textNoSuggestions" android:padding="10dp" android:textColor="@color/text" android:textColorHint="@color/muted" android:textDirection="ltr"/>
+                <Button android:id="@+id/sendConsoleCommand" android:layout_width="wrap_content" android:layout_height="52dp" android:text="ارسال"/>
+            </LinearLayout>
+            <CheckBox android:id="@+id/extendedReadCheck" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="فعال‌سازی فرمان‌های خواندنی پیشرفته 19/1A/21/22" android:textColor="@color/text"/>
+            <Button android:id="@+id/clearConsoleOutput" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="پاک‌کردن نمایش"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="فرمان‌های آماده" android:textColor="@color/text" android:textStyle="bold"/>
+            <LinearLayout android:id="@+id/quickCommandsContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/scannerMonitorPanel" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:orientation="vertical" android:visibility="gone" android:background="@drawable/bg_card" android:padding="14dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="شنود خام Bus" android:textColor="@color/text" android:textStyle="bold" android:textSize="18sp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="ATMA جریان خام را ثبت می‌کند. هنگام شنود، Polling و کنسول متوقف می‌شوند." android:textColor="@color/muted"/>
+            <EditText android:id="@+id/monitorFilter" android:layout_width="match_parent" android:layout_height="52dp" android:layout_marginTop="10dp" android:background="@drawable/bg_input"
+                android:hint="فیلتر ATCRA؛ مانند 7E8" android:inputType="textNoSuggestions" android:padding="10dp" android:textColor="@color/text" android:textColorHint="@color/muted" android:textDirection="ltr"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                <Button android:id="@+id/applyMonitorFilter" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="اعمال فیلتر"/>
+                <Button android:id="@+id/startMonitor" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="شروع ATMA"/>
+                <Button android:id="@+id/stopMonitor" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="توقف"/>
+            </LinearLayout>
+            <Button android:id="@+id/clearMonitorOutput" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="پاک‌کردن نمایش"/>
+            <TextView android:id="@+id/monitorOutput" android:layout_width="match_parent" android:layout_height="360dp" android:layout_marginTop="8dp"
+                android:background="#04150F" android:fontFamily="monospace" android:gravity="bottom|start" android:padding="12dp" android:scrollbars="vertical"
+                android:textColor="#A9F5D3" android:textDirection="ltr" android:textIsSelectable="true"/>
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/scannerLogsPanel" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:orientation="vertical" android:visibility="gone" android:background="@drawable/bg_card" android:padding="14dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="ثبت خط‌به‌خط TX / RX / MON / SYS" android:textColor="@color/text" android:textStyle="bold" android:textSize="18sp"/>
+            <TextView android:id="@+id/logFilePath" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/bg_input"
+                android:fontFamily="monospace" android:padding="10dp" android:text="فایل در حال آماده‌سازی" android:textColor="@color/muted" android:textDirection="ltr" android:textIsSelectable="true"/>
+            <TextView android:id="@+id/logEntryCount" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="۰ رکورد" android:textColor="@color/text"/>
+            <Button android:id="@+id/newLogSession" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="شروع فایل جدید"/>
+            <Button android:id="@+id/shareLogFile" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="اشتراک‌گذاری فایل JSONL"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

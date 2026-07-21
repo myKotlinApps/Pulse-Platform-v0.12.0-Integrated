@@ -1,0 +1,22 @@
+{
+  "name": "Example manufacturer read-only profile",
+  "type": "manufacturer-profile",
+  "vehicles": ["Example vehicle"],
+  "permissions": ["read"],
+  "pids": [
+    {
+      "command": "22F190",
+      "name_en": "Vehicle identification data",
+      "formula": "manufacturer-defined",
+      "unit": "text",
+      "category": "custom"
+    }
+  ],
+  "dtcs": [
+    {
+      "code": "P1101",
+      "title_en": "Example manufacturer-specific code",
+      "description_en": "Replace this placeholder with a verified service-document definition."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="مرکز نسخه پیشرفته" android:textColor="@color/text" android:textStyle="bold" android:textSize="22sp"/>
+<TextView android:id="@+id/proStatusText" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:background="@drawable/bg_card" android:padding="14dp" android:text="نسخه رایگان فعال است" android:textColor="@color/orange" android:textStyle="bold"/>
+<EditText android:id="@+id/proCodeInput" android:layout_width="match_parent" android:layout_height="52dp" android:layout_marginTop="14dp" android:background="@drawable/bg_input" android:hint="کد فعال‌سازی آزمایشی" android:inputType="numberPassword" android:maxLength="8" android:paddingLeft="12dp" android:paddingRight="12dp" android:textColor="@color/text" android:textColorHint="@color/muted"/>
+<Button android:id="@+id/unlockProButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="فعال‌کردن نسخه پیشرفته"/>
+<Button android:id="@+id/disableProButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="بازگشت به نسخه رایگان" android:textColor="@color/orange" android:visibility="gone"/>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp" android:text="امکانات پیشرفته" android:textColor="@color/cyan" android:textStyle="bold"/>
+<LinearLayout android:id="@+id/proFeatures" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="vertical">
+<Button android:id="@+id/analysisFeatureButton" style="@style/ProFeatureButton" android:text="تحلیل هوشمند دیاگ و گزارش سلامت"/>
+<Button android:id="@+id/tripFeatureButton" style="@style/ProFeatureButton" android:text="سفر و بازپخش حرفه‌ای"/>
+<Button android:id="@+id/vehicleFeatureButton" style="@style/ProFeatureButton" android:text="کاتالوگ کامل خودروها"/>
+<Button android:id="@+id/liveFeatureButton" style="@style/ProFeatureButton" android:text="داده زنده پیشرفته"/>
+<Button android:id="@+id/dtcFeatureButton" style="@style/ProFeatureButton" android:text="خطاهای ECU و پاک‌کردن Mode 04"/>
+<Button android:id="@+id/pdfFeatureButton" style="@style/ProFeatureButton" android:text="خروجی PDF تحلیل"/>
+</LinearLayout>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:text="کد ۱۲۳۴ فقط در Build آزمایشی فعال است." android:textColor="@color/muted" android:textSize="10sp"/>
+</LinearLayout></ScrollView>

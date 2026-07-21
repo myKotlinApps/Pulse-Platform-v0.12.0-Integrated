@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#07111F</color><color name="panel">#0D2135</color><color name="panel2">#112A42</color>
+    <color name="cyan">#50DFF6</color><color name="green">#57D89A</color><color name="orange">#FF9B55</color>
+    <color name="red">#FF6D7A</color><color name="text">#F4F8FC</color><color name="muted">#8B9DB2</color>
+<color name="mydiag_bg">#EEF4FA</color><color name="mydiag_text">#19324A</color><color name="mydiag_muted">#6F8498</color><color name="mydiag_blue">#157BD3</color></resources>

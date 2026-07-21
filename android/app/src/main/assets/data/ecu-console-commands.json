@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "groups": [
+    {
+      "id": "adapter",
+      "titleFa": "اطلاعات دانگل",
+      "commands": [
+        {"command":"ATI","labelFa":"نسخه ELM327"},
+        {"command":"AT@1","labelFa":"شناسه دستگاه"},
+        {"command":"ATRV","labelFa":"ولتاژ باتری"},
+        {"command":"ATDP","labelFa":"پروتکل فعال"},
+        {"command":"ATDPN","labelFa":"شماره پروتکل"}
+      ]
+    },
+    {
+      "id": "live",
+      "titleFa": "داده زنده",
+      "commands": [
+        {"command":"0100","labelFa":"PIDهای پشتیبانی‌شده"},
+        {"command":"010C","labelFa":"RPM"},
+        {"command":"010D","labelFa":"سرعت"},
+        {"command":"0105","labelFa":"دمای آب"},
+        {"command":"0104","labelFa":"بار موتور"},
+        {"command":"010F","labelFa":"دمای هوای ورودی"},
+        {"command":"0111","labelFa":"دریچه گاز"},
+        {"command":"010B","labelFa":"MAP"},
+        {"command":"0110","labelFa":"MAF"}
+      ]
+    },
+    {
+      "id": "diagnostics",
+      "titleFa": "تشخیص خواندنی",
+      "commands": [
+        {"command":"0101","labelFa":"MIL و Readiness"},
+        {"command":"03","labelFa":"خطاهای ذخیره‌شده"},
+        {"command":"07","labelFa":"خطاهای Pending"},
+        {"command":"0A","labelFa":"خطاهای Permanent"},
+        {"command":"0902","labelFa":"VIN"},
+        {"command":"0904","labelFa":"Calibration ID"},
+        {"command":"090A","labelFa":"نام ECU"}
+      ]
+    },
+    {
+      "id": "format",
+      "titleFa": "قالب پاسخ",
+      "commands": [
+        {"command":"ATH1","labelFa":"Header روشن"},
+        {"command":"ATH0","labelFa":"Header خاموش"},
+        {"command":"ATL1","labelFa":"Linefeed روشن"},
+        {"command":"ATL0","labelFa":"Linefeed خاموش"},
+        {"command":"ATS1","labelFa":"فاصله روشن"},
+        {"command":"ATS0","labelFa":"فاصله خاموش"},
+        {"command":"ATCAF1","labelFa":"CAN Auto Format روشن"},
+        {"command":"ATCAF0","labelFa":"CAN Auto Format خاموش"}
+      ]
+    }
+  ],
+  "blockedPrefixes": ["04","08","10","11","14","27","28","2E","2F","31","34","35","36","37","3D","85"],
+  "advancedReadPrefixes": ["19","1A","21","22"]
+}

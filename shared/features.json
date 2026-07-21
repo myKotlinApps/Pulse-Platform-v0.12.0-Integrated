@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 2,
+  "release": "0.12.0",
+  "features": [
+    {
+      "id": "startup_obd_demo_profile",
+      "web": "auto-demo",
+      "android": "mock-auto-connect",
+      "status": "implemented"
+    },
+    {
+      "id": "bluetooth_classic",
+      "web": "python-bridge",
+      "android": "native",
+      "status": "implemented"
+    },
+    {
+      "id": "wifi_tcp",
+      "web": "python-bridge",
+      "android": "native",
+      "status": "implemented"
+    },
+    {
+      "id": "auto_detect",
+      "web": "bridge",
+      "android": "native",
+      "status": "implemented-generic"
+    },
+    {
+      "id": "manual_vehicle_select",
+      "web": "native",
+      "android": "native",
+      "status": "implemented"
+    },
+    {
+      "id": "read_generic_dtcs",
+      "web": "bridge",
+      "android": "native",
+      "status": "implemented"
+    },
+    {
+      "id": "clear_generic_dtcs_mode04",
+      "web": "bridge",
+      "android": "native",
+      "status": "implemented-safe-tiered"
+    },
+    {
+      "id": "live_pids",
+      "web": "bridge",
+      "android": "native",
+      "status": "implemented-core"
+    },
+    {
+      "id": "trip_recording",
+      "web": "geolocation",
+      "android": "native-location",
+      "status": "implemented-auto-fit"
+    },
+    {
+      "id": "trip_replay",
+      "web": "native",
+      "android": "native",
+      "status": "implemented-smooth-fit-all-route"
+    },
+    {
+      "id": "server_analysis",
+      "web": "http-api",
+      "android": "http-api",
+      "status": "implemented-contract"
+    },
+    {
+      "id": "pdf_report",
+      "web": "server",
+      "android": "server",
+      "status": "implemented-contract"
+    },
+    {
+      "id": "multi_store_billing",
+      "web": "account-only",
+      "android": "store-flavors",
+      "status": "infrastructure"
+    },
+    {
+      "id": "coupons",
+      "web": "server-quote",
+      "android": "server-quote",
+      "status": "implemented-contract"
+    },
+    {
+      "id": "error_reporting",
+      "web": "global-boundary",
+      "android": "central-error-center",
+      "status": "implemented"
+    },
+    {
+      "id": "adaptive_ui",
+      "web": "responsive",
+      "android": "window-size-layouts",
+      "status": "implemented-layouts"
+    },
+    {
+      "id": "themes",
+      "web": "dark-ivory",
+      "android": "dark-ivory",
+      "status": "implemented"
+    },
+    {
+      "id": "manufacturer_write",
+      "web": "blocked",
+      "android": "blocked",
+      "status": "not-supported"
+    },
+    {
+      "id": "j1939_clear",
+      "web": "blocked",
+      "android": "blocked",
+      "status": "requires-licensed-profile"
+    },
+    {
+      "id": "development_pro_code",
+      "web": "local-dev-only",
+      "android": "debug-build-only",
+      "status": "implemented-temporary"
+    },
+    {
+      "id": "ecu_readonly_console",
+      "web": "web-serial-native",
+      "android": "shared-main-source",
+      "status": "implemented"
+    },
+    {
+      "id": "elm327_protocol_profiles_49",
+      "web": "shared-json",
+      "android": "shared-assets",
+      "status": "implemented"
+    },
+    {
+      "id": "bus_monitor_atma",
+      "web": "web-serial-stream",
+      "android": "native-stream",
+      "status": "implemented"
+    },
+    {
+      "id": "line_session_logging",
+      "web": "jsonl-csv-file-system-access",
+      "android": "jsonl-fileprovider",
+      "status": "implemented"
+    },
+    {
+      "id": "scanner_submenus",
+      "web": "integrated-mydiag-page",
+      "android": "integrated-mydiag-screen",
+      "status": "implemented"
+    },
+    {
+      "id": "iranian_brand_png_v120",
+      "web": "shared-transparent-png",
+      "android": "shared-assets-all-flavors",
+      "status": "implemented-16-brands"
+    },
+    {
+      "id": "trip_png_car_marker",
+      "web": "leaflet-and-offline-svg",
+      "android": "webview-offline-map",
+      "status": "implemented"
+    },
+    {
+      "id": "trip_fit_entire_route",
+      "web": "leaflet-fitBounds",
+      "android": "fixed-full-route-viewbox",
+      "status": "implemented"
+    },
+    {
+      "id": "smooth_trip_animation",
+      "web": "requestAnimationFrame-shortest-angle",
+      "android": "requestAnimationFrame-shortest-angle",
+      "status": "implemented"
+    }
+  ]
+}

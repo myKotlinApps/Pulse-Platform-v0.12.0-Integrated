@@ -1,0 +1,2 @@
+-keep class com.ecupulse.app.model.** { *; }
+-dontwarn org.xmlpull.v1.**

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 90">
+<rect x="24" y="29" width="370" height="20" rx="10" fill="#20f57b"/>
+<rect x="250" y="19" width="66" height="40" rx="3" fill="white"/>
+<text x="24" y="78" font-family="sans-serif" font-size="18" fill="#fff">Engine Load</text>
+</svg>

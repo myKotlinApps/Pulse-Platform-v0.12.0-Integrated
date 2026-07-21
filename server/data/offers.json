@@ -1,0 +1,4 @@
+[
+  {"id":"pro_monthly","titleFa":"اشتراک ماهانه پیشرفته","active":true,"basePrice":199000,"currency":"IRR","products":{"googlePlay":"ecu_pulse_pro_monthly","cafebazaar":"ecu_pulse_pro_monthly","myket":"ecu_pulse_pro_monthly"}},
+  {"id":"pro_lifetime","titleFa":"نسخه دائمی پیشرفته","active":true,"basePrice":1499000,"currency":"IRR","products":{"googlePlay":"ecu_pulse_pro_lifetime","cafebazaar":"ecu_pulse_pro_lifetime","myket":"ecu_pulse_pro_lifetime"}}
+]

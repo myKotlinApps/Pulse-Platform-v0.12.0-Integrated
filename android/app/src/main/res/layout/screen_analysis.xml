@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="@color/bg">
+ <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+  <Button android:id="@+id/backButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="بازگشت به مرکز پیشرفته"/>
+  <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="تحلیل ماشین من" android:textColor="@color/text" android:textSize="23sp" android:textStyle="bold"/>
+  <TextView android:id="@+id/sourceText" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="سرور اولویت دارد؛ در Debug تحلیل محلی جایگزین است." android:textColor="@color/muted"/>
+  <Button android:id="@+id/analyzeButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:text="ارسال داده و دریافت تحلیل"/>
+  <TextView android:id="@+id/reportText" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:background="@drawable/bg_card" android:minHeight="220dp" android:padding="18dp" android:text="هنوز گزارشی ساخته نشده است." android:textColor="@color/text" android:textSize="14sp"/>
+  <Button android:id="@+id/pdfButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:enabled="false" android:text="ذخیره PDF"/>
+ </LinearLayout>
+</ScrollView>

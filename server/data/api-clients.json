@@ -1,0 +1,31 @@
+[
+  {
+    "id": "ecu-pulse-mobile",
+    "name": "ECU Pulse Mobile",
+    "active": true,
+    "origins": [],
+    "scopes": [
+      "offers:read",
+      "analysis:write",
+      "errors:write",
+      "entitlement:read",
+      "actions:write"
+    ]
+  },
+  {
+    "id": "ecu-pulse-web",
+    "name": "ECU Pulse Web",
+    "active": true,
+    "origins": [
+      "http://127.0.0.1:8080",
+      "http://localhost:8080"
+    ],
+    "scopes": [
+      "offers:read",
+      "analysis:write",
+      "errors:write",
+      "entitlement:read",
+      "actions:write"
+    ]
+  }
+]

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120">
+<defs><linearGradient id="g"><stop stop-color="#20d9e7"/><stop offset="1" stop-color="#4050d9"/></linearGradient></defs>
+<rect width="520" height="120" rx="18" fill="url(#g)"/><circle cx="55" cy="60" r="23" fill="none" stroke="#fff" stroke-width="4"/>
+<text x="96" y="53" font-family="sans-serif" font-size="23" fill="#fff">COOLANT</text><text x="96" y="80" font-family="sans-serif" font-size="17" fill="#dff">89 °C</text>
+<path d="M330 82c32-15 52-45 84-39s45 40 82 16" fill="none" stroke="#fff" stroke-width="4" opacity=".8"/>
+</svg>

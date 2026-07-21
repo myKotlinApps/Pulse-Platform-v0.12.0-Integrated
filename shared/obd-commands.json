@@ -1,0 +1,43 @@
+{
+  "safeReadCommands": [
+    "ATI",
+    "ATDP",
+    "ATDPN",
+    "ATRV",
+    "0100",
+    "0120",
+    "0140",
+    "0160",
+    "0180",
+    "01A0",
+    "010C",
+    "010D",
+    "0105",
+    "0104",
+    "010B",
+    "010F",
+    "0111",
+    "03",
+    "07",
+    "0A",
+    "0902",
+    "0904",
+    "090A"
+  ],
+  "destructiveCommands": {
+    "04": {
+      "name": "Clear emission-related DTCs",
+      "requires": [
+        "connected",
+        "engineOff",
+        "explicitPhrase"
+      ],
+      "phrase": "پاک شود",
+      "effects": [
+        "stored DTCs",
+        "freeze frame",
+        "readiness monitors"
+      ]
+    }
+  }
+}

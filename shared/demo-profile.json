@@ -1,0 +1,3354 @@
+{
+  "schemaVersion": 2,
+  "id": "ecu-pulse-obd-demo",
+  "titleFa": "پروفایل نمایشی OBD-II",
+  "descriptionFa": "خودروی آزمایشی داخلی برای نمایش گیج‌ها، داده زنده، DTC و بازپخش سفر بدون اتصال به خودرو.",
+  "vehicle": {
+    "index": -100,
+    "make": "ECU Pulse",
+    "model": "خودروی نمایشی",
+    "profile": "Demo ELM327 / ISO 15765-4 CAN",
+    "segment": "demo",
+    "protocols": [
+      "ISO 15765-4 CAN 11/500",
+      "Generic OBD-II"
+    ],
+    "notes": "فقط داده شبیه‌سازی‌شده؛ برای تست رابط و آموزش.",
+    "isDemo": true,
+    "logoAsset": "logos/fallback/demo.svg"
+  },
+  "adapter": {
+    "name": "Demo ELM327 v1.5",
+    "protocol": "ISO 15765-4 (CAN 11/500)",
+    "protocolNumber": "A6",
+    "vin": "DEMO-ECUPULSE-0001",
+    "calibrationId": "DEMO-ME7.4.5",
+    "ecuName": "ECU Pulse Simulator"
+  },
+  "scenario": {
+    "sampleIntervalMs": 800,
+    "cycleSeconds": 90,
+    "signals": {
+      "speedKph": {
+        "min": 0,
+        "max": 112
+      },
+      "rpm": {
+        "min": 760,
+        "max": 3850
+      },
+      "coolantC": {
+        "min": 82,
+        "max": 94
+      },
+      "voltage": {
+        "min": 12.2,
+        "max": 14.2
+      },
+      "engineLoad": {
+        "min": 18,
+        "max": 72
+      }
+    },
+    "dtcs": [
+      {
+        "code": "P0133",
+        "kind": "STORED",
+        "description": "پاسخ کند سنسور اکسیژن بانک ۱، سنسور ۱ — داده نمایشی"
+      },
+      {
+        "code": "P0420",
+        "kind": "PENDING",
+        "description": "بازده کاتالیست پایین‌تر از آستانه — داده نمایشی"
+      }
+    ]
+  },
+  "demoTrip": {
+    "id": "demo-trip-tehran-west-east-north-loop-v2",
+    "routeVersion": 2,
+    "titleFa": "تهران: غرب ← شرق ← شمال ← کوچه‌ها ← مبدأ",
+    "descriptionFa": "مسیر نمایشی از میدان آزادی به تهرانپارس، سپس لویزان و فرمانیه، گردش در کوچه‌های شمال تهران، عبور از تجریش و ونک و بازگشت به میدان آزادی.",
+    "origin": {
+      "nameFa": "میدان آزادی",
+      "lat": 35.69972,
+      "lon": 51.33703
+    },
+    "checkpoints": [
+      {
+        "nameFa": "مبدأ: میدان آزادی",
+        "lat": 35.69972,
+        "lon": 51.33703
+      },
+      {
+        "nameFa": "میدان انقلاب",
+        "lat": 35.70108,
+        "lon": 51.3911
+      },
+      {
+        "nameFa": "میدان فردوسی",
+        "lat": 35.70405,
+        "lon": 51.42115
+      },
+      {
+        "nameFa": "میدان امام حسین",
+        "lat": 35.70192,
+        "lon": 51.4453
+      },
+      {
+        "nameFa": "تهرانپارس",
+        "lat": 35.72865,
+        "lon": 51.5312
+      },
+      {
+        "nameFa": "لویزان",
+        "lat": 35.7771,
+        "lon": 51.503
+      },
+      {
+        "nameFa": "میدان نوبنیاد",
+        "lat": 35.7977,
+        "lon": 51.4897
+      },
+      {
+        "nameFa": "فرمانیه",
+        "lat": 35.7971,
+        "lon": 51.4751
+      },
+      {
+        "nameFa": "کوچه ۱",
+        "lat": 35.7981,
+        "lon": 51.4738
+      },
+      {
+        "nameFa": "کوچه ۲",
+        "lat": 35.799,
+        "lon": 51.4743
+      },
+      {
+        "nameFa": "کوچه ۳",
+        "lat": 35.79935,
+        "lon": 51.4756
+      },
+      {
+        "nameFa": "کوچه ۴",
+        "lat": 35.79855,
+        "lon": 51.4764
+      },
+      {
+        "nameFa": "کوچه ۵",
+        "lat": 35.79755,
+        "lon": 51.47605
+      },
+      {
+        "nameFa": "کوچه ۶",
+        "lat": 35.79695,
+        "lon": 51.4747
+      },
+      {
+        "nameFa": "کوچه ۷",
+        "lat": 35.79765,
+        "lon": 51.47355
+      },
+      {
+        "nameFa": "کوچه ۸",
+        "lat": 35.79855,
+        "lon": 51.47295
+      },
+      {
+        "nameFa": "خروج از کوچه‌ها",
+        "lat": 35.79955,
+        "lon": 51.4719
+      },
+      {
+        "nameFa": "تجریش",
+        "lat": 35.80505,
+        "lon": 51.4286
+      },
+      {
+        "nameFa": "میدان ونک",
+        "lat": 35.7577,
+        "lon": 51.4094
+      },
+      {
+        "nameFa": "گیشا",
+        "lat": 35.7317,
+        "lon": 51.3799
+      },
+      {
+        "nameFa": "بازگشت: میدان آزادی",
+        "lat": 35.69972,
+        "lon": 51.33703
+      }
+    ],
+    "stops": [
+      {
+        "nameFa": "توقف شرق تهران",
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "durationSeconds": 120
+      },
+      {
+        "nameFa": "توقف فرمانیه",
+        "lat": 35.7971,
+        "lon": 51.4751,
+        "durationSeconds": 60
+      },
+      {
+        "nameFa": "توقف داخل کوچه",
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "durationSeconds": 180
+      },
+      {
+        "nameFa": "توقف تجریش",
+        "lat": 35.80505,
+        "lon": 51.4286,
+        "durationSeconds": 90
+      }
+    ],
+    "points": [
+      {
+        "lat": 35.69972,
+        "lon": 51.33703,
+        "offsetSeconds": 0,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "label": "مبدأ: میدان آزادی"
+      },
+      {
+        "lat": 35.6997719,
+        "lon": 51.3387769,
+        "offsetSeconds": 19.8,
+        "speedKph": 28.6,
+        "rpm": 1696
+      },
+      {
+        "lat": 35.6998237,
+        "lon": 51.3405238,
+        "offsetSeconds": 36.6,
+        "speedKph": 33.8,
+        "rpm": 1873
+      },
+      {
+        "lat": 35.6998754,
+        "lon": 51.3422706,
+        "offsetSeconds": 50.9,
+        "speedKph": 39.8,
+        "rpm": 2030
+      },
+      {
+        "lat": 35.6999268,
+        "lon": 51.3440173,
+        "offsetSeconds": 64.8,
+        "speedKph": 40.6,
+        "rpm": 2008
+      },
+      {
+        "lat": 35.6999779,
+        "lon": 51.3457639,
+        "offsetSeconds": 78.3,
+        "speedKph": 42.1,
+        "rpm": 1968
+      },
+      {
+        "lat": 35.7000285,
+        "lon": 51.3475104,
+        "offsetSeconds": 91.4,
+        "speedKph": 43.5,
+        "rpm": 1912
+      },
+      {
+        "lat": 35.7000788,
+        "lon": 51.3492568,
+        "offsetSeconds": 104.2,
+        "speedKph": 44.2,
+        "rpm": 2026
+      },
+      {
+        "lat": 35.7001285,
+        "lon": 51.3510029,
+        "offsetSeconds": 117.1,
+        "speedKph": 43.9,
+        "rpm": 2094
+      },
+      {
+        "lat": 35.7001776,
+        "lon": 51.3527489,
+        "offsetSeconds": 130.4,
+        "speedKph": 42.7,
+        "rpm": 2104
+      },
+      {
+        "lat": 35.700226,
+        "lon": 51.3544946,
+        "offsetSeconds": 144.2,
+        "speedKph": 41.2,
+        "rpm": 2064
+      },
+      {
+        "lat": 35.7002738,
+        "lon": 51.3562401,
+        "offsetSeconds": 158.4,
+        "speedKph": 40.0,
+        "rpm": 1991
+      },
+      {
+        "lat": 35.7003208,
+        "lon": 51.3579854,
+        "offsetSeconds": 172.6,
+        "speedKph": 39.9,
+        "rpm": 1909
+      },
+      {
+        "lat": 35.7003671,
+        "lon": 51.3597304,
+        "offsetSeconds": 186.6,
+        "speedKph": 40.7,
+        "rpm": 1841
+      },
+      {
+        "lat": 35.7004126,
+        "lon": 51.3614752,
+        "offsetSeconds": 200.0,
+        "speedKph": 42.1,
+        "rpm": 1974
+      },
+      {
+        "lat": 35.7004573,
+        "lon": 51.3632196,
+        "offsetSeconds": 213.1,
+        "speedKph": 43.5,
+        "rpm": 2086
+      },
+      {
+        "lat": 35.7005012,
+        "lon": 51.3649638,
+        "offsetSeconds": 225.9,
+        "speedKph": 44.2,
+        "rpm": 2144
+      },
+      {
+        "lat": 35.7005442,
+        "lon": 51.3667077,
+        "offsetSeconds": 238.9,
+        "speedKph": 43.8,
+        "rpm": 2133
+      },
+      {
+        "lat": 35.7005865,
+        "lon": 51.3684514,
+        "offsetSeconds": 252.2,
+        "speedKph": 42.6,
+        "rpm": 2057
+      },
+      {
+        "lat": 35.7006279,
+        "lon": 51.3701948,
+        "offsetSeconds": 266.0,
+        "speedKph": 41.1,
+        "rpm": 1940
+      },
+      {
+        "lat": 35.7006686,
+        "lon": 51.3719379,
+        "offsetSeconds": 280.1,
+        "speedKph": 40.0,
+        "rpm": 1826
+      },
+      {
+        "lat": 35.7007086,
+        "lon": 51.3736808,
+        "offsetSeconds": 294.4,
+        "speedKph": 39.9,
+        "rpm": 1917
+      },
+      {
+        "lat": 35.7007479,
+        "lon": 51.3754234,
+        "offsetSeconds": 308.3,
+        "speedKph": 40.7,
+        "rpm": 2014
+      },
+      {
+        "lat": 35.7007865,
+        "lon": 51.3771658,
+        "offsetSeconds": 321.8,
+        "speedKph": 42.1,
+        "rpm": 2092
+      },
+      {
+        "lat": 35.7008246,
+        "lon": 51.3789081,
+        "offsetSeconds": 334.8,
+        "speedKph": 43.5,
+        "rpm": 2125
+      },
+      {
+        "lat": 35.7008621,
+        "lon": 51.3806501,
+        "offsetSeconds": 347.6,
+        "speedKph": 44.2,
+        "rpm": 2097
+      },
+      {
+        "lat": 35.7008991,
+        "lon": 51.382392,
+        "offsetSeconds": 360.6,
+        "speedKph": 43.8,
+        "rpm": 2008
+      },
+      {
+        "lat": 35.7009358,
+        "lon": 51.3841338,
+        "offsetSeconds": 373.9,
+        "speedKph": 42.6,
+        "rpm": 1895
+      },
+      {
+        "lat": 35.7009721,
+        "lon": 51.3858754,
+        "offsetSeconds": 387.7,
+        "speedKph": 41.1,
+        "rpm": 1951
+      },
+      {
+        "lat": 35.7010082,
+        "lon": 51.387617,
+        "offsetSeconds": 401.9,
+        "speedKph": 40.0,
+        "rpm": 1997
+      },
+      {
+        "lat": 35.7010442,
+        "lon": 51.3893585,
+        "offsetSeconds": 418.8,
+        "speedKph": 33.6,
+        "rpm": 1869
+      },
+      {
+        "lat": 35.70108,
+        "lon": 51.3911,
+        "offsetSeconds": 438.9,
+        "speedKph": 28.1,
+        "rpm": 1724,
+        "label": "میدان انقلاب"
+      },
+      {
+        "lat": 35.7012121,
+        "lon": 51.3924537,
+        "offsetSeconds": 457.6,
+        "speedKph": 23.9,
+        "rpm": 1616
+      },
+      {
+        "lat": 35.7013442,
+        "lon": 51.3938077,
+        "offsetSeconds": 472.4,
+        "speedKph": 30.4,
+        "rpm": 1785
+      },
+      {
+        "lat": 35.7014765,
+        "lon": 51.3951621,
+        "offsetSeconds": 484.7,
+        "speedKph": 36.2,
+        "rpm": 1892
+      },
+      {
+        "lat": 35.7016089,
+        "lon": 51.3965173,
+        "offsetSeconds": 497.2,
+        "speedKph": 35.8,
+        "rpm": 1806
+      },
+      {
+        "lat": 35.7017416,
+        "lon": 51.3978734,
+        "offsetSeconds": 510.1,
+        "speedKph": 34.6,
+        "rpm": 1682
+      },
+      {
+        "lat": 35.7018745,
+        "lon": 51.3992307,
+        "offsetSeconds": 523.6,
+        "speedKph": 33.1,
+        "rpm": 1739
+      },
+      {
+        "lat": 35.7020078,
+        "lon": 51.4005893,
+        "offsetSeconds": 537.6,
+        "speedKph": 32.0,
+        "rpm": 1786
+      },
+      {
+        "lat": 35.7021414,
+        "lon": 51.4019493,
+        "offsetSeconds": 551.6,
+        "speedKph": 31.9,
+        "rpm": 1823
+      },
+      {
+        "lat": 35.7022754,
+        "lon": 51.403311,
+        "offsetSeconds": 565.3,
+        "speedKph": 32.7,
+        "rpm": 1844
+      },
+      {
+        "lat": 35.7024098,
+        "lon": 51.4046743,
+        "offsetSeconds": 578.4,
+        "speedKph": 34.1,
+        "rpm": 1838
+      },
+      {
+        "lat": 35.7025446,
+        "lon": 51.4060393,
+        "offsetSeconds": 591.0,
+        "speedKph": 35.5,
+        "rpm": 1796
+      },
+      {
+        "lat": 35.7026798,
+        "lon": 51.4074061,
+        "offsetSeconds": 603.3,
+        "speedKph": 36.2,
+        "rpm": 1725
+      },
+      {
+        "lat": 35.7028154,
+        "lon": 51.4087746,
+        "offsetSeconds": 615.8,
+        "speedKph": 35.8,
+        "rpm": 1810
+      },
+      {
+        "lat": 35.7029514,
+        "lon": 51.4101448,
+        "offsetSeconds": 628.8,
+        "speedKph": 34.6,
+        "rpm": 1854
+      },
+      {
+        "lat": 35.7030878,
+        "lon": 51.4115166,
+        "offsetSeconds": 642.3,
+        "speedKph": 33.1,
+        "rpm": 1856
+      },
+      {
+        "lat": 35.7032245,
+        "lon": 51.4128898,
+        "offsetSeconds": 656.2,
+        "speedKph": 32.0,
+        "rpm": 1826
+      },
+      {
+        "lat": 35.7033616,
+        "lon": 51.4142643,
+        "offsetSeconds": 670.3,
+        "speedKph": 31.9,
+        "rpm": 1777
+      },
+      {
+        "lat": 35.7034989,
+        "lon": 51.41564,
+        "offsetSeconds": 683.9,
+        "speedKph": 32.7,
+        "rpm": 1722
+      },
+      {
+        "lat": 35.7036365,
+        "lon": 51.4170167,
+        "offsetSeconds": 697.0,
+        "speedKph": 34.2,
+        "rpm": 1674
+      },
+      {
+        "lat": 35.7037742,
+        "lon": 51.418394,
+        "offsetSeconds": 709.6,
+        "speedKph": 35.6,
+        "rpm": 1805
+      },
+      {
+        "lat": 35.7039121,
+        "lon": 51.4197719,
+        "offsetSeconds": 724.0,
+        "speedKph": 31.1,
+        "rpm": 1764
+      },
+      {
+        "lat": 35.70405,
+        "lon": 51.42115,
+        "offsetSeconds": 741.5,
+        "speedKph": 25.6,
+        "rpm": 1661,
+        "label": "میدان فردوسی"
+      },
+      {
+        "lat": 35.7039319,
+        "lon": 51.4223461,
+        "offsetSeconds": 759.8,
+        "speedKph": 21.6,
+        "rpm": 1556
+      },
+      {
+        "lat": 35.7038141,
+        "lon": 51.4235426,
+        "offsetSeconds": 775.8,
+        "speedKph": 24.6,
+        "rpm": 1591
+      },
+      {
+        "lat": 35.7036969,
+        "lon": 51.4247395,
+        "offsetSeconds": 789.9,
+        "speedKph": 28.0,
+        "rpm": 1602
+      },
+      {
+        "lat": 35.7035805,
+        "lon": 51.4259373,
+        "offsetSeconds": 804.1,
+        "speedKph": 27.9,
+        "rpm": 1506
+      },
+      {
+        "lat": 35.7034651,
+        "lon": 51.4271362,
+        "offsetSeconds": 817.8,
+        "speedKph": 28.7,
+        "rpm": 1624
+      },
+      {
+        "lat": 35.7033511,
+        "lon": 51.4283363,
+        "offsetSeconds": 830.9,
+        "speedKph": 30.2,
+        "rpm": 1738
+      },
+      {
+        "lat": 35.7032385,
+        "lon": 51.4295378,
+        "offsetSeconds": 843.4,
+        "speedKph": 31.6,
+        "rpm": 1815
+      },
+      {
+        "lat": 35.7031276,
+        "lon": 51.430741,
+        "offsetSeconds": 855.7,
+        "speedKph": 32.2,
+        "rpm": 1831
+      },
+      {
+        "lat": 35.7030183,
+        "lon": 51.4319458,
+        "offsetSeconds": 868.1,
+        "speedKph": 31.8,
+        "rpm": 1777
+      },
+      {
+        "lat": 35.7029109,
+        "lon": 51.4331524,
+        "offsetSeconds": 881.0,
+        "speedKph": 30.6,
+        "rpm": 1667
+      },
+      {
+        "lat": 35.7028053,
+        "lon": 51.4343608,
+        "offsetSeconds": 894.6,
+        "speedKph": 29.1,
+        "rpm": 1539
+      },
+      {
+        "lat": 35.7027016,
+        "lon": 51.435571,
+        "offsetSeconds": 908.7,
+        "speedKph": 28.0,
+        "rpm": 1607
+      },
+      {
+        "lat": 35.7025995,
+        "lon": 51.4367828,
+        "offsetSeconds": 922.9,
+        "speedKph": 27.9,
+        "rpm": 1680
+      },
+      {
+        "lat": 35.7024991,
+        "lon": 51.4379963,
+        "offsetSeconds": 936.6,
+        "speedKph": 28.8,
+        "rpm": 1743
+      },
+      {
+        "lat": 35.7024001,
+        "lon": 51.4392112,
+        "offsetSeconds": 949.6,
+        "speedKph": 30.2,
+        "rpm": 1779
+      },
+      {
+        "lat": 35.7023025,
+        "lon": 51.4404273,
+        "offsetSeconds": 962.2,
+        "speedKph": 31.6,
+        "rpm": 1770
+      },
+      {
+        "lat": 35.7022059,
+        "lon": 51.4416445,
+        "offsetSeconds": 974.4,
+        "speedKph": 32.2,
+        "rpm": 1708
+      },
+      {
+        "lat": 35.7021101,
+        "lon": 51.4428626,
+        "offsetSeconds": 986.8,
+        "speedKph": 31.8,
+        "rpm": 1612
+      },
+      {
+        "lat": 35.7020149,
+        "lon": 51.4440811,
+        "offsetSeconds": 1002.0,
+        "speedKph": 26.0,
+        "rpm": 1557
+      },
+      {
+        "lat": 35.70192,
+        "lon": 51.4453,
+        "offsetSeconds": 1021.7,
+        "speedKph": 20.0,
+        "rpm": 1476,
+        "label": "میدان امام حسین"
+      },
+      {
+        "lat": 35.7025303,
+        "lon": 51.4472556,
+        "offsetSeconds": 1039.0,
+        "speedKph": 39.4,
+        "rpm": 1975
+      },
+      {
+        "lat": 35.7031406,
+        "lon": 51.4492112,
+        "offsetSeconds": 1052.7,
+        "speedKph": 49.5,
+        "rpm": 2162
+      },
+      {
+        "lat": 35.7037509,
+        "lon": 51.4511668,
+        "offsetSeconds": 1064.1,
+        "speedKph": 59.6,
+        "rpm": 2331
+      },
+      {
+        "lat": 35.7043611,
+        "lon": 51.4531223,
+        "offsetSeconds": 1075.4,
+        "speedKph": 60.2,
+        "rpm": 2442
+      },
+      {
+        "lat": 35.7049713,
+        "lon": 51.4550777,
+        "offsetSeconds": 1086.8,
+        "speedKph": 59.8,
+        "rpm": 2508
+      },
+      {
+        "lat": 35.7055814,
+        "lon": 51.4570331,
+        "offsetSeconds": 1098.4,
+        "speedKph": 58.5,
+        "rpm": 2517
+      },
+      {
+        "lat": 35.7061914,
+        "lon": 51.4589884,
+        "offsetSeconds": 1110.3,
+        "speedKph": 57.0,
+        "rpm": 2476
+      },
+      {
+        "lat": 35.7068014,
+        "lon": 51.4609435,
+        "offsetSeconds": 1122.4,
+        "speedKph": 56.0,
+        "rpm": 2406
+      },
+      {
+        "lat": 35.7074112,
+        "lon": 51.4628985,
+        "offsetSeconds": 1134.6,
+        "speedKph": 55.9,
+        "rpm": 2326
+      },
+      {
+        "lat": 35.7080209,
+        "lon": 51.4648534,
+        "offsetSeconds": 1146.6,
+        "speedKph": 56.8,
+        "rpm": 2260
+      },
+      {
+        "lat": 35.7086305,
+        "lon": 51.4668081,
+        "offsetSeconds": 1158.2,
+        "speedKph": 58.3,
+        "rpm": 2394
+      },
+      {
+        "lat": 35.7092399,
+        "lon": 51.4687627,
+        "offsetSeconds": 1169.6,
+        "speedKph": 59.6,
+        "rpm": 2504
+      },
+      {
+        "lat": 35.7098491,
+        "lon": 51.4707171,
+        "offsetSeconds": 1180.9,
+        "speedKph": 60.2,
+        "rpm": 2561
+      },
+      {
+        "lat": 35.7104583,
+        "lon": 51.4726712,
+        "offsetSeconds": 1192.3,
+        "speedKph": 59.8,
+        "rpm": 2547
+      },
+      {
+        "lat": 35.7110672,
+        "lon": 51.4746252,
+        "offsetSeconds": 1203.9,
+        "speedKph": 58.5,
+        "rpm": 2470
+      },
+      {
+        "lat": 35.711676,
+        "lon": 51.476579,
+        "offsetSeconds": 1215.8,
+        "speedKph": 57.0,
+        "rpm": 2352
+      },
+      {
+        "lat": 35.7122845,
+        "lon": 51.4785325,
+        "offsetSeconds": 1228.0,
+        "speedKph": 56.0,
+        "rpm": 2241
+      },
+      {
+        "lat": 35.7128929,
+        "lon": 51.4804859,
+        "offsetSeconds": 1240.1,
+        "speedKph": 55.9,
+        "rpm": 2334
+      },
+      {
+        "lat": 35.7135011,
+        "lon": 51.482439,
+        "offsetSeconds": 1252.1,
+        "speedKph": 56.8,
+        "rpm": 2433
+      },
+      {
+        "lat": 35.7141091,
+        "lon": 51.4843918,
+        "offsetSeconds": 1263.7,
+        "speedKph": 58.3,
+        "rpm": 2511
+      },
+      {
+        "lat": 35.7147169,
+        "lon": 51.4863445,
+        "offsetSeconds": 1275.1,
+        "speedKph": 59.6,
+        "rpm": 2543
+      },
+      {
+        "lat": 35.7153245,
+        "lon": 51.4882969,
+        "offsetSeconds": 1286.4,
+        "speedKph": 60.2,
+        "rpm": 2513
+      },
+      {
+        "lat": 35.7159319,
+        "lon": 51.490249,
+        "offsetSeconds": 1297.8,
+        "speedKph": 59.7,
+        "rpm": 2422
+      },
+      {
+        "lat": 35.7165391,
+        "lon": 51.4922009,
+        "offsetSeconds": 1309.4,
+        "speedKph": 58.5,
+        "rpm": 2307
+      },
+      {
+        "lat": 35.7171461,
+        "lon": 51.4941526,
+        "offsetSeconds": 1321.4,
+        "speedKph": 57.0,
+        "rpm": 2363
+      },
+      {
+        "lat": 35.7177529,
+        "lon": 51.496104,
+        "offsetSeconds": 1333.5,
+        "speedKph": 56.0,
+        "rpm": 2412
+      },
+      {
+        "lat": 35.7183595,
+        "lon": 51.4980553,
+        "offsetSeconds": 1345.7,
+        "speedKph": 55.9,
+        "rpm": 2450
+      },
+      {
+        "lat": 35.718966,
+        "lon": 51.5000063,
+        "offsetSeconds": 1357.6,
+        "speedKph": 56.9,
+        "rpm": 2471
+      },
+      {
+        "lat": 35.7195722,
+        "lon": 51.501957,
+        "offsetSeconds": 1369.3,
+        "speedKph": 58.3,
+        "rpm": 2463
+      },
+      {
+        "lat": 35.7201783,
+        "lon": 51.5039076,
+        "offsetSeconds": 1380.6,
+        "speedKph": 59.7,
+        "rpm": 2418
+      },
+      {
+        "lat": 35.7207841,
+        "lon": 51.505858,
+        "offsetSeconds": 1391.9,
+        "speedKph": 60.2,
+        "rpm": 2354
+      },
+      {
+        "lat": 35.7213899,
+        "lon": 51.5078081,
+        "offsetSeconds": 1403.3,
+        "speedKph": 59.7,
+        "rpm": 2436
+      },
+      {
+        "lat": 35.7219955,
+        "lon": 51.5097581,
+        "offsetSeconds": 1414.9,
+        "speedKph": 58.4,
+        "rpm": 2477
+      },
+      {
+        "lat": 35.7226009,
+        "lon": 51.511708,
+        "offsetSeconds": 1426.9,
+        "speedKph": 56.9,
+        "rpm": 2477
+      },
+      {
+        "lat": 35.7232062,
+        "lon": 51.5136576,
+        "offsetSeconds": 1439.0,
+        "speedKph": 55.9,
+        "rpm": 2446
+      },
+      {
+        "lat": 35.7238114,
+        "lon": 51.5156071,
+        "offsetSeconds": 1451.2,
+        "speedKph": 55.9,
+        "rpm": 2399
+      },
+      {
+        "lat": 35.7244164,
+        "lon": 51.5175565,
+        "offsetSeconds": 1463.1,
+        "speedKph": 56.9,
+        "rpm": 2345
+      },
+      {
+        "lat": 35.7250214,
+        "lon": 51.5195058,
+        "offsetSeconds": 1474.8,
+        "speedKph": 58.4,
+        "rpm": 2309
+      },
+      {
+        "lat": 35.7256263,
+        "lon": 51.521455,
+        "offsetSeconds": 1486.2,
+        "speedKph": 59.7,
+        "rpm": 2437
+      },
+      {
+        "lat": 35.7262311,
+        "lon": 51.5234041,
+        "offsetSeconds": 1497.4,
+        "speedKph": 60.2,
+        "rpm": 2524
+      },
+      {
+        "lat": 35.7268359,
+        "lon": 51.5253531,
+        "offsetSeconds": 1508.8,
+        "speedKph": 59.7,
+        "rpm": 2549
+      },
+      {
+        "lat": 35.7274406,
+        "lon": 51.5273021,
+        "offsetSeconds": 1520.5,
+        "speedKph": 58.4,
+        "rpm": 2509
+      },
+      {
+        "lat": 35.7280453,
+        "lon": 51.5292511,
+        "offsetSeconds": 1534.6,
+        "speedKph": 48.2,
+        "rpm": 2197
+      },
+      {
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "offsetSeconds": 1552.2,
+        "speedKph": 38.5,
+        "rpm": 1866,
+        "label": "تهرانپارس"
+      },
+      {
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "offsetSeconds": 1562.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": "تهرانپارس"
+      },
+      {
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "offsetSeconds": 1572.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "offsetSeconds": 1582.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "offsetSeconds": 1592.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "offsetSeconds": 1602.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "offsetSeconds": 1612.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "offsetSeconds": 1622.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "offsetSeconds": 1632.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "offsetSeconds": 1642.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "offsetSeconds": 1652.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "offsetSeconds": 1662.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.72865,
+        "lon": 51.5312,
+        "offsetSeconds": 1672.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.7298663,
+        "lon": 51.5305027,
+        "offsetSeconds": 1689.0,
+        "speedKph": 31.9,
+        "rpm": 1702
+      },
+      {
+        "lat": 35.7310825,
+        "lon": 51.5298053,
+        "offsetSeconds": 1703.5,
+        "speedKph": 37.0,
+        "rpm": 1745
+      },
+      {
+        "lat": 35.7322987,
+        "lon": 51.5291078,
+        "offsetSeconds": 1716.3,
+        "speedKph": 42.0,
+        "rpm": 1969
+      },
+      {
+        "lat": 35.7335147,
+        "lon": 51.5284102,
+        "offsetSeconds": 1729.4,
+        "speedKph": 41.0,
+        "rpm": 2019
+      },
+      {
+        "lat": 35.7347307,
+        "lon": 51.5277124,
+        "offsetSeconds": 1742.5,
+        "speedKph": 40.9,
+        "rpm": 2059
+      },
+      {
+        "lat": 35.7359465,
+        "lon": 51.5270143,
+        "offsetSeconds": 1755.3,
+        "speedKph": 41.8,
+        "rpm": 2081
+      },
+      {
+        "lat": 35.7371621,
+        "lon": 51.526316,
+        "offsetSeconds": 1767.7,
+        "speedKph": 43.3,
+        "rpm": 2076
+      },
+      {
+        "lat": 35.7383775,
+        "lon": 51.5256174,
+        "offsetSeconds": 1779.7,
+        "speedKph": 44.6,
+        "rpm": 2033
+      },
+      {
+        "lat": 35.7395927,
+        "lon": 51.5249184,
+        "offsetSeconds": 1791.6,
+        "speedKph": 45.2,
+        "rpm": 1959
+      },
+      {
+        "lat": 35.7408077,
+        "lon": 51.5242191,
+        "offsetSeconds": 1803.6,
+        "speedKph": 44.7,
+        "rpm": 2042
+      },
+      {
+        "lat": 35.7420223,
+        "lon": 51.5235193,
+        "offsetSeconds": 1815.9,
+        "speedKph": 43.5,
+        "rpm": 2084
+      },
+      {
+        "lat": 35.7432367,
+        "lon": 51.522819,
+        "offsetSeconds": 1828.7,
+        "speedKph": 42.0,
+        "rpm": 2086
+      },
+      {
+        "lat": 35.7444507,
+        "lon": 51.5221183,
+        "offsetSeconds": 1841.8,
+        "speedKph": 41.0,
+        "rpm": 2058
+      },
+      {
+        "lat": 35.7456644,
+        "lon": 51.521417,
+        "offsetSeconds": 1854.9,
+        "speedKph": 40.9,
+        "rpm": 2013
+      },
+      {
+        "lat": 35.7468778,
+        "lon": 51.5207152,
+        "offsetSeconds": 1867.7,
+        "speedKph": 41.9,
+        "rpm": 1959
+      },
+      {
+        "lat": 35.7480908,
+        "lon": 51.5200129,
+        "offsetSeconds": 1880.1,
+        "speedKph": 43.3,
+        "rpm": 1912
+      },
+      {
+        "lat": 35.7493034,
+        "lon": 51.51931,
+        "offsetSeconds": 1892.1,
+        "speedKph": 44.7,
+        "rpm": 2042
+      },
+      {
+        "lat": 35.7505156,
+        "lon": 51.5186065,
+        "offsetSeconds": 1903.9,
+        "speedKph": 45.2,
+        "rpm": 2131
+      },
+      {
+        "lat": 35.7517274,
+        "lon": 51.5179024,
+        "offsetSeconds": 1915.9,
+        "speedKph": 44.7,
+        "rpm": 2158
+      },
+      {
+        "lat": 35.7529389,
+        "lon": 51.5171977,
+        "offsetSeconds": 1928.3,
+        "speedKph": 43.4,
+        "rpm": 2122
+      },
+      {
+        "lat": 35.7541499,
+        "lon": 51.5164924,
+        "offsetSeconds": 1941.1,
+        "speedKph": 41.9,
+        "rpm": 2038
+      },
+      {
+        "lat": 35.7553606,
+        "lon": 51.5157865,
+        "offsetSeconds": 1954.2,
+        "speedKph": 40.9,
+        "rpm": 1933
+      },
+      {
+        "lat": 35.7565709,
+        "lon": 51.51508,
+        "offsetSeconds": 1967.3,
+        "speedKph": 40.9,
+        "rpm": 1851
+      },
+      {
+        "lat": 35.7577808,
+        "lon": 51.5143729,
+        "offsetSeconds": 1980.1,
+        "speedKph": 41.9,
+        "rpm": 1971
+      },
+      {
+        "lat": 35.7589903,
+        "lon": 51.5136652,
+        "offsetSeconds": 1992.4,
+        "speedKph": 43.4,
+        "rpm": 2084
+      },
+      {
+        "lat": 35.7601994,
+        "lon": 51.512957,
+        "offsetSeconds": 2004.4,
+        "speedKph": 44.7,
+        "rpm": 2158
+      },
+      {
+        "lat": 35.7614082,
+        "lon": 51.5122483,
+        "offsetSeconds": 2016.3,
+        "speedKph": 45.2,
+        "rpm": 2168
+      },
+      {
+        "lat": 35.7626167,
+        "lon": 51.511539,
+        "offsetSeconds": 2028.3,
+        "speedKph": 44.7,
+        "rpm": 2108
+      },
+      {
+        "lat": 35.7638248,
+        "lon": 51.5108293,
+        "offsetSeconds": 2040.7,
+        "speedKph": 43.4,
+        "rpm": 1995
+      },
+      {
+        "lat": 35.7650327,
+        "lon": 51.5101191,
+        "offsetSeconds": 2053.5,
+        "speedKph": 41.9,
+        "rpm": 1878
+      },
+      {
+        "lat": 35.7662402,
+        "lon": 51.5094084,
+        "offsetSeconds": 2066.6,
+        "speedKph": 40.9,
+        "rpm": 1948
+      },
+      {
+        "lat": 35.7674475,
+        "lon": 51.5086974,
+        "offsetSeconds": 2079.7,
+        "speedKph": 40.9,
+        "rpm": 2022
+      },
+      {
+        "lat": 35.7686546,
+        "lon": 51.507986,
+        "offsetSeconds": 2092.5,
+        "speedKph": 41.9,
+        "rpm": 2086
+      },
+      {
+        "lat": 35.7698615,
+        "lon": 51.5072743,
+        "offsetSeconds": 2104.8,
+        "speedKph": 43.4,
+        "rpm": 2120
+      },
+      {
+        "lat": 35.7710682,
+        "lon": 51.5065624,
+        "offsetSeconds": 2116.8,
+        "speedKph": 44.7,
+        "rpm": 2107
+      },
+      {
+        "lat": 35.7722747,
+        "lon": 51.5058502,
+        "offsetSeconds": 2128.7,
+        "speedKph": 45.2,
+        "rpm": 2041
+      },
+      {
+        "lat": 35.7734812,
+        "lon": 51.5051378,
+        "offsetSeconds": 2140.7,
+        "speedKph": 44.7,
+        "rpm": 1952
+      },
+      {
+        "lat": 35.7746875,
+        "lon": 51.5044253,
+        "offsetSeconds": 2153.1,
+        "speedKph": 43.3,
+        "rpm": 2012
+      },
+      {
+        "lat": 35.7758938,
+        "lon": 51.5037127,
+        "offsetSeconds": 2168.2,
+        "speedKph": 35.4,
+        "rpm": 1880
+      },
+      {
+        "lat": 35.7771,
+        "lon": 51.503,
+        "offsetSeconds": 2187.3,
+        "speedKph": 28.0,
+        "rpm": 1725,
+        "label": "لویزان"
+      },
+      {
+        "lat": 35.7778856,
+        "lon": 51.5024891,
+        "offsetSeconds": 2205.6,
+        "speedKph": 19.6,
+        "rpm": 1292
+      },
+      {
+        "lat": 35.7786712,
+        "lon": 51.5019782,
+        "offsetSeconds": 2219.8,
+        "speedKph": 25.2,
+        "rpm": 1533
+      },
+      {
+        "lat": 35.7794571,
+        "lon": 51.5014673,
+        "offsetSeconds": 2231.2,
+        "speedKph": 31.3,
+        "rpm": 1768
+      },
+      {
+        "lat": 35.7802432,
+        "lon": 51.5009564,
+        "offsetSeconds": 2242.2,
+        "speedKph": 32.7,
+        "rpm": 1844
+      },
+      {
+        "lat": 35.7810297,
+        "lon": 51.5004454,
+        "offsetSeconds": 2253.0,
+        "speedKph": 33.2,
+        "rpm": 1857
+      },
+      {
+        "lat": 35.7818167,
+        "lon": 51.4999343,
+        "offsetSeconds": 2263.9,
+        "speedKph": 32.7,
+        "rpm": 1800
+      },
+      {
+        "lat": 35.7826042,
+        "lon": 51.4994233,
+        "offsetSeconds": 2275.3,
+        "speedKph": 31.4,
+        "rpm": 1689
+      },
+      {
+        "lat": 35.7833924,
+        "lon": 51.4989121,
+        "offsetSeconds": 2287.3,
+        "speedKph": 29.9,
+        "rpm": 1562
+      },
+      {
+        "lat": 35.7841812,
+        "lon": 51.4984009,
+        "offsetSeconds": 2299.6,
+        "speedKph": 28.9,
+        "rpm": 1631
+      },
+      {
+        "lat": 35.7849707,
+        "lon": 51.4978897,
+        "offsetSeconds": 2312.0,
+        "speedKph": 28.9,
+        "rpm": 1707
+      },
+      {
+        "lat": 35.785761,
+        "lon": 51.4973783,
+        "offsetSeconds": 2324.0,
+        "speedKph": 29.9,
+        "rpm": 1772
+      },
+      {
+        "lat": 35.7865521,
+        "lon": 51.4968669,
+        "offsetSeconds": 2335.4,
+        "speedKph": 31.4,
+        "rpm": 1809
+      },
+      {
+        "lat": 35.787344,
+        "lon": 51.4963554,
+        "offsetSeconds": 2346.4,
+        "speedKph": 32.7,
+        "rpm": 1798
+      },
+      {
+        "lat": 35.7881367,
+        "lon": 51.4958438,
+        "offsetSeconds": 2357.2,
+        "speedKph": 33.2,
+        "rpm": 1734
+      },
+      {
+        "lat": 35.7889303,
+        "lon": 51.4953322,
+        "offsetSeconds": 2368.1,
+        "speedKph": 32.7,
+        "rpm": 1635
+      },
+      {
+        "lat": 35.7897246,
+        "lon": 51.4948204,
+        "offsetSeconds": 2379.5,
+        "speedKph": 31.4,
+        "rpm": 1697
+      },
+      {
+        "lat": 35.7905197,
+        "lon": 51.4943086,
+        "offsetSeconds": 2391.5,
+        "speedKph": 29.9,
+        "rpm": 1733
+      },
+      {
+        "lat": 35.7913155,
+        "lon": 51.4937967,
+        "offsetSeconds": 2403.9,
+        "speedKph": 28.9,
+        "rpm": 1748
+      },
+      {
+        "lat": 35.7921119,
+        "lon": 51.4932848,
+        "offsetSeconds": 2416.2,
+        "speedKph": 28.9,
+        "rpm": 1745
+      },
+      {
+        "lat": 35.792909,
+        "lon": 51.4927728,
+        "offsetSeconds": 2428.2,
+        "speedKph": 29.9,
+        "rpm": 1725
+      },
+      {
+        "lat": 35.7937067,
+        "lon": 51.4922608,
+        "offsetSeconds": 2439.6,
+        "speedKph": 31.4,
+        "rpm": 1685
+      },
+      {
+        "lat": 35.7945047,
+        "lon": 51.4917487,
+        "offsetSeconds": 2450.6,
+        "speedKph": 32.7,
+        "rpm": 1638
+      },
+      {
+        "lat": 35.7953032,
+        "lon": 51.4912365,
+        "offsetSeconds": 2461.3,
+        "speedKph": 33.2,
+        "rpm": 1745
+      },
+      {
+        "lat": 35.796102,
+        "lon": 51.4907244,
+        "offsetSeconds": 2472.3,
+        "speedKph": 32.7,
+        "rpm": 1806
+      },
+      {
+        "lat": 35.7969009,
+        "lon": 51.4902122,
+        "offsetSeconds": 2485.7,
+        "speedKph": 26.7,
+        "rpm": 1690
+      },
+      {
+        "lat": 35.7977,
+        "lon": 51.4897,
+        "offsetSeconds": 2503.1,
+        "speedKph": 20.6,
+        "rpm": 1527,
+        "label": "میدان نوبنیاد"
+      },
+      {
+        "lat": 35.7976603,
+        "lon": 51.488916,
+        "offsetSeconds": 2516.3,
+        "speedKph": 19.0,
+        "rpm": 1371
+      },
+      {
+        "lat": 35.7976208,
+        "lon": 51.4881324,
+        "offsetSeconds": 2527.6,
+        "speedKph": 22.1,
+        "rpm": 1528
+      },
+      {
+        "lat": 35.7975817,
+        "lon": 51.4873496,
+        "offsetSeconds": 2537.8,
+        "speedKph": 24.4,
+        "rpm": 1629
+      },
+      {
+        "lat": 35.7975433,
+        "lon": 51.4865681,
+        "offsetSeconds": 2548.8,
+        "speedKph": 22.9,
+        "rpm": 1589
+      },
+      {
+        "lat": 35.7975057,
+        "lon": 51.4857882,
+        "offsetSeconds": 2560.1,
+        "speedKph": 21.9,
+        "rpm": 1520
+      },
+      {
+        "lat": 35.7974691,
+        "lon": 51.4850101,
+        "offsetSeconds": 2571.5,
+        "speedKph": 21.9,
+        "rpm": 1443
+      },
+      {
+        "lat": 35.7974337,
+        "lon": 51.4842343,
+        "offsetSeconds": 2582.4,
+        "speedKph": 22.9,
+        "rpm": 1380
+      },
+      {
+        "lat": 35.7973994,
+        "lon": 51.4834608,
+        "offsetSeconds": 2592.7,
+        "speedKph": 24.4,
+        "rpm": 1514
+      },
+      {
+        "lat": 35.7973665,
+        "lon": 51.4826898,
+        "offsetSeconds": 2602.4,
+        "speedKph": 25.7,
+        "rpm": 1623
+      },
+      {
+        "lat": 35.7973349,
+        "lon": 51.4819213,
+        "offsetSeconds": 2611.9,
+        "speedKph": 26.2,
+        "rpm": 1677
+      },
+      {
+        "lat": 35.7973047,
+        "lon": 51.4811555,
+        "offsetSeconds": 2621.7,
+        "speedKph": 25.7,
+        "rpm": 1661
+      },
+      {
+        "lat": 35.7972758,
+        "lon": 51.4803922,
+        "offsetSeconds": 2631.9,
+        "speedKph": 24.3,
+        "rpm": 1582
+      },
+      {
+        "lat": 35.7972481,
+        "lon": 51.4796312,
+        "offsetSeconds": 2642.8,
+        "speedKph": 22.9,
+        "rpm": 1465
+      },
+      {
+        "lat": 35.7972215,
+        "lon": 51.4788724,
+        "offsetSeconds": 2654.2,
+        "speedKph": 21.9,
+        "rpm": 1355
+      },
+      {
+        "lat": 35.7971959,
+        "lon": 51.4781155,
+        "offsetSeconds": 2665.6,
+        "speedKph": 22.0,
+        "rpm": 1451
+      },
+      {
+        "lat": 35.7971712,
+        "lon": 51.4773602,
+        "offsetSeconds": 2676.5,
+        "speedKph": 22.9,
+        "rpm": 1552
+      },
+      {
+        "lat": 35.7971471,
+        "lon": 51.4766061,
+        "offsetSeconds": 2686.7,
+        "speedKph": 24.4,
+        "rpm": 1631
+      },
+      {
+        "lat": 35.7971234,
+        "lon": 51.4758528,
+        "offsetSeconds": 2698.0,
+        "speedKph": 22.1,
+        "rpm": 1568
+      },
+      {
+        "lat": 35.7971,
+        "lon": 51.4751,
+        "offsetSeconds": 2711.2,
+        "speedKph": 19.0,
+        "rpm": 1442,
+        "label": "فرمانیه"
+      },
+      {
+        "lat": 35.7971,
+        "lon": 51.4751,
+        "offsetSeconds": 2721.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": "فرمانیه"
+      },
+      {
+        "lat": 35.7971,
+        "lon": 51.4751,
+        "offsetSeconds": 2731.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.7971,
+        "lon": 51.4751,
+        "offsetSeconds": 2741.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.7971,
+        "lon": 51.4751,
+        "offsetSeconds": 2751.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.7971,
+        "lon": 51.4751,
+        "offsetSeconds": 2761.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.7971,
+        "lon": 51.4751,
+        "offsetSeconds": 2771.2,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.797301,
+        "lon": 51.4748553,
+        "offsetSeconds": 2785.0,
+        "speedKph": 7.0,
+        "rpm": 1136
+      },
+      {
+        "lat": 35.7974929,
+        "lon": 51.4746181,
+        "offsetSeconds": 2795.8,
+        "speedKph": 9.0,
+        "rpm": 1229
+      },
+      {
+        "lat": 35.7976687,
+        "lon": 51.4743939,
+        "offsetSeconds": 2803.9,
+        "speedKph": 11.9,
+        "rpm": 1304
+      },
+      {
+        "lat": 35.7978262,
+        "lon": 51.4741848,
+        "offsetSeconds": 2811.1,
+        "speedKph": 13.4,
+        "rpm": 1299
+      },
+      {
+        "lat": 35.7979677,
+        "lon": 51.4739886,
+        "offsetSeconds": 2818.7,
+        "speedKph": 12.8,
+        "rpm": 1205
+      },
+      {
+        "lat": 35.7981,
+        "lon": 51.4738,
+        "offsetSeconds": 2827.3,
+        "speedKph": 11.3,
+        "rpm": 1077,
+        "label": "کوچه ۱"
+      },
+      {
+        "lat": 35.7982987,
+        "lon": 51.4739381,
+        "offsetSeconds": 2835.6,
+        "speedKph": 9.4,
+        "rpm": 1241
+      },
+      {
+        "lat": 35.7984902,
+        "lon": 51.4740616,
+        "offsetSeconds": 2842.5,
+        "speedKph": 11.5,
+        "rpm": 1294
+      },
+      {
+        "lat": 35.7986702,
+        "lon": 51.4741616,
+        "offsetSeconds": 2848.7,
+        "speedKph": 12.6,
+        "rpm": 1278
+      },
+      {
+        "lat": 35.7988387,
+        "lon": 51.4742381,
+        "offsetSeconds": 2856.9,
+        "speedKph": 9.6,
+        "rpm": 1122
+      },
+      {
+        "lat": 35.799,
+        "lon": 51.4743,
+        "offsetSeconds": 2869.1,
+        "speedKph": 6.5,
+        "rpm": 953,
+        "label": "کوچه ۲"
+      },
+      {
+        "lat": 35.7990199,
+        "lon": 51.474562,
+        "offsetSeconds": 2882.0,
+        "speedKph": 5.8,
+        "rpm": 1144
+      },
+      {
+        "lat": 35.7990501,
+        "lon": 51.4748119,
+        "offsetSeconds": 2893.6,
+        "speedKph": 6.4,
+        "rpm": 1116
+      },
+      {
+        "lat": 35.7990981,
+        "lon": 51.4750407,
+        "offsetSeconds": 2902.8,
+        "speedKph": 8.0,
+        "rpm": 1080
+      },
+      {
+        "lat": 35.7991667,
+        "lon": 51.4752453,
+        "offsetSeconds": 2911.0,
+        "speedKph": 9.0,
+        "rpm": 1019
+      },
+      {
+        "lat": 35.7992532,
+        "lon": 51.4754287,
+        "offsetSeconds": 2919.2,
+        "speedKph": 9.0,
+        "rpm": 1114
+      },
+      {
+        "lat": 35.79935,
+        "lon": 51.4756,
+        "offsetSeconds": 2927.6,
+        "speedKph": 8.8,
+        "rpm": 1183,
+        "label": "کوچه ۳"
+      },
+      {
+        "lat": 35.799183,
+        "lon": 51.4757505,
+        "offsetSeconds": 2936.8,
+        "speedKph": 9.0,
+        "rpm": 1184
+      },
+      {
+        "lat": 35.7990187,
+        "lon": 51.4759046,
+        "offsetSeconds": 2943.7,
+        "speedKph": 12.0,
+        "rpm": 1185
+      },
+      {
+        "lat": 35.7988587,
+        "lon": 51.4760646,
+        "offsetSeconds": 2949.5,
+        "speedKph": 14.2,
+        "rpm": 1153
+      },
+      {
+        "lat": 35.798703,
+        "lon": 51.4762305,
+        "offsetSeconds": 2956.5,
+        "speedKph": 11.7,
+        "rpm": 1184
+      },
+      {
+        "lat": 35.79855,
+        "lon": 51.4764,
+        "offsetSeconds": 2966.2,
+        "speedKph": 8.6,
+        "rpm": 1177,
+        "label": "کوچه ۴"
+      },
+      {
+        "lat": 35.7984233,
+        "lon": 51.476292,
+        "offsetSeconds": 2977.0,
+        "speedKph": 6.4,
+        "rpm": 1039
+      },
+      {
+        "lat": 35.7982859,
+        "lon": 51.4761972,
+        "offsetSeconds": 2987.9,
+        "speedKph": 6.3,
+        "rpm": 948
+      },
+      {
+        "lat": 35.79813,
+        "lon": 51.4761256,
+        "offsetSeconds": 2998.0,
+        "speedKph": 6.9,
+        "rpm": 1057
+      },
+      {
+        "lat": 35.7979526,
+        "lon": 51.4760806,
+        "offsetSeconds": 3007.9,
+        "speedKph": 7.0,
+        "rpm": 1138
+      },
+      {
+        "lat": 35.7977567,
+        "lon": 51.4760586,
+        "offsetSeconds": 3018.1,
+        "speedKph": 6.8,
+        "rpm": 1172
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3028.1,
+        "speedKph": 7.0,
+        "rpm": 1174,
+        "label": "کوچه ۵"
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3038.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": "کوچه ۵"
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3048.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3058.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3068.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3078.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3088.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3098.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3108.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3118.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3128.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3138.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3148.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3158.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3168.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3178.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3188.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3198.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.79755,
+        "lon": 51.47605,
+        "offsetSeconds": 3208.1,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.7974457,
+        "lon": 51.4758065,
+        "offsetSeconds": 3220.2,
+        "speedKph": 6.9,
+        "rpm": 963
+      },
+      {
+        "lat": 35.7973425,
+        "lon": 51.475568,
+        "offsetSeconds": 3228.5,
+        "speedKph": 10.0,
+        "rpm": 1140
+      },
+      {
+        "lat": 35.7972413,
+        "lon": 51.475338,
+        "offsetSeconds": 3234.9,
+        "speedKph": 12.9,
+        "rpm": 1289
+      },
+      {
+        "lat": 35.7971425,
+        "lon": 51.475118,
+        "offsetSeconds": 3241.2,
+        "speedKph": 13.2,
+        "rpm": 1338
+      },
+      {
+        "lat": 35.7970457,
+        "lon": 51.4749065,
+        "offsetSeconds": 3249.0,
+        "speedKph": 10.8,
+        "rpm": 1274
+      },
+      {
+        "lat": 35.79695,
+        "lon": 51.4747,
+        "offsetSeconds": 3259.7,
+        "speedKph": 7.7,
+        "rpm": 1150,
+        "label": "کوچه ۶"
+      },
+      {
+        "lat": 35.7970278,
+        "lon": 51.4745482,
+        "offsetSeconds": 3268.9,
+        "speedKph": 8.4,
+        "rpm": 1098
+      },
+      {
+        "lat": 35.797116,
+        "lon": 51.4743856,
+        "offsetSeconds": 3278.1,
+        "speedKph": 8.5,
+        "rpm": 1176
+      },
+      {
+        "lat": 35.7972223,
+        "lon": 51.4742046,
+        "offsetSeconds": 3287.1,
+        "speedKph": 8.6,
+        "rpm": 1219
+      },
+      {
+        "lat": 35.7973493,
+        "lon": 51.4740023,
+        "offsetSeconds": 3297.1,
+        "speedKph": 7.8,
+        "rpm": 1197
+      },
+      {
+        "lat": 35.7974945,
+        "lon": 51.4737815,
+        "offsetSeconds": 3308.9,
+        "speedKph": 6.6,
+        "rpm": 1120
+      },
+      {
+        "lat": 35.79765,
+        "lon": 51.47355,
+        "offsetSeconds": 3321.3,
+        "speedKph": 6.3,
+        "rpm": 1033,
+        "label": "کوچه ۷"
+      },
+      {
+        "lat": 35.7978469,
+        "lon": 51.4734768,
+        "offsetSeconds": 3333.9,
+        "speedKph": 6.5,
+        "rpm": 1124
+      },
+      {
+        "lat": 35.7980373,
+        "lon": 51.4733857,
+        "offsetSeconds": 3342.5,
+        "speedKph": 9.5,
+        "rpm": 1242
+      },
+      {
+        "lat": 35.7982173,
+        "lon": 51.4732657,
+        "offsetSeconds": 3348.9,
+        "speedKph": 12.8,
+        "rpm": 1326
+      },
+      {
+        "lat": 35.7983869,
+        "lon": 51.4731168,
+        "offsetSeconds": 3355.7,
+        "speedKph": 12.1,
+        "rpm": 1264
+      },
+      {
+        "lat": 35.79855,
+        "lon": 51.47295,
+        "offsetSeconds": 3363.4,
+        "speedKph": 10.6,
+        "rpm": 1145,
+        "label": "کوچه ۸"
+      },
+      {
+        "lat": 35.7988497,
+        "lon": 51.4726613,
+        "offsetSeconds": 3372.4,
+        "speedKph": 14.7,
+        "rpm": 1379
+      },
+      {
+        "lat": 35.7991203,
+        "lon": 51.4723879,
+        "offsetSeconds": 3380.3,
+        "speedKph": 16.6,
+        "rpm": 1426
+      },
+      {
+        "lat": 35.7993497,
+        "lon": 51.4721363,
+        "offsetSeconds": 3388.9,
+        "speedKph": 15.2,
+        "rpm": 1344
+      },
+      {
+        "lat": 35.79955,
+        "lon": 51.4719,
+        "offsetSeconds": 3400.7,
+        "speedKph": 11.1,
+        "rpm": 1159,
+        "label": "خروج از کوچه‌ها"
+      },
+      {
+        "lat": 35.7996838,
+        "lon": 51.4708097,
+        "offsetSeconds": 3420.4,
+        "speedKph": 18.1,
+        "rpm": 1464
+      },
+      {
+        "lat": 35.7998177,
+        "lon": 51.4697194,
+        "offsetSeconds": 3436.0,
+        "speedKph": 22.8,
+        "rpm": 1542
+      },
+      {
+        "lat": 35.7999516,
+        "lon": 51.4686293,
+        "offsetSeconds": 3448.5,
+        "speedKph": 28.4,
+        "rpm": 1609
+      },
+      {
+        "lat": 35.8000855,
+        "lon": 51.4675393,
+        "offsetSeconds": 3460.4,
+        "speedKph": 29.9,
+        "rpm": 1563
+      },
+      {
+        "lat": 35.8002196,
+        "lon": 51.4664495,
+        "offsetSeconds": 3471.9,
+        "speedKph": 31.0,
+        "rpm": 1686
+      },
+      {
+        "lat": 35.8003537,
+        "lon": 51.4653599,
+        "offsetSeconds": 3483.3,
+        "speedKph": 31.1,
+        "rpm": 1765
+      },
+      {
+        "lat": 35.800488,
+        "lon": 51.4642706,
+        "offsetSeconds": 3495.0,
+        "speedKph": 30.3,
+        "rpm": 1783
+      },
+      {
+        "lat": 35.8006225,
+        "lon": 51.4631816,
+        "offsetSeconds": 3507.4,
+        "speedKph": 28.8,
+        "rpm": 1742
+      },
+      {
+        "lat": 35.8007571,
+        "lon": 51.4620929,
+        "offsetSeconds": 3520.3,
+        "speedKph": 27.5,
+        "rpm": 1661
+      },
+      {
+        "lat": 35.8008919,
+        "lon": 51.4610047,
+        "offsetSeconds": 3533.6,
+        "speedKph": 26.8,
+        "rpm": 1566
+      },
+      {
+        "lat": 35.8010269,
+        "lon": 51.4599169,
+        "offsetSeconds": 3546.7,
+        "speedKph": 27.2,
+        "rpm": 1494
+      },
+      {
+        "lat": 35.8011621,
+        "lon": 51.4588296,
+        "offsetSeconds": 3559.2,
+        "speedKph": 28.4,
+        "rpm": 1621
+      },
+      {
+        "lat": 35.8012976,
+        "lon": 51.4577427,
+        "offsetSeconds": 3571.1,
+        "speedKph": 29.9,
+        "rpm": 1735
+      },
+      {
+        "lat": 35.8014333,
+        "lon": 51.4566564,
+        "offsetSeconds": 3582.6,
+        "speedKph": 31.0,
+        "rpm": 1802
+      },
+      {
+        "lat": 35.8015692,
+        "lon": 51.4555707,
+        "offsetSeconds": 3594.0,
+        "speedKph": 31.1,
+        "rpm": 1802
+      },
+      {
+        "lat": 35.8017054,
+        "lon": 51.4544855,
+        "offsetSeconds": 3605.8,
+        "speedKph": 30.3,
+        "rpm": 1733
+      },
+      {
+        "lat": 35.8018419,
+        "lon": 51.4534008,
+        "offsetSeconds": 3618.1,
+        "speedKph": 28.8,
+        "rpm": 1616
+      },
+      {
+        "lat": 35.8019787,
+        "lon": 51.4523168,
+        "offsetSeconds": 3631.1,
+        "speedKph": 27.4,
+        "rpm": 1502
+      },
+      {
+        "lat": 35.8021158,
+        "lon": 51.4512334,
+        "offsetSeconds": 3644.3,
+        "speedKph": 26.8,
+        "rpm": 1581
+      },
+      {
+        "lat": 35.8022531,
+        "lon": 51.4501506,
+        "offsetSeconds": 3657.4,
+        "speedKph": 27.2,
+        "rpm": 1666
+      },
+      {
+        "lat": 35.8023908,
+        "lon": 51.4490684,
+        "offsetSeconds": 3669.9,
+        "speedKph": 28.5,
+        "rpm": 1737
+      },
+      {
+        "lat": 35.8025287,
+        "lon": 51.4479868,
+        "offsetSeconds": 3681.8,
+        "speedKph": 30.0,
+        "rpm": 1771
+      },
+      {
+        "lat": 35.8026669,
+        "lon": 51.4469058,
+        "offsetSeconds": 3693.3,
+        "speedKph": 31.0,
+        "rpm": 1752
+      },
+      {
+        "lat": 35.8028054,
+        "lon": 51.4458255,
+        "offsetSeconds": 3704.7,
+        "speedKph": 31.1,
+        "rpm": 1675
+      },
+      {
+        "lat": 35.8029442,
+        "lon": 51.4447457,
+        "offsetSeconds": 3716.5,
+        "speedKph": 30.2,
+        "rpm": 1577
+      },
+      {
+        "lat": 35.8030833,
+        "lon": 51.4436664,
+        "offsetSeconds": 3728.8,
+        "speedKph": 28.8,
+        "rpm": 1633
+      },
+      {
+        "lat": 35.8032226,
+        "lon": 51.4425877,
+        "offsetSeconds": 3741.8,
+        "speedKph": 27.4,
+        "rpm": 1671
+      },
+      {
+        "lat": 35.8033621,
+        "lon": 51.4415096,
+        "offsetSeconds": 3755.1,
+        "speedKph": 26.8,
+        "rpm": 1694
+      },
+      {
+        "lat": 35.8035019,
+        "lon": 51.4404319,
+        "offsetSeconds": 3768.1,
+        "speedKph": 27.2,
+        "rpm": 1700
+      },
+      {
+        "lat": 35.8036419,
+        "lon": 51.4393547,
+        "offsetSeconds": 3780.6,
+        "speedKph": 28.5,
+        "rpm": 1685
+      },
+      {
+        "lat": 35.8037821,
+        "lon": 51.4382779,
+        "offsetSeconds": 3792.5,
+        "speedKph": 30.0,
+        "rpm": 1644
+      },
+      {
+        "lat": 35.8039225,
+        "lon": 51.4372016,
+        "offsetSeconds": 3804.0,
+        "speedKph": 31.0,
+        "rpm": 1600
+      },
+      {
+        "lat": 35.804063,
+        "lon": 51.4361256,
+        "offsetSeconds": 3815.4,
+        "speedKph": 31.1,
+        "rpm": 1696
+      },
+      {
+        "lat": 35.8042037,
+        "lon": 51.4350499,
+        "offsetSeconds": 3827.2,
+        "speedKph": 30.2,
+        "rpm": 1745
+      },
+      {
+        "lat": 35.8043446,
+        "lon": 51.4339745,
+        "offsetSeconds": 3839.6,
+        "speedKph": 28.7,
+        "rpm": 1744
+      },
+      {
+        "lat": 35.8044855,
+        "lon": 51.4328993,
+        "offsetSeconds": 3852.6,
+        "speedKph": 27.4,
+        "rpm": 1703
+      },
+      {
+        "lat": 35.8046266,
+        "lon": 51.4318243,
+        "offsetSeconds": 3865.8,
+        "speedKph": 26.8,
+        "rpm": 1640
+      },
+      {
+        "lat": 35.8047677,
+        "lon": 51.4307494,
+        "offsetSeconds": 3878.9,
+        "speedKph": 27.3,
+        "rpm": 1571
+      },
+      {
+        "lat": 35.8049088,
+        "lon": 51.4296747,
+        "offsetSeconds": 3893.6,
+        "speedKph": 24.2,
+        "rpm": 1424
+      },
+      {
+        "lat": 35.80505,
+        "lon": 51.4286,
+        "offsetSeconds": 3910.3,
+        "speedKph": 21.3,
+        "rpm": 1443,
+        "label": "تجریش"
+      },
+      {
+        "lat": 35.80505,
+        "lon": 51.4286,
+        "offsetSeconds": 3920.3,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": "تجریش"
+      },
+      {
+        "lat": 35.80505,
+        "lon": 51.4286,
+        "offsetSeconds": 3930.3,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.80505,
+        "lon": 51.4286,
+        "offsetSeconds": 3940.3,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.80505,
+        "lon": 51.4286,
+        "offsetSeconds": 3950.3,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.80505,
+        "lon": 51.4286,
+        "offsetSeconds": 3960.3,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.80505,
+        "lon": 51.4286,
+        "offsetSeconds": 3970.3,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.80505,
+        "lon": 51.4286,
+        "offsetSeconds": 3980.3,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.80505,
+        "lon": 51.4286,
+        "offsetSeconds": 3990.3,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.80505,
+        "lon": 51.4286,
+        "offsetSeconds": 4000.3,
+        "speedKph": 0.0,
+        "rpm": 780,
+        "stop": true,
+        "label": null
+      },
+      {
+        "lat": 35.8038617,
+        "lon": 51.4281187,
+        "offsetSeconds": 4017.7,
+        "speedKph": 28.6,
+        "rpm": 1692
+      },
+      {
+        "lat": 35.8026734,
+        "lon": 51.4276375,
+        "offsetSeconds": 4032.2,
+        "speedKph": 34.4,
+        "rpm": 1766
+      },
+      {
+        "lat": 35.8014851,
+        "lon": 51.4271562,
+        "offsetSeconds": 4044.9,
+        "speedKph": 39.3,
+        "rpm": 1806
+      },
+      {
+        "lat": 35.800297,
+        "lon": 51.426675,
+        "offsetSeconds": 4058.1,
+        "speedKph": 37.8,
+        "rpm": 1863
+      },
+      {
+        "lat": 35.799109,
+        "lon": 51.4261938,
+        "offsetSeconds": 4071.8,
+        "speedKph": 36.4,
+        "rpm": 1903
+      },
+      {
+        "lat": 35.797921,
+        "lon": 51.4257127,
+        "offsetSeconds": 4085.7,
+        "speedKph": 35.8,
+        "rpm": 1927
+      },
+      {
+        "lat": 35.7967333,
+        "lon": 51.4252316,
+        "offsetSeconds": 4099.5,
+        "speedKph": 36.2,
+        "rpm": 1935
+      },
+      {
+        "lat": 35.7955458,
+        "lon": 51.4247505,
+        "offsetSeconds": 4112.8,
+        "speedKph": 37.5,
+        "rpm": 1922
+      },
+      {
+        "lat": 35.7943584,
+        "lon": 51.4242695,
+        "offsetSeconds": 4125.6,
+        "speedKph": 39.0,
+        "rpm": 1882
+      },
+      {
+        "lat": 35.7931713,
+        "lon": 51.4237886,
+        "offsetSeconds": 4138.1,
+        "speedKph": 40.0,
+        "rpm": 1828
+      },
+      {
+        "lat": 35.7919844,
+        "lon": 51.4233077,
+        "offsetSeconds": 4150.5,
+        "speedKph": 40.1,
+        "rpm": 1925
+      },
+      {
+        "lat": 35.7907979,
+        "lon": 51.422827,
+        "offsetSeconds": 4163.2,
+        "speedKph": 39.2,
+        "rpm": 1977
+      },
+      {
+        "lat": 35.7896116,
+        "lon": 51.4223463,
+        "offsetSeconds": 4176.5,
+        "speedKph": 37.8,
+        "rpm": 1978
+      },
+      {
+        "lat": 35.7884256,
+        "lon": 51.4218656,
+        "offsetSeconds": 4190.2,
+        "speedKph": 36.4,
+        "rpm": 1939
+      },
+      {
+        "lat": 35.7872399,
+        "lon": 51.4213851,
+        "offsetSeconds": 4204.1,
+        "speedKph": 35.8,
+        "rpm": 1877
+      },
+      {
+        "lat": 35.7860546,
+        "lon": 51.4209047,
+        "offsetSeconds": 4217.9,
+        "speedKph": 36.2,
+        "rpm": 1809
+      },
+      {
+        "lat": 35.7848696,
+        "lon": 51.4204243,
+        "offsetSeconds": 4231.2,
+        "speedKph": 37.5,
+        "rpm": 1764
+      },
+      {
+        "lat": 35.7836849,
+        "lon": 51.4199441,
+        "offsetSeconds": 4244.0,
+        "speedKph": 39.0,
+        "rpm": 1898
+      },
+      {
+        "lat": 35.7825007,
+        "lon": 51.4194639,
+        "offsetSeconds": 4256.4,
+        "speedKph": 40.0,
+        "rpm": 1999
+      },
+      {
+        "lat": 35.7813167,
+        "lon": 51.4189839,
+        "offsetSeconds": 4268.9,
+        "speedKph": 40.1,
+        "rpm": 2039
+      },
+      {
+        "lat": 35.7801332,
+        "lon": 51.4185039,
+        "offsetSeconds": 4281.6,
+        "speedKph": 39.2,
+        "rpm": 2011
+      },
+      {
+        "lat": 35.7789499,
+        "lon": 51.4180241,
+        "offsetSeconds": 4294.8,
+        "speedKph": 37.7,
+        "rpm": 1926
+      },
+      {
+        "lat": 35.7777671,
+        "lon": 51.4175443,
+        "offsetSeconds": 4308.5,
+        "speedKph": 36.4,
+        "rpm": 1811
+      },
+      {
+        "lat": 35.7765846,
+        "lon": 51.4170647,
+        "offsetSeconds": 4322.5,
+        "speedKph": 35.8,
+        "rpm": 1722
+      },
+      {
+        "lat": 35.7754024,
+        "lon": 51.4165851,
+        "offsetSeconds": 4336.2,
+        "speedKph": 36.3,
+        "rpm": 1828
+      },
+      {
+        "lat": 35.7742206,
+        "lon": 51.4161056,
+        "offsetSeconds": 4349.5,
+        "speedKph": 37.5,
+        "rpm": 1935
+      },
+      {
+        "lat": 35.7730391,
+        "lon": 51.4156263,
+        "offsetSeconds": 4362.3,
+        "speedKph": 39.0,
+        "rpm": 2012
+      },
+      {
+        "lat": 35.7718579,
+        "lon": 51.415147,
+        "offsetSeconds": 4374.7,
+        "speedKph": 40.0,
+        "rpm": 2033
+      },
+      {
+        "lat": 35.7706769,
+        "lon": 51.4146677,
+        "offsetSeconds": 4387.2,
+        "speedKph": 40.1,
+        "rpm": 1986
+      },
+      {
+        "lat": 35.7694963,
+        "lon": 51.4141886,
+        "offsetSeconds": 4399.9,
+        "speedKph": 39.2,
+        "rpm": 1882
+      },
+      {
+        "lat": 35.7683159,
+        "lon": 51.4137095,
+        "offsetSeconds": 4413.2,
+        "speedKph": 37.7,
+        "rpm": 1773
+      },
+      {
+        "lat": 35.7671358,
+        "lon": 51.4132305,
+        "offsetSeconds": 4426.9,
+        "speedKph": 36.4,
+        "rpm": 1832
+      },
+      {
+        "lat": 35.7659558,
+        "lon": 51.4127516,
+        "offsetSeconds": 4440.8,
+        "speedKph": 35.8,
+        "rpm": 1891
+      },
+      {
+        "lat": 35.764776,
+        "lon": 51.4122727,
+        "offsetSeconds": 4454.6,
+        "speedKph": 36.3,
+        "rpm": 1940
+      },
+      {
+        "lat": 35.7635965,
+        "lon": 51.4117938,
+        "offsetSeconds": 4467.8,
+        "speedKph": 37.6,
+        "rpm": 1968
+      },
+      {
+        "lat": 35.762417,
+        "lon": 51.411315,
+        "offsetSeconds": 4480.6,
+        "speedKph": 39.1,
+        "rpm": 1958
+      },
+      {
+        "lat": 35.7612376,
+        "lon": 51.4108362,
+        "offsetSeconds": 4493.1,
+        "speedKph": 40.1,
+        "rpm": 1904
+      },
+      {
+        "lat": 35.7600584,
+        "lon": 51.4103575,
+        "offsetSeconds": 4505.5,
+        "speedKph": 40.1,
+        "rpm": 1837
+      },
+      {
+        "lat": 35.7588792,
+        "lon": 51.4098787,
+        "offsetSeconds": 4520.4,
+        "speedKph": 33.4,
+        "rpm": 1758
+      },
+      {
+        "lat": 35.7577,
+        "lon": 51.4094,
+        "offsetSeconds": 4539.4,
+        "speedKph": 26.2,
+        "rpm": 1643,
+        "label": "میدان ونک"
+      },
+      {
+        "lat": 35.7566678,
+        "lon": 51.4082314,
+        "offsetSeconds": 4557.9,
+        "speedKph": 30.6,
+        "rpm": 1666
+      },
+      {
+        "lat": 35.7556354,
+        "lon": 51.4070626,
+        "offsetSeconds": 4573.3,
+        "speedKph": 36.9,
+        "rpm": 1745
+      },
+      {
+        "lat": 35.7546028,
+        "lon": 51.4058934,
+        "offsetSeconds": 4586.1,
+        "speedKph": 44.2,
+        "rpm": 2031
+      },
+      {
+        "lat": 35.7535698,
+        "lon": 51.4047237,
+        "offsetSeconds": 4598.5,
+        "speedKph": 45.5,
+        "rpm": 2139
+      },
+      {
+        "lat": 35.7525364,
+        "lon": 51.4035534,
+        "offsetSeconds": 4610.6,
+        "speedKph": 47.0,
+        "rpm": 2218
+      },
+      {
+        "lat": 35.7515024,
+        "lon": 51.4023821,
+        "offsetSeconds": 4622.3,
+        "speedKph": 48.0,
+        "rpm": 2242
+      },
+      {
+        "lat": 35.7504677,
+        "lon": 51.4012099,
+        "offsetSeconds": 4634.1,
+        "speedKph": 48.1,
+        "rpm": 2198
+      },
+      {
+        "lat": 35.7494322,
+        "lon": 51.4000366,
+        "offsetSeconds": 4646.1,
+        "speedKph": 47.2,
+        "rpm": 2096
+      },
+      {
+        "lat": 35.748396,
+        "lon": 51.3988621,
+        "offsetSeconds": 4658.5,
+        "speedKph": 45.7,
+        "rpm": 1976
+      },
+      {
+        "lat": 35.7473588,
+        "lon": 51.3976863,
+        "offsetSeconds": 4671.2,
+        "speedKph": 44.4,
+        "rpm": 2036
+      },
+      {
+        "lat": 35.7463208,
+        "lon": 51.3965092,
+        "offsetSeconds": 4684.1,
+        "speedKph": 43.8,
+        "rpm": 2096
+      },
+      {
+        "lat": 35.7452817,
+        "lon": 51.3953306,
+        "offsetSeconds": 4696.9,
+        "speedKph": 44.3,
+        "rpm": 2147
+      },
+      {
+        "lat": 35.7442417,
+        "lon": 51.3941506,
+        "offsetSeconds": 4709.4,
+        "speedKph": 45.5,
+        "rpm": 2176
+      },
+      {
+        "lat": 35.7432008,
+        "lon": 51.3929692,
+        "offsetSeconds": 4721.4,
+        "speedKph": 47.0,
+        "rpm": 2169
+      },
+      {
+        "lat": 35.7421588,
+        "lon": 51.3917863,
+        "offsetSeconds": 4733.2,
+        "speedKph": 48.0,
+        "rpm": 2116
+      },
+      {
+        "lat": 35.741116,
+        "lon": 51.3906021,
+        "offsetSeconds": 4744.9,
+        "speedKph": 48.1,
+        "rpm": 2040
+      },
+      {
+        "lat": 35.7400722,
+        "lon": 51.3894166,
+        "offsetSeconds": 4756.9,
+        "speedKph": 47.2,
+        "rpm": 2110
+      },
+      {
+        "lat": 35.7390277,
+        "lon": 51.3882299,
+        "offsetSeconds": 4769.3,
+        "speedKph": 45.7,
+        "rpm": 2146
+      },
+      {
+        "lat": 35.7379824,
+        "lon": 51.3870421,
+        "offsetSeconds": 4782.1,
+        "speedKph": 44.4,
+        "rpm": 2150
+      },
+      {
+        "lat": 35.7369364,
+        "lon": 51.3858534,
+        "offsetSeconds": 4795.0,
+        "speedKph": 43.8,
+        "rpm": 2131
+      },
+      {
+        "lat": 35.7358898,
+        "lon": 51.3846637,
+        "offsetSeconds": 4807.8,
+        "speedKph": 44.3,
+        "rpm": 2097
+      },
+      {
+        "lat": 35.7348428,
+        "lon": 51.3834734,
+        "offsetSeconds": 4820.2,
+        "speedKph": 45.6,
+        "rpm": 2050
+      },
+      {
+        "lat": 35.7337954,
+        "lon": 51.3822826,
+        "offsetSeconds": 4832.2,
+        "speedKph": 47.1,
+        "rpm": 2015
+      },
+      {
+        "lat": 35.7327478,
+        "lon": 51.3810914,
+        "offsetSeconds": 4846.0,
+        "speedKph": 41.2,
+        "rpm": 1956
+      },
+      {
+        "lat": 35.7317,
+        "lon": 51.3799,
+        "offsetSeconds": 4862.5,
+        "speedKph": 34.3,
+        "rpm": 1850,
+        "label": "گیشا"
+      },
+      {
+        "lat": 35.7306727,
+        "lon": 51.3785236,
+        "offsetSeconds": 4878.8,
+        "speedKph": 37.4,
+        "rpm": 1759
+      },
+      {
+        "lat": 35.7296453,
+        "lon": 51.3771472,
+        "offsetSeconds": 4892.0,
+        "speedKph": 46.2,
+        "rpm": 2083
+      },
+      {
+        "lat": 35.7286178,
+        "lon": 51.3757707,
+        "offsetSeconds": 4903.3,
+        "speedKph": 54.1,
+        "rpm": 2362
+      },
+      {
+        "lat": 35.7275902,
+        "lon": 51.3743939,
+        "offsetSeconds": 4914.8,
+        "speedKph": 53.2,
+        "rpm": 2378
+      },
+      {
+        "lat": 35.7265625,
+        "lon": 51.3730169,
+        "offsetSeconds": 4926.6,
+        "speedKph": 51.7,
+        "rpm": 2337
+      },
+      {
+        "lat": 35.7255345,
+        "lon": 51.3716395,
+        "offsetSeconds": 4938.7,
+        "speedKph": 50.4,
+        "rpm": 2257
+      },
+      {
+        "lat": 35.7245063,
+        "lon": 51.3702618,
+        "offsetSeconds": 4951.0,
+        "speedKph": 49.8,
+        "rpm": 2164
+      },
+      {
+        "lat": 35.7234778,
+        "lon": 51.3688837,
+        "offsetSeconds": 4963.1,
+        "speedKph": 50.3,
+        "rpm": 2095
+      },
+      {
+        "lat": 35.722449,
+        "lon": 51.367505,
+        "offsetSeconds": 4974.9,
+        "speedKph": 51.6,
+        "rpm": 2223
+      },
+      {
+        "lat": 35.7214198,
+        "lon": 51.3661259,
+        "offsetSeconds": 4986.4,
+        "speedKph": 53.1,
+        "rpm": 2336
+      },
+      {
+        "lat": 35.7203903,
+        "lon": 51.3647461,
+        "offsetSeconds": 4997.7,
+        "speedKph": 54.1,
+        "rpm": 2402
+      },
+      {
+        "lat": 35.7193603,
+        "lon": 51.3633658,
+        "offsetSeconds": 5009.0,
+        "speedKph": 54.1,
+        "rpm": 2398
+      },
+      {
+        "lat": 35.71833,
+        "lon": 51.3619849,
+        "offsetSeconds": 5020.5,
+        "speedKph": 53.1,
+        "rpm": 2328
+      },
+      {
+        "lat": 35.7172993,
+        "lon": 51.3606033,
+        "offsetSeconds": 5032.3,
+        "speedKph": 51.6,
+        "rpm": 2210
+      },
+      {
+        "lat": 35.7162681,
+        "lon": 51.3592211,
+        "offsetSeconds": 5044.5,
+        "speedKph": 50.3,
+        "rpm": 2098
+      },
+      {
+        "lat": 35.7152365,
+        "lon": 51.3578382,
+        "offsetSeconds": 5056.7,
+        "speedKph": 49.8,
+        "rpm": 2179
+      },
+      {
+        "lat": 35.7142044,
+        "lon": 51.3564546,
+        "offsetSeconds": 5068.8,
+        "speedKph": 50.3,
+        "rpm": 2266
+      },
+      {
+        "lat": 35.7131719,
+        "lon": 51.3550704,
+        "offsetSeconds": 5080.7,
+        "speedKph": 51.6,
+        "rpm": 2338
+      },
+      {
+        "lat": 35.712139,
+        "lon": 51.3536855,
+        "offsetSeconds": 5092.2,
+        "speedKph": 53.1,
+        "rpm": 2372
+      },
+      {
+        "lat": 35.7111057,
+        "lon": 51.3523,
+        "offsetSeconds": 5103.5,
+        "speedKph": 54.1,
+        "rpm": 2351
+      },
+      {
+        "lat": 35.710072,
+        "lon": 51.3509139,
+        "offsetSeconds": 5114.7,
+        "speedKph": 54.1,
+        "rpm": 2271
+      },
+      {
+        "lat": 35.709038,
+        "lon": 51.3495273,
+        "offsetSeconds": 5126.2,
+        "speedKph": 53.1,
+        "rpm": 2172
+      },
+      {
+        "lat": 35.7080036,
+        "lon": 51.3481401,
+        "offsetSeconds": 5138.1,
+        "speedKph": 51.6,
+        "rpm": 2227
+      },
+      {
+        "lat": 35.7069689,
+        "lon": 51.3467525,
+        "offsetSeconds": 5150.2,
+        "speedKph": 50.3,
+        "rpm": 2267
+      },
+      {
+        "lat": 35.7059339,
+        "lon": 51.3453644,
+        "offsetSeconds": 5162.5,
+        "speedKph": 49.8,
+        "rpm": 2292
+      },
+      {
+        "lat": 35.7048986,
+        "lon": 51.3439759,
+        "offsetSeconds": 5174.6,
+        "speedKph": 50.3,
+        "rpm": 2300
+      },
+      {
+        "lat": 35.7038631,
+        "lon": 51.3425871,
+        "offsetSeconds": 5186.4,
+        "speedKph": 51.6,
+        "rpm": 2287
+      },
+      {
+        "lat": 35.7028275,
+        "lon": 51.3411981,
+        "offsetSeconds": 5197.9,
+        "speedKph": 53.1,
+        "rpm": 2245
+      },
+      {
+        "lat": 35.7017917,
+        "lon": 51.3398088,
+        "offsetSeconds": 5209.2,
+        "speedKph": 54.1,
+        "rpm": 2199
+      },
+      {
+        "lat": 35.7007559,
+        "lon": 51.3384194,
+        "offsetSeconds": 5222.4,
+        "speedKph": 46.3,
+        "rpm": 2090
+      },
+      {
+        "lat": 35.69972,
+        "lon": 51.33703,
+        "offsetSeconds": 5238.7,
+        "speedKph": 37.5,
+        "rpm": 1934,
+        "label": "بازگشت: میدان آزادی"
+      }
+    ]
+  }
+}

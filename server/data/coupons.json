@@ -1,0 +1,3 @@
+[
+  {"code":"WELCOME20","active":true,"percent":20,"maxUses":1000,"uses":0,"startsAt":"2026-01-01T00:00:00.000Z","endsAt":"2027-01-01T00:00:00.000Z","offerIds":["pro_monthly"],"storeOfferIds":{"googlePlay":"welcome20","cafebazaar":"pro_monthly_welcome20","myket":"pro_monthly_welcome20"}}
+]

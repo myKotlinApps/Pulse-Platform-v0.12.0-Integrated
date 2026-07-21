@@ -1,0 +1,38 @@
+{
+  "version": "0.8.5",
+  "bundledStatus": "registry-and-existing-generic-data",
+  "sources": [
+    {
+      "id": "obdex",
+      "name": "OBDex",
+      "coverage": "Generic OBD-II DTCs and Mode 01/09 PIDs",
+      "license": "CC0 data / MIT tooling",
+      "runtime": "Existing online sync with local fallback",
+      "manufacturerSpecific": false
+    },
+    {
+      "id": "obdb-saej1979",
+      "name": "OBDb SAEJ1979",
+      "coverage": "Standard SAE J1979 PID definitions",
+      "license": "CC BY-SA 4.0",
+      "runtime": "Importer-ready source registry",
+      "manufacturerSpecific": false
+    },
+    {
+      "id": "ddt4all",
+      "name": "DDT4All",
+      "coverage": "Renault/Dacia ECU JSON/XML and ecu.zip-compatible formats",
+      "license": "GPL-3.0 application; imported database licensing varies",
+      "runtime": "Importer-ready; no unlicensed ecu.zip bundled",
+      "manufacturerSpecific": true
+    },
+    {
+      "id": "opendbc",
+      "name": "OpenDBC",
+      "coverage": "Open CAN/DBC definitions for supported vehicles",
+      "license": "MIT",
+      "runtime": "Importer-ready source registry",
+      "manufacturerSpecific": true
+    }
+  ]
+}

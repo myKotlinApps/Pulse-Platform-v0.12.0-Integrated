@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="14dp">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+<ImageView android:id="@+id/vehicleLogo" android:layout_width="88dp" android:layout_height="88dp" android:contentDescription="لوگوی خودرو" android:scaleType="fitCenter"/>
+<LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:orientation="vertical">
+<TextView android:id="@+id/demoBadge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_input" android:padding="6dp" android:text="پروفایل دمو · داده آزمایشی" android:textColor="@color/cyan" android:textSize="9sp"/>
+<TextView android:id="@+id/vehicleTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:text="خودروی انتخاب نشده" android:textColor="@color/text" android:textStyle="bold" android:textSize="19sp"/>
+<TextView android:id="@+id/protocolText" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="برای شروع اتصال را تنظیم کنید" android:textColor="@color/muted" android:textSize="10sp"/>
+</LinearLayout>
+</LinearLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal" android:weightSum="2">
+<com.ecupulse.app.ui.GaugeView android:id="@+id/speedGauge" android:layout_width="0dp" android:layout_height="230dp" android:layout_weight="1"/>
+<com.ecupulse.app.ui.GaugeView android:id="@+id/rpmGauge" android:layout_width="0dp" android:layout_height="230dp" android:layout_weight="1"/>
+</LinearLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:background="@drawable/bg_card" android:orientation="horizontal" android:weightSum="3">
+<TextView android:id="@+id/coolantText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:padding="8dp" android:text="آب
+-- °C" android:textColor="@color/text"/>
+<TextView android:id="@+id/loadText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:padding="8dp" android:text="بار
+-- %" android:textColor="@color/text"/>
+<TextView android:id="@+id/voltageText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:padding="8dp" android:text="ولتاژ
+-- V" android:textColor="@color/text"/>
+</LinearLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal">
+<Button android:id="@+id/demoResetButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:minHeight="52dp" android:gravity="center" android:paddingLeft="14dp" android:paddingRight="14dp" android:textAllCaps="false" android:text="شروع دمو"/>
+<Button android:id="@+id/demoTripButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="8dp" android:text="مسیر دمو"/>
+<Button android:id="@+id/readLiveButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="8dp" android:text="شروع/توقف داده زنده"/>
+</LinearLayout>
+</LinearLayout></ScrollView>

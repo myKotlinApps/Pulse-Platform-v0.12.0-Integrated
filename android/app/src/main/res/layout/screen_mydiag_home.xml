@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fillViewport="true" android:background="@color/mydiag_bg">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="16dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:padding="18dp" android:background="@drawable/bg_mydiag_hero">
+            <ImageView android:id="@+id/homeVehicleLogo" android:layout_width="88dp" android:layout_height="88dp"
+                android:background="@drawable/bg_logo_white" android:padding="8dp" android:scaleType="centerInside"/>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:orientation="vertical" android:paddingStart="16dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="خودروی فعال" android:textColor="#A8C8DF" android:textSize="11sp"/>
+                <TextView android:id="@+id/homeVehicleTitle" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="ECU Pulse Demo" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="21sp"/>
+                <TextView android:id="@+id/homeConnectionText" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="شبیه‌ساز آماده است" android:textColor="#8DE6C1" android:textSize="11sp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="22dp" android:layout_marginBottom="10dp"
+            android:text="منوهای اصلی · ۱۳ بخش" android:textStyle="bold" android:textColor="@color/mydiag_text" android:textSize="18sp"/>
+        <GridLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:columnCount="2" android:alignmentMode="alignMargins" android:useDefaultMargins="true">
+            <Button android:id="@+id/menuDashboard" style="@style/MyDiagMenuButton" android:text="داشبورد&#10;گیج‌ها و داده زنده"/>
+            <Button android:id="@+id/menuDiagnosis" style="@style/MyDiagMenuButton" android:text="عیب‌یابی خودرو&#10;خواندن و پاک‌کردن خطا"/>
+            <Button android:id="@+id/menuDrivingRecord" style="@style/MyDiagMenuButton" android:text="سوابق رانندگی&#10;مسیر و بازپخش"/>
+            <Button android:id="@+id/menuDrivingStyle" style="@style/MyDiagMenuButton" android:text="سبک رانندگی&#10;شتاب و امتیاز"/>
+            <Button android:id="@+id/menuVehicleManagement" style="@style/MyDiagMenuButton" android:text="مدیریت خودرو&#10;پروفایل و مدل"/>
+            <Button android:id="@+id/menuParking" style="@style/MyDiagMenuButton" android:text="پارکینگ&#10;محل آخرین توقف"/>
+            <Button android:id="@+id/menuDashcam" style="@style/MyDiagMenuButton" android:text="دوربین خودرو&#10;نمایش ویدئوی محلی"/>
+            <Button android:id="@+id/menuMall" style="@style/MyDiagMenuButton" android:text="فروشگاه تجهیزات&#10;دانگل و خدمات"/>
+            <Button android:id="@+id/menuScanner" style="@style/MyDiagMenuButton" android:text="اسکنر و اتصال&#10;Bluetooth و Wi‑Fi"/>
+            <Button android:id="@+id/menuPro" style="@style/MyDiagMenuButton" android:text="ارتقای Pro&#10;امکانات پیشرفته"/>
+            <Button android:id="@+id/menuRegisterVehicle" style="@style/MyDiagMenuButton" android:text="ثبت خودرو&#10;پروفایل جدید"/>
+            <Button android:id="@+id/menuSettings" style="@style/MyDiagMenuButton" android:text="تنظیمات&#10;اتصال و API"/>
+            <Button android:id="@+id/menuPurchase" style="@style/MyDiagMenuButton" android:text="خرید اشتراک&#10;فعال‌سازی و تخفیف"/>
+        </GridLayout>
+    </LinearLayout>
+</ScrollView>

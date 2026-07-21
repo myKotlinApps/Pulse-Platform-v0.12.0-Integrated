@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true"><LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+<ImageView android:id="@+id/vehicleLogo" android:layout_width="104dp" android:layout_height="104dp" android:layout_gravity="center_horizontal" android:contentDescription="لوگوی خودرو" android:scaleType="fitCenter"/>
+<TextView android:id="@+id/demoBadge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_marginTop="6dp" android:background="@drawable/bg_input" android:paddingLeft="12dp" android:paddingRight="12dp" android:paddingTop="6dp" android:paddingBottom="6dp" android:text="پروفایل دمو · داده آزمایشی" android:textColor="@color/cyan" android:textSize="10sp"/>
+<TextView android:id="@+id/vehicleTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="خودروی انتخاب نشده" android:textColor="@color/text" android:textStyle="bold" android:textSize="20sp"/>
+<TextView android:id="@+id/protocolText" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="برای شروع اتصال را تنظیم کنید" android:textColor="@color/muted" android:textSize="11sp"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:orientation="vertical">
+<com.ecupulse.app.ui.GaugeView android:id="@+id/speedGauge" android:layout_width="match_parent" android:layout_height="280dp"/>
+<com.ecupulse.app.ui.GaugeView android:id="@+id/rpmGauge" android:layout_width="match_parent" android:layout_height="280dp" android:layout_marginTop="8dp"/>
+</LinearLayout>
+<com.ecupulse.app.ui.theme.EpsThemePanelView android:id="@+id/epsThemePanel" android:layout_width="match_parent" android:layout_height="300dp" android:layout_marginTop="12dp" android:visibility="gone"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:background="@drawable/bg_card" android:orientation="horizontal" android:weightSum="3">
+<TextView android:id="@+id/coolantText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="آب
+-- °C" android:textColor="@color/text"/>
+<TextView android:id="@+id/loadText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="بار
+-- %" android:textColor="@color/text"/>
+<TextView android:id="@+id/voltageText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="ولتاژ
+-- V" android:textColor="@color/text"/>
+</LinearLayout>
+<Button android:id="@+id/demoResetButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:minHeight="52dp" android:gravity="center" android:paddingLeft="14dp" android:paddingRight="14dp" android:textAllCaps="false" android:text="شروع دمو"/>
+<Button android:id="@+id/demoTripButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="نمایش و بازپخش مسیر نمایشی تهران"/>
+<Button android:id="@+id/readLiveButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="شروع/توقف داده زنده"/>
+</LinearLayout></ScrollView>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ECU Pulse</string>
+    <string name="nav_dashboard">داشبورد</string>
+    <string name="nav_dtc">خطاها</string>
+    <string name="nav_vehicle">خودرو</string>
+    <string name="nav_pro">پیشرفته</string>
+    <string name="nav_settings">اتصال</string>
+</resources>

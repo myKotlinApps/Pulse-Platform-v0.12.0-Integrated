@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 220" role="img" aria-label="Zamyad">
+<circle cx="120" cy="90" r="70" fill="#fff" stroke="#0057a4" stroke-width="8"/>
+<path d="M65 55h110l-72 73h72v25H61l72-73H65z" fill="#0057a4"/>
+<path d="M72 155h96" stroke="#ef7d00" stroke-width="9" stroke-linecap="round"/>
+<text x="120" y="202" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="900" letter-spacing="3" fill="#0057a4">ZAMYAD</text>
+</svg>

@@ -1,0 +1,4 @@
+Name,ShortName,ModeAndPID,Equation,Min Value,Max Value,Units,Header
+Engine RPM,RPM,010C,"(A*256+B)/4",0,8000,rpm,
+Coolant Temperature,ECT,0105,A-40,-40,215,°C,
+Example Read-Only Manufacturer PID,EXAMPLE,22F190,"ASCII(A:B:C:D)",0,0,text,7E0

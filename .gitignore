@@ -1,0 +1,30 @@
+# Android / Gradle
+.gradle/
+**/.gradle/
+**/build/
+android/local.properties
+*.apk
+*.aab
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Node / server
+node_modules/
+npm-debug.log*
+
+# Local CI downloads and secrets
+GitHub_APK_Artifacts/
+*.jks
+*.keystore
+keystore.properties
+local.properties
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/

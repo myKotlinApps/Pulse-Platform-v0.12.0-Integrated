@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 240" role="img" aria-label="SAIPA">
+<g fill="#ef7d00" transform="translate(110 104)">
+<path d="M-14-82h28v70l49 29-14 24-49-28-49 28-14-24 49-29z"/>
+<path d="M-77-34l24-14 35 60-49 28 14 24 49-28v57h28V36l49 28 14-24-49-28 35-60-24-14-35 60-35-60-24 14 35 60z" opacity=".98"/>
+</g>
+<text x="110" y="220" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="900" letter-spacing="4" fill="#18509c">SAIPA</text>
+</svg>

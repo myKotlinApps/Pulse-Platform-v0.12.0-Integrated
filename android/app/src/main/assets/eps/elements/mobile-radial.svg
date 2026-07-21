@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300">
+<defs><linearGradient id="g"><stop stop-color="#6af6ff"/><stop offset=".55" stop-color="#5d43ff"/><stop offset="1" stop-color="#c31cff"/></linearGradient></defs>
+<rect width="360" height="300" rx="28" fill="#21184c"/>
+<path d="M64 235a124 124 0 1 1 232 0" fill="none" stroke="#36315e" stroke-width="20" stroke-dasharray="3 6"/>
+<path d="M64 235a124 124 0 1 1 232 0" fill="none" stroke="url(#g)" stroke-width="20" stroke-dasharray="370 410"/>
+<text x="180" y="142" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#fff">ENGINE ACTIVITY</text>
+<text x="180" y="190" text-anchor="middle" font-family="sans-serif" font-size="52" font-weight="bold" fill="#b22cff">8402</text>
+</svg>

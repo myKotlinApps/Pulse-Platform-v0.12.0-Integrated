@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>VPulse v0.13.0 — Vehicle Intelligence</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #ffffff;
+  --surface: #f8f9fb;
+  --card: #ffffff;
+  --text: #1a1a2e;
+  --textSec: #6b7280;
+  --accent: #2563eb;
+  --accentLight: #dbeafe;
+  --danger: #ef4444;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --border: #e5e7eb;
+  --shadow: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family:'Vazirmatn',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  padding-bottom:80px;
+}
+
+/* HEADER */
+.header {
+  position:sticky; top:0; z-index:100;
+  background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);
+  padding:12px 16px;
+  display:flex; align-items:center; justify-content:space-between;
+  box-shadow:0 4px 20px rgba(0,0,0,0.15);
+}
+.header .menu-btn {
+  width:40px; height:40px; border-radius:10px;
+  background:rgba(255,255,255,0.08);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:0.2s;
+}
+.header .menu-btn:hover { background:rgba(255,255,255,0.15); }
+.header .menu-btn svg { width:22px; height:22px; stroke:#fff; stroke-width:2; }
+.header .logo {
+  display:flex; align-items:center; gap:10px;
+}
+.header .logo-icon {
+  width:36px; height:36px; border-radius:10px;
+  background:linear-gradient(135deg,#2563eb,#0ea5e9);
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-weight:800; font-size:14px;
+  box-shadow:0 0 12px rgba(37,99,235,0.4);
+}
+.header .logo-text { color:#fff; font-weight:700; font-size:18px; letter-spacing:-0.5px; }
+.header .version { color:rgba(255,255,255,0.5); font-size:10px; font-weight:500; margin-right:4px; }
+.header .notif-btn {
+  width:40px; height:40px; border-radius:10px;
+  background:rgba(255,255,255,0.08);
+  display:flex; align-items:center; justify-content:center;
+  position:relative; cursor:pointer;
+}
+.header .notif-btn svg { width:20px; height:20px; stroke:#fff; stroke-width:2; }
+.header .notif-dot {
+  position:absolute; top:8px; left:8px;
+  width:8px; height:8px; border-radius:50%; background:var(--danger);
+  border:2px solid #1a1a2e;
+}
+
+/* SIDE MENU */
+.side-menu {
+  position:fixed; top:0; right:0; width:280px; height:100vh;
+  background:#fff; z-index:200;
+  transform:translateX(100%); transition:0.3s cubic-bezier(.4,0,.2,1);
+  box-shadow:-10px 0 40px rgba(0,0,0,0.1);
+  overflow-y:auto;
+}
+.side-menu.open { transform:translateX(0); }
+.side-menu .sm-header {
+  background:linear-gradient(135deg,#1a1a2e,#16213e);
+  padding:20px; color:#fff;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.side-menu .sm-header .title { font-weight:700; font-size:16px; }
+.side-menu .sm-header .close { cursor:pointer; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:8px; background:rgba(255,255,255,0.1); }
+.side-menu .sm-header .close svg { width:18px; height:18px; stroke:#fff; stroke-width:2; }
+.side-menu .sm-body { padding:12px; }
+.side-menu .sm-item {
+  display:flex; align-items:center; gap:12px; padding:14px 12px;
+  border-radius:10px; cursor:pointer; transition:0.15s;
+  color:var(--text); text-decoration:none;
+}
+.side-menu .sm-item:hover { background:var(--accentLight); color:var(--accent); }
+.side-menu .sm-item svg { width:22px; height:22px; stroke:var(--textSec); stroke-width:2; flex-shrink:0; }
+.side-menu .sm-item:hover svg { stroke:var(--accent); }
+.side-menu .sm-item .label { font-size:14px; font-weight:500; }
+.side-menu .sm-divider { height:1px; background:var(--border); margin:8px 12px; }
+.overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:150; opacity:0; pointer-events:none; transition:0.3s; }
+.overlay.show { opacity:1; pointer-events:auto; }
+
+/* SEARCH */
+.search-box {
+  margin:16px;
+  position:relative;
+}
+.search-box input {
+  width:100%; padding:14px 48px 14px 16px;
+  border:1.5px solid var(--border); border-radius:var(--radius);
+  font-family:inherit; font-size:15px; background:var(--card);
+  outline:none; transition:0.2s;
+  box-shadow:var(--shadow);
+}
+.search-box input:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accentLight); }
+.search-box .search-icon {
+  position:absolute; right:16px; top:50%; transform:translateY(-50%);
+  width:20px; height:20px; stroke:var(--textSec); stroke-width:2;
+}
+.search-box .clear-btn {
+  position:absolute; left:12px; top:50%; transform:translateY(-50%);
+  width:26px; height:26px; border-radius:50%; background:var(--surface);
+  display:none; align-items:center; justify-content:center;
+  cursor:pointer; border:1px solid var(--border);
+}
+.search-box .clear-btn.show { display:flex; }
+.search-box .clear-btn svg { width:14px; height:14px; stroke:var(--textSec); stroke-width:2; }
+
+.search-results {
+  margin:0 16px 16px;
+  background:var(--card); border-radius:var(--radius);
+  box-shadow:var(--shadow-lg); border:1px solid var(--border);
+  overflow:hidden; display:none;
+}
+.search-results.show { display:block; }
+.search-results .sr-item {
+  display:flex; align-items:center; gap:12px; padding:12px 16px;
+  cursor:pointer; border-bottom:1px solid var(--border); transition:0.15s;
+}
+.search-results .sr-item:last-child { border-bottom:none; }
+.search-results .sr-item:hover { background:var(--accentLight); }
+.search-results .sr-item .brand-logo {
+  width:40px; height:40px; border-radius:8px; background:var(--surface);
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; flex-shrink:0;
+}
+.search-results .sr-item .brand-logo img { width:32px; height:32px; object-fit:contain; }
+.search-results .sr-item .brand-logo .fallback {
+  width:32px; height:32px; border-radius:6px; background:var(--accent);
+  color:#fff; font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center;
+}
+.search-results .sr-item .info { flex:1; }
+.search-results .sr-item .info .model { font-weight:600; font-size:14px; }
+.search-results .sr-item .info .brand { font-size:12px; color:var(--textSec); margin-top:2px; }
+.search-results .sr-item .arrow { width:16px; height:16px; stroke:var(--textSec); stroke-width:2; flex-shrink:0; }
+
+/* CARDS */
+.card {
+  background:var(--card); border-radius:var(--radius);
+  box-shadow:var(--shadow); border:1px solid var(--border);
+  overflow:hidden; transition:0.2s;
+}
+.card:active { transform:scale(0.98); }
+
+/* VEHICLE CARD */
+.vehicle-card { margin:0 16px 16px; padding:16px; }
+.vehicle-card .vc-header {
+  display:flex; align-items:center; gap:12px; margin-bottom:16px;
+}
+.vehicle-card .vc-logo {
+  width:56px; height:56px; border-radius:12px; background:var(--surface);
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
+  flex-shrink:0; border:1px solid var(--border);
+}
+.vehicle-card .vc-logo img { width:44px; height:44px; object-fit:contain; }
+.vehicle-card .vc-logo .fallback {
+  width:44px; height:44px; border-radius:8px; background:var(--accent);
+  color:#fff; font-weight:800; font-size:16px; display:flex; align-items:center; justify-content:center;
+}
+.vehicle-card .vc-info { flex:1; }
+.vehicle-card .vc-info .name { font-weight:700; font-size:17px; }
+.vehicle-card .vc-info .sub { font-size:12px; color:var(--textSec); margin-top:4px; }
+.vehicle-card .vc-info .sub .year { background:var(--accentLight); color:var(--accent); padding:2px 8px; border-radius:6px; font-size:11px; font-weight:600; margin-right:6px; }
+.vehicle-card .vc-stats {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
+}
+.vehicle-card .vc-stat {
+  background:var(--surface); border-radius:10px; padding:12px 8px; text-align:center;
+  border:1px solid var(--border);
+}
+.vehicle-card .vc-stat .val { font-weight:700; font-size:18px; color:var(--accent); }
+.vehicle-card .vc-stat .val.danger { color:var(--danger); }
+.vehicle-card .vc-stat .val.warning { color:var(--warning); }
+.vehicle-card .vc-stat .val.success { color:var(--success); }
+.vehicle-card .vc-stat .label { font-size:11px; color:var(--textSec); margin-top:4px; font-weight:500; }
+.vehicle-card .vc-bar {
+  margin-top:12px; height:6px; background:var(--surface); border-radius:3px; overflow:hidden;
+}
+.vehicle-card .vc-bar .fill { height:100%; border-radius:3px; background:linear-gradient(90deg,var(--accent),#0ea5e9); transition:0.5s; }
+
+/* GRID */
+.grid-section { margin:0 16px 16px; }
+.grid-section .gs-title {
+  display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;
+}
+.grid-section .gs-title h2 { font-size:15px; font-weight:700; }
+.grid-section .gs-title .more { font-size:12px; color:var(--accent); font-weight:600; cursor:pointer; }
+.grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
+}
+.grid-item {
+  background:var(--card); border-radius:var(--radius-sm);
+  box-shadow:var(--shadow); border:1px solid var(--border);
+  padding:16px 8px; text-align:center; cursor:pointer; transition:0.15s;
+  position:relative; overflow:hidden;
+}
+.grid-item:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:var(--shadow-lg); }
+.grid-item:active { transform:scale(0.95); }
+.grid-item .g-icon {
+  width:44px; height:44px; border-radius:12px; margin:0 auto 10px;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,var(--accentLight),#e0e7ff);
+}
+.grid-item .g-icon svg { width:22px; height:22px; stroke:var(--accent); stroke-width:2; }
+.grid-item .g-label { font-size:12px; font-weight:600; color:var(--text); }
+.grid-item .g-badge {
+  position:absolute; top:6px; left:6px;
+  background:var(--danger); color:#fff; font-size:9px; font-weight:700;
+  padding:2px 6px; border-radius:4px;
+}
+
+/* BOTTOM NAV */
+.bottom-nav {
+  position:fixed; bottom:0; left:0; right:0;
+  background:#fff; border-top:1px solid var(--border);
+  display:flex; justify-content:space-around; padding:8px 0 12px;
+  z-index:90; box-shadow:0 -4px 20px rgba(0,0,0,0.05);
+}
+.bottom-nav .nav-item {
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  padding:6px 16px; border-radius:12px; cursor:pointer; transition:0.15s;
+  border:none; background:none; font-family:inherit; color:var(--textSec);
+}
+.bottom-nav .nav-item.active { color:var(--accent); background:var(--accentLight); }
+.bottom-nav .nav-item svg { width:22px; height:22px; stroke-width:2; stroke:currentColor; fill:none; }
+.bottom-nav .nav-item span { font-size:11px; font-weight:600; }
+
+/* SECTIONS */
+.section { display:none; padding:8px 0; }
+.section.active { display:block; }
+
+/* UTILS */
+.pulse-dot {
+  width:8px; height:8px; border-radius:50%; background:var(--accent);
+  animation:pulse 2s infinite; display:inline-block;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+
+/* Quick actions */
+.quick-actions { margin:0 16px 16px; display:flex; gap:10px; overflow-x:auto; padding-bottom:4px; }
+.quick-actions::-webkit-scrollbar { display:none; }
+.qa-btn {
+  flex-shrink:0; display:flex; align-items:center; gap:8px;
+  padding:10px 16px; border-radius:10px; background:var(--surface);
+  border:1px solid var(--border); font-family:inherit; font-size:13px; font-weight:600;
+  color:var(--text); cursor:pointer; white-space:nowrap;
+}
+.qa-btn:hover { background:var(--accentLight); border-color:var(--accent); color:var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="menu-btn" onclick="toggleMenu()">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </div>
+  <div class="logo">
+    <div class="logo-icon">VP</div>
+    <div><span class="logo-text">VPulse</span><span class="version">v0.13.0</span></div>
+  </div>
+  <div class="notif-btn">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+    <span class="notif-dot"></span>
+  </div>
+</header>
+
+<!-- OVERLAY -->
+<div class="overlay" onclick="toggleMenu()"></div>
+
+<!-- SIDE MENU -->
+<aside class="side-menu" id="sideMenu">
+  <div class="sm-header">
+    <div class="title">منو</div>
+    <div class="close" onclick="toggleMenu()"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+  </div>
+  <div class="sm-body">
+    <a class="sm-item" href="#"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg><span class="label">داشبورد</span></a>
+    <a class="sm-item" href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="label">سابقه سرویس</span></a>
+    <a class="sm-item" href="#"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span class="label">ماژول‌های تشخیص</span></a>
+    <a class="sm-item" href="#"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span class="label">ECU Programming</span></a>
+    <div class="sm-divider"></div>
+    <a class="sm-item" href="#"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg><span class="label">گزارش‌ها</span></a>
+    <a class="sm-item" href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span class="label">تنظیمات</span></a>
+    <a class="sm-item" href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span class="label">راهنما</span></a>
+    <div class="sm-divider"></div>
+    <a class="sm-item" href="#" style="color:var(--danger)"><svg viewBox="0 0 24 24" style="stroke:var(--danger)"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg><span class="label">خروج</span></a>
+  </div>
+</aside>
+
+<!-- SEARCH -->
+<div class="search-box">
+  <svg class="search-icon" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+  <input type="text" id="searchInput" placeholder="جستجوی برند یا مدل خودرو... (مثال: پژو ۲۰۶، BMW X5)" autocomplete="off">
+  <div class="clear-btn" id="clearBtn" onclick="clearSearch()"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+</div>
+<div class="search-results" id="searchResults"></div>
+
+<!-- QUICK ACTIONS -->
+<div class="quick-actions">
+  <button class="qa-btn" onclick="scanNow()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>اسکن سریع</button>
+  <button class="qa-btn" onclick="showErrors()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>خطاها</button>
+  <button class="qa-btn" onclick="liveData()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>داده زنده</button>
+</div>
+
+<!-- SECTION: APP -->
+<div class="section active" id="appSection">
+
+<!-- VEHICLE CARD -->
+<div class="card vehicle-card">
+  <div class="vc-header">
+    <div class="vc-logo" id="vcLogo"><div class="fallback">VP</div></div>
+    <div class="vc-info">
+      <div class="name" id="vcName">خودروی پیش‌فرض</div>
+      <div class="sub"><span class="year">۱۴۰۲</span><span id="vcSub">برند نامشخص</span></div>
+    </div>
+  </div>
+  <div class="vc-stats">
+    <div class="vc-stat"><div class="val" id="vcTemp">--</div><div class="label">دمای موتور</div></div>
+    <div class="vc-stat"><div class="val" id="vcRpm">--</div><div class="label">دور موتور</div></div>
+    <div class="vc-stat"><div class="val" id="vcSpeed">--</div><div class="label">سرعت</div></div>
+  </div>
+  <div class="vc-bar"><div class="fill" id="vcBar" style="width:0%"></div></div>
+</div>
+
+<!-- GRID -->
+<div class="grid-section">
+  <div class="gs-title"><h2>دسته‌بندی‌ها</h2><span class="more" onclick="expandGrid()">همه</span></div>
+  <div class="grid">
+    <div class="grid-item" onclick="openPage('monitoring')">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div class="g-label">Monitoring</div>
+    </div>
+    <div class="grid-item" onclick="openPage('diagnostics')">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+      <div class="g-label">Diagnostics</div><span class="g-badge">3</span>
+    </div>
+    <div class="grid-item" onclick="openPage('freeze')">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg></div>
+      <div class="g-label">Freeze Frame</div>
+    </div>
+    <div class="grid-item" onclick="openPage('graphs')">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+      <div class="g-label">Graphs</div>
+    </div>
+    <div class="grid-item" onclick="openPage('reports')">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+      <div class="g-label">Reports</div>
+    </div>
+    <div class="grid-item" onclick="openPage('programming')">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <div class="g-label">Programming</div>
+    </div>
+    <div class="grid-item" onclick="openPage('system')">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
+      <div class="g-label">System</div>
+    </div>
+    <div class="grid-item" onclick="openPage('settings')">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
+      <div class="g-label">Settings</div>
+    </div>
+    <div class="grid-item" onclick="openPage('consumables')">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></div>
+      <div class="g-label">Consumables</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- SECTION: OBD2 -->
+<div class="section" id="obd2Section">
+<div class="grid-section" style="margin-top:16px">
+  <div class="gs-title"><h2>OBD2 — پارامترهای زنده</h2></div>
+  <div class="grid" style="grid-template-columns:repeat(2,1fr)">
+    <div class="grid-item" onclick="readDTC()">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+      <div class="g-label">Read DTC</div>
+    </div>
+    <div class="grid-item" onclick="clearDTC()">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></div>
+      <div class="g-label">Clear DTC</div>
+    </div>
+    <div class="grid-item" onclick="liveData()">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div class="g-label">Live Data</div>
+    </div>
+    <div class="grid-item" onclick="freezeFrame()">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg></div>
+      <div class="g-label">Freeze Frame</div>
+    </div>
+    <div class="grid-item" onclick="smogCheck()">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div>
+      <div class="g-label">Smog Check</div>
+    </div>
+    <div class="grid-item" onclick="vinDecoder()">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+      <div class="g-label">VIN Decoder</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SECTION: ECU -->
+<div class="section" id="ecuSection">
+<div class="grid-section" style="margin-top:16px">
+  <div class="gs-title"><h2>ECU Programming</h2></div>
+  <div class="grid" style="grid-template-columns:repeat(2,1fr)">
+    <div class="grid-item" onclick="readEcu()">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></div>
+      <div class="g-label">Read ECU</div>
+    </div>
+    <div class="grid-item" onclick="writeEcu()">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+      <div class="g-label">Write ECU</div>
+    </div>
+    <div class="grid-item" onclick="immobilizer()">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+      <div class="g-label">Immobilizer</div>
+    </div>
+    <div class="grid-item" onclick="keyCoding()">
+      <div class="g-icon"><svg viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="2.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+      <div class="g-label">Key Coding</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-item active" onclick="switchTab('app')" id="navApp">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
+    <span>APP</span>
+  </button>
+  <button class="nav-item" onclick="switchTab('obd2')" id="navOBD2">
+    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+    <span>OBD2</span>
+  </button>
+  <button class="nav-item" onclick="switchTab('ecu')" id="navECU">
+    <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    <span>ECU</span>
+  </button>
+</nav>
+
+<script>
+// ===== BRAND LOGOS DATA =====
+const BRANDS = [
+  {key:'ikco',label:'ایران‌خودرو',initials:'IK',png:'ikco-official-v120.png'},
+  {key:'saipa',label:'سایپا',initials:'SA',png:'saipa-official-v120.png'},
+  {key:'zamyad',label:'زامیاد',initials:'ZA',png:'zamyad-official-v120.png'},
+  {key:'bahman',label:'بهمن موتور',initials:'BM',png:'bahman-official-v120.png'},
+  {key:'kmc',label:'KMC',initials:'KMC',png:'kmc-official-v120.png'},
+  {key:'mvm',label:'MVM',initials:'MVM',png:'mvm-official-v120.png'},
+  {key:'fownix',label:'فونیکس',initials:'FX',png:'fownix-official-v120.png'},
+  {key:'farda',label:'فردا موتورز',initials:'FM',png:'farda-official-v120.png'},
+  {key:'lamari',label:'لاماری',initials:'LA',png:'lamari-official-v120.png'},
+  {key:'diar',label:'دیار خودرو',initials:'DI',png:'diar-official-v120.png'},
+  {key:'mammut',label:'ماموت خودرو',initials:'MM',png:'mammut-official-v120.png'},
+  {key:'parskhodro',label:'پارس‌خودرو',initials:'PK',png:'parskhodro-official-v120.png'},
+  {key:'bahmandiesel',label:'بهمن دیزل',initials:'BAH',png:'bahmandiesel-official-v120.png'},
+  {key:'ikcodiesel',label:'ایران‌خودرو دیزل',initials:'IKC',png:'ikcodiesel-official-v120.png'},
+  {key:'modirankhodro',label:'مدیران خودرو',initials:'MOD',png:'modirankhodro-official-v120.png'},
+  {key:'kermanmotor',label:'کرمان موتور',initials:'KER',png:'kermanmotor-official-v120.png'},
+  {key:'peugeot',label:'پژو',initials:'PE',png:'peugeot-pack-v130.png'},
+  {key:'citroen',label:'سیتروئن',initials:'CI',png:'citroen-pack-v130.png'},
+  {key:'renault',label:'رنو',initials:'RE',png:'renault.svg'},
+  {key:'dacia',label:'داچیا',initials:'DA',png:'dacia.svg'},
+  {key:'mercedesbenz',label:'مرسدس‌بنز',initials:'MB',png:'mercedesbenz-pack-v130.png'},
+  {key:'bmw',label:'BMW',initials:'BMW',png:'bmw-pack-v130.png'},
+  {key:'mini',label:'MINI',initials:'MI',png:'mini.svg'},
+  {key:'toyota',label:'تویوتا',initials:'TO',png:'toyota-pack-v130.png'},
+  {key:'lexus',label:'لکسوس',initials:'LX',png:'lexus-pack-v130.png'},
+  {key:'hyundai',label:'هیوندای',initials:'HY',png:'hyundai-pack-v130.png'},
+  {key:'kia',label:'کیا',initials:'KI',png:'kia-pack-v130.png'},
+  {key:'nissan',label:'نیسان',initials:'NI',png:'nissan.svg'},
+  {key:'mazda',label:'مزدا',initials:'MA',png:'mazda-pack-v130.png'},
+  {key:'mitsubishi',label:'میتسوبیشی',initials:'MI',png:'mitsubishi.svg'},
+  {key:'honda',label:'هوندا',initials:'HO',png:'honda-pack-v130.png'},
+  {key:'suzuki',label:'سوزوکی',initials:'SU',png:'suzuki-pack-v130.png'},
+  {key:'subaru',label:'سابارو',initials:'SB',png:'subaru-pack-v130.png'},
+  {key:'ford',label:'فورد',initials:'FO',png:'ford-pack-v130.png'},
+  {key:'chevrolet',label:'شورولت',initials:'CH',png:'chevrolet-pack-v130.png'},
+  {key:'volkswagen',label:'فولکس‌واگن',initials:'VW',png:'volkswagen.svg'},
+  {key:'audi',label:'آئودی',initials:'AU',png:'audi-pack-v130.png'},
+  {key:'skoda',label:'اشکودا',initials:'SK',png:'skoda-pack-v130.png'},
+  {key:'opel',label:'اوپل',initials:'OP',png:'opel-pack-v130.png'},
+  {key:'volvo',label:'ولوو',initials:'VO',png:'volvo.svg'},
+  {key:'scania',label:'اسکانیا',initials:'SC',png:'scania-pack-v130.png'},
+  {key:'man',label:'MAN',initials:'MAN',png:'man.svg'},
+  {key:'iveco',label:'ایویکو',initials:'IV',png:'iveco-pack-v130.png'},
+  {key:'daf',label:'DAF',initials:'DAF',png:'daf.svg'},
+  {key:'faw',label:'فاو',initials:'FAW',png:'faw-pack-v130.png'},
+  {key:'dongfeng',label:'دانگ‌فنگ',initials:'DF',png:'dongfeng-pack-v130.png'},
+  {key:'jac',label:'جک',initials:'JAC',png:'jac-pack-v130.png'},
+  {key:'geely',label:'جیلی',initials:'GE',png:'geely-pack-v130.png'},
+  {key:'byd',label:'BYD',initials:'BYD',png:'byd-pack-v130.png'},
+  {key:'mg',label:'MG',initials:'MG',png:'mg.svg'},
+  {key:'brilliance',label:'برلیانس',initials:'BR',png:'brilliance.svg'},
+  {key:'haval',label:'هاوال',initials:'HA',png:'haval-pack-v130.png'},
+  {key:'changan',label:'چانگان',initials:'CG',png:'changan.svg'},
+  {key:'greatwall',label:'گریت‌وال',initials:'GW',png:'greatwall-pack-v130.png'},
+  {key:'baic',label:'BAIC',initials:'BA',png:'baic-pack-v130.png'},
+  {key:'lifan',label:'لیفان',initials:'LI',png:'lifan-pack-v130.png'},
+  {key:'generic',label:'سایر برندها',initials:'CAR',png:'generic.svg'}
+];
+
+const MODELS = [
+  {brand:'peugeot',models:['۲۰۶','۲۰۷','۳۰۱','۴۰۵','۴۰۶','پارس','۵۰۸','۵۰۸ SW','۲۰۰۸','۳۰۰۸']},
+  {brand:'ikco',models:['پژو ۲۰۶','پژو ۲۰۷','پژو ۴۰۵','پژو پارس','سمند','دنا','رانا','تارا','شاهین','سورن']},
+  {brand:'saipa',models:['پراید','تیبا','ساینا','کوییک','آریو','شاهین G','ساینا S']},
+  {brand:'kia',models:['سراتو','اسپورتیج','اپتیما','سورنتو','موهاوی','پیکانتو','استینگر']},
+  {brand:'hyundai',models:['النترا','سوناتا','توسان','سانتا فی','کوپه','i20','i30','اکسنت','ورنا']},
+  {brand:'bmw',models:['سری ۳ (۳۲۰i)','سری ۵ (۵۲۰i)','X1','X3','X5','X6','Z4']},
+  {brand:'mercedesbenz',models:['C200','E200','E250','S500','GLC','GLE','GLS','A200']},
+  {brand:'toyota',models:['کمری','کرولا','راو ۴','لندکروزر','پرادو','هایلوکس','یاریس']},
+  {brand:'mvm',models:['۱۱۰ (X33)','۳۱۵ (Arrizo 5)','X22','X33S','X55','۵۵۰']},
+  {brand:'renault',models:['ال۹۰ (تندر)','ساندرو','کپچر','مگان','اسکالا','داستر']},
+  {brand:'citroen',models:['C3','C4','C5','C-Elysee','DS3','DS4']},
+  {brand:'honda',models:['سیویک','آکورد','CR-V','HR-V','پایلوت','Jazz']},
+  {brand:'mazda',models:['۳ (Mazda3)','۶ (Mazda6)','CX-3','CX-5','CX-9']},
+  {brand:'audi',models:['A4','A6','Q3','Q5','Q7','A3','TT']},
+  {brand:'volkswagen',models:['گلف','پاسات','تیگوان','توران','پولو','آرتئون']},
+  {brand:'nissan',models:['جوک','قشقایی','ایکس‌تریل','پت‌فایندر','آلتیما','سنترا']},
+  {brand:'ford',models:['فوکوس','فیوژن','اکسپلورر','موستانگ','F-150']},
+  {brand:'chevrolet',models:['کروز','مالیبو','کپتیوا','تاهو','کمارو','اسپارک']},
+  {brand:'jac',models:['S5','J4','S3','S2','J5','T6']},
+  {brand:'changan',models:['CS35','CS55','CS75','Eado','Alsvin']},
+  {brand:'geely',models:['GC6','Emgrand X7','Azkarra','Coolray']},
+  {brand:'byd',models:['S6','F3','e6','Qin','Han','Tang']},
+  {brand:'haval',models:['H2','H6','H9','Jolion','Dargo']},
+  {brand:'lifan',models:['X60','X50','620','820','Myway']},
+  {brand:'greatwall',models:['Wingle 5','Wingle 7','Haval H5','Voleex C30']},
+  {brand:'fownix',models:['FX','آریزو ۶']},
+  {brand:'lamari',models:['ایماش']},
+  {brand:'mammut',models:['توانا','L470']},
+  {brand:'farda',models:['۵۱۱','FMC']},
+  {brand:'zamyad',models:['Z24']},
+  {brand:'bahman',models:['دیگنیتی','فیدلیتی','پرایم']},
+  {brand:'diar',models:['مادیس']},
+  {brand:'parskhodro',models:['پژو ۲۰۶','پژو ۲۰۷','پارس']},
+  {brand:'kermanmotor',models:['لیفان X60','لیفان X50','JAC S5']},
+  {brand:'modirankhodro',models:['ام‌وی‌ام X33','ام‌وی‌ام ۳۱۵','چری تیگو ۷']},
+  {brand:'skoda',models:['اکتاویا','کودیاک','ساپرب','کاریوک']},
+  {brand:'opel',models:['آسترا','اینسیگنیا','موکا','کورسا']},
+  {brand:'lexus',models:['ES250','RX350','NX300','LX570']},
+  {brand:'mitsubishi',models:['لنسر','پاجرو','اوتلندر','L200','ASX']},
+  {brand:'suzuki',models:['ویتارا','اسپلش','گرندویتارا','بالنو']},
+  {brand:'subaru',models:['فارستر','ایمپرزا','WRX','XV']},
+  {brand:'volvo',models:['S60','XC60','XC90','V40']},
+  {brand:'mini',models:['کوپر','کانتری‌من','کلاب‌من']},
+  {brand:'isuzu',models:['D-MAX','MU-X','NPR']},
+  {brand:'iveco',models:['Daily','Stralis','EuroCargo']},
+  {brand:'scania',models:['G-Series','R-Series','P-Series']},
+  {brand:'man',models:['TGX','TGS','TGM']},
+  {brand:'daf',models:['XF','CF','LF']},
+  {brand:'faw',models:['Besturn B30','Besturn B50','Oley']},
+  {brand:'dongfeng',models:['H30 Cross','S30','A30']},
+  {brand:'baic',models:['Senova D50','X25','X35']},
+  {brand:'brilliance',models:['H230','H330','V5']}
+];
+
+const RAW_URL = 'https://raw.githubusercontent.com/myKotlinApps/Pulse-Platform-v0.12.0-Integrated/3d5bc2116ff7d3db32aba0adfe53664aaccae471/shared/logos/';
+
+function getLogoUrl(brandKey) {
+  const b = BRANDS.find(x=>x.key===brandKey);
+  if(!b) return null;
+  return RAW_URL + b.png;
+}
+
+function getBrandByKey(key) { return BRANDS.find(x=>x.key===key); }
+
+function getBrandByQuery(q) {
+  q=q.toLowerCase().trim();
+  if(!q) return null;
+  // direct key match
+  let b=BRANDS.find(x=>x.key===q);
+  if(b) return b;
+  // label contains
+  b=BRANDS.find(x=>x.label.toLowerCase().includes(q));
+  if(b) return b;
+  // initials match
+  b=BRANDS.find(x=>x.initials.toLowerCase()===q);
+  if(b) return b;
+  return null;
+}
+
+// ===== SEARCH =====
+const searchInput=document.getElementById('searchInput');
+const searchResults=document.getElementById('searchResults');
+const clearBtn=document.getElementById('clearBtn');
+
+searchInput.addEventListener('input',function(){
+  const q=this.value.trim();
+  if(q.length>0){ clearBtn.classList.add('show'); doSearch(q); }
+  else { clearBtn.classList.remove('show'); searchResults.classList.remove('show'); }
+});
+searchInput.addEventListener('focus',function(){ if(this.value.trim().length>0) doSearch(this.value.trim()); });
+
+function clearSearch(){ searchInput.value=''; clearBtn.classList.remove('show'); searchResults.classList.remove('show'); searchInput.focus(); }
+
+function doSearch(q){
+  q=q.toLowerCase().trim();
+  const results=[];
+  // find brands
+  BRANDS.forEach(b=>{
+    if(b.key==='generic') return;
+    if(b.label.toLowerCase().includes(q)||b.key.includes(q)||b.initials.toLowerCase().includes(q)){
+      results.push({type:'brand',brand:b,label:b.label});
+    }
+  });
+  // find models
+  MODELS.forEach(m=>{
+    const brand=getBrandByKey(m.brand);
+    if(!brand) return;
+    m.models.forEach(model=>{
+      if(model.toLowerCase().includes(q)||(brand.label+' '+model).toLowerCase().includes(q)){
+        results.push({type:'model',brand:brand,model:model,label:brand.label+' '+model});
+      }
+    });
+  });
+  // dedupe by label
+  const seen=new Set();
+  const uniq=[];
+  results.forEach(r=>{ if(!seen.has(r.label)){seen.add(r.label);uniq.push(r);} });
+  renderResults(uniq.slice(0,12));
+}
+
+function renderResults(list){
+  if(!list.length){ searchResults.innerHTML='<div style="padding:20px;text-align:center;color:var(--textSec)">نتیجه‌ای یافت نشد</div>'; searchResults.classList.add('show'); return; }
+  searchResults.innerHTML=list.map(r=>{
+    const logoUrl=getLogoUrl(r.brand.key);
+    const logoHtml=logoUrl?`<img src="${logoUrl}" alt="${r.brand.label}" loading="lazy" onerror="this.style.display='none';this.parentElement.querySelector('.fallback').style.display='flex';">`+`<div class="fallback" style="display:none">${r.brand.initials}</div>`:`<div class="fallback">${r.brand.initials}</div>`;
+    return `<div class="sr-item" onclick="selectVehicle('${r.brand.key}','${r.model||''}')">
+      <div class="brand-logo">${logoHtml}</div>
+      <div class="info"><div class="model">${r.label}</div><div class="brand">${r.brand.label}</div></div>
+      <svg class="arrow" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+    </div>`;
+  }).join('');
+  searchResults.classList.add('show');
+}
+
+function selectVehicle(brandKey,model){
+  const brand=getBrandByKey(brandKey);
+  if(!brand) return;
+  document.getElementById('vcName').textContent = model || brand.label;
+  document.getElementById('vcSub').textContent = model ? brand.label : 'انتخاب شده';
+  const logoUrl=getLogoUrl(brandKey);
+  const logoEl=document.getElementById('vcLogo');
+  if(logoUrl){
+    logoEl.innerHTML=`<img src="${logoUrl}" alt="${brand.label}" style="width:44px;height:44px;object-fit:contain;" onerror="this.parentElement.innerHTML='<div class=\\'fallback\\'>${brand.initials}</div>'">`;
+  } else {
+    logoEl.innerHTML=`<div class="fallback">${brand.initials}</div>`;
+  }
+  searchResults.classList.remove('show');
+  searchInput.value='';
+  clearBtn.classList.remove('show');
+  // simulate data
+  simulateData();
+}
+
+// ===== MENU =====
+function toggleMenu(){
+  document.getElementById('sideMenu').classList.toggle('open');
+  document.querySelector('.overlay').classList.toggle('show');
+}
+
+// ===== TABS =====
+function switchTab(tab){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(tab==='app'){ document.getElementById('appSection').classList.add('active'); document.getElementById('navApp').classList.add('active'); }
+  if(tab==='obd2'){ document.getElementById('obd2Section').classList.add('active'); document.getElementById('navOBD2').classList.add('active'); }
+  if(tab==='ecu'){ document.getElementById('ecuSection').classList.add('active'); document.getElementById('navECU').classList.add('active'); }
+}
+
+// ===== SIMULATION =====
+let simInterval;
+function simulateData(){
+  if(simInterval) clearInterval(simInterval);
+  updateData();
+  simInterval=setInterval(updateData,2000);
+}
+function updateData(){
+  const t=Math.floor(80+Math.random()*40);
+  const r=Math.floor(700+Math.random()*3000);
+  const s=Math.floor(Math.random()*140);
+  document.getElementById('vcTemp').textContent=t+'°C';
+  document.getElementById('vcTemp').className='val '+(t>110?'danger':t>95?'warning':'success');
+  document.getElementById('vcRpm').textContent=r.toLocaleString('fa');
+  document.getElementById('vcSpeed').textContent=s.toLocaleString('fa');
+  document.getElementById('vcBar').style.width=(s/1.4)+'%';
+}
+
+// ===== ACTIONS =====
+function openPage(p){ alert('باز کردن: '+p); }
+function readDTC(){ alert('خواندن کدهای خطا...\n\nP0301: Cylinder 1 Misfire\nP0420: Catalyst Efficiency Low\nP0171: System Too Lean'); }
+function clearDTC(){ if(confirm('آیا کدهای خطا پاک شوند؟')) alert('کدهای خطا با موفقیت پاک شدند.'); }
+function liveData(){ simulateData(); alert('داده‌های زنده فعال شدند.'); }
+function freezeFrame(){ alert('Freeze Frame captured:\n\nRPM: 2450\nSpeed: 85 km/h\nThrottle: 34%\nCoolant: 94°C'); }
+function smogCheck(){ alert('Smog Check:\n\nMIL: OFF\nMisfire Monitor: OK\nFuel System: OK\nComprehensive: OK\n\nResult: PASSED'); }
+function vinDecoder(){ alert('VIN Decoder:\n\nWMI: WV1 (Volkswagen)\nVDS: 2ZZZ\nVIS: 3N123456\n\nYear: 2023\nPlant: Wolfsburg'); }
+function readEcu(){ alert('ECU Read:\n\nECU: Bosch ME17.8.8\nVIN: LRBFXBSA8JY123456\nHardware: 0261S12345\nSoftware: 1234567890AB'); }
+function writeEcu(){ if(confirm('هشدار: نوشتن روی ECU ریسک‌پذیر است. ادامه می‌دهید؟')) alert('ECU Write started...\nProgress: 100%\nDone.'); }
+function immobilizer(){ alert('Immobilizer Status:\n\nKeys programmed: 3\nImmobilizer: ACTIVE\nSKC: 12345'); }
+function keyCoding(){ alert('Key Coding:\n\nPlace new key in ignition...\n\nKey programmed successfully. Total keys: 4'); }
+function scanNow(){ simulateData(); alert('اسکن سریع انجام شد. 2 خطای فعال شناسایی شد.'); }
+function showErrors(){ alert('خطاهای فعال:\n\nP0301 — Cylinder 1 Misfire\nP0420 — Catalyst Efficiency Low'); }
+function expandGrid(){ alert('نمایش همه دسته‌بندی‌ها...'); }
+
+// init
+simulateData();
+</script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"/>
+<meta name="theme-color" content="#ffffff"/>
+<title>ECU Pulse — Smart Vehicle Diagnostics</title>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<link crossorigin href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+<script crossorigin src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root{--bg:#f0f2f5;--card:#ffffff;--border:#e5e7eb;--accent:#2563eb;--accent2:#06b6d4;--green:#16a34a;--amber:#d97706;--red:#dc2626;--text:#111827;--dim:#6b7280;--brand:#1e40af;--brand-light:#dbeafe}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+body{background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden}
+button{cursor:pointer;border:none;background:none;font-family:inherit;font-size:inherit;color:inherit}
+input{outline:none;border:none;background:none;font-family:inherit;color:inherit;font-size:inherit}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+#root{max-width:480px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;background:var(--bg)}
+
+.header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px;background:var(--card);border-bottom:1px solid var(--border)}
+.hl{display:flex;align-items:center;gap:10px}
+.hl .ic{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#06b6d4);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(37,99,235,.25)}
+.hl .ic span{font-size:18px}
+.hl h1{font-size:17px;font-weight:700;color:var(--text)}
+.hl s{display:block;font-size:10px;font-weight:400;color:var(--dim)}
+
+.speed-hero{display:flex;flex-direction:column;align-items:center;padding:20px 20px 16px;background:var(--card);margin:0 0 8px}
+.sr{position:relative;width:190px;height:190px}
+.sr svg{transform:rotate(-135deg)}
+.sri{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.sri .v{font-size:56px;font-weight:800;letter-spacing:-3px;line-height:1;color:var(--text)}
+.sri .u{font-size:14px;color:var(--dim);font-weight:500;margin-top:2px}
+.sri .s{font-size:11px;color:var(--dim);margin-top:4px;background:#f3f4f6;padding:3px 10px;border-radius:10px}
+.tags{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+.tags span{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600}
+.tg{background:#dcfce7;color:#16a34a}
+.tb{background:var(--brand-light);color:var(--brand)}
+
+.tab-bar{display:flex;overflow-x:auto;padding:8px 16px;gap:6px;background:var(--card);margin-bottom:8px;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tb-btn{padding:8px 18px;border-radius:22px;font-size:12px;font-weight:600;white-space:nowrap;color:var(--dim);transition:all .2s}
+.tb-btn.on{background:var(--brand);color:#fff;box-shadow:0 2px 8px rgba(30,64,175,.2)}
+
+.sec{padding:0 20px;margin:20px 0 10px;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:8px}
+.sec::before{content:'';width:3px;height:14px;background:var(--brand);border-radius:2px}
+
+.gg{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px}
+.g{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 1px 2px rgba(0,0,0,.03);position:relative;overflow:hidden}
+.g .ico{font-size:26px;margin-bottom:-4px}
+.g .lb{font-size:11px;color:var(--dim);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.g .rv{position:relative;width:84px;height:84px}
+.g .rv svg{transform:rotate(-135deg)}
+.g .rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.g .rc .vl{font-size:22px;font-weight:700;font-family:'SF Mono',monospace;color:var(--text)}
+.g .rc .un{font-size:10px;color:var(--dim)}
+.g .st{font-size:10px;font-weight:600;padding:3px 10px;border-radius:10px}
+
+.term{margin:0 16px;background:#1e293b;border-radius:18px;overflow:hidden}
+.term .th{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08);font-size:11px;color:#94a3b8}
+.term .th .dot{width:2px;height:2px;border-radius:50%;padding:3px}
+.term .tb{height:200px;overflow-y:auto;padding:12px 16px;font-family:'SF Mono',monospace;font-size:11px;line-height:1.7;color:#e2e8f0}
+.term .tb .tx{color:#38bdf8}
+.term .tb .rx{color:#4ade80}
+.term .tb .info{color:#64748b}
+.term .tr{display:flex;border-top:1px solid rgba(255,255,255,.08)}
+.term .tr input{flex:1;padding:12px 16px;background:transparent;font-family:'SF Mono',monospace;font-size:12px;color:#f1f5f9}
+.term .tr button{padding:12px 18px;background:#2563eb;color:#fff;font-weight:600;font-size:12px}
+
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px;margin-top:10px}
+.ch{border-radius:16px;font-size:11px;font-family:'SF Mono',monospace;transition:all .15s}
+
+.dl{padding:0 16px;display:flex;flex-direction:column;gap:8px}
+.dc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.di{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.die{background:#fef2f2;color:#dc2626}.diw{background:#fffbeb;color:#d97706}.dib{background:#dbeafe;color:#2563eb}
+.db{flex:1;min-width:0}
+.db strong{font-size:13px;font-weight:600}
+.db p{font-size:11px;color:var(--dim);margin-top:2px}
+.dbdg{padding:3px 10px;border-radius:10px;font-size:9px;font-weight:700;letter-spacing:.5px}
+.dbe{background:#fef2f2;color:#dc2626}.dbw{background:#fffbeb;color:#d97706}
+
+.hl2{padding:0 16px;display:flex;flex-direction:column;gap:6px}
+.hr{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.hlf{display:flex;align-items:center;gap:10px}
+.hdt{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.hlf strong{font-size:13px;font-weight:600}
+.hrt{display:flex;align-items:center;gap:10px}
+.hrt .hs{font-size:14px;font-weight:700;font-family:'SF Mono',monospace}
+.hrt .hb{width:60px;height:5px;border-radius:3px;background:#e5e7eb;overflow:hidden}
+.hrt .hb div{height:100%;border-radius:3px;transition:width .5s ease}
+
+.scs{display:flex;flex-direction:column;align-items:center;padding:16px 20px 0;background:var(--card);margin:0 0 8px}
+.srb{position:relative;width:170px;height:170px}
+.srb svg{transform:rotate(-135deg)}
+.sbc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.sbc .bv{font-size:52px;font-weight:800;letter-spacing:-3px}
+.sbc .bl{font-size:12px;color:var(--dim);margin-top:4px}
+
+.sd{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px;margin-top:14px}
+.si{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.si .sla{font-size:10px;color:var(--dim);text-transform:uppercase;font-weight:600}
+.si .svl{font-size:20px;font-weight:700}
+.si .sba{height:4px;border-radius:2px;background:#e5e7eb;overflow:hidden;margin-top:2px}
+.si .sba div{height:100%;border-radius:2px;transition:width .4s ease}
+
+.map-box{height:280px;border-radius:18px;overflow:hidden;margin:0 16px;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.05)}
+
+.bnav{display:flex;justify-content:space-around;padding:10px 14px 22px;background:var(--card);border-top:1px solid var(--border);position:sticky;bottom:0}
+.bnav button{display:flex;flex-direction:column;align-items:center;gap:5px;padding:8px 14px;border-radius:14px;transition:all .2s;color:var(--dim)}
+.bnav button svg{width:22px;height:22px;fill:none;stroke-width:2;transition:all .2s}
+.bnav button.on{color:var(--brand)}
+.bnav button.on svg{fill:var(--brand-light);stroke:var(--brand)}
+.bnav button span{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+
+.srow{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;background:var(--card);border-bottom:1px solid var(--border)}
+.srow:first-child{border-radius:18px 18px 0 0}
+.srow:last-child{border-radius:0 0 18px 18px;border-bottom:none}
+.srow:only-child{border-radius:18px}
+.srl strong{font-size:13px;font-weight:600;display:block}
+.srl small{font-size:10px;color:var(--dim);display:block;margin-top:2px}
+.switch{width:46px;height:28px;border-radius:14px;background:#d1d5db;position:relative;transition:all .25s}
+.switch.on{background:var(--brand)}
+.switch::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.15);transition:all .25s}
+.switch.on::after{left:21px}
+
+@keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.pi{animation:fi .3s ease-out}
+.scroll{flex:1;overflow-y:auto;padding-bottom:20px}
+.empty{text-align:center;padding:32px 20px;color:var(--dim)}
+.empty .emoji{font-size:48px;margin-bottom:12px}
+.emptyp{font-size:13px}
+.bact{padding:14px 24px;border-radius:26px;font-weight:700;font-size:14px;width:100%;text-align:center}
+.blue{background:var(--brand);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.bout{padding:10px 22px;border-radius:22px;border:2px solid var(--border);color:var(--text);font-size:12px;font-weight:600}
+.bout:hover{border-color:var(--brand);color:var(--brand)}
+.tip-card{background:#f8fafc;border:1px solid var(--border);border-radius:14px;padding:14px;font-size:12px;color:var(--dim);line-height:1.7}
+</style>
+</head>
+<body><div id="root"></div>
+<script>
+var e=React.createElement;
+
+function NavIcon(props){
+  var id=props.id, on=props.on, sz=24;
+  // Beautiful filled-style icons that change when active
+  if(id==='home'){
+    return on?e('svg',{width:sz,height:sz,viewBox:'0 0 24 24',fill:'#dbeafe',stroke:'#2563eb',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},
+      e('path',{d:'M3 10l9-7 9 7v11a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10z'}))
+    :e('svg',{width:sz,height:sz,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},
+      e('path',{d:'M3 10l9-7 9 7v11a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10z'}));
+  }
+  if(id==='diagnostics'){
+    return on?e('svg',{width:sz,height:sz,viewBox:'0 0 24 24',fill:'#dbeafe',stroke:'#2563eb',strokeWidth:2},
+      e('circle',{cx:12,cy:12,r:10}),e('path',{d:'M12 6v6l4 2'}))
+    :e('svg',{width:sz,height:sz,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},
+      e('circle',{cx:12,cy:12,r:10}),e('path',{d:'M12 6v6l4 2'}));
+  }
+  if(id==='trips'){
+    return on?e('svg',{width:sz,height:sz,viewBox:'0 0 24 24',fill:'#dbeafe',stroke:'#2563eb',strokeWidth:2,strokeLinejoin:'round'},
+      e('path',{d:'M3 18l4-2.5 4 2.5 4-2.5 4 2.5M3 12l4-2.5 4 2.5 4-2.5 4 2.5M3 6l4-2.5 4 2.5 4-2.5 4 2.5'}),
+      e('circle',{cx:7,cy:3.5,r:2.5,fill:'#dbeafe'}),e('circle',{cx:17,cy:20.5,r:2.5,fill:'#dbeafe'}))
+    :e('svg',{width:sz,height:sz,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},
+      e('path',{d:'M3 18l4-2.5 4 2.5 4-2.5 4 2.5M3 12l4-2.5 4 2.5 4-2.5 4 2.5M3 6l4-2.5 4 2.5 4-2.5 4 2.5'}));
+  }
+  if(id==='scanner'){
+    return on?e('svg',{width:sz,height:sz,viewBox:'0 0 24 24',fill:'#dbeafe',stroke:'#2563eb',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},
+      e('circle',{cx:12,cy:12,r:10}),e('path',{d:'M12 2a10 10 0 0 1 10 10M12 22a10 10 0 0 1 0-20M2 12a10 10 0 0 1 10-10'}),
+      e('circle',{cx:12,cy:12,r:2,fill:'#2563eb'}))
+    :e('svg',{width:sz,height:sz,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},
+      e('circle',{cx:12,cy:12,r:10}),e('path',{d:'M12 2a10 10 0 0 1 10 10M12 22a10 10 0 0 1 0-20M2 12a10 10 0 0 1 10-10'}));
+  }
+  if(id==='settings'){
+    return on?e('svg',{width:sz,height:sz,viewBox:'0 0 24 24',fill:'#dbeafe',stroke:'#2563eb',strokeWidth:2,strokeLinejoin:'round'},
+      e('circle',{cx:12,cy:12,r:3}),e('path',{d:'M19.4 15a1.7 1.7 0 0 0 .3 1.7l.1.1a2 2 0 0 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.7-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 0 1-4 0v-.3A1.7 1.7 0 0 0 9 19a1.7 1.7 0 0 0-1.7.3l-.1.1a2 2 0 0 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 4.8 15a1.7 1.7 0 0 0-1.6-1H3a2 2 0 0 1 0-4h.3A1.7 1.7 0 0 0 4.8 9a1.7 1.7 0 0 0-.3-1.7l-.1-.1a2 2 0 0 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 9 4.8a1.7 1.7 0 0 0 1-1.6V3a2 2 0 0 1 4 0v.3A1.7 1.7 0 0 0 15 4.8a1.7 1.7 0 0 0 1.7-.3l.1-.1a2 2 0 0 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 19.2 9a1.7 1.7 0 0 0 1.6 1h.3a2 2 0 0 1 0 4h-.3a1.7 1.7 0 0 0-1.4 1z'}))
+    :e('svg',{width:sz,height:sz,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},
+      e('circle',{cx:12,cy:12,r:3}),e('path',{d:'M19.4 15a1.7 1.7 0 0 0 .3 1.7l.1.1a2 2 0 0 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.7-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 0 1-4 0v-.3A1.7 1.7 0 0 0 9 19a1.7 1.7 0 0 0-1.7.3l-.1.1a2 2 0 0 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 4.8 15a1.7 1.7 0 0 0-1.6-1H3a2 2 0 0 1 0-4h.3A1.7 1.7 0 0 0 4.8 9a1.7 1.7 0 0 0-.3-1.7l-.1-.1a2 2 0 0 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 9 4.8a1.7 1.7 0 0 0 1-1.6V3a2 2 0 0 1 4 0v.3A1.7 1.7 0 0 0 15 4.8a1.7 1.7 0 0 0 1.7-.3l.1-.1a2 2 0 0 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 19.2 9a1.7 1.7 0 0 0 1.6 1h.3a2 2 0 0 1 0 4h-.3a1.7 1.7 0 0 0-1.4 1z'}));
+  }
+  return e('div',null);
+}
+
+var NAV=[{id:'home',label:'Home'},{id:'diagnostics',label:'Diagnose'},{id:'trips',label:'Trips'},{id:'scanner',label:'Scanner'},{id:'settings',label:'Settings'}];
+
+function ArcGauge(props){
+  var r=36,circ=2*Math.PI*r;
+  var pct=props.value!=null?Math.min(1,Math.max(0,(props.value-props.min)/(props.max-props.min))):0;
+  var dash=pct*circ*0.72,off=circ*0.86;
+  return e('div',{className:'g'},
+    e('span',{className:'ico'},props.emoji),
+    e('span',{className:'lb'},props.label),
+    e('div',{className:'rv'},
+      e('svg',{viewBox:'0 0 100 100',width:'100%',height:'100%'},
+        e('circle',{cx:50,cy:50,r:r,fill:'none',stroke:'#e5e7eb',strokeWidth:7,strokeDasharray:circ*0.72+' '+circ*0.28,strokeDashoffset:off,strokeLinecap:'round'}),
+        e('circle',{cx:50,cy:50,r:r,fill:'none',stroke:props.color,strokeWidth:7,strokeDasharray:dash+' '+circ,strokeDashoffset:off,strokeLinecap:'round',
+          style:{transition:'stroke-dasharray .6s ease'}})),
+      e('div',{className:'rc'},
+        e('span',{className:'vl'},props.value!=null?props.value:'--'),
+        e('span',{className:'un'},props.unit))),
+    props.status?e('span',{className:'st',style:{background:props.status==='ok'?'#dcfce7':props.status==='warn'?'#fef3c7':'#fef2f2',color:props.status==='ok'?'#16a34a':props.status==='warn'?'#d97706':'#dc2626'}},props.statusText):null);
+}
+
+function HomePage(){
+  var _s=React.useState({rpm:2450,speed:68,coolant:91,voltage:13.8,load:34}),live=_s[0],setLive=_s[1];
+  React.useEffect(function(){
+    var t=setInterval(function(){setLive({
+      rpm:Math.floor(2000+Math.random()*1500),speed:Math.floor(50+Math.random()*60),
+      coolant:Math.floor(82+Math.random()*18),voltage:+(13.2+Math.random()*1.4).toFixed(1),
+      load:Math.floor(20+Math.random()*55)
+    });},2000);
+    return function(){clearInterval(t);};
+  },[]);
+  var sp=live.speed/240;
+  return e('div',{className:'pi scroll'},
+    e('div',{className:'speed-hero'},
+      e('div',{className:'sr'},
+        e('svg',{viewBox:'0 0 200 200',width:'100%',height:'100%'},
+          e('circle',{cx:100,cy:100,r:85,fill:'none',stroke:'#e5e7eb',strokeWidth:12,strokeDasharray:'400 600',strokeDashoffset:500,strokeLinecap:'round'}),
+          e('circle',{cx:100,cy:100,r:85,fill:'none',stroke:'#2563eb',strokeWidth:12,strokeDasharray:(sp*400)+' 600',strokeDashoffset:500,strokeLinecap:'round',
+            style:{transition:'stroke-dasharray .6s ease',filter:'drop-shadow(0 2px 6px rgba(37,99,235,.2))'}})),
+        e('div',{className:'sri'},
+          e('span',{className:'v'},live.speed),e('span',{className:'u'},'km/h'),
+          e('span',{className:'s'},'RPM '+live.rpm))),
+      e('div',{className:'tags'},e('span',{className:'tg'},'Connected'),e('span',{className:'tb'},'OBD-II Live'))),
+    e('div',{className:'gg'},
+      e(ArcGauge,{emoji:'🌡️',label:'Coolant',value:live.coolant,unit:'°C',min:60,max:120,color:'#f59e0b',status:live.coolant>90?'warn':'ok',statusText:live.coolant>90?'Warm':'OK'}),
+      e(ArcGauge,{emoji:'🔋',label:'Battery',value:live.voltage,unit:'V',min:10,max:16,color:'#16a34a',status:live.voltage<11.5?'warn':'ok',statusText:live.voltage<11.5?'Low':'OK'}),
+      e(ArcGauge,{emoji:'⚡',label:'Engine Load',value:live.load,unit:'%',min:0,max:100,color:'#8b5cf6',status:live.load>80?'warn':'ok',statusText:live.load>80?'High':'OK'}),
+      e(ArcGauge,{emoji:'🏎️',label:'RPM',value:live.rpm,unit:'rpm',min:0,max:8000,color:'#dc2626',status:live.rpm>5000?'warn':'ok',statusText:live.rpm>5000?'High':'OK'})));
+}
+
+function DiagnosticsPage(){
+  var _r=React.useState(false),ran=_r[0],setRan=_r[1];
+  var items=[{name:'Engine',score:92},{name:'Transmission',score:88},{name:'Brakes',score:72,note:'Pads wearing'},{name:'Battery',score:95},{name:'Emissions',score:90},{name:'Cooling',score:87},{name:'Electrical',score:91},{name:'Suspension',score:85}];
+  var avg=ran?Math.round(items.reduce(function(a,i){return a+i.score;},0)/items.length):0;
+  var sc=avg>80?'#16a34a':avg>60?'#d97706':'#dc2626';
+  var dtcs=[{code:'P0133',desc:'O2 Sensor Slow Response - Bank 1',sv:'warning'},{code:'P0420',desc:'Catalyst Below Threshold',sv:'critical'},{code:'P0301',desc:'Cylinder 1 Misfire',sv:'info'}];
+  return e('div',{className:'pi scroll'},
+    !ran?e('div',null,
+      e('div',{className:'empty'},e('div',{className:'emoji'},'🔍'),e('p',{className:'emptyp'},'Tap to run a full vehicle diagnostic')),
+      e('div',{style:{padding:'0 20px',marginTop:16}},e('button',{className:'bact blue',onClick:function(){setRan(true);}},'🔬 Run Full Diagnostic')))
+    :e('div',null,
+      e('div',{className:'scs'},
+        e('div',{className:'srb'},
+          e('svg',{viewBox:'0 0 200 200',width:'100%',height:'100%'},
+            e('circle',{cx:100,cy:100,r:68,fill:'none',stroke:'#e5e7eb',strokeWidth:12,strokeDasharray:'300 500',strokeDashoffset:400}),
+            e('circle',{cx:100,cy:100,r:68,fill:'none',stroke:sc,strokeWidth:12,strokeLinecap:'round',strokeDasharray:(avg/100)*300+' 500',strokeDashoffset:400,style:{transition:'stroke-dasharray 1s ease'}})),
+          e('div',{className:'sbc'},e('span',{className:'bv',style:{color:sc}},avg),e('span',{className:'bl'},'Health Score'))),
+        e('div',{className:'tags',style:{marginTop:12,marginBottom:0}},e('span',{className:'tg'},avg>80?'Excellent':avg>60?'Fair':'Needs Attention'))),
+      e('div',{className:'sec',style:{marginTop:16}},'System Status'),
+      e('div',{className:'hl2'},
+        items.map(function(i){var ok=i.score>=80;return e('div',{key:i.name,className:'hr'},
+          e('div',{className:'hlf'},e('div',{className:'hdt',style:{background:ok?'#16a34a':'#d97706'}}),e('strong',null,i.name)),
+          e('div',{className:'hrt'},e('div',{className:'hb'},e('div',{style:{width:i.score+'%',background:ok?'#16a34a':'#d97706'}})),e('span',{className:'hs'},i.score)));})),
+      e('div',{className:'sec'},'Fault Codes'),
+      e('div',{className:'dl'},
+        dtcs.map(function(d){var ic=d.sv==='critical'?'die':d.sv==='warning'?'diw':'dib';var bc=d.sv==='critical'?'dbe':'dbw';
+          return e('div',{key:d.code,className:'dc'},e('div',{className:'di '+ic},d.sv==='critical'?'⚠️':'⚡'),
+            e('div',{className:'db'},e('strong',null,d.code),e('p',null,d.desc)),
+            e('span',{className:'dbdg '+bc},d.sv));}))));
+}
+
+function ScannerPage(){
+  var _s=React.useState([{dir:'info',text:'ECU Pulse ELM327 Console — v2.0',time:Date.now()},{dir:'info',text:'Connected — OBD-II protocol ISO 15765-4',time:Date.now()}]),lines=_s[0],setLines=_s[1];
+  var _i=React.useState(''),input=_i[0],setInput=_i[1];
+  var _c=React.useState(true),conn=_c[0],setConn=_c[1];
+  var botRef=React.useRef(null);
+  var D={};D.ATZ='ELM327 v2.1';D.ATI='ELM327 v2.1';D.ATL0='OK';D.ATH1='OK';D.ATSP0='OK';
+  D['0100']='41 00 BE 1F B8 10';D['010C']='41 0C 1A F8 (RPM)';D['010D']='41 0D 30 (Speed)';
+  D['0105']='41 0D 46 (Coolant)';D['010B']='41 0B 21 (MAP)';D.ATDPN='6 (CAN 11/500)';D.ATRV='13.8V';
+  function send(cmd){var c=(cmd||input).trim().toUpperCase();if(!c)return;
+    setLines(function(p){return p.concat([{dir:'tx',text:'> '+c,time:Date.now()}]);});
+    setTimeout(function(){setLines(function(p){return p.concat([{dir:'rx',text:D[c]||'NO DATA',time:Date.now()}]);});},300);
+    setInput('');}
+  React.useEffect(function(){if(botRef.current)botRef.current.scrollIntoView({behavior:'smooth'});},[lines]);
+  return e('div',{className:'pi scroll'},
+    e('div',{className:'term',style:{marginTop:8}},
+      e('div',{className:'th'},e('div',{className:'dot',style:{background:conn?'#4ade80':'#94a3b8'}}),(conn?'ELM327 Connected — ISO 15765-4':'Disconnected')),
+      e('div',{className:'tb'},lines.map(function(l,i){return e('div',{key:i,className:l.dir},l.text);}),e('div',{ref:botRef})),
+      e('div',{className:'tr'},e('input',{value:input,onChange:function(ev){setInput(ev.target.value);},onKeyDown:function(ev){if(ev.key==='Enter')send();},placeholder:'Enter OBD command...'}),e('button',{onClick:function(){send();}},'Send'))),
+    e('div',{className:'chips'},
+      ['ATZ','010C','010D','0105','ATDPN','ATRV'].map(function(c){return e('button',{key:c,style:{padding:'7px 16px',fontSize:12,border:'1.5px solid #e5e7eb',borderRadius:18,color:'#374151',background:'#fff'},onClick:function(){send(c);}},c);})),
+    e('div',{style:{padding:'0 16px',marginTop:16,display:'flex',gap:8}},
+      e('button',{className:'bout',style:{flex:1},onClick:function(){setLines([{dir:'info',text:'Cleared',time:Date.now()}]);}},'🗑 Clear'),
+      e('button',{className:'bout',style:{flex:1},onClick:function(){var nc=!conn;setConn(nc);setLines(function(p){return p.concat([{dir:'info',text:nc?'Connected':'Disconnected',time:Date.now()}]);});}},conn?'🔌 Disconnect':'🔌 Connect')));
+}
+
+function TripsPage(){
+  var mRef=React.useRef(null),mI=React.useRef(null);
+  var trips=[{id:'1',name:'Tehran — West to East',time:'Today 18:45',dist:18.5},{id:'2',name:'Mirdamad → Tajrish',time:'Yesterday 09:12',dist:8.2},{id:'3',name:'Hemmat Highway',time:'Jul 20 14:30',dist:42.1}];
+  React.useEffect(function(){
+    if(!mRef.current||mI.current)return;
+    mI.current=L.map(mRef.current).setView([35.7219,51.3347],12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'OSM'}).addTo(mI.current);
+    var d=[[35.7219,51.3347],[35.7320,51.3500],[35.7440,51.3650],[35.7540,51.3850],[35.7600,51.4100]];
+    L.polyline(d,{color:'#2563eb',weight:5,opacity:.7}).addTo(mI.current);
+    L.circleMarker(d[0],{radius:6,color:'#16a34a',fillColor:'#16a34a',fillOpacity:1}).addTo(mI.current);
+    L.circleMarker(d[4],{radius:6,color:'#dc2626',fillColor:'#dc2626',fillOpacity:1}).addTo(mI.current);
+  },[]);
+  return e('div',{className:'pi scroll'},
+    e('div',{className:'sec'},'Live Map'),
+    e('div',{ref:mRef,className:'map-box'}),
+    e('div',{className:'sec'},'Recent Trips'),
+    e('div',{className:'dl'},
+      trips.map(function(t){return e('div',{key:t.id,className:'dc',style:{justifyContent:'space-between'}},
+        e('div',{className:'db'},e('strong',null,t.name),e('p',null,'🗓 '+t.time)),
+        e('span',{style:{fontSize:15,fontWeight:700,color:'#2563eb'}},t.dist+' km'));})));
+}
+
+function SettingsPage(){
+  var themes=['White','Sky','Mint','Rose'];
+  var _t=React.useState(0),ti=_t[0],setTi=_t[1];
+  var _d=React.useState(true),dm=_d[0],setDm=_d[1];
+  return e('div',{className:'pi scroll'},
+    e('div',{className:'sec'},'🎨 Appearance'),
+    e('div',{className:'srow'},
+      e('div',{className:'srl'},e('strong',null,'Theme'),e('small',null,themes[ti])),
+      e('div',{style:{display:'flex',gap:6}},
+        themes.map(function(t,i){var cols=['#f0f2f5','#f0f9ff','#f0fdf4','#fff1f2'];return e('button',{key:t,onClick:function(){setTi(i);},style:{width:30,height:30,borderRadius:10,border:i===ti?'2.5px solid #2563eb':'2px solid #e5e7eb',background:cols[i],boxShadow:i===ti?'0 2px 6px rgba(37,99,235,.2)':'none'}});}))),
+    e('div',{className:'sec'},'🔧 Connection'),
+    e('div',{className:'srow'},
+      e('div',{className:'srl'},e('strong',null,'Demo Mode'),e('small',null,'Simulated OBD-II sensor data')),
+      e('div',{className:'switch'+(dm?' on':''),onClick:function(){setDm(!dm);}})),
+    e('div',{className:'srow'},
+      e('div',{className:'srl'},e('strong',null,'API Server'),e('small',null,'http://127.0.0.1:4030')),
+      e('span',{style:{fontSize:13,color:'#6b7280'}},'localhost')),
+    e('div',{className:'sec'},'📋 About'),
+    e('div',{className:'srow'},
+      e('div',{className:'srl'},e('strong',null,'ECU Pulse'),e('small',null,'Version 2.0 — DIAGEMAN.IR')),
+      e('span',{style:{fontSize:22}},'🚗')));
+}
+
+function DrivingPage(){
+  var items=[{l:'Acceleration',v:88,c:'#16a34a'},{l:'Braking',v:94,c:'#16a34a'},{l:'Cornering',v:85,c:'#d97706'},{l:'Speed Consistency',v:91,c:'#16a34a'},{l:'Idle Time',v:79,c:'#d97706'},{l:'Night Driving',v:95,c:'#2563eb'}];
+  return e('div',{className:'pi scroll'},
+    e('div',{className:'scs'},
+      e('div',{className:'srb'},
+        e('svg',{viewBox:'0 0 200 200',width:'100%',height:'100%'},
+          e('circle',{cx:100,cy:100,r:68,fill:'none',stroke:'#e5e7eb',strokeWidth:12,strokeDasharray:'300 500',strokeDashoffset:400}),
+          e('circle',{cx:100,cy:100,r:68,fill:'none',stroke:'#16a34a',strokeWidth:12,strokeLinecap:'round',strokeDasharray:'276 500',strokeDashoffset:400,style:{transition:'stroke-dasharray 1s ease'}})),
+        e('div',{className:'sbc'},e('span',{className:'bv',style:{color:'#16a34a'}},'92'),e('span',{className:'bl'},'Driving Score'))),
+      e('div',{className:'tags',style:{marginTop:12,marginBottom:0}},e('span',{className:'tg'},'🌟 Excellent'))),
+    e('div',{className:'sec'},'Driving Metrics'),
+    e('div',{className:'sd'},
+      items.map(function(m,i){return e('div',{key:i,className:'si'},
+        e('span',{className:'sla'},m.l),e('span',{className:'svl',style:{color:m.c}},m.v),
+        e('div',{className:'sba'},e('div',{style:{width:m.v+'%',background:m.c}})));})),
+    e('div',{className:'sec'},'💡 Tips'),
+    e('div',{style:{padding:'0 16px'}},e('div',{className:'tip-card'},'Smooth acceleration and early braking will raise your score. Try to avoid hard cornering and minimize idle time to reach 95+. Night driving is well within safe limits.')));
+}
+
+function App(){
+  var _p=React.useState('home'),page=_p[0],setPage=_p[1];
+  var pages={};
+  pages.home=e(HomePage);pages.diagnostics=e(DiagnosticsPage);pages.scanner=e(ScannerPage);
+  pages.trips=e(TripsPage);pages.settings=e(SettingsPage);pages.driving=e(DrivingPage);
+  return e('div',{style:{display:'flex',flexDirection:'column',height:'100dvh'}},
+    e('div',{className:'header'},
+      e('div',{className:'hl'},e('div',{className:'ic'},e('span',null,'🚗')),e('div',null,e('h1',null,'ECU Pulse'),e('s',null,'Smart Diagnostics'))),
+      e('div',{style:{display:'flex',gap:6}},
+        e('button',{onClick:function(){setPage('driving');},style:{width:36,height:36,borderRadius:12,background:'#dbeafe',display:'flex',alignItems:'center',justifyContent:'center',color:'#2563eb'}},'⭐'),
+        e('button',{onClick:function(){setPage('scanner');},style:{width:36,height:36,borderRadius:12,background:'#f3f4f6',display:'flex',alignItems:'center',justifyContent:'center',color:'#6b7280'}},'🔌'))),
+    e('div',{className:'tab-bar'},
+      [{id:'home',label:'Dashboard'},{id:'diagnostics',label:'Diagnostics'},{id:'trips',label:'Trips'},{id:'scanner',label:'Scanner'},{id:'settings',label:'Settings'}].map(function(t){
+        return e('button',{key:t.id,className:'tb-btn'+(page===t.id?' on':''),onClick:function(){setPage(t.id);}},t.label);})),
+    e('div',{key:page,style:{flex:1,overflow:'hidden'}},pages[page]||pages.home),
+    e('div',{className:'bnav'},
+      NAV.map(function(n){var on=page===n.id;
+        return e('button',{key:n.id,className:on?'on':'',onClick:function(){setPage(n.id);}},
+          e(NavIcon,{id:n.id,on:on}),e('span',null,n.label));})));
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(e(App));
+</script>
+</body>
+</html>

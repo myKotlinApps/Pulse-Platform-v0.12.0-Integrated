@@ -1,0 +1,473 @@
+ <!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"/>
+<meta name="theme-color" content="#0a0e17"/>
+<title>ECU Pulse — Smart Vehicle Management</title>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<link crossorigin href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+<script crossorigin src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root{--bg:#0a0e17;--card-bg:#141a26;--card-border:#1e2533;--accent:#00b4d8;--accent-glow:rgba(0,180,216,.15);--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--text:#e2e8f0;--text-dim:#64748b;--white:#fff;--gauge-bg:#1a2030;--nav-bg:#10151f;--radius:16px}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden}
+button{cursor:pointer;border:none;background:none;font-family:inherit;font-size:inherit;color:inherit}
+input{outline:none;border:none;background:none;font-family:inherit;color:inherit;font-size:inherit}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--card-border);border-radius:4px}
+#root{max-width:480px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;position:relative}
+
+/* Header */
+.header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;position:sticky;top:0;z-index:10;background:var(--bg)}
+.header-logo{display:flex;align-items:center;gap:8px}
+.header-logo .icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#00b4d8,#0077b6);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff}
+.header-logo h1{font-size:17px;font-weight:700;letter-spacing:-0.3px}
+.header-logo small{display:block;font-size:10px;color:var(--text-dim);font-weight:400;margin-top:-2px}
+.header-actions{display:flex;gap:6px}
+.header-actions button{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:all .15s;color:var(--text-dim)}
+.header-actions button:hover{background:var(--card-bg);color:var(--text)}
+
+/* Speed Hero */
+.speed-hero{display:flex;flex-direction:column;align-items:center;padding:10px 20px 20px}
+.speed-ring{position:relative;width:180px;height:180px}
+.speed-ring svg{transform:rotate(-135deg)}
+.speed-ring .inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.speed-ring .val{font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1}
+.speed-ring .unit{font-size:14px;color:var(--text-dim);font-weight:500;margin-top:2px}
+.speed-ring .sub{font-size:11px;color:var(--text-dim);margin-top:4px}
+.speed-tags{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+.speed-tags span{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.3px}
+.speed-tags .connected{background:rgba(34,197,94,.1);color:var(--green)}
+.speed-tags .mode{background:rgba(0,180,216,.1);color:var(--accent)}
+
+/* Tab Bar */
+.tab-bar{display:flex;overflow-x:auto;padding:0 16px;gap:4px;margin-bottom:8px;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{padding:8px 16px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap;transition:all .15s;color:var(--text-dim)}
+.tab-btn.active{background:var(--accent);color:#fff}
+
+/* Section Title */
+.section-title{padding:0 20px;margin:18px 0 12px;font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text-dim)}
+
+/* Gauge Grid */
+.gauge-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px}
+.gauge-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;transition:all .2s;position:relative;overflow:hidden}
+.gauge-card:active{transform:scale(.98)}
+.gauge-card .glow{position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;opacity:.04}
+.gauge-card .label{font-size:11px;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.gauge-card .ring-wrap{position:relative;width:90px;height:90px}
+.gauge-card .ring-wrap svg{transform:rotate(-135deg)}
+.gauge-card .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gauge-card .ring-center .val{font-size:24px;font-weight:700;font-family:'SF Mono','Courier New',monospace}
+.gauge-card .ring-center .unit{font-size:10px;color:var(--text-dim)}
+.gauge-card .status{font-size:10px;font-weight:600;padding:3px 8px;border-radius:10px}
+
+/* Command Grid */
+.cmd-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px}
+.cmd-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;transition:all .15s;text-align:center}
+.cmd-card:active{background:var(--card-border)}
+.cmd-card svg{width:24px;height:24px}
+.cmd-card strong{font-size:13px;font-weight:600}
+.cmd-card small{font-size:10px;color:var(--text-dim)}
+
+/* Terminal */
+.terminal-card{margin:0 16px;background:#060a12;border:1px solid var(--card-border);border-radius:var(--radius);overflow:hidden}
+.terminal-head{display:flex;align-items:center;gap:6px;padding:12px 14px;border-bottom:1px solid var(--card-border);font-size:11px;color:var(--text-dim)}
+.terminal-head .dot{width:6px;height:6px;border-radius:50%}
+.terminal-body{height:220px;overflow-y:auto;padding:12px 14px;font-family:'SF Mono','Courier New',monospace;font-size:11px;line-height:1.7}
+.terminal-body .tx{color:var(--accent)}
+.terminal-body .rx{color:var(--green)}
+.terminal-body .info{color:var(--text-dim)}
+.terminal-input-row{display:flex;border-top:1px solid var(--card-border)}
+.terminal-input-row input{flex:1;padding:12px 14px;background:transparent;font-family:'SF Mono','Courier New',monospace;font-size:12px;color:var(--text)}
+.terminal-input-row button{padding:12px 18px;background:var(--accent);color:#fff;font-weight:600;font-size:12px}
+
+/* Quick chips */
+.chip-row{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px;margin-top:10px}
+.chip{padding:6px 14px;border-radius:16px;border:1px solid var(--card-border);font-size:11px;font-family:'SF Mono','Courier New',monospace;color:var(--text-dim);transition:all .15s}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+
+/* DTC List */
+.dtc-list{padding:0 16px;display:flex;flex-direction:column;gap:8px}
+.dtc-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:14px;display:flex;align-items:center;gap:12px;transition:all .15s}
+.dtc-card:active{background:var(--card-border)}
+.dtc-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.dtc-icon.critical{background:rgba(239,68,68,.1);color:var(--red)}
+.dtc-icon.warning{background:rgba(245,158,11,.1);color:var(--amber)}
+.dtc-icon.info{background:rgba(0,180,216,.1);color:var(--accent)}
+.dtc-body{flex:1;min-width:0}
+.dtc-body strong{font-size:13px;font-weight:600}
+.dtc-body p{font-size:11px;color:var(--text-dim);margin-top:2px}
+.dtc-badge{padding:3px 8px;border-radius:10px;font-size:9px;font-weight:700;letter-spacing:.3px}
+.dtc-badge.critical{background:rgba(239,68,68,.15);color:var(--red)}
+.dtc-badge.warning{background:rgba(245,158,11,.15);color:var(--amber)}
+
+/* Health List */
+.health-list{padding:0 16px;display:flex;flex-direction:column;gap:6px}
+.health-row{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;transition:all .15s}
+.health-row:active{background:var(--card-border)}
+.health-left{display:flex;align-items:center;gap:10px}
+.health-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.health-left strong{font-size:13px;font-weight:600}
+.health-right{display:flex;align-items:center;gap:10px}
+.health-right .score{font-size:14px;font-weight:700;font-family:'SF Mono','Courier New',monospace}
+.health-right .mini-bar{width:60px;height:4px;border-radius:2px;background:var(--card-border);overflow:hidden}
+.health-right .mini-bar div{height:100%;border-radius:2px;transition:width .5s ease}
+
+/* Score ring */
+.score-section{display:flex;flex-direction:column;align-items:center;padding:10px 20px 0}
+.score-ring-big{position:relative;width:160px;height:160px}
+.score-ring-big svg{transform:rotate(-135deg)}
+.score-ring-big .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-ring-big .big-val{font-size:48px;font-weight:800;letter-spacing:-2px}
+.score-ring-big .big-label{font-size:12px;color:var(--text-dim);margin-top:2px}
+.score-detail{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px;margin-top:14px}
+.score-item{padding:12px;background:var(--card-bg);border-radius:12px;display:flex;flex-direction:column;gap:4px}
+.score-item .slabel{font-size:10px;color:var(--text-dim);text-transform:uppercase}
+.score-item .sval{font-size:18px;font-weight:700}
+.score-item .sbar{height:3px;border-radius:2px;margin-top:4px;transition:width .4s ease}
+
+/* Map */
+.map-embed{height:300px;border-radius:var(--radius);overflow:hidden;margin:0 16px;border:1px solid var(--card-border)}
+
+/* Bottom Nav */
+.bottom-nav{display:flex;justify-content:space-around;padding:8px 12px 20px;background:var(--nav-bg);border-top:1px solid var(--card-border);position:sticky;bottom:0}
+.bottom-nav button{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 12px;border-radius:12px;transition:all .15s;color:var(--text-dim)}
+.bottom-nav button.active{color:var(--accent)}
+.bottom-nav button svg{width:20px;height:20px}
+.bottom-nav button span{font-size:10px;font-weight:600;letter-spacing:.3px}
+
+/* Settings */
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--card-bg);border-bottom:1px solid var(--card-border)}
+.setting-row:first-child{border-radius:var(--radius) var(--radius) 0 0}
+.setting-row:last-child{border-radius:0 0 var(--radius) var(--radius);border-bottom:none}
+.setting-row:only-child{border-radius:var(--radius)}
+.setting-left strong{font-size:13px;font-weight:600;display:block}
+.setting-left small{font-size:10px;color:var(--text-dim);display:block;margin-top:2px}
+.toggle{width:44px;height:26px;border-radius:13px;background:var(--card-border);position:relative;transition:all .2s}
+.toggle.on{background:var(--accent)}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:all .2s}
+.toggle.on::after{left:21px}
+
+/* Page transition */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.page-in{animation:fadeIn .25s ease-out}
+.scroll-area{flex:1;overflow-y:auto;padding-bottom:20px}
+
+/* Misc */
+.empty-state{padding:40px 20px;text-align:center;color:var(--text-dim)}
+.empty-state svg{margin-bottom:12px}
+.empty-state p{font-size:13px}
+
+.btn-action{padding:12px 24px;border-radius:24px;background:var(--accent);color:#fff;font-weight:700;font-size:13px;letter-spacing:.3px;width:100%;text-align:center;transition:all .15s}
+.btn-action:active{transform:scale(.97);opacity:.9}
+.btn-outline{padding:10px 20px;border-radius:20px;border:1px solid var(--card-border);color:var(--text);font-size:12px;font-weight:600;transition:all .15s}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+</style>
+</head>
+<body><div id="root"></div>
+<script>
+var e=React.createElement;
+var S=function(d,sz,clr){return e('svg',{width:sz||20,height:sz||20,fill:'none',stroke:clr||'currentColor',strokeWidth:2,viewBox:'0 0 24 24'},e('path',{d:d,strokeLinecap:'round',strokeLinejoin:'round'}))};
+var IC={
+  home:'M3 12l2-2 7-7 7 7 2 2M9 21V9h6v12M5 21h14',
+  gauge:'M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8',
+  scan:'M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10',
+  car:'M5 11l2-6h10l2 6M3 14h18v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5zM6 16h.01M18 16h.01',
+  map:'M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4zM8 2v16M16 22V6',
+  error:'M10.3 4.3 1.5 20a1 1 0 0 0 .9 1.5h19.2a1 1 0 0 0 .9-1.5L13.7 4.3a1 1 0 0 0-1.7 0zM12 9v5M12 17h.01',
+  settings:'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4',
+  info:'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 7v4M12 15h.01',
+  bolt:'M13 2 3 14h9l-1 8 10-12h-9l1-8z',
+  thermometer:'M14 14.8V6a2 2 0 1 0-4 0v8.8a4 4 0 1 0 4 0zM12 18v-4',
+  activity:'M22 12h-4l-3 9L9 3l-3 9H2',
+  compass:'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM16.2 7.8l-2.4 6-1.8-1.8-1.8 1.8-2.4-6 6 2.4z',
+  crown:'M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01z',
+  play:'M6 4v16l14-8z',
+  pause:'M6 4h4v16H6zM14 4h4v16h-4z',
+  minus:'M3 12h18',
+  plus:'M12 3v18M3 12h18',
+  trash:'M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M19 6l-.87 12.14A2 2 0 0 1 16.14 20H7.86a2 2 0 0 1-2-1.86L5 6',
+};
+
+var NAV=[
+  {id:'home',icon:IC.home,label:'Dashboard'},
+  {id:'diagnostics',icon:IC.scan,label:'Diagnostics'},
+  {id:'trips',icon:IC.map,label:'Trips'},
+  {id:'scanner',icon:IC.activity,label:'Scanner'},
+  {id:'settings',icon:IC.settings,label:'Settings'},
+];
+
+function ArcGauge(props){
+  var r=38,circ=2*Math.PI*r;
+  var pct=props.value!=null?Math.min(1,Math.max(0,(props.value-props.min)/(props.max-props.min))):0;
+  var dash=pct*circ*0.75,off=circ*0.875;
+  return e('div',{className:'gauge-card',onClick:props.onClick},
+    e('div',{className:'glow',style:{background:props.color}}),
+    e('span',{className:'label'},props.label),
+    e('div',{className:'ring-wrap'},
+      e('svg',{viewBox:'0 0 100 100',width:'100%',height:'100%'},
+        e('circle',{cx:50,cy:50,r:r,fill:'none',stroke:'var(--card-border)',strokeWidth:6,strokeDasharray:circ*0.75+' '+circ*0.25,strokeDashoffset:off,strokeLinecap:'round'}),
+        e('circle',{cx:50,cy:50,r:r,fill:'none',stroke:props.color,strokeWidth:6,strokeDasharray:dash+' '+circ,strokeDashoffset:off,strokeLinecap:'round',
+          style:{transition:'stroke-dasharray .6s ease'}})
+      ),
+      e('div',{className:'ring-center'},
+        e('span',{className:'val'},props.value!=null?props.value:'--'),
+        e('span',{className:'unit'},props.unit)
+      )
+    ),
+    props.status?e('span',{className:'status',style:{background:props.status==='ok'?'rgba(34,197,94,.1)':props.status==='warn'?'rgba(245,158,11,.1)':'rgba(239,68,68,.1)',color:props.status==='ok'?'#22c55e':props.status==='warn'?'#f59e0b':'#ef4444'}},props.statusText):null
+  );
+}
+
+function HomePage(){
+  var _s=React.useState({rpm:2450,speed:68,coolant:91,voltage:13.8,load:34}),live=_s[0],setLive=_s[1];
+  React.useEffect(function(){
+    var t=setInterval(function(){setLive({
+      rpm:Math.floor(2000+Math.random()*1500),speed:Math.floor(50+Math.random()*60),
+      coolant:Math.floor(82+Math.random()*18),voltage:+(13.2+Math.random()*1.4).toFixed(1),
+      load:Math.floor(20+Math.random()*55)
+    })},2000);
+    return function(){clearInterval(t)};
+  },[]);
+
+  return e('div',{className:'page-in scroll-area'},
+    e('div',{className:'speed-hero'},
+      e('div',{className:'speed-ring'},
+        e('svg',{viewBox:'0 0 200 200',width:'100%',height:'100%'},
+          e('circle',{cx:100,cy:100,r:85,fill:'none',stroke:'var(--card-border)',strokeWidth:10,strokeDasharray:400+' 600',strokeDashoffset:500,strokeLinecap:'round'}),
+          e('circle',{cx:100,cy:100,r:85,fill:'none',stroke:'var(--accent)',strokeWidth:10,strokeDasharray:(live.speed/240)*400+' 600',strokeDashoffset:500,strokeLinecap:'round',
+            style:{transition:'stroke-dasharray .6s ease',filter:'drop-shadow(0 0 8px rgba(0,180,216,.3))'}})
+        ),
+        e('div',{className:'inner'},
+          e('span',{className:'val'},live.speed),
+          e('span',{className:'unit'},'km/h'),
+          e('span',{className:'sub'},'RPM '+live.rpm)
+        )
+      ),
+      e('div',{className:'speed-tags'},
+        e('span',{className:'connected'},'● Connected'),
+        e('span',{className:'mode'},'OBD-II Demo')
+      )
+    ),
+    e('div',{className:'gauge-grid'},
+      e(ArcGauge,{label:'Coolant',value:live.coolant,unit:'°C',min:60,max:120,color:'#f59e0b',status:live.coolant>105?'warn':live.coolant>90?'warn':'ok',statusText:live.coolant>105?'High':live.coolant>90?'Warm':'Normal'}),
+      e(ArcGauge,{label:'Battery',value:live.voltage,unit:'V',min:10,max:16,color:'#22c55e',status:live.voltage<11.5?'warn':'ok',statusText:live.voltage<11.5?'Low':'Normal'}),
+      e(ArcGauge,{label:'Engine Load',value:live.load,unit:'%',min:0,max:100,color:'#8b5cf6',status:live.load>80?'warn':'ok',statusText:live.load>80?'Heavy':'Normal'}),
+      e(ArcGauge,{label:'RPM',value:live.rpm,unit:'rpm',min:0,max:8000,color:'#ef4444',status:live.rpm>5000?'warn':'ok',statusText:live.rpm>5000?'High':'Normal'}),
+    )
+  );
+}
+
+function DiagnosticsPage(){
+  var _r=React.useState(false),ran=_r[0],setRan=_r[1];
+  var items=[
+    {name:'Engine',score:92},{name:'Transmission',score:88},{name:'Brakes',score:72,note:'Pads wearing'},
+    {name:'Battery',score:95},{name:'Emissions',score:90},{name:'Cooling',score:87},
+    {name:'Electrical',score:91},{name:'Suspension',score:85},
+  ];
+  var avg=ran?Math.round(items.reduce(function(a,i){return a+i.score},0)/items.length):0;
+  var sc=avg>80?'#22c55e':avg>60?'#f59e0b':'#ef4444';
+  var r=65,circ=2*Math.PI*r;
+
+  var dtcs=[{code:'P0133',desc:'O2 Sensor Slow Response — Bank 1 Sensor 1',severity:'warning'},{code:'P0420',desc:'Catalyst System Efficiency Below Threshold',severity:'critical'},{code:'P0301',desc:'Cylinder 1 Misfire Detected',severity:'info'}];
+
+  return e('div',{className:'page-in scroll-area'},
+    e('div',{className:'section-title'},'Vehicle Health'),
+    !ran?e('div',null,
+      e('div',{className:'empty-state'},S(IC.scan,40,'#64748b'),e('p',null,'Tap below to run a full diagnostic scan')),
+      e('div',{style:{padding:'0 16px',marginTop:12}},e('button',{className:'btn-action',onClick:function(){setRan(true)}},'Run Diagnostic Scan'))
+    ):
+    e('div',null,
+      e('div',{className:'score-section'},
+        e('div',{className:'score-ring-big'},
+          e('svg',{viewBox:'0 0 200 200',width:'100%',height:'100%'},
+            e('circle',{cx:100,cy:100,r:r,fill:'none',stroke:'var(--card-border)',strokeWidth:10,strokeDasharray:300+' 500',strokeDashoffset:400}),
+            e('circle',{cx:100,cy:100,r:r,fill:'none',stroke:sc,strokeWidth:10,strokeLinecap:'round',
+              strokeDasharray:(avg/100)*300+' 500',strokeDashoffset:400,
+              style:{transition:'stroke-dasharray 1s ease',filter:'drop-shadow(0 0 6px '+sc+')'}})
+          ),
+          e('div',{className:'center'},e('span',{className:'big-val',style:{color:sc}},avg),e('span',{className:'big-label'},'Health Score'))
+        )
+      ),
+      e('div',{className:'section-title'},'System Status'),
+      e('div',{className:'health-list'},
+        items.map(function(i){var ok=i.score>=80;return e('div',{key:i.name,className:'health-row'},
+          e('div',{className:'health-left'},
+            e('div',{className:'health-dot',style:{background:ok?'#22c55e':'#f59e0b'}}),
+            e('strong',null,i.name)
+          ),
+          e('div',{className:'health-right'},
+            e('div',{className:'mini-bar'},e('div',{style:{width:i.score+'%',background:ok?'#22c55e':'#f59e0b'}})),
+            e('span',{className:'score'},i.score)
+          )
+        )})
+      )
+    ),
+    e('div',{className:'section-title'},'Active Fault Codes'),
+    e('div',{className:'dtc-list'},
+      dtcs.map(function(d){return e('div',{key:d.code,className:'dtc-card'},
+        e('div',{className:'dtc-icon '+d.severity},d.severity==='critical'?'⚠':d.severity==='warning'?'⚡':'ℹ'),
+        e('div',{className:'dtc-body'},e('strong',null,d.code),e('p',null,d.desc)),
+        e('span',{className:'dtc-badge '+d.severity},d.severity.toUpperCase())
+      )})
+    )
+  );
+}
+
+function ScannerPage(){
+  var _s=React.useState([{dir:'info',text:'ECU Pulse ELM327 Console v2.0',time:Date.now()},{dir:'info',text:'Demo mode — ELM327 simulation active',time:Date.now()}]),lines=_s[0],setLines=_s[1];
+  var _i=React.useState(''),input=_i[0],setInput=_i[1];
+  var _c=React.useState(true),conn=_c[0],setConn=_c[1];
+  var botRef=React.useRef(null);
+  var DEMO={'ATZ':'ELM327 v2.1','ATI':'ELM327 v2.1','ATL0':'OK','ATH1':'OK','ATS0':'OK','ATSP0':'OK','0100':'41 00 BE 1F B8 10','010C':'41 0C 1A F8','010D':'41 0D 30','0105':'41 0D 46','010B':'41 0B 21','ATDPN':'6','ATRV':'13.8V','ATMA':'BUS MONITOR ACTIVE'};
+  function send(cmd){var c=(cmd||input).trim().toUpperCase();if(!c)return;setLines(function(p){return p.concat([{dir:'tx',text:'> '+c,time:Date.now()}])});setTimeout(function(){setLines(function(p){return p.concat([{dir:'rx',text:DEMO[c]||'?',time:Date.now()}])})},250+Math.random()*200);setInput('')}
+  React.useEffect(function(){if(botRef.current)botRef.current.scrollIntoView({behavior:'smooth'})},[lines]);
+  return e('div',{className:'page-in scroll-area'},
+    e('div',{className:'terminal-card',style:{marginTop:10}},
+      e('div',{className:'terminal-head'},
+        e('div',{className:'dot',style:{background:conn?'#22c55e':'#64748b'}}),conn?'ELM327 v2.1 — Connected':'Disconnected'
+      ),
+      e('div',{className:'terminal-body'},
+        lines.map(function(l,i){return e('div',{key:i,className:l.dir},l.text)}),
+        e('div',{ref:botRef})
+      ),
+      e('div',{className:'terminal-input-row'},
+        e('input',{value:input,onChange:function(ev){setInput(ev.target.value)},onKeyDown:function(ev){if(ev.key==='Enter')send()},placeholder:'Enter OBD/AT command...'}),
+        e('button',{onClick:function(){send()}},'Send')
+      )
+    ),
+    e('div',{className:'chip-row'},
+      ['ATZ','010C','010D','0105','ATDPN','ATRV','ATMA'].map(function(c){return e('button',{key:c,className:'chip',onClick:function(){send(c)}},c)})
+    ),
+    e('div',{style:{padding:'0 16px',marginTop:16,display:'flex',gap:8}},
+      e('button',{className:'btn-outline',style:{flex:1},onClick:function(){setLines([{dir:'info',text:'cleared',time:Date.now()}])}},'Clear'),
+      e('button',{className:'btn-outline',style:{flex:1},onClick:function(){var nc=!conn;setConn(nc);setLines(function(p){return p.concat([{dir:'info',text:nc?'Connected to ELM327':'Disconnected',time:Date.now()}])})}},conn?'Disconnect':'Connect')
+    )
+  );
+}
+
+function TripsPage(){
+  var mapRef=React.useRef(null),mapInst=React.useRef(null);
+  var trips=[{id:'1',name:'Tehran — West to East',time:'Today, 18:45',dist:18.5},{id:'2',name:'Mirdamad to Tajrish',time:'Yesterday, 09:12',dist:8.2},{id:'3',name:'Hemmat Highway',time:'Jul 20, 14:30',dist:42.1}];
+  React.useEffect(function(){
+    if(!mapRef.current||mapInst.current) return;
+    mapInst.current=L.map(mapRef.current).setView([35.7219,51.3347],12);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; CartoDB'}).addTo(mapInst.current);
+    var d=[[35.7219,51.3347],[35.7320,51.3500],[35.7440,51.3650],[35.7540,51.3850],[35.7600,51.4100]];
+    L.polyline(d,{color:'#00b4d8',weight:4,opacity:.8}).addTo(mapInst.current);
+    L.circleMarker(d[0],{radius:5,color:'#22c55e',fillColor:'#22c55e',fillOpacity:1}).addTo(mapInst.current);
+    L.circleMarker(d[4],{radius:5,color:'#ef4444',fillColor:'#ef4444',fillOpacity:1}).addTo(mapInst.current);
+  },[]);
+  return e('div',{className:'page-in scroll-area'},
+    e('div',{className:'section-title'},'Live Map'),
+    e('div',{ref:mapRef,className:'map-embed'}),
+    e('div',{className:'section-title'},'Recent Trips'),
+    e('div',{className:'dtc-list'},
+      trips.map(function(t){return e('div',{key:t.id,className:'dtc-card',style:{justifyContent:'space-between'}},
+        e('div',{className:'dtc-body'},e('strong',null,t.name),e('p',null,t.time)),
+        e('span',{style:{fontSize:14,fontWeight:700,fontFamily:'SF Mono,Courier New,monospace',color:'var(--accent)'}},t.dist+' km')
+      )})
+    )
+  );
+}
+
+function SettingsPage(){
+  var themes=['dark','neon','midnight','ivory'];
+  var _t=React.useState(0),ti=_t[0],setTi=_t[1];
+  var _d=React.useState(true),dm=_d[0],setDm=_d[1];
+  return e('div',{className:'page-in scroll-area'},
+    e('div',{className:'section-title'},'Appearance'),
+    e('div',{className:'setting-row'},
+      e('div',{className:'setting-left'},e('strong',null,'Theme'),e('small',null,themes[ti])),
+      e('div',{style:{display:'flex',gap:6}},
+        themes.map(function(t,i){return e('button',{key:t,onClick:function(){setTi(i)},style:{width:28,height:28,borderRadius:8,border:i===ti?'2px solid var(--accent)':'2px solid var(--card-border)',background:t==='dark'?'#0a0e17':t==='neon'?'#0d1f2d':t==='midnight'?'#0f0a1a':'#1a1a1a'}})})})
+    ),
+    e('div',{style:{padding:'0 16px',marginBottom:16}}),
+    e('div',{className:'section-title'},'Connection'),
+    e('div',{className:'setting-row'},
+      e('div',{className:'setting-left'},e('strong',null,'Demo Mode'),e('small',null,'Simulated OBD-II data')),
+      e('div',{className:'toggle'+(dm?' on':''),onClick:function(){setDm(!dm)}})
+    ),
+    e('div',{className:'setting-row'},
+      e('div',{className:'setting-left'},e('strong',null,'API Server'),e('small',null,'http://127.0.0.1:4030')),
+      S(IC.settings,18,'#64748b')
+    ),
+    e('div',{className:'section-title'},'About'),
+    e('div',{className:'setting-row'},
+      e('div',{className:'setting-left'},e('strong',null,'Version'),e('small',null,'2.0.0 — ECU Pulse')),
+      e('span',{style:{fontSize:13,color:'var(--text-dim)'}},'diageman.ir')
+    )
+  );
+}
+
+function DrivingPage(){
+  return e('div',{className:'page-in scroll-area'},
+    e('div',{className:'score-section'},
+      e('div',{className:'score-ring-big'},
+        e('svg',{viewBox:'0 0 200 200',width:'100%',height:'100%'},
+          e('circle',{cx:100,cy:100,r:65,fill:'none',stroke:'var(--card-border)',strokeWidth:10,strokeDasharray:300+' 500',strokeDashoffset:400}),
+          e('circle',{cx:100,cy:100,r:65,fill:'none',stroke:'#22c55e',strokeWidth:10,strokeLinecap:'round',
+            strokeDasharray:(92/100)*300+' 500',strokeDashoffset:400,
+            style:{transition:'stroke-dasharray 1s ease',filter:'drop-shadow(0 0 6px #22c55e)'}})
+        ),
+        e('div',{className:'center'},e('span',{className:'big-val',style:{color:'#22c55e'}},'92'),e('span',{className:'big-label'},'Driving Score'))
+      )
+    ),
+    e('div',{className:'section-title'},'Driving Metrics'),
+    e('div',{className:'score-detail'},
+      [{l:'Acceleration',v:88,c:'#22c55e'},{l:'Braking',v:94,c:'#22c55e'},{l:'Cornering',v:85,c:'#f59e0b'},{l:'Speed Consistency',v:91,c:'#22c55e'},{l:'Idle Time',v:79,c:'#f59e0b'},{l:'Night Driving',v:95,c:'#00b4d8'}].map(function(m,i){
+        return e('div',{key:i,className:'score-item'},
+          e('span',{className:'slabel'},m.l),
+          e('span',{className:'sval',style:{color:m.c}},m.v),
+          e('div',{className:'sbar',style:{width:m.v+'%',background:m.c}})
+        )
+      })
+    ),
+    e('div',{className:'section-title'},'Tips'),
+    e('div',{style:{padding:'0 16px'}},e('div',{className:'glass',style:{padding:14,background:'var(--card-bg)',border:'1px solid var(--card-border)',borderRadius:12,fontSize:12,color:'var(--text-dim)',lineHeight:1.6}},'Smooth acceleration and early braking improve your score. Avoid hard cornering and excessive idling. Night driving is well within safe limits.'))
+  );
+}
+
+function App(){
+  var _p=React.useState('home'),page=_p[0],setPage=_p[1];
+  var _o=React.useState(false),open=_o[0],setOpen=_o[1];
+  var pages={};
+  pages.home=e(HomePage);
+  pages.diagnostics=e(DiagnosticsPage);
+  pages.scanner=e(ScannerPage);
+  pages.trips=e(TripsPage);
+  pages.settings=e(SettingsPage);
+  pages.driving=e(DrivingPage);
+
+  return e('div',{style:{display:'flex',flexDirection:'column',height:'100dvh'}},
+    e('div',{className:'header'},
+      e('div',{className:'header-logo'},
+        e('div',{className:'icon'},'EP'),
+        e('div',null,e('h1',null,'ECU Pulse'),e('small',null,'Smart Vehicle Management'))
+      ),
+      e('div',{className:'header-actions'},
+        e('button',{onClick:function(){setPage('driving')}},S(IC.compass,20)),
+        e('button',{onClick:function(){setPage('scanner')}},S(IC.activity,20))
+      )
+    ),
+    e('div',{className:'tab-bar'},
+      [{id:'home',label:'Dashboard'},{id:'diagnostics',label:'Diagnostics'},{id:'trips',label:'Trips'},{id:'scanner',label:'Scanner'},{id:'settings',label:'Settings'}].map(function(t){
+        return e('button',{key:t.id,className:'tab-btn'+(page===t.id?' active':''),onClick:function(){setPage(t.id)}},t.label)
+      })
+    ),
+    e('div',{key:page,style:{flex:1,overflow:'hidden'}},pages[page]||pages.home),
+    e('div',{className:'bottom-nav'},
+      NAV.map(function(n){return e('button',{key:n.id,className:page===n.id?'active':'',onClick:function(){setPage(n.id)}},
+        S(n.icon,20),e('span',null,n.label)
+      )})
+    )
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(e(App));
+</script>
+</body>
+</html>

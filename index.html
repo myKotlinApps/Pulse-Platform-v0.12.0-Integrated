@@ -1077,7 +1077,7 @@ function renderVehicles(){
   if(makes.includes(current?.make))$('#makeSelect').value=current.make;
   renderModels();
   const demoCard=state.demo?`<article class="vehicle-card demo-card ${state.demoMode?'selected':''}" data-demo="true"><img src="data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#e5e7eb"/><text x="50" y="60" text-anchor="middle" font-size="30" fill="#374151" font-weight="bold">?</text></svg>')}"><strong>${state.demo.vehicle.model}</strong><small>بدون اتصال واقعی</small></article>`:'';
-  $('#vehicleGrid').innerHTML=demoCard+list.map(v=>`<article class="vehicle-card ${!state.demoMode&&v.index===state.vehicleIndex?'selected':''}" data-index="${v.index}"><img src="${logoPath(v)}"><strong>${v.model}</strong><small>${v.make}</small></article>`).join('');
+  $('#vehicleGrid').innerHTML=demoCard+list.map(v=>`<article class="vehicle-card ${!state.demoMode&&v.index===state.vehicleIndex?'selected':''}" data-index="${v.index}"><img src="${logoPath(v)}" onerror="this.onerror=null;this.src='${fallbackLogo(v)}'"><strong>${v.model}</strong><small>${v.make}</small></article>`).join('');
   $$('.vehicle-card[data-index]').forEach(c=>c.onclick=()=>{$('#makeSelect').value=state.data.vehicles[c.dataset.index].make;renderModels();$('#modelSelect').value=c.dataset.index;openVehicleDetail(Number(c.dataset.index))});
   document.querySelector('.demo-card')?.addEventListener('click',activateDemo);
   syncDemoButtons()
@@ -1090,7 +1090,7 @@ function renderActiveVehicle(){
   const v=activeVehicle();if(!v)return;
   $('#vehicleName').textContent=`${v.make} ${v.model}`;
   $('#vehicleProtocol').textContent=(v.protocols||[]).join(' · ')||v.profile;
-  const hero=$('#vehicleLogo');hero.onerror=()=>{hero.onerror=null;hero.src=logoPath(v)};
+  const hero=$('#vehicleLogo');hero.onerror=()=>{hero.onerror=null;hero.src=fallbackLogo(v)};
   hero.src=logoSrc(v);
   $('#demoBadge').hidden=!state.demoMode;$('#dataModeLabel').textContent=state.demoMode?'داده آزمایشی':'داده خودرو';
   syncDemoButtons()
@@ -1310,7 +1310,7 @@ $$('.pro-feature').forEach(card=>{card.addEventListener('click',e=>{if(e.target.
 function applyPlan(){const pro=state.plan==='pro';$('#sidePlan').textContent=pro?'PRO DEV':'FREE';$('#catalogBadge').textContent=pro?'کاتالوگ کامل':'فهرست رایگان ۱۰٪';$$('.pro-only').forEach(x=>x.classList.toggle('locked',!pro));$$('.pro-feature').forEach(x=>x.classList.toggle('locked',!pro));$('.advanced-nav')?.classList.toggle('unlocked',pro);if($('#proNavBadge'))$('#proNavBadge').textContent=pro?'فعال':'قفل';if($('#proCenterBadge'))$('#proCenterBadge').textContent=pro?'PRO فعال':'قفل';if($('#proUnlockStatus'))$('#proUnlockStatus').textContent=pro?'نسخه پیشرفته آزمایشی فعال است':'نسخه رایگان فعال است';$('.dev-unlock')?.classList.toggle('unlocked',pro);if($('#unlockProBtn'))$('#unlockProBtn').hidden=pro;if($('#disableProBtn'))$('#disableProBtn').hidden=!pro;if($('#planStatusInput'))$('#planStatusInput').value=pro?'پیشرفته آزمایشی':'رایگان';renderVehicles();renderActiveVehicle();refreshEntitlement()}
 
 /* ========================= MYDIAG HOME ========================= */
-function syncMyDiagHome(){const v=activeVehicle();if(!v)return;$('#mydiagVehicleName').textContent=`${v.make} ${v.model}`;$('#mydiagVehicleLogo').src=logoSrc(v);$('#mydiagSpeed').textContent=`${fa(Math.round(state.live.speedKph||0))} km/h`;$('#mydiagRpm').textContent=`${fa(Math.round(state.live.rpm||0))} rpm`;$('#mydiagDtcCount').textContent=fa(state.dtcs.length);$('#mydiagConnectionState').textContent=state.demoMode?'اتصال شبیه‌ساز فعال است':'منتظر اتصال ELM327'}
+function syncMyDiagHome(){const v=activeVehicle();if(!v)return;$('#mydiagVehicleName').textContent=`${v.make} ${v.model}`;const myLogo=$('#mydiagVehicleLogo');myLogo.onerror=()=>{myLogo.onerror=null;myLogo.src=fallbackLogo(v)};myLogo.src=logoSrc(v);$('#mydiagSpeed').textContent=`${fa(Math.round(state.live.speedKph||0))} km/h`;$('#mydiagRpm').textContent=`${fa(Math.round(state.live.rpm||0))} rpm`;$('#mydiagDtcCount').textContent=fa(state.dtcs.length);$('#mydiagConnectionState').textContent=state.demoMode?'اتصال شبیه‌ساز فعال است':'منتظر اتصال ELM327'}
 
 /* ========================= DRIVING STYLE ========================= */
 function selectedTripForStyle(){return selectedTrip?.()||trips?.().at(-1)||null}

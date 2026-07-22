@@ -1809,6 +1809,7 @@ function normalizeAdminKitComponents(root=document){
   const scope=root.querySelectorAll?root:document;
   scope.querySelectorAll('main button:not(.btn)').forEach(b=>{
     if(b.closest('.sidebar-nav')||b.closest('.bottom'))return;
+    if(b.classList.contains('mydiag-menu-card'))return;
     b.classList.add('btn','btn-sm');
     if(b.classList.contains('danger')||b.classList.contains('ep-btn-danger'))b.classList.add('btn-danger');
     else b.classList.add('btn-primary');

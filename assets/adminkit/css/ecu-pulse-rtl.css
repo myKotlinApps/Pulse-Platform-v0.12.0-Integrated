@@ -198,8 +198,35 @@ html[data-theme="adminkit"] .mydiag-hero { color: #495057 !important; }
 html[data-theme="adminkit"] .mydiag-car-status small,
 html[data-theme="adminkit"] .mydiag-car-status p { color: #6c757d !important; }
 html[data-theme="adminkit"] .mydiag-connect button { color: #fff !important; background: #3b7ddd !important; }
-html[data-theme="adminkit"] .metric-card span { color: #6c757d !important; }
+html[data-theme="adminkit"] .mydiag-summary strong,
+html[data-theme="adminkit"] .mydiag-style-grid strong,
 html[data-theme="adminkit"] .metric-card strong { color: #495057 !important; }
+html[data-theme="adminkit"] .mydiag-summary span,
+html[data-theme="adminkit"] .mydiag-style-grid span,
+html[data-theme="adminkit"] .metric-card span { color: #6c757d !important; }
+
+html[data-theme="adminkit"] .mydiag-menu-grid { gap: 1rem !important; }
+html[data-theme="adminkit"] body .mydiag-menu-card {
+  min-height: 132px !important;
+  padding: 1.1rem !important;
+  color: #495057 !important;
+  background: #fff !important;
+  border: 0 !important;
+  border-radius: .25rem !important;
+  box-shadow: 0 0 .875rem 0 rgba(33,37,41,.05) !important;
+  text-align: right !important;
+}
+html[data-theme="adminkit"] body .mydiag-menu-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .25rem 1rem rgba(33,37,41,.1) !important;
+}
+html[data-theme="adminkit"] body .mydiag-menu-card i,
+html[data-theme="adminkit"] body .mydiag-menu-card svg {
+  color: #3b7ddd !important;
+  background: #e9f0fb !important;
+}
+html[data-theme="adminkit"] body .mydiag-menu-card strong { color: #495057 !important; }
+html[data-theme="adminkit"] body .mydiag-menu-card small { color: #6c757d !important; }
 
 html[data-theme="adminkit"] .page-head h1,
 html[data-theme="adminkit"] .page-head h2,

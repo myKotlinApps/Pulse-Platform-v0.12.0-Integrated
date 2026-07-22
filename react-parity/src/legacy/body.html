@@ -1,0 +1,317 @@
+<svg class="sprite"><defs>
+<filter id="routeGlow"><feGaussianBlur result="blur" stdDeviation="3"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v10h-6v-6H9v6H3z"/></symbol>
+<symbol id="i-car" viewBox="0 0 24 24"><path d="m5 11 2-5h10l2 5M3 14h18v5H3zM6 19v2M18 19v2M7 15h.01M17 15h.01"/></symbol>
+<symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18c7 0 1-10 8-10"/></symbol>
+<symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 7V4h3M17 4h3v3M20 17v3h-3M7 20H4v-3M7 12h10M12 7v10"/></symbol>
+<symbol id="i-crown" viewBox="0 0 24 24"><path d="m3 7 5 4 4-7 4 7 5-4-2 12H5z"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><path d="M12 3 2 21h20zM12 9v5M12 18h.01"/></symbol>
+<symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.3 1A7 7 0 0 0 15 6l-.3-2.5h-4L10.4 6A7 7 0 0 0 8.7 7L6.4 6l-2 3.4L6.3 11a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.3-1A7 7 0 0 0 10 18l.3 2.5h4L14.6 18a7 7 0 0 0 1.7-1l2.3 1 2-3.4-1.9-1.5a7 7 0 0 0 .3-1.1z"/></symbol>
+<symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 15a8 8 0 1 1 16 0"/><path d="m12 15 4-5"/><circle cx="12" cy="15" r="1"/></symbol>
+<symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v6h6M12 7v5l3 2"/></symbol>
+<symbol id="i-style" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></symbol>
+<symbol id="i-parking" viewBox="0 0 24 24"><path d="M18 10l-6-6-6 6h3v8h6v-8h3zM9 21h6"/></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="m8 6 1.5-3h5L16 6"/><circle cx="12" cy="13" r="4"/></symbol>
+<symbol id="i-shop" viewBox="0 0 24 24"><path d="M4 9h16l-1 12H5zM7 9l1-6h8l1 6"/><path d="M9 13h6"/></symbol>
+<symbol id="i-plug" viewBox="0 0 24 24"><path d="M8 3v5M16 3v5M6 8h12v3a6 6 0 0 1-6 6v4M9 21h6"/></symbol>
+<symbol id="i-register" viewBox="0 0 24 24"><path d="M4 17V7h13v10M2 17h20v4H2z"/><path d="M8 7l2-4h5l2 4M12 11v4M10 13h4"/></symbol>
+<symbol id="i-buy" viewBox="0 0 24 24"><path d="M3 5h2l2 11h10l3-8H6"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></symbol>
+</svg>
+
+<div class="shell">
+<aside>
+<div class="brand"><div>EP</div><strong>ECU Pulse<small>DIAGEMAN.IR</small></strong></div>
+<nav>
+<button class="active" data-page="mydiag"><svg><use href="#i-home"/></svg>خانه MyDiag</button>
+<button data-page="dashboard"><svg><use href="#i-gauge"/></svg>داشبورد</button>
+<button data-page="vehicles"><svg><use href="#i-car"/></svg>خودرو</button>
+<button data-page="trips"><svg><use href="#i-route"/></svg>سفرها</button>
+<button data-page="analysis"><svg><use href="#i-scan"/></svg>تحلیل ماشین من</button>
+<button class="advanced-nav" data-page="procenter"><svg><use href="#i-crown"/></svg><span>مرکز پیشرفته</span><b id="proNavBadge">قفل</b></button>
+<button data-page="store"><svg><use href="#i-crown"/></svg>خرید و فعال‌سازی</button>
+<button data-page="errors"><svg><use href="#i-error"/></svg>خطا و پشتیبانی</button>
+<button data-page="scanner"><svg><use href="#i-plug"/></svg>اسکنر ECU</button>
+<button data-page="settings"><svg><use href="#i-settings"/></svg>تنظیمات</button>
+</nav>
+<div class="plan-card"><span id="sidePlan">FREE</span><small id="clearQuotaSide">۵ پاک‌کردن باقی مانده</small></div>
+</aside>
+
+<header>
+<button id="menuBtn">☰</button>
+<div><small id="eyebrow">SMART VEHICLE</small><strong id="title">خانه خودرو</strong></div>
+<button class="icon" id="themeBtn"><svg><use href="#i-theme"/></svg></button>
+</header>
+
+<main>
+
+<!-- MYDIAG HOME -->
+<section class="page active mydiag-page" data-page="mydiag">
+<section class="mydiag-hero">
+<div class="mydiag-car-status">
+<div class="mydiag-logo-ring"><img id="mydiagVehicleLogo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='42' fill='%23e5e7eb'/%3E%3Ctext x='50' y='60' text-anchor='middle' font-size='30' fill='%23374151' font-weight='bold'%3E?%3C/text%3E%3C/svg%3E" alt="لوگوی خودرو"></div>
+<div><small>خودروی فعال</small><h1 id="mydiagVehicleName">ECU Pulse Demo</h1><p id="mydiagConnectionState">اتصال شبیه‌ساز آماده است</p></div>
+</div>
+<div class="mydiag-connect"><span><i></i> آماده اتصال</span><button data-page="scanner">اتصال به ELM327</button></div>
+</section>
+<section class="mydiag-summary">
+<article><span>آخرین سرعت</span><strong id="mydiagSpeed">۰ km/h</strong></article>
+<article><span>دور موتور</span><strong id="mydiagRpm">۰ rpm</strong></article>
+<article><span>خطاهای فعال</span><strong id="mydiagDtcCount">۰</strong></article>
+<article><span>امتیاز رانندگی</span><strong id="mydiagDriveScore">۹۲</strong></article>
+</section>
+<div class="mydiag-section-title"><div><small>SMART VEHICLE MANAGEMENT</small><h2>منوهای اصلی</h2></div><span>۱۳ بخش</span></div>
+<section class="mydiag-menu-grid">
+<button class="mydiag-menu-card" data-target="dashboard"><svg><use href="#i-gauge"/></svg><strong>داشبورد</strong><small>گیج‌ها و داده زنده</small></button>
+<button class="mydiag-menu-card" data-target="dashboard" data-anchor="dtcList"><svg><use href="#i-error"/></svg><strong>عیب‌یابی خودرو</strong><small>خواندن و پاک‌کردن خطا</small></button>
+<button class="mydiag-menu-card" data-target="trips"><svg><use href="#i-history"/></svg><strong>سوابق رانندگی</strong><small>مسیر، توقف و بازپخش</small></button>
+<button class="mydiag-menu-card" data-special="driving-style"><svg><use href="#i-style"/></svg><strong>سبک رانندگی</strong><small>شتاب، ترمز و امتیاز</small></button>
+<button class="mydiag-menu-card" data-target="vehicles"><svg><use href="#i-car"/></svg><strong>مدیریت خودرو</strong><small>پروفایل و مدل خودرو</small></button>
+<button class="mydiag-menu-card" data-special="parking"><svg><use href="#i-parking"/></svg><strong>پارکینگ</strong><small>ذخیره محل پارک</small></button>
+<button class="mydiag-menu-card" data-special="dashcam"><svg><use href="#i-camera"/></svg><strong>دوربین خودرو</strong><small>مشاهده ویدئوی محلی</small></button>
+<button class="mydiag-menu-card" data-target="store"><svg><use href="#i-shop"/></svg><strong>فروشگاه تجهیزات</strong><small>دانگل و خدمات</small></button>
+<button class="mydiag-menu-card" data-target="scanner"><svg><use href="#i-plug"/></svg><strong>اسکنر و اتصال</strong><small>Bluetooth و Wi‑Fi</small></button>
+<button class="mydiag-menu-card pro-menu" data-target="procenter"><svg><use href="#i-crown"/></svg><strong>ارتقای Pro</strong><small>امکانات پیشرفته</small></button>
+<button class="mydiag-menu-card" data-target="vehicles"><svg><use href="#i-register"/></svg><strong>ثبت خودرو</strong><small>افزودن پروفایل جدید</small></button>
+<button class="mydiag-menu-card" data-target="settings"><svg><use href="#i-settings"/></svg><strong>تنظیمات</strong><small>ظاهر، API و اتصال</small></button>
+<button class="mydiag-menu-card" data-target="store"><svg><use href="#i-buy"/></svg><strong>خرید اشتراک</strong><small>فعال‌سازی و تخفیف</small></button>
+</section>
+</section>
+
+<!-- DRIVING STYLE -->
+<section class="page mydiag-feature-page" data-page="drivingstyle">
+<div class="page-head"><div><small>DRIVING STYLE</small><h1>تحلیل سبک رانندگی</h1></div><button data-page="mydiag">بازگشت</button></div>
+<section class="mydiag-score-card card">
+<div class="score-ring"><strong id="styleScore">۹۲</strong><span>از ۱۰۰</span></div>
+<div class="score-copy"><h2>رانندگی متعادل</h2><p>این صفحه از آخرین سفر ذخیره‌شده، سرعت‌ها و توقف‌ها یک امتیاز آموزشی می‌سازد.</p><button id="recalculateStyle">محاسبه از سفر انتخاب‌شده</button></div>
+</section>
+<section class="mydiag-style-grid">
+<article><span>شتاب ناگهانی</span><strong id="rapidAccelCount">۲</strong></article>
+<article><span>ترمز شدید</span><strong id="rapidBrakeCount">۱</strong></article>
+<article><span>توقف طولانی</span><strong id="idleEventCount">۳</strong></article>
+<article><span>حداکثر سرعت</span><strong id="styleMaxSpeed">۸۴</strong></article>
+</section>
+</section>
+
+<!-- PARKING -->
+<section class="page mydiag-feature-page" data-page="parking">
+<div class="page-head"><div><small>PARKING MEMORY</small><h1>محل پارک خودرو</h1></div><button data-page="mydiag">بازگشت</button></div>
+<section class="card parking-card">
+<div class="parking-marker"><svg><use href="#i-parking"/></svg></div>
+<div><h2>ذخیره آخرین موقعیت</h2><p id="parkingStatus">هنوز موقعیتی ذخیره نشده است.</p><div class="parking-actions"><button id="saveParking">ذخیره موقعیت فعلی</button><button id="clearParking">حذف موقعیت</button></div></div>
+</section>
+</section>
+
+<!-- DASHCAM -->
+<section class="page mydiag-feature-page" data-page="dashcam">
+<div class="page-head"><div><small>DASHCAM VIEWER</small><h1>دوربین خودرو</h1></div><button data-page="mydiag">بازگشت</button></div>
+<section class="card dashcam-card">
+<label class="dashcam-picker">انتخاب ویدئوی محلی<input id="dashcamInput" type="file" accept="video/*"></label>
+<video id="dashcamVideo" controls playsinline></video>
+<p>این بخش فقط فایل انتخاب‌شده روی دستگاه را نمایش می‌دهد و آن را جایی بارگذاری نمی‌کند.</p>
+</section>
+</section>
+
+<!-- DASHBOARD -->
+<section class="page" data-page="dashboard">
+<article class="vehicle-hero">
+<div class="vehicle-id">
+<label class="logo-box"><img id="vehicleLogo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='42' fill='%23e5e7eb'/%3E%3Ctext x='50' y='60' text-anchor='middle' font-size='30' fill='%23374151' font-weight='bold'%3E?%3C/text%3E%3C/svg%3E"/><input accept="image/*" hidden="" id="logoInput" type="file"/><span>تعویض لوگو</span></label>
+<div><small>پروفایل فعال</small><h1 id="vehicleName">پژو ۲۰۶</h1><p id="vehicleProtocol">Generic OBD-II · ELM327</p></div>
+</div>
+<div class="hero-actions"><span class="demo-badge" id="demoBadge">پروفایل دمو</span><span class="online"><i></i><b id="dataModeLabel">داده آزمایشی</b></span><button id="mockToggle">توقف دمو</button></div>
+</article>
+<div class="gauge-grid">
+<article>
+<header><span>سرعت</span><strong id="speedValue">۰ km/h</strong></header>
+<div class="gauge-svg-wrap" id="speedGauge"><svg viewBox="0 0 280 280"><defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="var(--green)"/><stop offset="60%" stop-color="var(--cyan)"/><stop offset="100%" stop-color="var(--red)"/></linearGradient></defs><path d="M140 260 A120 120 0 0 1 36 140" fill="none" stroke="#1d3557" stroke-width="28" stroke-linecap="round"/><path id="speedArc" d="M140 260 A120 120 0 0 1 36 140" fill="none" stroke="url(#sg)" stroke-width="26" stroke-linecap="round" stroke-dasharray="188.5 377" stroke-dashoffset="188.5"/><line id="speedNeedle" x1="140" y1="240" x2="140" y2="48" stroke="var(--red)" stroke-width="4" stroke-linecap="round"/><circle cx="140" cy="240" r="12" fill="#1d3557" stroke="var(--red)" stroke-width="3"/><text x="140" y="180" text-anchor="middle" fill="var(--muted)" font-size="10">km/h</text><text x="50" y="130" fill="var(--muted)" font-size="9">0</text><text x="140" y="32" fill="var(--muted)" font-size="9">220</text></svg></div>
+</article>
+<article>
+<header><span>دور موتور</span><strong id="rpmValue">۰ rpm</strong></header>
+<div class="gauge-svg-wrap" id="rpmGauge"><svg viewBox="0 0 280 280"><path d="M140 260 A120 120 0 0 1 36 140" fill="none" stroke="#1d3557" stroke-width="28" stroke-linecap="round"/><path id="rpmArc" d="M140 260 A120 120 0 0 1 36 140" fill="none" stroke="var(--cyan)" stroke-width="26" stroke-linecap="round" stroke-dasharray="188.5 377" stroke-dashoffset="188.5"/><line id="rpmNeedle" x1="140" y1="240" x2="140" y2="48" stroke="var(--cyan)" stroke-width="4" stroke-linecap="round"/><circle cx="140" cy="240" r="12" fill="#1d3557" stroke="var(--cyan)" stroke-width="3"/><text x="140" y="180" text-anchor="middle" fill="var(--muted)" font-size="10">x1000</text><text x="50" y="130" fill="var(--muted)" font-size="9">0</text><text x="140" y="32" fill="var(--muted)" font-size="9">7</text></svg></div>
+</article>
+</div>
+<div class="metric-grid">
+<article><span>دمای آب</span><strong id="coolant">--</strong></article>
+<article><span>ولتاژ</span><strong id="voltage">--</strong></article>
+<article><span>بار موتور</span><strong id="engineLoad">--</strong></article>
+<article><span>مصرف تقریبی</span><strong id="fuelUse">--</strong></article>
+</div>
+<section class="card">
+<div class="section-title"><div><small>DIAGNOSTIC TROUBLE CODES</small><h2>خطاهای ECU</h2></div><button id="readDtcBtn">خواندن نمایشی</button></div>
+<div class="dtc-list" id="dtcList"></div>
+<div class="clear-row"><div><strong>پاک‌کردن خطاهای عمومی</strong><small id="clearQuota">نسخه رایگان: ۵ بار در کل</small></div><button class="danger" id="clearDtcBtn">پاک‌کردن</button></div>
+</section>
+</section>
+
+<!-- VEHICLES -->
+<section class="page" data-page="vehicles">
+<div class="page-head"><div><small>FREE CATALOG = 10%</small><h1>انتخاب خودرو</h1></div><span id="catalogBadge">فهرست رایگان</span></div>
+<section class="card selectors"><select id="makeSelect"></select><select id="modelSelect"></select><button id="activateVehicle">فعال‌کردن پروفایل</button><button class="demo-action" id="activateDemo">شروع دمو</button></section>
+<div class="vehicle-grid" id="vehicleGrid"></div>
+</section>
+
+<!-- TRIPS -->
+<section class="page" data-page="trips">
+<div class="page-head"><div><small>GPS TRIP LOGGER · OFFLINE SAFE</small><h1>ثبت و بازپخش مسیر</h1></div><div class="trip-head-actions"><button id="loadDemoTrip">بارگذاری سفر نمایشی تهران</button><button id="startTrip">شروع ثبت</button><button disabled id="stopTrip">توقف</button></div></div>
+<div class="trip-layout">
+<section class="card map-card">
+<div class="map-toolbar"><strong id="mapStatus">نقشه آفلاین آماده است</strong><div class="map-toolbar-actions"><span id="mapProvider">Offline SVG</span><button id="fitTripMap">نمایش کل مسیر</button></div></div>
+<div class="map-stage" id="map">
+<div id="leafletMap"></div>
+<svg id="fallbackMap" viewBox="0 0 1000 620" role="img">
+<defs><pattern id="minorGrid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="rgba(139,157,178,.12)" stroke-width="1"/></pattern></defs>
+<rect width="1000" height="620" fill="#081727"/><rect width="1000" height="620" fill="url(#minorGrid)"/>
+<g class="offline-roads">
+<path d="M70 480 C240 470 380 450 520 420 S790 370 930 350"/>
+<path d="M150 560 C270 450 350 360 460 300 S700 190 860 120"/>
+<path d="M80 310 C270 310 390 325 560 300 S800 250 950 245"/>
+<path d="M470 560 C500 450 520 330 550 210 S580 90 610 35"/>
+<path d="M690 560 C680 450 700 320 740 200 S790 100 830 35"/>
+</g>
+<g class="offline-labels">
+<text x="75" y="505">غرب تهران · آزادی</text><text x="770" y="380">شرق تهران · تهرانپارس</text>
+<text x="700" y="105">شمال تهران</text><text x="455" y="345">مرکز تهران</text>
+</g>
+<polyline id="fallbackRoute" points=""/>
+<polyline id="fallbackTrail" points=""/>
+<g id="fallbackStops"/>
+<g id="fallbackCar" transform="translate(70 480) rotate(0)">
+<svg x="-29" y="-29" width="58" height="58" viewBox="0 0 58 58"><rect x="6" y="10" width="46" height="30" rx="10" fill="#ff9a54" stroke="#fff" stroke-width="2"/><rect x="12" y="4" width="14" height="14" rx="4" fill="#ffd7ba" stroke="#fff" stroke-width="1.5"/><rect x="42" y="4" width="4" height="10" rx="2" fill="#fff"/><circle cx="16" cy="42" r="7" fill="#0f2030" stroke="#fff" stroke-width="1.5"/><circle cx="42" cy="42" r="7" fill="#0f2030" stroke="#fff" stroke-width="1.5"/></svg>
+</g>
+</svg>
+</div>
+</section>
+<section class="card trip-panel">
+<div class="trip-stats"><article><span>مسافت</span><strong id="tripDistance">۰ km</strong></article><article><span>زمان حرکت</span><strong id="tripMoving">۰۰:۰۰</strong></article><article><span>توقف</span><strong id="tripStopped">۰۰:۰۰</strong></article><article><span>حداکثر سرعت</span><strong id="tripMaxSpeed">۰</strong></article></div>
+<div class="replay">
+<label>سفر ذخیره‌شده<select id="tripSelect"></select></label>
+<div class="speed-buttons"><button class="active" data-speed="1">1×</button><button data-speed="2">2×</button><button class="pro-only" data-speed="5">5×</button><button class="pro-only" data-speed="10">10×</button></div>
+<div class="replay-actions"><button id="replayTrip">پخش</button><button id="pauseTrip">مکث</button><button id="restartTrip">از ابتدا</button></div>
+<input id="timeline" max="0" min="0" type="range" value="0"/>
+<p id="replayInfo">یک سفر ثبت یا انتخاب کن.</p>
+<div class="trip-file-actions"><button id="exportTrip">خروجی JSON</button><button class="danger-outline" id="deleteTrip">حذف سفر</button></div>
+<div class="stop-list" id="stopList"></div>
+</div>
+</section>
+</div>
+</section>
+
+<!-- ANALYSIS -->
+<section class="page" data-page="analysis">
+<div class="page-head"><div><small>DIAGEMAN ANALYSIS API</small><h1>تحلیل ماشین من</h1></div><span class="pro-badge">PRO</span></div>
+<section class="card analysis-box"><label>آدرس سرور<input id="apiBase" value="http://127.0.0.1:4030"/></label><button id="analyzeBtn">ارسال داده دیاگ برای تحلیل</button><p class="analysis-source" id="analysisSource">سرور اولویت دارد؛ در حالت توسعه، تحلیل محلی جایگزین فعال است.</p><div class="report-empty" id="analysisResult">هنوز گزارشی دریافت نشده است.</div><button disabled id="pdfBtn">دریافت PDF</button></section>
+</section>
+
+<!-- PRO CENTER -->
+<section class="page" data-page="procenter">
+<div class="page-head"><div><small>ADVANCED CONTROL CENTER</small><h1>مرکز نسخه پیشرفته</h1></div><span class="pro-badge" id="proCenterBadge">قفل</span></div>
+<section class="card dev-unlock"><div><small>فعال‌سازی آزمایشی</small><h2>کد توسعه نسخه پیشرفته</h2><p>این مسیر فقط برای تست داخلی است و در نسخه انتشار با خرید و اعتبارسنجی سرور جایگزین می‌شود.</p></div><div class="dev-unlock-form"><input id="devProCode" inputmode="numeric" maxlength="8" placeholder="کد فعال‌سازی" type="password"/><button id="unlockProBtn">فعال‌کردن Pro</button><button class="secondary" hidden id="disableProBtn">بازگشت به رایگان</button></div><strong id="proUnlockStatus">نسخه رایگان فعال است</strong></section>
+<div class="advanced-grid">
+<article class="advanced-card pro-feature" data-open="analysis" tabindex="0"><svg><use href="#i-scan"/></svg><strong>تحلیل هوشمند دیاگ</strong><p>ارسال داده به سرور، دریافت امتیاز سلامت و گزارش پویا.</p><button>بازکردن تحلیل</button></article>
+<article class="advanced-card pro-feature" data-open="trips" tabindex="0"><svg><use href="#i-route"/></svg><strong>سفر و بازپخش حرفه‌ای</strong><p>تاریخچه نامحدود و بازپخش ۵× و ۱۰× مسیرها.</p><button>بازکردن سفرها</button></article>
+<article class="advanced-card pro-feature" data-open="vehicles" tabindex="0"><svg><use href="#i-car"/></svg><strong>کاتالوگ کامل خودروها</strong><p>نمایش همه پروفایل‌های سواری و خودروهای تجاری.</p><button>مشاهده خودروها</button></article>
+<article class="advanced-card pro-feature" data-open="dashboard" tabindex="0"><svg><use href="#i-home"/></svg><strong>داده زنده پیشرفته</strong><p>گیج‌های کامل، PIDهای بیشتر و ثبت داده طولانی‌مدت.</p><button>رفتن به داشبورد</button></article>
+<article class="advanced-card pro-feature" data-action="dtc-clear" tabindex="0"><svg><use href="#i-crown"/></svg><strong>پاک‌کردن نامحدود DTC</strong><p>سهمیه نامحدود برای فرمان عمومی Mode 04 با کنترل‌های ایمنی.</p><button>رفتن به خطاهای ECU</button></article>
+<article class="advanced-card pro-feature" data-action="pdf" data-open="analysis" tabindex="0"><svg><use href="#i-scan"/></svg><strong>خروجی PDF</strong><p>دریافت گزارش قابل چاپ از تحلیل سرور.</p><button>ساخت گزارش</button></article>
+</div>
+</section>
+
+<!-- STORE -->
+<section class="page" data-page="store">
+<div class="page-head"><div><small>MULTI STORE READY</small><h1>خرید نسخه پیشرفته</h1></div><span id="storeName">Web Account</span></div>
+<div class="offer-grid" id="offers"></div>
+<section class="card store-dev-access"><div><small>DEVELOPMENT ACCESS</small><h2>فعال‌سازی آزمایشی Pro</h2><p>برای تست فعلی کد توسعه را وارد کن.</p></div><div><input id="storeDevProCode" inputmode="numeric" maxlength="8" placeholder="کد آزمایشی" type="password"/><button id="storeUnlockProBtn">فعال‌سازی</button></div></section>
+<section class="card coupon"><input id="couponCode" placeholder="کد تخفیف"/><select id="couponOffer"></select><button id="applyCoupon">بررسی کد</button><div id="quoteResult"></div></section>
+<p class="note">مبلغ و درصد تخفیف فقط از سرور دریافت می‌شود. در نسخه Android، Quote به Product/Offer همان فروشگاه نگاشت می‌شود و اپ اجازه تغییر مبلغ را ندارد.</p>
+</section>
+
+<!-- ERRORS -->
+<section class="page" data-page="errors">
+<div class="page-head"><div><small>FAULT TOLERANCE</small><h1>خطا و پشتیبانی</h1></div><button id="sendAllErrors">ارسال گزارش‌ها</button></div>
+<div class="error-list" id="errorList"></div>
+</section>
+
+<!-- SCANNER -->
+<section class="page scanner-page" data-page="scanner">
+<div class="page-head"><div><small>ELM327 COMMAND & BUS CENTER</small><h1>اسکنر، کنسول و شنود ECU</h1></div><span class="scanner-pill idle" id="scannerConnectionPill">قطع</span></div>
+<nav class="scanner-tabs">
+<button class="active" data-scanner-tab="connection">اتصال ELM327</button>
+<button data-scanner-tab="console">کنسول ECU</button>
+<button data-scanner-tab="monitor">شنود Bus</button>
+<button data-scanner-tab="logs">فایل‌های لاگ</button>
+</nav>
+<section class="scanner-panel active" data-scanner-panel="connection">
+<div class="scanner-grid two">
+<article class="card"><div class="section-title"><div><small>WEB SERIAL</small><h2>اتصال مستقیم دانگل</h2></div></div>
+<p class="note">در نسخه وب، دانگل Bluetooth باید در ویندوز Pair شود و به‌صورت پورت COM در Chrome یا Edge انتخاب شود.</p>
+<div class="scanner-form"><label>Baud rate<select id="ecuBaud"><option>38400</option><option>9600</option><option>115200</option></select></label><label>پروفایل<select id="ecuProfile"><option>در حال بارگذاری…</option></select></label></div>
+<div class="scanner-actions"><button id="ecuConnect">انتخاب پورت و اتصال</button><button id="ecuDisconnect" disabled>قطع</button><button id="ecuInitialize" disabled>راه‌اندازی پروفایل</button><button id="ecuMockConnect">اتصال آزمایشی</button></div>
+<pre class="ecu-log" id="ecuConnectionLog">آماده اتصال</pre>
+</article>
+<article class="card"><div class="section-title"><div><small>INITIALIZATION</small><h2>مراحل راه‌اندازی</h2></div></div><div class="ecu-init-steps" id="ecuInitSteps"></div></article>
+</div>
+</section>
+<section class="scanner-panel" data-scanner-panel="console">
+<div class="scanner-grid console-layout">
+<article class="card"><div class="section-title"><div><small>READ-ONLY TERMINAL</small><h2>کنسول مستقیم ECU</h2></div><button id="ecuClearTerminal">پاک‌کردن نمایش</button></div>
+<pre class="ecu-terminal" id="ecuTerminalLog"></pre>
+<div class="ecu-command-row"><input id="ecuCommandInput" autocomplete="off" spellcheck="false" placeholder="مثلاً 010C یا ATI" disabled><button id="ecuSendCommand" disabled>ارسال</button></div>
+<label class="ecu-check"><input id="ecuExtendedRead" type="checkbox"/> فرمان‌های خواندنی پیشرفته 19/1A/21/22 فعال شوند</label>
+</article>
+<aside class="card"><div class="section-title"><div><small>COMMON COMMANDS</small><h2>فرمان‌های آماده</h2></div></div><div class="ecu-quick-groups" id="ecuQuickCommands"></div></aside>
+</div>
+</section>
+<section class="scanner-panel" data-scanner-panel="monitor">
+<div class="scanner-grid two">
+<article class="card"><div class="section-title"><div><small>PASSIVE CAPTURE</small><h2>شنود خام Bus</h2></div><span class="scanner-pill idle" id="ecuMonitorState">خاموش</span></div>
+<p class="note">در زمان ATMA، Polling و کنسول قفل می‌شوند. توقف با ارسال CR انجام می‌شود.</p>
+<div class="scanner-form"><label>فیلتر Receive Address<input id="ecuCraFilter" placeholder="مثلاً 7E8 یا 7EX"></label><label>فرمان Monitor<select id="ecuMonitorCommand"><option>ATMA</option><option>ATMR</option><option>ATMT</option></select></label></div>
+<div class="scanner-actions"><button id="ecuApplyFilter" disabled>اعمال ATCRA</button><button id="ecuStartMonitor" disabled>شروع شنود</button><button id="ecuStopMonitor" disabled>توقف شنود</button><button id="ecuClearMonitor">پاک‌کردن نمایش</button></div>
+<div class="ecu-monitor-metrics"><span>Frames <b id="ecuMonitorFrames">0</b></span><span>Bytes <b id="ecuMonitorBytes">0</b></span><span>Rate <b id="ecuMonitorRate">0/s</b></span></div>
+</article>
+<article class="card"><pre class="ecu-monitor-log" id="ecuMonitorLog"></pre></article>
+</div>
+</section>
+<section class="scanner-panel" data-scanner-panel="logs">
+<div class="scanner-grid two">
+<article class="card"><div class="section-title"><div><small>JSONL / CSV</small><h2>ثبت همه رفت‌وبرگشت‌ها</h2></div><span id="ecuLogCount">۰ رکورد</span></div>
+<p class="note">TX، RX، MON و رویدادهای SYS با زمان دقیق ذخیره می‌شوند.</p>
+<div class="scanner-actions"><button id="ecuChooseLogFile">ثبت مستقیم روی فایل</button><button id="ecuCloseLogFile" disabled>بستن فایل</button><button id="ecuDownloadJsonl">دانلود JSONL</button><button id="ecuDownloadCsv">دانلود CSV</button><button id="ecuClearLogs">پاک‌کردن حافظه</button></div>
+<p>فایل فعال: <strong id="ecuActiveLogFile">ندارد</strong></p>
+</article>
+<article class="card"><pre class="ecu-log" id="ecuRawLog"></pre></article>
+</div>
+</section>
+</section>
+
+<!-- SETTINGS -->
+<section class="page" data-page="settings">
+<div class="page-head"><div><small>APPEARANCE & API</small><h1>تنظیمات</h1></div></div>
+<section class="card settings-grid">
+<label>تم<select id="themeSelect">
+<option value="dark">سیاه</option><option value="ivory">سفید شیری</option><option value="mydiag">MyDiag آبی</option>
+<option value="eps-neon">EPS نئون آماری</option><option value="eps-color">EPS رنگی متریک</option>
+<option value="eps-mobile">EPS موبایل گرادیانی</option><option value="eps-industrial">EPS صنعتی</option>
+</select></label>
+<label>وضعیت دسترسی<input id="planStatusInput" readonly value="رایگان"/></label>
+<label>آدرس اصلی API<input id="remoteApi" value="https://diageman.ir"/></label>
+<label>آدرس محلی API<input id="localApi" value="http://127.0.0.1:4030"/></label>
+<button id="saveSettings">ذخیره تنظیمات</button>
+</section></section>
+</main>
+
+<nav class="bottom">
+<button class="active" data-page="mydiag"><svg><use href="#i-home"/></svg><span>خانه</span></button>
+<button data-page="dashboard"><svg><use href="#i-gauge"/></svg><span>داشبورد</span></button>
+<button data-page="trips"><svg><use href="#i-route"/></svg><span>سفر</span></button>
+<button data-page="analysis"><svg><use href="#i-scan"/></svg><span>تحلیل</span></button>
+<button data-page="procenter"><svg><use href="#i-crown"/></svg><span>پیشرفته</span></button>
+</nav>
+</div>
+
+<div class="dialog" hidden id="errorDialog" role="dialog">
+<div class="dialog-panel"><span class="error-icon"><svg><use href="#i-error"/></svg></span><small id="errorCode"></small><h2 id="errorTitle">خطای ناشناخته</h2><p id="errorDetail"></p><div><button id="dismissError">بستن</button><button id="sendError">ارسال برای رفع عیب</button></div></div>
+</div>
+<div id="toast"></div>

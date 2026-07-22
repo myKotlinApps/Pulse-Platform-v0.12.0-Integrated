@@ -13,22 +13,24 @@ html[data-theme="adminkit"] .wrapper {
 
 /* AdminKit is LTR by default; anchor the official sidebar to the right for Persian. */
 html[data-theme="adminkit"] .sidebar {
-  position: static !important;
+  position: sticky !important;
   right: auto !important;
-  top: auto !important;
-  z-index: auto !important;
+  top: 0 !important;
+  z-index: 1030 !important;
   width: 260px !important;
   min-width: 260px !important;
   max-width: 260px !important;
-  height: auto !important;
+  height: 100vh !important;
   padding: 0 !important;
   border: 0 !important;
   direction: rtl !important;
   background: #222e3c !important;
+  transition: margin-right .35s ease-in-out, transform .35s ease-in-out !important;
 }
 
 html[data-theme="adminkit"] .sidebar-content {
   height: 100vh;
+  min-height: 0;
   overflow: hidden;
   background: #222e3c !important;
 }
@@ -102,12 +104,20 @@ html[data-theme="adminkit"] .main {
   direction: rtl;
   background: #f5f7fb !important;
   border-radius: 0 !important;
+  min-width: 0;
+  width: 100%;
 }
 
 html[data-theme="adminkit"] .navbar,
 html[data-theme="adminkit"] .navbar-bg {
   direction: rtl;
   background: #fff !important;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  min-height: 64px;
+  border-bottom: 1px solid #e9ecef;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.035);
 }
 
 html[data-theme="adminkit"] .navbar-align {
@@ -119,6 +129,11 @@ html[data-theme="adminkit"] .content {
   direction: rtl !important;
   background: #f5f7fb;
   padding: 1.5rem 1.5rem .75rem !important;
+}
+
+html[data-theme="adminkit"] .container-fluid {
+  max-width: 1600px;
+  margin-inline: auto;
 }
 
 @media (min-width: 992px) {
@@ -133,6 +148,10 @@ html[data-theme="adminkit"] body section.card {
   border: 0 !important;
   border-radius: .25rem !important;
   box-shadow: 0 0 .875rem 0 rgba(33,37,41,.05) !important;
+}
+
+html[data-theme="adminkit"] body div.card {
+  padding: 0 !important;
 }
 
 html[data-theme="adminkit"] body .card-header {
@@ -172,6 +191,24 @@ html[data-theme="adminkit"] body select {
   border-radius: .2rem !important;
   padding: .3rem .85rem !important;
   font-size: .875rem !important;
+}
+
+html[data-theme="adminkit"] body input[readonly] {
+  background-color: #e9ecef !important;
+  cursor: default;
+}
+
+html[data-theme="adminkit"] body button:focus-visible,
+html[data-theme="adminkit"] body a:focus-visible,
+html[data-theme="adminkit"] body input:focus-visible,
+html[data-theme="adminkit"] body select:focus-visible {
+  outline: 3px solid rgba(59,125,221,.28) !important;
+  outline-offset: 2px;
+}
+
+html[data-theme="adminkit"] body button:disabled {
+  cursor: not-allowed;
+  opacity: .6;
 }
 
 /* Legacy feature shells adapted to AdminKit cards without removing any feature. */
@@ -222,8 +259,14 @@ html[data-theme="adminkit"] body .mydiag-menu-card:hover {
 }
 html[data-theme="adminkit"] body .mydiag-menu-card i,
 html[data-theme="adminkit"] body .mydiag-menu-card svg {
+  display: inline-grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
   color: #3b7ddd !important;
   background: #e9f0fb !important;
+  border-radius: .2rem;
+  font-size: 1.2rem;
 }
 html[data-theme="adminkit"] body .mydiag-menu-card strong { color: #495057 !important; }
 html[data-theme="adminkit"] body .mydiag-menu-card small { color: #6c757d !important; }
@@ -241,6 +284,44 @@ html[data-theme="adminkit"] .adminkit-gauge {
   height: 210px;
 }
 
+html[data-theme="adminkit"] .adminkit-theme-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .45rem .7rem;
+  color: #3b7ddd;
+  background: #e9f0fb;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 700;
+}
+
+html[data-theme="adminkit"] .adminkit-theme-lock {
+  display: flex;
+  min-height: 52px;
+  flex-direction: column;
+  justify-content: center;
+  gap: .25rem;
+  padding: .55rem .85rem;
+  color: #6c757d;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: .2rem;
+  font-size: .75rem;
+}
+
+html[data-theme="adminkit"] .adminkit-theme-lock strong {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  color: #3b7ddd;
+  font-size: .875rem;
+}
+
+html[data-theme="adminkit"] .sidebar-backdrop {
+  display: none;
+}
+
 /* 3 gauges per row on wide web screens; compact but readable. */
 @media (min-width: 1200px) {
   html[data-theme="adminkit"] .adminkit-gauge { height: 200px; }
@@ -254,11 +335,37 @@ html[data-theme="adminkit"] .sidebar.collapsed {
 
 @media (max-width: 991.98px) {
   html[data-theme="adminkit"] .sidebar {
-    margin-left: 0 !important;
-    margin-right: -260px !important;
+    position: fixed !important;
+    inset-block: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
+    transform: translateX(100%);
+    box-shadow: -.5rem 0 1.5rem rgba(0,0,0,.18);
   }
   html[data-theme="adminkit"] .sidebar.collapsed {
-    margin-right: 0 !important;
+    margin: 0 !important;
+    transform: translateX(0);
+  }
+  html[data-theme="adminkit"] .sidebar-backdrop:not([hidden]) {
+    position: fixed;
+    z-index: 1025;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: rgba(34,46,60,.38);
+    backdrop-filter: blur(2px);
+  }
+  html[data-theme="adminkit"] body.sidebar-open {
+    overflow: hidden;
+  }
+  html[data-theme="adminkit"] .content {
+    padding: 1rem .8rem .75rem !important;
+  }
+  html[data-theme="adminkit"] .adminkit-theme-badge {
+    display: none;
   }
 }
 

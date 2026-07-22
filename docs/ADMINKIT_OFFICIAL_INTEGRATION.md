@@ -28,11 +28,19 @@ The app does not depend on a remote AdminKit CDN at runtime.
 - `content`
 - `container-fluid p-0`
 
-The compatibility stylesheet mirrors the AdminKit sidebar for RTL/Persian use while retaining the official collapse behavior and visual system.
+The compatibility stylesheet mirrors the AdminKit sidebar for RTL/Persian use while retaining the official collapse behavior and visual system. AdminKit is the only selectable application theme.
+
+## Single-theme behavior
+
+- `data-theme="adminkit"` is present in the initial HTML, so the page does not flash a legacy theme before JavaScript starts.
+- Old Dark, Ivory, MyDiag, EPS and Figma theme choices are no longer exposed or restored from local storage.
+- The palette cycle and the duplicate mobile bottom navigation were removed.
+- Mobile navigation uses the AdminKit sidebar with a backdrop, scroll lock, Escape-safe page navigation and correct RTL motion.
+- AdminKit colors are now the source values for legacy ECU Pulse cards, charts, inputs and status elements.
 
 ## Preserved ECU Pulse features
 
-All existing application pages and behavior remain available, including vehicle catalog, vehicle detail dashboards, four ECharts gauges, manufacturer sensors, DTC read/clear (global and per-code), scanner console, trips, expenses, maintenance, Iranian vehicle services, garage, service history, dashboard signs, gauge gallery, themes, Pro center, and analysis.
+All existing application pages and behavior remain available, including vehicle catalog, vehicle detail dashboards, four ECharts gauges, manufacturer sensors, DTC read/clear (global and per-code), scanner console, trips, expenses, maintenance, Iranian vehicle services, garage, service history, dashboard signs, gauge gallery, Pro center, and analysis.
 
 ## Verification completed
 

@@ -440,7 +440,7 @@ header strong{font-size:17px}main{padding:2px clamp(18px,4vw,46px) 50px}
 
 <div class="main">
 <nav class="navbar navbar-expand navbar-light navbar-bg px-3">
-  <button id="menuBtn" class="sidebar-toggle js-sidebar-toggle btn btn-link p-0 me-2" type="button" aria-label="باز و بسته کردن منو" aria-controls="sidebar" aria-expanded="false">
+  <button id="menuBtn" class="sidebar-toggle btn btn-link p-0 me-2" type="button" aria-label="باز و بسته کردن منو" aria-controls="sidebar" aria-expanded="false">
     <i class="hamburger align-self-center"></i>
   </button>
   <div class="d-flex flex-column align-items-start">
@@ -954,20 +954,23 @@ const sidebar=$('#sidebar');
 const sidebarBackdrop=$('#sidebarBackdrop');
 const mobileSidebarQuery=window.matchMedia('(max-width: 991.98px)');
 function syncSidebarState(){
-  const opened=mobileSidebarQuery.matches&&sidebar?.classList.contains('collapsed');
-  sidebarBackdrop.hidden=!opened;
-  document.body.classList.toggle('sidebar-open',Boolean(opened));
-  $('#menuBtn').setAttribute('aria-expanded',String(Boolean(opened)));
+  const mobileOpened=mobileSidebarQuery.matches&&sidebar?.classList.contains('collapsed');
+  const sidebarVisible=mobileSidebarQuery.matches?mobileOpened:!sidebar?.classList.contains('collapsed');
+  sidebarBackdrop.hidden=!mobileOpened;
+  document.body.classList.toggle('sidebar-open',Boolean(mobileOpened));
+  $('#menuBtn').setAttribute('aria-expanded',String(Boolean(sidebarVisible)));
+  sidebar?.setAttribute('aria-hidden',String(!sidebarVisible));
 }
 function closeMobileSidebar(){
   if(!mobileSidebarQuery.matches)return;
   sidebar?.classList.remove('collapsed');
   syncSidebarState();
 }
-$('#menuBtn').addEventListener('click',()=>setTimeout(syncSidebarState,0));
+$('#menuBtn').addEventListener('click',()=>{sidebar?.classList.toggle('collapsed');syncSidebarState()});
 sidebarBackdrop.addEventListener('click',closeMobileSidebar);
-mobileSidebarQuery.addEventListener?.('change',syncSidebarState);
+mobileSidebarQuery.addEventListener?.('change',()=>{sidebar?.classList.remove('collapsed');syncSidebarState()});
 window.addEventListener('keydown',event=>{if(event.key==='Escape')closeMobileSidebar()});
+syncSidebarState();
 
 function go(page){
   $$('.page').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
@@ -993,7 +996,7 @@ function go(page){
 $$('button[data-page], a[data-page], [role="button"][data-page]').forEach(b=>b.onclick=event=>{event?.preventDefault();go(b.dataset.page)});
 $$('.mydiag-menu-card[data-target]').forEach(b=>b.onclick=()=>{go(b.dataset.target);if(b.dataset.anchor)setTimeout(()=>document.getElementById(b.dataset.anchor)?.scrollIntoView({behavior:'smooth',block:'center'}),120)});
 $$('.mydiag-menu-card[data-special]').forEach(b=>b.onclick=()=>go(b.dataset.special.replace('-','')));
-// Sidebar toggling is handled by the official AdminKit js-sidebar module.
+// The RTL sidebar keeps AdminKit's collapse class but owns its toggle behavior.
 
 /* ========================= BRAND RULES ========================= */
 const brandRules=[
@@ -1020,7 +1023,7 @@ const brandRules=[
 ];
 function brandKey(v){const text=`${v?.make||''} ${v?.model||''}`;return brandRules.find(x=>x[1].test(text))?.[0]||'generic'}
 function fallbackLogo(v){return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="var(--panel)"/><text x="50" y="56" text-anchor="middle" font-size="14" fill="var(--text)" font-weight="bold">${v?.make?.slice(0,8)||'?'}</text></svg>`)}`}
-var LOGO_BASE='https://raw.githubusercontent.com/myKotlinApps/Pulse-Platform-v0.12.0-Integrated/main/shared/logos/';
+const LOGO_BASE='./shared/logos/';
 var LOGO_FILES={'ikco':'ikco-official-v120.png','saipa':'saipa-official-v120.png','zamyad':'zamyad-official-v120.png','bahman':'bahman-official-v120.png','kmc':'kmc-official-v120.png','mvm':'mvm-official-v120.png','fownix':'fownix-official-v120.png','farda':'farda-official-v120.png','lamari':'lamari-official-v120.png','diar':'diar-official-v120.png','mammut':'mammut-official-v120.png','parskhodro':'parskhodro-official-v120.png','bahmandiesel':'bahmandiesel-official-v120.png','ikcodiesel':'ikcodiesel-official-v120.png','modirankhodro':'modirankhodro-official-v120.png','kermanmotor':'kermanmotor-official-v120.png','peugeot':'peugeot-pack-v130.png','citroen':'citroen-pack-v130.png','renault':'renault.svg','dacia':'dacia.svg','mercedesbenz':'mercedesbenz-pack-v130.png','bmw':'bmw-pack-v130.png','mini':'mini.svg','toyota':'toyota-pack-v130.png','lexus':'lexus-pack-v130.png','hyundai':'hyundai-pack-v130.png','kia':'kia-pack-v130.png','nissan':'nissan.svg','mazda':'mazda-pack-v130.png','mitsubishi':'mitsubishi.svg','honda':'honda-pack-v130.png','suzuki':'suzuki-pack-v130.png','subaru':'subaru-pack-v130.png','ford':'ford-pack-v130.png','chevrolet':'chevrolet-pack-v130.png','volkswagen':'volkswagen.svg','audi':'audi-pack-v130.png','skoda':'skoda-pack-v130.png','opel':'opel-pack-v130.png','volvo':'volvo.svg','scania':'scania-pack-v130.png','man':'man.svg','iveco':'iveco-pack-v130.png','daf':'daf.svg','faw':'faw-pack-v130.png','dongfeng':'dongfeng-pack-v130.png','jac':'jac-pack-v130.png','geely':'geely-pack-v130.png','byd':'byd-pack-v130.png','mg':'mg.svg','brilliance':'brilliance.svg','haval':'haval-pack-v130.png','changan':'changan.svg','greatwall':'greatwall-pack-v130.png','baic':'baic-pack-v130.png','lifan':'lifan-pack-v130.png','hyundaicommercial':'hyundaicommercial-pack-v130.png','isuzu':'isuzu-pack-v130.png'};
 function logoPath(v){
   const key=brandKey(v);
@@ -1736,10 +1739,10 @@ function updateGalleryGauge(v){
 /* ========================= INIT ========================= */
 async function loadData(){
   try{
-    state.demo=await fetchTimeout('./data/demo-profile.json',{},5000,0).then(r=>r.json());
-    state.data=await fetchTimeout('./data/core-data.json',{},5000,0).then(r=>r.json());
-    state.tiers=await fetchTimeout('./data/entitlements.json',{},5000,0).then(r=>r.json());
-    state.logos=await fetchTimeout('./data/brand-logos.json',{},5000,0).then(r=>r.json());
+    state.demo=await fetchTimeout('./shared/demo-profile.json',{},5000,0).then(r=>r.json());
+    state.data=await fetchTimeout('./shared/data/core-data.json',{},5000,0).then(r=>r.json());
+    state.tiers=await fetchTimeout('./shared/product-tiers.json',{},5000,0).then(r=>r.json());
+    state.logos=await fetchTimeout('./shared/data/brand-logos.json',{},5000,0).then(r=>r.json());
   }catch(e){
     state.data={vehicles:[{make:'پژو',model:'۲۰۶',year:1398,protocols:['ISO 15765-4 CAN 11bit/500k'],profile:'OBD-II (PID 01-0A)',segment:'passenger'},{make:'سمند',model:'سورن',year:1400,protocols:['ISO 15765-4 CAN 11bit/500k'],profile:'OBD-II',segment:'passenger'},{make:'پراید',model:'۱۳۱',year:1395,protocols:['ISO 9141-2'],profile:'OBD-II',segment:'passenger'},{make:'پژو',model:'پارس',year:1399,protocols:['ISO 15765-4 CAN 11bit/500k'],profile:'OBD-II',segment:'passenger'},{make:'تویوتا',model:'کرولا',year:2019,protocols:['ISO 15765-4'],profile:'OBD-II',segment:'passenger'},{make:'هیوندای',model:'النترا',year:2020,protocols:['ISO 15765-4'],profile:'OBD-II',segment:'passenger'}]};
     state.tiers={freeVehicleIndexes:[0,1,2,3]};

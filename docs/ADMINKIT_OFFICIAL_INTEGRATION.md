@@ -36,6 +36,7 @@ The compatibility stylesheet mirrors the AdminKit sidebar for RTL/Persian use wh
 - Old Dark, Ivory, MyDiag, EPS and Figma theme choices are no longer exposed or restored from local storage.
 - The palette cycle and the duplicate mobile bottom navigation were removed.
 - Mobile navigation uses the AdminKit sidebar with one RTL-aware toggle owner, a backdrop, scroll lock, Escape-safe page navigation and correct RTL motion.
+- The sidebar uses a calm near-white surface, subtle edge shadow, readable slate text and a light-blue active state instead of the former heavy dark panel.
 - AdminKit colors are now the source values for legacy ECU Pulse cards, charts, inputs and status elements.
 - Runtime data and vehicle logos load from repository-local `shared/` assets, so the UI no longer falls back to an incomplete catalog or depends on a GitHub branch URL.
 

@@ -8,10 +8,10 @@ html[data-theme="adminkit"] body {
 
 html[data-theme="adminkit"] .wrapper {
   direction: rtl;
-  background: #222e3c;
+  background: #f5f7fb;
 }
 
-/* AdminKit is LTR by default; anchor the official sidebar to the right for Persian. */
+/* Light RTL sidebar: slightly brighter than the page, with a clear visual edge. */
 html[data-theme="adminkit"] .sidebar {
   position: sticky !important;
   right: auto !important;
@@ -23,16 +23,20 @@ html[data-theme="adminkit"] .sidebar {
   height: 100vh !important;
   padding: 0 !important;
   border: 0 !important;
+  border-left: 1px solid #e3e8ef !important;
   direction: rtl !important;
-  background: #222e3c !important;
+  background: #fbfcfe !important;
+  box-shadow: -.25rem 0 1.25rem rgba(33,37,41,.045);
   transition: margin-right .35s ease-in-out, transform .35s ease-in-out !important;
 }
 
-html[data-theme="adminkit"] .sidebar-content {
+html[data-theme="adminkit"] .sidebar-content,
+html[data-theme="adminkit"] .sidebar .simplebar-content {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   min-height: 0;
-  overflow: hidden;
-  background: #222e3c !important;
+  background: #fbfcfe !important;
 }
 
 html[data-theme="adminkit"] .sidebar-nav {
@@ -40,64 +44,106 @@ html[data-theme="adminkit"] .sidebar-nav {
   min-height: 0;
   overflow-y: auto;
   direction: rtl;
+  margin: 0;
+  padding: .65rem .65rem .8rem !important;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,.18) transparent;
+  scrollbar-color: #c9d2df transparent;
 }
 
 html[data-theme="adminkit"] .sidebar-nav::-webkit-scrollbar { width: 5px; }
-html[data-theme="adminkit"] .sidebar-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,.18); border-radius: 5px; }
+html[data-theme="adminkit"] .sidebar-nav::-webkit-scrollbar-thumb { background: #c9d2df; border-radius: 5px; }
 
 html[data-theme="adminkit"] .sidebar-brand {
+  display: block;
+  flex: 0 0 auto;
+  margin: 0 .9rem;
+  padding: 1.25rem .7rem 1rem !important;
   text-align: right;
-  color: #f8f9fa !important;
+  color: #293042 !important;
+  border-bottom: 1px solid #e9edf2;
+}
+
+html[data-theme="adminkit"] .sidebar-brand small {
+  color: #8993a4 !important;
 }
 
 html[data-theme="adminkit"] .sidebar-item > .sidebar-link {
+  display: flex !important;
+  align-items: center;
+  min-height: 44px;
   direction: rtl;
   border-left: 0 !important;
   border-right: 3px solid transparent;
-  color: rgba(233,236,239,.55) !important;
-  background: #222e3c !important;
-  padding: .625rem 1.3rem !important;
+  color: #667085 !important;
+  background: transparent !important;
+  padding: .65rem .85rem !important;
+  margin: .12rem 0;
+  border-radius: .35rem;
   font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.45;
+  white-space: normal;
+}
+
+html[data-theme="adminkit"] .sidebar-item > .sidebar-link > .align-middle {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 html[data-theme="adminkit"] .sidebar-item > .sidebar-link i,
 html[data-theme="adminkit"] .sidebar-item > .sidebar-link svg {
   margin-left: .75rem;
   margin-right: 0;
-  color: rgba(233,236,239,.55) !important;
+  flex: 0 0 1.25rem;
+  color: #8a94a6 !important;
+  font-size: 1.05rem;
 }
 
 html[data-theme="adminkit"] .sidebar-item > .sidebar-link:hover {
-  color: rgba(233,236,239,.85) !important;
-  background: #222e3c !important;
+  color: #344054 !important;
+  background: #f1f4f8 !important;
   border-right-color: transparent;
+}
+
+html[data-theme="adminkit"] .sidebar-item > .sidebar-link:hover i,
+html[data-theme="adminkit"] .sidebar-item > .sidebar-link:hover svg {
+  color: #3b7ddd !important;
 }
 
 html[data-theme="adminkit"] .sidebar-item.active > .sidebar-link,
 html[data-theme="adminkit"] .sidebar-item.active > .sidebar-link:hover {
-  color: #e9ecef !important;
-  background: linear-gradient(270deg, rgba(59,125,221,.12), rgba(59,125,221,.08) 50%, rgba(0,0,0,0)) !important;
+  color: #2764bd !important;
+  background: #eaf2fd !important;
   border-right-color: #3b7ddd !important;
+  font-weight: 700;
 }
 
 html[data-theme="adminkit"] .sidebar-item.active > .sidebar-link i,
 html[data-theme="adminkit"] .sidebar-item.active > .sidebar-link svg {
-  color: #e9ecef !important;
+  color: #3b7ddd !important;
 }
 
 html[data-theme="adminkit"] .sidebar-cta {
   flex: 0 0 auto;
+  border-top: 1px solid #e9edf2;
 }
 
 html[data-theme="adminkit"] .sidebar-cta-content {
-  margin: 1rem;
-  padding: 1rem;
+  margin: .85rem;
+  padding: .85rem;
   text-align: center;
-  color: #e9ecef;
-  background: #2b3947;
-  border-radius: .3rem;
+  color: #495057;
+  background: #f1f5fa;
+  border: 1px solid #e1e7ef;
+  border-radius: .4rem;
+}
+
+html[data-theme="adminkit"] .sidebar-cta-content strong {
+  color: #3b7ddd;
+}
+
+html[data-theme="adminkit"] .sidebar-cta-content small {
+  color: #7b8492;
 }
 
 html[data-theme="adminkit"] .main {
@@ -340,7 +386,8 @@ html[data-theme="adminkit"] .sidebar.collapsed {
     right: 0 !important;
     margin: 0 !important;
     transform: translateX(100%);
-    box-shadow: -.5rem 0 1.5rem rgba(0,0,0,.18);
+    height: 100dvh !important;
+    box-shadow: -.5rem 0 1.5rem rgba(33,37,41,.14);
   }
   html[data-theme="adminkit"] .sidebar.collapsed {
     margin: 0 !important;
@@ -370,7 +417,9 @@ html[data-theme="adminkit"] .sidebar.collapsed {
 }
 
 #proNavBadge {
-  float: left;
+  float: none;
+  display: inline-flex;
+  align-items: center;
   margin-right: auto;
   padding: .2rem .45rem;
   border-radius: .2rem;

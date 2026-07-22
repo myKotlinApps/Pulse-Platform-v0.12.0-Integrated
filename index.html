@@ -263,6 +263,49 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 .consumable-row .c-status.ok{background:rgba(85,217,154,.15);color:var(--green)}.consumable-row .c-status.warn{background:rgba(255,154,84,.15);color:var(--orange)}.consumable-row .c-status.urgent{background:rgba(255,111,125,.15);color:var(--red)}
 .consumable-row button{border:1px solid color-mix(in srgb,var(--red) 35%,transparent);background:color-mix(in srgb,var(--red) 8%,transparent);color:var(--red);border-radius:10px;padding:6px 10px;font-size:10px}
 
+/* Vehicle Services */
+.service-form{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+.service-form label{display:grid;gap:4px;color:var(--muted);font-size:10px}.service-form input{border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:14px;padding:12px}
+.service-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.service-card{border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,var(--panel2),var(--panel));padding:18px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:var(--shadow);transition:.2s;cursor:pointer}
+.service-card:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.service-card .svc-icon{font-size:36px}.service-card strong{font-size:13px}.service-card small{font-size:10px;color:var(--muted)}
+.service-card button{border:1px solid color-mix(in srgb,var(--cyan) 35%,transparent);background:color-mix(in srgb,var(--cyan) 10%,transparent);color:var(--cyan);border-radius:12px;padding:8px 16px;font-size:11px;margin-top:6px}
+.service-result{margin-top:14px;border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:20px}
+.service-result h3{margin-bottom:10px}.service-result .sr-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:12px}.service-result .sr-row span{color:var(--muted)}.service-result .sr-row strong{color:var(--text)}
+
+/* Personal Garage */
+.garage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:14px}
+.garage-card{border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,var(--panel2),var(--panel));padding:20px;box-shadow:var(--shadow);transition:.2s}
+.garage-card:hover{border-color:var(--cyan)}
+.garage-card .gc-header{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.garage-card .gc-logo{width:64px;height:64px;border-radius:16px;background:rgba(255,255,255,.04);display:grid;place-items:center;overflow:hidden}
+.garage-card .gc-logo img{width:80%;height:80%;object-fit:contain}
+.garage-card .gc-name{font-size:15px;font-weight:700}.garage-card .gc-plate{font-size:11px;color:var(--muted);margin-top:3px}
+.garage-card .gc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.garage-card .gc-stat{padding:8px;border-radius:10px;background:rgba(255,255,255,.03)}.gc-stat span{font-size:8px;color:var(--muted);display:block}.gc-stat strong{font-size:13px;color:var(--cyan)}
+.garage-card .gc-actions{display:flex;gap:6px;margin-top:12px}
+.garage-card .gc-actions button{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px;font-size:10px;color:var(--muted);background:transparent}
+.garage-card .gc-actions button:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* Service History */
+.service-record-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr)) auto;gap:10px;align-items:end}
+.service-record-form label{display:grid;gap:4px;color:var(--muted);font-size:10px}.service-record-form input,.service-record-form select{border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:14px;padding:12px}
+.service-history-list{display:grid;gap:8px;margin-top:14px}
+.service-history-row{display:grid;grid-template-columns:100px 1fr 80px 100px auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.sh-type{font-weight:700;font-size:12px;color:var(--cyan)}.sh-note{font-size:10px;color:var(--muted)}.sh-km{font-size:11px;color:var(--muted)}.sh-cost{font-weight:800;color:var(--orange);font-size:12px;font-family:'SF Mono',monospace}
+.service-history-row button{border:1px solid color-mix(in srgb,var(--red) 35%,transparent);background:color-mix(in srgb,var(--red) 8%,transparent);color:var(--red);border-radius:10px;padding:6px 10px;font-size:10px}
+
+/* News & Learn */
+.news-tabs{display:flex;gap:8px;margin-bottom:14px}.news-tabs button{padding:10px 18px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:12px}.news-tabs button.active{background:linear-gradient(135deg,#0788a7,#12b8a6);color:#fff;border-color:transparent}
+.news-grid,.learn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.news-card,.learn-card{border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,var(--panel2),var(--panel));padding:18px;box-shadow:var(--shadow);transition:.2s;cursor:pointer}
+.news-card:hover,.learn-card:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.news-card .nc-date,.learn-card .lc-level{font-size:9px;color:var(--cyan);margin-bottom:8px}
+.news-card h3,.learn-card h3{font-size:14px;margin-bottom:8px}
+.news-card p,.learn-card p{font-size:11px;color:var(--muted);line-height:1.8}
+.news-card .nc-tag,.learn-card .lc-tag{display:inline-block;margin-top:10px;padding:3px 10px;border-radius:8px;font-size:9px;background:color-mix(in srgb,var(--cyan) 10%,transparent);color:var(--cyan)}
+
 /* Responsive */
 @media(max-width:1050px){.shell{padding-right:0}aside{transform:translateX(110%);transition:.25s;right:0}aside.open{transform:none}header #menuBtn{visibility:visible}.vehicle-grid{grid-template-columns:repeat(3,1fr)}.trip-layout{grid-template-columns:1fr}}
 @media(max-width:900px){.advanced-grid{grid-template-columns:repeat(2,1fr)}.scanner-grid.two,.scanner-grid.console-layout{grid-template-columns:1fr}.scanner-form{grid-template-columns:1fr}.ecu-terminal,.ecu-monitor-log{min-height:300px}}
@@ -302,6 +345,11 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7h18v12H3z"/><path d="M3 7l2-4h12l2 4"/><circle cx="17" cy="13" r="1.5"/></symbol>
 <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></symbol>
 <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 5-6"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-garage" viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M6 21V12h12v9M6 18h12M6 15h12"/></symbol>
+<symbol id="i-news" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+<symbol id="i-ambulance" viewBox="0 0 24 24"><path d="M3 17V7h11v10M14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M9 12h2M10 11v2"/></symbol>
 </svg>
 
 <div class="shell">
@@ -320,6 +368,10 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <button data-page="sensors"><svg><use href="#i-chip"/></svg>سنسورهای سازنده</button>
 <button data-page="expenses"><svg><use href="#i-wallet"/></svg>هزینه‌های خودرو</button>
 <button data-page="maintenance"><svg><use href="#i-wrench"/></svg>مدیریت قطعات</button>
+<button data-page="services"><svg><use href="#i-shield"/></svg>سرویس‌های خودرویی</button>
+<button data-page="garage"><svg><use href="#i-garage"/></svg>گاراژ شخصی</button>
+<button data-page="servicehistory"><svg><use href="#i-doc"/></svg>تاریخچه سرویس</button>
+<button data-page="news"><svg><use href="#i-news"/></svg>اخبار و آموزش</button>
 <button data-page="settings"><svg><use href="#i-settings"/></svg>تنظیمات</button>
 </nav>
 <div class="plan-card"><span id="sidePlan">FREE</span><small id="clearQuotaSide">۵ پاک‌کردن باقی مانده</small></div>
@@ -608,6 +660,53 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <div class="consumable-list" id="consumableList"></div>
 </section>
 
+<!-- VEHICLE SERVICES (خلافی، عوارض، بیمه، امداد) -->
+<section class="page" data-page="services">
+<div class="page-head"><div><small>VEHICLE SERVICES · IRAN</small><h1>سرویس‌های خودرویی</h1></div></div>
+<section class="card service-form">
+<label>پلاک خودرو<input id="servicePlate" placeholder="مثال ۱۲۳۴۵ ۲۲ ایران ۱۱"/></label>
+<button id="serviceLookupBtn">استعلام</button>
+</section>
+<div class="service-grid" id="serviceGrid">
+<article class="service-card" data-service="fines"><div class="svc-icon">🚨</div><strong>جرایم رانندگی</strong><small>استعلام و پرداخت خلافی</small><button>استعلام</button></article>
+<article class="service-card" data-service="toll"><div class="svc-icon">🛣️</div><strong>عوارض بزرگراهی</strong><small>عوارض آزادراهی و سالیانه</small><button>استعلام</button></article>
+<article class="service-card" data-service="traffic"><div class="svc-icon">🏙️</div><strong>طرح ترافیک</strong><small>بدهی طرح ترافیک تهران</small><button>استعلام</button></article>
+<article class="service-card" data-service="pollution"><div class="svc-icon">🌫️</div><strong>طرح آلودگی هوا</strong><small>باقیمانده تردد مجاز</small><button>استعلام</button></article>
+<article class="service-card" data-service="insurance"><div class="svc-icon">📋</div><strong>بیمه شخص ثالث</strong><small>خرید و تمدید آنلاین</small><button>خرید</button></article>
+<article class="service-card" data-service="rescue"><div class="svc-icon">🚑</div><strong>امداد خودرو</strong><small>اشتراک سالیانه امداد</small><button>خرید</button></article>
+</div>
+<div class="service-result" id="serviceResult" hidden></div>
+</section>
+
+<!-- PERSONAL GARAGE -->
+<section class="page" data-page="garage">
+<div class="page-head"><div><small>PERSONAL GARAGE · MULTI VEHICLE</small><h1>گاراژ شخصی</h1></div><button id="addGarageVehicle">➕ افزودن خودرو</button></div>
+<div class="garage-grid" id="garageGrid"></div>
+</section>
+
+<!-- SERVICE HISTORY -->
+<section class="page" data-page="servicehistory">
+<div class="page-head"><div><small>SERVICE HISTORY · RECORDS</small><h1>تاریخچه سرویس</h1></div><button id="addServiceRecord">➕ ثبت سرویس</button></div>
+<section class="card service-record-form" id="serviceRecordForm" hidden>
+<label>نوع سرویس<select id="srvType"><option>تعویض روغن</option><option>تعویض فیلتر</option><option>تعویض لنت ترمز</option><option>تعویض تایر</option><option>تعمیر موتور</option><option>تعمیر گیربکس</option><option>تنظیم موتور</option><option>دیاگ و عیب‌یابی</option><option>بازدید دوره‌ای</option><option>تصادف و بدنه</option><option>سایر</option></select></label>
+<label>کیلومتر<input id="srvKm" type="number" placeholder="مثال ۸۵۰۰۰"/></label>
+<label>تاریخ<input id="srvDate" type="date"/></label>
+<label>هزینه (تومان)<input id="srvCost" type="number" placeholder="مثال ۵۰۰۰۰۰"/></label>
+<label>توضیح<input id="srvNote" placeholder="اختیاری"/></label>
+<label>تعمیرگاه<input id="srvShop" placeholder="نام تعمیرگاه"/></label>
+<button id="saveServiceRecord">ذخیره</button>
+</section>
+<div class="service-history-list" id="serviceHistoryList"></div>
+</section>
+
+<!-- NEWS & LEARN -->
+<section class="page" data-page="news">
+<div class="page-head"><div><small>NEWS & LEARN · AUTOMOTIVE</small><h1>اخبار و آموزش خودرو</h1></div></div>
+<div class="news-tabs" id="newsTabs"><button class="active" data-news-tab="news">اخبار</button><button data-news-tab="learn">آموزش</button></div>
+<div class="news-grid" id="newsGrid"></div>
+<div class="learn-grid" id="learnGrid" hidden></div>
+</section>
+
 <!-- SETTINGS -->
 <section class="page" data-page="settings">
 <div class="page-head"><div><small>APPEARANCE & API</small><h1>تنظیمات</h1></div></div>
@@ -713,7 +812,7 @@ async function api(path,opt={}){const token=await ensureToken();const base=state
 function go(page){
   $$('.page').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
   $$('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
-  const meta={mydiag:['SMART VEHICLE','خانه خودرو'],drivingstyle:['DRIVING STYLE','سبک رانندگی'],parking:['PARKING MEMORY','محل پارک'],dashcam:['DASHCAM','دوربین خودرو'],dashboard:['LIVE VEHICLE','داشبورد خودرو'],vehicles:['VEHICLE PROFILE','انتخاب خودرو'],trips:['GPS TRIP LOGGER','سفرها'],analysis:['DIAGEMAN API','تحلیل ماشین من'],procenter:['ADVANCED CENTER','مرکز نسخه پیشرفته'],store:['UPGRADE','خرید و فعال‌سازی'],errors:['FAULT CENTER','خطا و پشتیبانی'],scanner:['ELM327 CONSOLE','اسکنر و کنسول ECU'],sensors:['MANUFACTURER DATA','سنسورهای سازنده'],expenses:['EXPENSE TRACKER','هزینه‌های خودرو'],maintenance:['VEHICLE MANAGEMENT','مدیریت قطعات'],settings:['SETTINGS','تنظیمات']};
+  const meta={mydiag:['SMART VEHICLE','خانه خودرو'],drivingstyle:['DRIVING STYLE','سبک رانندگی'],parking:['PARKING MEMORY','محل پارک'],dashcam:['DASHCAM','دوربین خودرو'],dashboard:['LIVE VEHICLE','داشبورد خودرو'],vehicles:['VEHICLE PROFILE','انتخاب خودرو'],trips:['GPS TRIP LOGGER','سفرها'],analysis:['DIAGEMAN API','تحلیل ماشین من'],procenter:['ADVANCED CENTER','مرکز نسخه پیشرفته'],store:['UPGRADE','خرید و فعال‌سازی'],errors:['FAULT CENTER','خطا و پشتیبانی'],scanner:['ELM327 CONSOLE','اسکنر و کنسول ECU'],sensors:['MANUFACTURER DATA','سنسورهای سازنده'],expenses:['EXPENSE TRACKER','هزینه‌های خودرو'],maintenance:['VEHICLE MANAGEMENT','مدیریت قطعات'],services:['VEHICLE SERVICES','سرویس‌های خودرویی'],garage:['PERSONAL GARAGE','گاراژ شخصی'],servicehistory:['SERVICE HISTORY','تاریخچه سرویس'],news:['NEWS & LEARN','اخبار و آموزش'],settings:['SETTINGS','تنظیمات']};
   const selected=meta[page]||meta.dashboard;$('#eyebrow').textContent=selected[0];$('#title').textContent=selected[1];
   $('aside').classList.remove('open');
   if(page==='trips')setTimeout(async()=>{await initMap();previewSelectedTrip();state.map?.invalidateSize?.(true)},80);
@@ -722,6 +821,10 @@ function go(page){
   if(page==='sensors')renderSensorCards($('#sensorGroupSelect')?.value||'engine');
   if(page==='expenses')renderExpenses();
   if(page==='maintenance')renderConsumables();
+  if(page==='services'){}
+  if(page==='garage')renderGarage();
+  if(page==='servicehistory')renderServiceHistory();
+  if(page==='news')renderNews();
 }
 $$('button[data-page], [role="button"][data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));
 $$('.mydiag-menu-card[data-target]').forEach(b=>b.onclick=()=>{go(b.dataset.target);if(b.dataset.anchor)setTimeout(()=>document.getElementById(b.dataset.anchor)?.scrollIntoView({behavior:'smooth',block:'center'}),120)});
@@ -1151,6 +1254,74 @@ $('#saveConsumableBtn').onclick=()=>{
   const all=consumables();all.push({name,interval,lastKm:lastKm||0,color:'#55dff6'});saveConsumables(all);
   $('#consumableName').value='';$('#consumableInterval').value='';$('#consumableLastKm').value='';$('#consumableForm').hidden=true;toast('قطعه اضافه شد');
 };
+
+/* ========================= VEHICLE SERVICES ========================= */
+function lookupService(type){
+  const plate=$('#servicePlate').value.trim();if(!plate)return toast('پلاک خودرو را وارد کنید');
+  const result=$('#serviceResult');result.hidden=false;
+  const demos={
+    fines:{title:'جرایم رانندگی',rows:[['تعداد جریمه','۳'],['مبلغ کل','۴۵۰,۰۰۰ تومان'],['آخرین جریمه','۱۴۰۳/۰۴/۱۵'],['وضعیت','پرداخت نشده']]},
+    toll:{title:'عوارض بزرگراهی',rows:[['بدهی آزادراهی','۱۲۰,۰۰۰ تومان'],['عوارض سالیانه','پرداخت شده'],['سال','۱۴۰۳']]},
+    traffic:{title:'طرح ترافیک',rows:[['بدهی طرح ترافیک','۸۰,۰۰۰ تومان'],['آخرین تردد','۱۴۰۳/۰۴/۲۰']]},
+    pollution:{title:'طرح آلودگی هوا',rows:[['تردد باقیمانده','۱۲ روز'],['محدوده','مرکز تهران'],['وضعیت','فعال']]},
+    insurance:{title:'بیمه شخص ثالث',rows:[['شرکت','ایران'],['تاریخ انقراض','۱۴۰۳/۰۶/۱۵'],['روزهای باقیمانده','۲۳ روز'],['وضعیت','نیاز به تمدید']]},
+    rescue:{title:'امداد خودرو',rows:[['وضعیت اشتراک','غیرفعال'],['پوشش','۲۴ ساعته'],['هزینه سالیانه','۹۸۰,۰۰۰ تومان']]}
+  };
+  const d=demos[type];if(!d)return;
+  result.innerHTML=`<h3>${d.title} — پلاک ${plate}</h3>${d.rows.map(r=>`<div class="sr-row"><span>${r[0]}</span><strong>${r[1]}</strong></div>`).join('')}<div style="margin-top:14px;display:flex;gap:8px"><button class="btn1 blue" style="width:auto;padding:10px 20px" onclick="toast('پرداخت شبیه‌سازی شد — API واقعی بعداً وصل می‌شود')">پرداخت آنلاین</button></div>`;
+}
+$$('.service-card button').forEach(b=>b.onclick=()=>{const card=b.closest('.service-card');lookupService(card.dataset.service)});
+
+/* ========================= PERSONAL GARAGE ========================= */
+function garageVehicles(){return JSON.parse(localStorage.getItem('ecuGarage')||'[]')}
+function saveGarage(x){localStorage.setItem('ecuGarage',JSON.stringify(x));renderGarage()}
+function renderGarage(){
+  const list=garageVehicles();const grid=$('#garageGrid');if(!grid)return;
+  grid.innerHTML=list.length?list.map((v,i)=>`<div class="garage-card"><div class="gc-header"><div class="gc-logo"><img src="${v.logo||fallbackLogo(v)}" alt=""/></div><div><div class="gc-name">${v.make} ${v.model}</div><div class="gc-plate">پلاک: ${v.plate||'—'} · ${v.year||''}</div></div></div><div class="gc-stats"><div class="gc-stat"><span>کیلومتر</span><strong>${fa((v.mileage||0).toLocaleString())}</strong></div><div class="gc-stat"><span>آخرین سرویس</span><strong>${v.lastService||'—'}</strong></div><div class="gc-stat"><span>وضعیت</span><strong style="color:var(--green)">فعال</strong></div></div><div class="gc-actions"><button onclick="go('dashboard')">داشبورد</button><button onclick="go('servicehistory')">سرویس</button><button onclick="go('expenses')">هزینه</button></div></div>`).join(''):'<p class="note" style="text-align:center;padding:30px">هنوز خودرویی به گاراژ اضافه نشده است.</p>';
+}
+$('#addGarageVehicle').onclick=()=>{
+  const active=activeVehicle();const all=garageVehicles();
+  all.push({make:active?.make||'پژو',model:active?.model||'۲۰۶',year:active?.year||1398,plate:'۱۲۳۴۵ ۲۲ ایران ۱۱',mileage:85000,lastService:'۱۴۰۳/۰۳/۰۱',logo:logoSrc(active),at:Date.now()});
+  saveGarage(all);toast('خودرو به گاراژ اضافه شد');
+};
+
+/* ========================= SERVICE HISTORY ========================= */
+function serviceRecords(){return JSON.parse(localStorage.getItem('ecuServiceHistory')||'[]')}
+function saveServiceRecords(x){localStorage.setItem('ecuServiceHistory',JSON.stringify(x.slice(-200)));renderServiceHistory()}
+function renderServiceHistory(){
+  const list=serviceRecords();const grid=$('#serviceHistoryList');if(!grid)return;
+  grid.innerHTML=list.length?[...list].reverse().map((r,i)=>`<div class="service-history-row"><div class="sh-type">${r.type}</div><div class="sh-note">${r.note||'—'} · ${r.shop||''}</div><div class="sh-km">${fa(r.km?.toLocaleString()||'0')} km</div><div class="sh-cost">${fa(r.cost?.toLocaleString()||'0')} ت</div><button data-srv="${list.length-1-i}">حذف</button></div>`).join(''):'<p class="note" style="text-align:center;padding:30px">هنوز سرویسی ثبت نشده است.</p>';
+  $$('.service-history-row button').forEach(b=>b.onclick=()=>{const idx=Number(b.dataset.srv);const all=serviceRecords();all.splice(idx,1);saveServiceRecords(all);toast('رکورد حذف شد')});
+}
+$('#addServiceRecord').onclick=()=>{const f=$('#serviceRecordForm');f.hidden=!f.hidden};
+$('#saveServiceRecord').onclick=()=>{
+  const type=$('#srvType').value;const km=Number($('#srvKm').value);const date=$('#srvDate').value||new Date().toISOString().slice(0,10);const cost=Number($('#srvCost').value);const note=$('#srvNote').value;const shop=$('#srvShop').value;
+  if(!km)return toast('کیلومتر الزامی است');
+  const all=serviceRecords();all.push({type,km,date,cost,note,shop,at:Date.now()});saveServiceRecords(all);
+  ['srvKm','srvCost','srvNote','srvShop'].forEach(id=>$('#'+id).value='');$('#serviceRecordForm').hidden=true;toast('سرویس ثبت شد');
+};
+
+/* ========================= NEWS & LEARN ========================= */
+const NEWS_ITEMS=[
+  {date:'۱۴۰۳/۰۴/۲۲',title:'افزایش قیمت بنزین و تأثیر آن بر بازار خودرو',text:'شورای اقتصاد تصویب کرد که قیمت بنزین از ماه آینده ۱۵ درصد افزایش یابد. کارشناسان معتقدند این افزایش بر قیمت دست‌دوم خودرو نیز اثر خواهد داشت.',tag:'خبر'},
+  {date:'۱۴۰۳/۰۴/۲۰',title:'عرضه رسمی پژو ۲۰۷ مدل ۱۴۰۴',text:'ایران‌خودرو اعلام کرد تولید و عرضه پژو ۲۰۷ با موتور Euro 4 از هفته آینده آغاز می‌شود. این خودرو با امکانات جدید و ایمنی بهبودیافته به بازار عرضه می‌گردد.',tag:'عرضه'},
+  {date:'۱۴۰۳/۰۴/۱۸',title:'یارانه خرید خودروهای هیبریدی برای رانندگان اسنپ',text:'وزارت صنعت اعلام کرد به رانندگان تاکسی‌های اینترنتی که خودروهای هیبریدی یا برقی خریداری کنند، تا سقف ۵۰ میلیون تومان یارانه پرداخت خواهد شد.',tag:'یارانه'},
+  {date:'۱۴۰۳/۰۴/۱۵',title:'تشدید فیلترینگ روی اسکنرهای چینی وارداتی',text:'سازمان استاندارد اعلام کرد اسکنرهای تشخیصی که گواهی استاندارد ندارند، از واردات و فروش منع می‌شوند. کارشناسان دیاگ توصیه می‌کنند از برندهای معتبر استفاده شود.',tag:'خبر'},
+  {date:'۱۴۰۳/۰۴/۱۰',title:'آغاز بهره‌برداری از طرح نظارت هوشمند ترافیک تهران',text:'پلیس راهور تهران اعلام کرد سیستم نظارت هوشمند جدید برای تشخیص خودکار تخلفات در ۱۲۰ موقعیت تهران نصب و فعال شد.',tag:'ترافیک'}
+];
+const LEARN_ITEMS=[
+  {level:'مقدماتی',title:'سیستم OBD-II چیست و چگونه کار می‌کند؟',text:'OBD-II (On-Board Diagnostics) یک سیستم استاندارد تشخیصی است که در تمام خودروهای بعد از ۱۹۹۶ (آمریکا) و ۲۰۰۱ (اروپا) وجود دارد. این سیستم خطاهای خودرو را شناسایی و ذخیره می‌کند و از طریق پورت OBD قابل دسترسی است.',tag:'OBD'},
+  {level:'متوسط',title:'تفسیر کدهای خطای P0xxx و P1xxx',text:'کدهای خطای P0 استاندارد جهانی هستند و برای همه خودروها یکسان‌اند. کدهای P1 اختصاصی سازنده هستند و برای هر برند ممکن است معنی متفاوتی داشته باشند.',tag:'کد خطا'},
+  {level:'متوسط',title:'چگونه دمای موتور را کنترل کنیم؟',text:'دمای موتور باید بین ۸۰ تا ۱۰۵ درجه سانتی‌گراد باشد. دمای بالاتر از ۱۱۰ درجه نشانه مشکل در سیستم خنک‌کننده، کمبود آب یا خرابی ترموستات است.',tag:'موتور'},
+  {level:'پیشرفته',title:'تشخیص خرابی سنسور اکسیژن (O2 Sensor)',text:'سنسور اکسیژن نسبت هوا به سوخت را تنظیم می‌کند. کدهای P0130 تا P0167 معمولاً به خرابی این سنسور مربوط‌اند. مصرف سوخت زیاد و بوی خام‌سوز نشانه‌های رایج هستند.',tag:'سنسور'},
+  {level:'پیشرفته',title:'پروتکل‌های ارتباطی CAN، KWP و ISO9141',text:'CAN (ISO 15765) مدرن‌ترین پروتکل OBD است و در خودروهای بعد از ۲۰۰۸ اجباری است. KWP2000 در خودروهای اروپایی و ISO9141 در خودروهای ژاپنی و کره‌ای قدیمی رایج بود.',tag:'پروتکل'},
+  {level:'مقدماتی',title:'مهم‌ترین قطعات مصرفی خودرو و زمان تعویض',text:'روغن موتور هر ۱۰ هزار کیلومتر، فیلتر روغن همزمان، فیلتر هوا هر ۲۰ هزار، لنت ترمز هر ۳۰-۴۰ هزار و تسمه تایم هر ۸۰-۱۰۰ هزار کیلومتر نیاز به تعویض دارند.',tag:'نگهداری'}
+];
+function renderNews(){
+  $('#newsGrid').innerHTML=NEWS_ITEMS.map(n=>`<article class="news-card"><div class="nc-date">${n.date}</div><h3>${n.title}</h3><p>${n.text}</p><span class="nc-tag">${n.tag}</span></article>`).join('');
+  $('#learnGrid').innerHTML=LEARN_ITEMS.map(l=>`<article class="learn-card"><div class="lc-level">سطح: ${l.level}</div><h3>${l.title}</h3><p>${l.text}</p><span class="lc-tag">${l.tag}</span></article>`).join('');
+}
+$$('#newsTabs button').forEach(b=>b.onclick=()=>{$$('#newsTabs button').forEach(x=>x.classList.toggle('active',x===b));const tab=b.dataset.newsTab;$('#newsGrid').hidden=tab!=='news';$('#learnGrid').hidden=tab!=='learn'});
 
 /* ========================= INIT ========================= */
 async function loadData(){

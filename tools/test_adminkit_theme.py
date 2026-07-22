@@ -27,6 +27,7 @@ check("sidebar is lighter than the page", 'background: #fbfcfe !important;' in C
 check("active sidebar item uses a light blue state", 'background: #eaf2fd !important;' in CSS)
 check("logos do not depend on a GitHub branch", "raw.githubusercontent.com" not in HTML)
 check("sidebar toggle has one owner", "js-sidebar-toggle" not in HTML)
+check("sidebar has one scroll owner", "js-simplebar" not in HTML)
 
 local_assets = [
     "assets/adminkit/css/app.css",

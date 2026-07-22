@@ -51,7 +51,7 @@ header strong{font-size:17px}main{padding:2px clamp(18px,4vw,46px) 50px}
 .online{font-size:10px;color:var(--green);display:flex;align-items:center;gap:6px}
 .online i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
 .gauge-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:15px}
-.gauge-grid>article{padding:16px;min-height:350px}
+.gauge-grid>article{padding:16px;min-height:320px}
 .gauge-grid article header{position:static;height:auto;padding:0;display:flex;background:none;backdrop-filter:none}
 .gauge-grid article header span{color:var(--muted);font-size:10px}
 .gauge-grid object,.gauge-grid .gauge-svg-wrap{width:100%;height:290px;display:flex;align-items:center;justify-content:center}
@@ -401,6 +401,7 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <symbol id="dw-key" viewBox="0 0 48 48"><circle cx="14" cy="24" r="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M22 24h18M36 24v6M30 24v4" stroke="currentColor" stroke-width="3"/></symbol>
 <symbol id="dw-snowflake" viewBox="0 0 48 48"><path d="M24 6v36M8 16l32 16M8 32L40 16" stroke="currentColor" stroke-width="3"/><path d="M20 10l4 4 4-4M20 38l4-4 4 4M10 20l4 4-4 4M38 20l-4 4 4 4" stroke="currentColor" stroke-width="3"/></symbol>
 <symbol id="dw-heated" viewBox="0 0 48 48"><path d="M12 14h24M10 24h28M12 34h24" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M14 10l4 4-4 4M34 10l4 4-4 4M14 30l4 4-4 4M34 30l4 4-4 4" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-fuel-pump" viewBox="0 0 48 48"><path d="M10 10h16v30H10z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M10 22h16" stroke="currentColor" stroke-width="3"/><rect x="14" y="14" width="8" height="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M26 16h6v18a4 4 0 01-4 4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M34 12l4 4-4 4" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
 <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
 <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
 <symbol id="i-garage" viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M6 21V12h12v9M6 18h12M6 15h12"/></symbol>
@@ -521,12 +522,26 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <div class="gauge-grid">
 <article>
 <header><span>سرعت</span><strong id="speedValue">۰ km/h</strong></header>
-<div class="gauge-svg-wrap" id="speedGauge" style="width:100%;height:290px"></div>
+<div class="gauge-svg-wrap" id="speedGauge" style="width:100%;height:280px"></div>
 </article>
 <article>
 <header><span>دور موتور</span><strong id="rpmValue">۰ rpm</strong></header>
-<div class="gauge-svg-wrap" id="rpmGauge" style="width:100%;height:290px"></div>
+<div class="gauge-svg-wrap" id="rpmGauge" style="width:100%;height:280px"></div>
 </article>
+<article>
+<header><span>دمای آب</span><strong id="coolant">--</strong></header>
+<div class="gauge-svg-wrap" id="coolantGauge" style="width:100%;height:280px"></div>
+</article>
+<article>
+<header><span>ولتاژ باتری</span><strong id="voltage">--</strong></header>
+<div class="gauge-svg-wrap" id="voltageGauge" style="width:100%;height:280px"></div>
+</article>
+</div>
+<div class="metric-grid">
+<article><span>بار موتور</span><strong id="engineLoad">--</strong></article>
+<article><span>مصرف تقریبی</span><strong id="fuelUse">--</strong></article>
+<article><span>سطح بنزین</span><strong id="fuelLevel">--</strong></article>
+<article><span>فشار روغن</span><strong id="oilPressure">--</strong></article>
 </div>
 <div class="metric-grid">
 <article><span>دمای آب</span><strong id="coolant">--</strong></article>
@@ -921,7 +936,7 @@ function go(page){
   const selected=meta[page]||meta.dashboard;$('#eyebrow').textContent=selected[0];$('#title').textContent=selected[1];
   $('aside').classList.remove('open');
   if(page==='trips')setTimeout(async()=>{await initMap();previewSelectedTrip();state.map?.invalidateSize?.(true)},80);
-  if(page==='dashboard')setTimeout(()=>{initEChartsGauges();if(speedChart)speedChart.resize();if(rpmChart)rpmChart.resize()},100);
+  if(page==='dashboard')setTimeout(()=>{initEChartsGauges();Object.values(gaugeCharts).forEach(c=>c.resize())},100);
   if(page==='store')loadOffers();
   if(page==='mydiag')syncMyDiagHome();
   if(page==='sensors')renderSensorCards($('#sensorGroupSelect')?.value||'engine');
@@ -1021,61 +1036,52 @@ function renderActiveVehicle(){
 $('#logoInput').onchange=e=>{const file=e.target.files[0];if(!file)return;if(file.size>1024*1024)return reportError(new AppFault('LOGO_TOO_LARGE','فایل لوگو بزرگ است','حداکثر اندازه لوگوی سفارشی یک مگابایت است.'));const r=new FileReader();r.onload=()=>{state.customLogo=r.result;localStorage.setItem('ecuCustomLogo',state.customLogo);renderActiveVehicle()};r.readAsDataURL(file)};
 
 /* ========================= GAUGE / LIVE DATA ========================= */
-var speedChart=null,rpmChart=null;
-function initEChartsGauges(){
-  if(typeof echarts==='undefined')return;
+var gaugeCharts={};
+function makeGaugeOpt(id,min,max,splitNum,colors,unit,needleColor){
   const isDark=document.documentElement.dataset.theme==='dark'||!document.documentElement.dataset.theme;
   const axisColor=isDark?'#8ea0b5':'#6f8498';
-  const commonOpt={
-    type:'gauge',
-    radius:'92%',
-    center:['50%','60%'],
-    startAngle:210,endAngle:-30,
-    min:0,max:100,
-    splitNumber:10,
-    progress:{show:true,width:14,roundCap:true},
-    axisLine:{lineStyle:{width:14,color:[[0.3,'#55dff6'],[0.7,'#3ca6ff'],[1,'#ff6f7d']]}},
-    pointer:{icon:'path://M -2 -60 L 2 -60 L 1 0 L -1 0 Z',length:'60%',width:5,offsetCenter:[0,0],itemStyle:{color:'#3ca6ff',shadowColor:'rgba(0,0,0,.4)',shadowBlur:6}},
-    anchor:{show:true,size:12,itemStyle:{color:'#1d3557',borderColor:'#3ca6ff',borderWidth:2}},
+  const textColor=isDark?'#f7f9fb':'#19324a';
+  return {
+    type:'gauge',radius:'90%',center:['50%','58%'],
+    startAngle:200,endAngle:-20,
+    min:min,max:max,splitNumber:splitNum,
+    progress:{show:true,width:16,roundCap:true,itemStyle:{color:colors[colors.length-1][1]}},
+    axisLine:{lineStyle:{width:16,color:colors}},
+    pointer:{icon:'path://M -3 -70 L 3 -70 L 1 0 L -1 0 Z',length:'68%',width:6,offsetCenter:[0,0],itemStyle:{color:needleColor,shadowColor:'rgba(0,0,0,.5)',shadowBlur:8}},
+    anchor:{show:true,size:14,itemStyle:{color:'#1d3557',borderColor:needleColor,borderWidth:3}},
     axisTick:{length:6,distance:2,lineStyle:{color:axisColor,width:1}},
-    splitLine:{length:10,distance:2,lineStyle:{color:axisColor,width:2}},
-    axisLabel:{color:axisColor,fontSize:9,distance:12},
-    detail:{valueAnimation:true,formatter:'{value}',color:isDark?'#f7f9fb':'#19324a',fontSize:22,fontWeight:700,offsetCenter:[0,'30%']},
+    splitLine:{length:12,distance:2,lineStyle:{color:axisColor,width:2}},
+    axisLabel:{color:axisColor,fontSize:9,distance:14},
+    title:{show:true,offsetCenter:[0,'-10%'],fontSize:11,color:axisColor},
+    detail:{valueAnimation:true,formatter:function(v){return Math.round(v)+' '+unit},color:textColor,fontSize:18,fontWeight:700,offsetCenter:[0,'40%']},
     data:[{value:0}]
   };
-  // Speed gauge
-  const sd=document.getElementById('speedGauge');
-  if(sd&&!speedChart){
-    speedChart=echarts.init(sd);
-    const opt={...commonOpt,min:0,max:220,splitNumber:11,
-      axisLine:{lineStyle:{width:14,color:[[0.3,'#55d99a'],[0.65,'#55dff6'],[0.85,'#3ca6ff'],[1,'#ff6f7d']]}},
-      detail:{valueAnimation:true,formatter:'{value} km/h',color:isDark?'#f7f9fb':'#19324a',fontSize:16,fontWeight:700,offsetCenter:[0,'35%']},
-      pointer:{...commonOpt.pointer,itemStyle:{color:'#ff6f7d'}},
-      anchor:{...commonOpt.anchor,itemStyle:{color:'#1d3557',borderColor:'#ff6f7d',borderWidth:2}},
-      data:[{value:0}]
-    };
-    speedChart.setOption({series:[opt]});
-  }
-  // RPM gauge
-  const rd=document.getElementById('rpmGauge');
-  if(rd&&!rpmChart){
-    rpmChart=echarts.init(rd);
-    const opt={...commonOpt,min:0,max:8000,splitNumber:8,
-      axisLine:{lineStyle:{width:14,color:[[0.3,'#55d99a'],[0.6,'#55dff6'],[0.8,'#ff9a54'],[1,'#ff6f7d']]}},
-      detail:{valueAnimation:true,formatter:'{value} rpm',color:isDark?'#f7f9fb':'#19324a',fontSize:16,fontWeight:700,offsetCenter:[0,'35%']},
-      pointer:{...commonOpt.pointer,itemStyle:{color:'#55dff6'}},
-      anchor:{...commonOpt.anchor,itemStyle:{color:'#1d3557',borderColor:'#55dff6',borderWidth:2}},
-      data:[{value:0}]
-    };
-    rpmChart.setOption({series:[opt]});
-  }
+}
+function initEChartsGauges(){
+  if(typeof echarts==='undefined')return;
+  const gauges=[
+    {id:'speedGauge',key:'speed',min:0,max:220,split:11,colors:[[0.3,'#55d99a'],[0.6,'#55dff6'],[0.85,'#3ca6ff'],[1,'#ff6f7d']],unit:'km/h',needle:'#ff6f7d'},
+    {id:'rpmGauge',key:'rpm',min:0,max:8000,split:8,colors:[[0.3,'#55d99a'],[0.6,'#55dff6'],[0.8,'#ff9a54'],[1,'#ff6f7d']],unit:'rpm',needle:'#55dff6'},
+    {id:'coolantGauge',key:'coolant',min:40,max:140,split:5,colors:[[0.3,'#55dff6'],[0.5,'#55d99a'],[0.75,'#ff9a54'],[1,'#ff6f7d']],unit:'°C',needle:'#ff9a54'},
+    {id:'voltageGauge',key:'voltage',min:0,max:16,split:8,colors:[[0.2,'#ff6f7d'],[0.4,'#ff9a54'],[0.5,'#55d99a'],[0.85,'#55d99a'],[1,'#ff9a54']],unit:'V',needle:'#55d99a'}
+  ];
+  gauges.forEach(g=>{
+    const el=document.getElementById(g.id);
+    if(el&&!gaugeCharts[g.key]){
+      gaugeCharts[g.key]=echarts.init(el);
+      gaugeCharts[g.key].setOption({series:[makeGaugeOpt(g.key,g.min,g.max,g.split,g.colors,g.unit,g.needle)]});
+    }
+  });
 }
 function setNeedle(id,value,max){
-  if(id==='speedNeedle'&&speedChart){
-    speedChart.setOption({series:[{data:[{value:Math.round(value||0)}]}]});
-  }else if(id==='rpmNeedle'&&rpmChart){
-    rpmChart.setOption({series:[{data:[{value:Math.round(value||0)}]}]});
+  const map={'speedNeedle':'speed','rpmNeedle':'rpm'};
+  const key=map[id];
+  if(key&&gaugeCharts[key]){
+    gaugeCharts[key].setOption({series:[{data:[{value:Math.round((value||0)*100)/100}]}]});
   }
+}
+function setGaugeValue(key,value){
+  if(gaugeCharts[key])gaugeCharts[key].setOption({series:[{data:[{value:Math.round(value*100)/100}]}]});
 }
 function renderLive(){
   const l=state.live;
@@ -1085,7 +1091,12 @@ function renderLive(){
   $('#voltage').textContent=l.voltage==null?'--':`${fa(l.voltage.toFixed(1))} V`;
   $('#engineLoad').textContent=l.engineLoad==null?'--':`${fa(Math.round(l.engineLoad))}٪`;
   $('#fuelUse').textContent=l.speedKph>5?`${fa((5.5+l.engineLoad/20).toFixed(1))} L/100`:'--';
-  setNeedle('speedNeedle',l.speedKph,220);setNeedle('rpmNeedle',l.rpm,7000);
+  $('#fuelLevel').textContent=l.fuelLevel!=null?`${fa(Math.round(l.fuelLevel))}٪`:'۶۸٪';
+  $('#oilPressure').textContent=l.oilPressure!=null?`${fa(l.oilPressure.toFixed(1))} bar`:'۴.۲ bar';
+  setGaugeValue('speed',l.speedKph||0);
+  setGaugeValue('rpm',l.rpm||0);
+  setGaugeValue('coolant',l.coolantC||0);
+  setGaugeValue('voltage',l.voltage||0);
 }
 function demoSnapshot(tick){
   const phase=(tick%112)/112,drive=Math.sin(phase*Math.PI);
@@ -1599,7 +1610,7 @@ async function loadData(){
   }
   renderVehicles();renderActiveVehicle();renderTripSelect();applyPlan();
   setTimeout(initEChartsGauges,200);
-  setTimeout(()=>{if(speedChart)speedChart.resize();if(rpmChart)rpmChart.resize()},500);
+  setTimeout(()=>{Object.values(gaugeCharts).forEach(c=>c.resize())},500);
   if(state.plan==='pro')applyPlan();
   const setVal=()=>{$('#themeSelect').value=state.theme;$('#remoteApi').value=localStorage.getItem('ecuRemoteApi')||'https://diageman.ir';$('#localApi').value=localStorage.getItem('ecuLocalApi')||'http://127.0.0.1:4030'};setVal();
   if(state.demoMode||!localStorage.getItem('ecuVehicle'))startDemo();else syncDemoButtons();

@@ -1,0 +1,273 @@
+/* ECU Pulse compatibility layer for the official AdminKit v3.4.0 distribution. */
+html[data-theme="adminkit"] body {
+  direction: rtl;
+  background: #f5f7fb !important;
+  color: #495057 !important;
+  font-family: Vazirmatn, Inter, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+html[data-theme="adminkit"] .wrapper {
+  direction: rtl;
+  background: #222e3c;
+}
+
+/* AdminKit is LTR by default; anchor the official sidebar to the right for Persian. */
+html[data-theme="adminkit"] .sidebar {
+  position: static !important;
+  right: auto !important;
+  top: auto !important;
+  z-index: auto !important;
+  width: 260px !important;
+  min-width: 260px !important;
+  max-width: 260px !important;
+  height: auto !important;
+  padding: 0 !important;
+  border: 0 !important;
+  direction: rtl !important;
+  background: #222e3c !important;
+}
+
+html[data-theme="adminkit"] .sidebar-content {
+  height: 100vh;
+  overflow: hidden;
+  background: #222e3c !important;
+}
+
+html[data-theme="adminkit"] .sidebar-nav {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  direction: rtl;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.18) transparent;
+}
+
+html[data-theme="adminkit"] .sidebar-nav::-webkit-scrollbar { width: 5px; }
+html[data-theme="adminkit"] .sidebar-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,.18); border-radius: 5px; }
+
+html[data-theme="adminkit"] .sidebar-brand {
+  text-align: right;
+  color: #f8f9fa !important;
+}
+
+html[data-theme="adminkit"] .sidebar-item > .sidebar-link {
+  direction: rtl;
+  border-left: 0 !important;
+  border-right: 3px solid transparent;
+  color: rgba(233,236,239,.55) !important;
+  background: #222e3c !important;
+  padding: .625rem 1.3rem !important;
+  font-size: .875rem;
+}
+
+html[data-theme="adminkit"] .sidebar-item > .sidebar-link i,
+html[data-theme="adminkit"] .sidebar-item > .sidebar-link svg {
+  margin-left: .75rem;
+  margin-right: 0;
+  color: rgba(233,236,239,.55) !important;
+}
+
+html[data-theme="adminkit"] .sidebar-item > .sidebar-link:hover {
+  color: rgba(233,236,239,.85) !important;
+  background: #222e3c !important;
+  border-right-color: transparent;
+}
+
+html[data-theme="adminkit"] .sidebar-item.active > .sidebar-link,
+html[data-theme="adminkit"] .sidebar-item.active > .sidebar-link:hover {
+  color: #e9ecef !important;
+  background: linear-gradient(270deg, rgba(59,125,221,.12), rgba(59,125,221,.08) 50%, rgba(0,0,0,0)) !important;
+  border-right-color: #3b7ddd !important;
+}
+
+html[data-theme="adminkit"] .sidebar-item.active > .sidebar-link i,
+html[data-theme="adminkit"] .sidebar-item.active > .sidebar-link svg {
+  color: #e9ecef !important;
+}
+
+html[data-theme="adminkit"] .sidebar-cta {
+  flex: 0 0 auto;
+}
+
+html[data-theme="adminkit"] .sidebar-cta-content {
+  margin: 1rem;
+  padding: 1rem;
+  text-align: center;
+  color: #e9ecef;
+  background: #2b3947;
+  border-radius: .3rem;
+}
+
+html[data-theme="adminkit"] .main {
+  direction: rtl;
+  background: #f5f7fb !important;
+  border-radius: 0 !important;
+}
+
+html[data-theme="adminkit"] .navbar,
+html[data-theme="adminkit"] .navbar-bg {
+  direction: rtl;
+  background: #fff !important;
+}
+
+html[data-theme="adminkit"] .navbar-align {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+html[data-theme="adminkit"] .content {
+  direction: rtl !important;
+  background: #f5f7fb;
+  padding: 1.5rem 1.5rem .75rem !important;
+}
+
+@media (min-width: 992px) {
+  html[data-theme="adminkit"] .content { padding: 2rem 2rem 1rem !important; }
+}
+
+/* Preserve AdminKit's native cards and controls despite legacy selector specificity. */
+html[data-theme="adminkit"] body .card,
+html[data-theme="adminkit"] body section.card {
+  color: #495057 !important;
+  background: #fff !important;
+  border: 0 !important;
+  border-radius: .25rem !important;
+  box-shadow: 0 0 .875rem 0 rgba(33,37,41,.05) !important;
+}
+
+html[data-theme="adminkit"] body .card-header {
+  color: #495057;
+  background: #fff !important;
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+html[data-theme="adminkit"] body .card-title { color: #495057 !important; }
+html[data-theme="adminkit"] body .text-muted,
+html[data-theme="adminkit"] body .note,
+html[data-theme="adminkit"] body .ep-muted { color: #6c757d !important; }
+
+html[data-theme="adminkit"] body button.btn-primary,
+html[data-theme="adminkit"] body .btn.btn-primary {
+  color: #fff !important;
+  background: #3b7ddd !important;
+  border-color: #3b7ddd !important;
+  border-radius: .2rem !important;
+}
+html[data-theme="adminkit"] body button.btn-primary:hover { background: #326abc !important; border-color: #326abc !important; }
+html[data-theme="adminkit"] body button.btn-danger,
+html[data-theme="adminkit"] body .btn.btn-danger {
+  color: #fff !important;
+  background: #dc3545 !important;
+  border-color: #dc3545 !important;
+  border-radius: .2rem !important;
+}
+
+html[data-theme="adminkit"] body .form-control,
+html[data-theme="adminkit"] body .form-select,
+html[data-theme="adminkit"] body input:not([type="range"]):not([type="checkbox"]):not([type="file"]),
+html[data-theme="adminkit"] body select {
+  color: #495057 !important;
+  background-color: #fff !important;
+  border: 1px solid #ced4da !important;
+  border-radius: .2rem !important;
+  padding: .3rem .85rem !important;
+  font-size: .875rem !important;
+}
+
+/* Legacy feature shells adapted to AdminKit cards without removing any feature. */
+html[data-theme="adminkit"] .vehicle-hero,
+html[data-theme="adminkit"] .mydiag-hero,
+html[data-theme="adminkit"] .mydiag-summary article,
+html[data-theme="adminkit"] .metric-card,
+html[data-theme="adminkit"] .sensor-card,
+html[data-theme="adminkit"] .service-card,
+html[data-theme="adminkit"] .dashsign-card,
+html[data-theme="adminkit"] .news-card,
+html[data-theme="adminkit"] .learn-card,
+html[data-theme="adminkit"] .garage-card,
+html[data-theme="adminkit"] .vehicle-card,
+html[data-theme="adminkit"] .vehicle-tile {
+  color: #495057 !important;
+  background: #fff !important;
+  border: 0 !important;
+  border-radius: .25rem !important;
+  box-shadow: 0 0 .875rem 0 rgba(33,37,41,.05) !important;
+}
+
+html[data-theme="adminkit"] .mydiag-hero { color: #495057 !important; }
+html[data-theme="adminkit"] .mydiag-car-status small,
+html[data-theme="adminkit"] .mydiag-car-status p { color: #6c757d !important; }
+html[data-theme="adminkit"] .mydiag-connect button { color: #fff !important; background: #3b7ddd !important; }
+html[data-theme="adminkit"] .mydiag-summary strong,
+html[data-theme="adminkit"] .mydiag-style-grid strong,
+html[data-theme="adminkit"] .metric-card strong { color: #495057 !important; }
+html[data-theme="adminkit"] .mydiag-summary span,
+html[data-theme="adminkit"] .mydiag-style-grid span,
+html[data-theme="adminkit"] .metric-card span { color: #6c757d !important; }
+
+html[data-theme="adminkit"] .mydiag-menu-grid { gap: 1rem !important; }
+html[data-theme="adminkit"] body .mydiag-menu-card {
+  min-height: 132px !important;
+  padding: 1.1rem !important;
+  color: #495057 !important;
+  background: #fff !important;
+  border: 0 !important;
+  border-radius: .25rem !important;
+  box-shadow: 0 0 .875rem 0 rgba(33,37,41,.05) !important;
+  text-align: right !important;
+}
+html[data-theme="adminkit"] body .mydiag-menu-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .25rem 1rem rgba(33,37,41,.1) !important;
+}
+html[data-theme="adminkit"] body .mydiag-menu-card i,
+html[data-theme="adminkit"] body .mydiag-menu-card svg {
+  color: #3b7ddd !important;
+  background: #e9f0fb !important;
+}
+html[data-theme="adminkit"] body .mydiag-menu-card strong { color: #495057 !important; }
+html[data-theme="adminkit"] body .mydiag-menu-card small { color: #6c757d !important; }
+
+html[data-theme="adminkit"] .page-head h1,
+html[data-theme="adminkit"] .page-head h2,
+html[data-theme="adminkit"] h1,
+html[data-theme="adminkit"] h2,
+html[data-theme="adminkit"] h3,
+html[data-theme="adminkit"] h4,
+html[data-theme="adminkit"] h5 { color: #495057; }
+
+html[data-theme="adminkit"] .adminkit-gauge {
+  width: 100%;
+  height: 210px;
+}
+
+/* 3 gauges per row on wide web screens; compact but readable. */
+@media (min-width: 1200px) {
+  html[data-theme="adminkit"] .adminkit-gauge { height: 200px; }
+}
+
+/* AdminKit's collapse uses left margins; mirror it for a right-hand RTL sidebar. */
+html[data-theme="adminkit"] .sidebar.collapsed {
+  margin-left: 0 !important;
+  margin-right: -260px !important;
+}
+
+@media (max-width: 991.98px) {
+  html[data-theme="adminkit"] .sidebar {
+    margin-left: 0 !important;
+    margin-right: -260px !important;
+  }
+  html[data-theme="adminkit"] .sidebar.collapsed {
+    margin-right: 0 !important;
+  }
+}
+
+#proNavBadge {
+  float: left;
+  margin-right: auto;
+  padding: .2rem .45rem;
+  border-radius: .2rem;
+  background: #fcb92c;
+  color: #212529;
+  font-size: .675rem;
+}

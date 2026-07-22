@@ -6,7 +6,9 @@
 <meta name="theme-color" content="#07111f"/>
 <title>ECU Pulse — دیاگ هوشمند خودرو</title>
 <link crossorigin href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+<link crossorigin href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
 <script crossorigin src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script crossorigin src="https://fastly.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
 :root{--bg:#07111f;--panel:#0e2135;--panel2:#132a42;--text:#f7f9fb;--muted:#8ea0b5;--line:rgba(255,255,255,.09);--cyan:#55dff6;--blue:#3ca6ff;--green:#55d99a;--orange:#ff9a54;--red:#ff6f7d;--violet:#b28eff;--shadow:0 24px 70px rgba(0,0,0,.28);--radius:24px}
@@ -16,6 +18,7 @@ html[data-theme="eps-neon"]{--bg:#09041a;--panel:#100833;--panel2:#160d40;--text
 html[data-theme="eps-color"]{--bg:#0d0221;--panel:#1a0533;--panel2:#220840;--text:#f0e6ff;--muted:#9e8cc4;--line:rgba(160,100,255,.14);--cyan:#00e5ff;--blue:#448aff;--green:#69f0ae;--orange:#ffab40;--red:#ff5252;--violet:#e040fb;--shadow:0 24px 70px rgba(80,20,180,.25)}
 html[data-theme="eps-mobile"]{--bg:#0a0a16;--panel:#161630;--panel2:#1e1e3a;--text:#e8e0f0;--muted:#8880aa;--line:rgba(130,110,190,.11);--cyan:#00d4ff;--blue:#5c8aff;--green:#00e676;--orange:#ff9800;--red:#ff3366;--violet:#c840e9;--shadow:0 20px 60px rgba(60,10,130,.18)}
 html[data-theme="eps-industrial"]{--bg:#0c1218;--panel:#17202a;--panel2:#1e2a36;--text:#e8ebf0;--muted:#728394;--line:rgba(130,160,190,.10);--cyan:#00b8d4;--blue:#2979ff;--green:#00c853;--orange:#ff6d00;--red:#d50000;--violet:#6200ea;--shadow:0 18px 50px rgba(0,0,0,.35)}
+html[data-theme="figma-cluster"]{--bg:#000000;--panel:#0a0a0a;--panel2:#111111;--text:#ffffff;--muted:#6b7280;--line:rgba(255,255,255,.08);--cyan:#3b82f6;--blue:#3b82f6;--green:#10b981;--orange:#f59e0b;--red:#ef4444;--violet:#8b5cf6;--shadow:0 8px 32px rgba(0,0,0,.6);--radius:20px}
 *{box-sizing:border-box}html{background:var(--bg)}
 body{margin:0;background:radial-gradient(circle at 85% -10%,color-mix(in srgb,var(--blue) 18%,transparent),transparent 35%),var(--bg);color:var(--text);font-family:Vazirmatn,Tahoma,Arial,sans-serif;min-height:100vh}
 .sprite{position:absolute;width:0;height:0;overflow:hidden}
@@ -26,10 +29,11 @@ aside{position:fixed;z-index:50;right:max(0px,calc((100vw - 1560px)/2));top:0;wi
 .brand{display:flex;align-items:center;gap:12px;padding:4px 6px 22px;border-bottom:1px solid var(--line)}
 .brand>div{width:50px;height:50px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(145deg,var(--cyan),var(--blue));color:#04131f;font-weight:800}
 .brand strong,.brand small{display:block}.brand small{font-size:9px;color:var(--muted);margin-top:3px}
-aside nav{display:grid;gap:5px;margin-top:20px}
+aside nav{display:grid;gap:4px;margin-top:16px;overflow-y:auto;flex:1 1 auto;min-height:0;padding-bottom:8px}
+aside nav::-webkit-scrollbar{width:4px}aside nav::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
 aside nav button,.bottom button{border:0;background:transparent;color:var(--muted);display:flex;align-items:center;gap:12px;padding:13px;border-radius:15px}
 aside nav button.active,aside nav button:hover{background:color-mix(in srgb,var(--cyan) 12%,transparent);color:var(--cyan)}
-.plan-card{margin-top:auto;border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.035)}
+.plan-card{margin-top:auto;border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.035);flex-shrink:0}
 .plan-card span,.plan-card small{display:block}.plan-card span{color:var(--cyan);font-weight:800}.plan-card small{font-size:9px;color:var(--muted);margin-top:5px}
 header{height:84px;padding:16px clamp(18px,4vw,46px);display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:12px;position:sticky;top:0;z-index:40;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 96%,transparent) 72%,transparent);backdrop-filter:blur(14px)}
 header #menuBtn{visibility:hidden}.icon,#menuBtn{width:45px;height:45px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.04);color:var(--text)}
@@ -49,15 +53,15 @@ header strong{font-size:17px}main{padding:2px clamp(18px,4vw,46px) 50px}
 .hero-actions button,.page-head button,.section-title button,.clear-row button,.selectors button,.analysis-box button,.coupon button,.settings-grid button{border:1px solid color-mix(in srgb,var(--cyan) 35%,transparent);background:color-mix(in srgb,var(--cyan) 10%,transparent);color:var(--cyan);border-radius:14px;padding:10px 14px}
 .online{font-size:10px;color:var(--green);display:flex;align-items:center;gap:6px}
 .online i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
-.gauge-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:15px}
-.gauge-grid>article{padding:16px;min-height:350px}
+.gauge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.gauge-grid>article{padding:12px;min-height:280px}
 .gauge-grid article header{position:static;height:auto;padding:0;display:flex;background:none;backdrop-filter:none}
 .gauge-grid article header span{color:var(--muted);font-size:10px}
 .gauge-grid object,.gauge-grid .gauge-svg-wrap{width:100%;height:290px;display:flex;align-items:center;justify-content:center}
 .gauge-svg-wrap svg{width:100%;height:100%}
 .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0}
 .metric-grid article{padding:17px}.metric-grid span,.metric-grid strong{display:block}.metric-grid span{font-size:9px;color:var(--muted)}.metric-grid strong{font-size:20px;margin-top:7px}
-.card{padding:20px}.section-title,.page-head,.clear-row{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.card{padding:16px}.section-title,.page-head,.clear-row{display:flex;align-items:center;justify-content:space-between;gap:14px}
 .section-title h2,.page-head h1{margin:4px 0 0}
 .dtc-list{display:grid;gap:9px;margin:16px 0}
 .dtc-item{border:1px solid var(--line);border-radius:17px;padding:14px;display:grid;grid-template-columns:90px 1fr;gap:12px}
@@ -232,6 +236,111 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 .ecu-monitor-metrics span{background:rgba(100,150,180,.1);padding:8px 10px;border-radius:9px;color:var(--muted)}
 .ecu-monitor-metrics b{color:var(--text);margin-inline-start:4px}
 
+/* Manufacturer Sensors */
+.sensor-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}.sensor-controls button,.sensor-controls select{border:1px solid color-mix(in srgb,var(--cyan) 35%,transparent);background:color-mix(in srgb,var(--cyan) 10%,transparent);color:var(--cyan);border-radius:14px;padding:10px 14px}.sensor-controls select{background:var(--bg);color:var(--text)}
+.sensor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:14px}
+.sensor-card{border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,var(--panel2),var(--panel));padding:16px;box-shadow:var(--shadow)}
+.sensor-card header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;position:static;height:auto;padding:0;background:none;backdrop-filter:none}.sensor-card header span{color:var(--muted);font-size:10px}.sensor-card header strong{font-size:13px;color:var(--text)}
+.sensor-card .sensor-value{font-size:28px;font-weight:800;color:var(--cyan);font-family:'SF Mono',monospace;text-align:center;margin:8px 0}
+.sensor-card .sensor-unit{font-size:11px;color:var(--muted);text-align:center}
+.sensor-card .sensor-graph{height:60px;margin-top:10px;background:rgba(0,0,0,.2);border-radius:8px;overflow:hidden}
+.sensor-card .sensor-graph svg{width:100%;height:100%}
+
+/* Expenses */
+.expense-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr)) auto;gap:10px;align-items:end}
+.expense-form label{display:grid;gap:4px;color:var(--muted);font-size:10px}.expense-form input,.expense-form select{border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:14px;padding:12px}
+.expense-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.expense-summary article{border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--panel);text-align:center}
+.expense-summary span{font-size:9px;color:var(--muted);display:block}.expense-summary strong{font-size:18px;color:var(--cyan);margin-top:6px;display:block}
+.expense-list{display:grid;gap:8px}.expense-row{display:grid;grid-template-columns:90px 1fr 120px auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.expense-row .ex-cat{font-weight:700;color:var(--text);font-size:12px}.expense-row .ex-note{font-size:10px;color:var(--muted)}.expense-row .ex-amount{font-weight:800;color:var(--orange);font-family:'SF Mono',monospace;font-size:13px;text-align:left}.expense-row .ex-date{font-size:10px;color:var(--muted)}
+.expense-row button{border:1px solid color-mix(in srgb,var(--red) 35%,transparent);background:color-mix(in srgb,var(--red) 8%,transparent);color:var(--red);border-radius:10px;padding:6px 10px;font-size:10px}
+
+/* Maintenance / Consumables */
+.maintenance-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr)) auto;gap:10px;align-items:end}
+.maintenance-form label{display:grid;gap:4px;color:var(--muted);font-size:10px}.maintenance-form input{border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:14px;padding:12px}
+.consumable-list{display:grid;gap:10px;margin-top:14px}
+.consumable-row{display:grid;grid-template-columns:1fr 100px 100px 1fr auto;gap:12px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+.consumable-row .c-name{font-weight:700;font-size:13px}.consumable-row .c-interval{font-size:10px;color:var(--muted)}.consumable-row .c-last{font-size:10px;color:var(--muted)}
+.consumable-row .c-bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden}.consumable-row .c-bar div{height:100%;border-radius:4px;transition:width .5s}
+.consumable-row .c-status{font-size:10px;font-weight:700;padding:4px 10px;border-radius:8px;text-align:center;white-space:nowrap}
+.consumable-row .c-status.ok{background:rgba(85,217,154,.15);color:var(--green)}.consumable-row .c-status.warn{background:rgba(255,154,84,.15);color:var(--orange)}.consumable-row .c-status.urgent{background:rgba(255,111,125,.15);color:var(--red)}
+.consumable-row button{border:1px solid color-mix(in srgb,var(--red) 35%,transparent);background:color-mix(in srgb,var(--red) 8%,transparent);color:var(--red);border-radius:10px;padding:6px 10px;font-size:10px}
+
+/* Vehicle Detail Page */
+.vd-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(320px,.8fr);gap:14px}
+.vd-main,.vd-side{display:flex;flex-direction:column;gap:14px}
+.obd-config{display:grid;gap:8px}.obd-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}.obd-row span{font-size:10px;color:var(--muted)}.obd-row strong{font-size:12px;color:var(--text)}
+.obd-init-list{display:grid;gap:6px;margin-top:14px}.obd-init-list>div{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:9px;background:rgba(120,140,160,.08);font-size:11px}.obd-init-list code{color:#79d7ff;direction:ltr;font-family:monospace}.obd-init-list span{color:var(--muted);font-size:10px}
+.vd-info-row{display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--line);font-size:11px}.vd-info-row span{color:var(--muted)}.vd-info-row strong{color:var(--text)}
+@media(max-width:1050px){.vd-layout{grid-template-columns:1fr}}
+
+/* Vehicle Services */
+.service-form{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+.service-form label{display:grid;gap:4px;color:var(--muted);font-size:10px}.service-form input{border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:14px;padding:12px}
+.service-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.service-card{border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,var(--panel2),var(--panel));padding:18px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:var(--shadow);transition:.2s;cursor:pointer}
+.service-card:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.service-card .svc-icon{font-size:36px}.service-card strong{font-size:13px}.service-card small{font-size:10px;color:var(--muted)}
+.service-card button{border:1px solid color-mix(in srgb,var(--cyan) 35%,transparent);background:color-mix(in srgb,var(--cyan) 10%,transparent);color:var(--cyan);border-radius:12px;padding:8px 16px;font-size:11px;margin-top:6px}
+.service-result{margin-top:14px;border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:20px}
+.service-result h3{margin-bottom:10px}.service-result .sr-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:12px}.service-result .sr-row span{color:var(--muted)}.service-result .sr-row strong{color:var(--text)}
+
+/* Personal Garage */
+.garage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:14px}
+.garage-card{border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,var(--panel2),var(--panel));padding:20px;box-shadow:var(--shadow);transition:.2s}
+.garage-card:hover{border-color:var(--cyan)}
+.garage-card .gc-header{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.garage-card .gc-logo{width:64px;height:64px;border-radius:16px;background:rgba(255,255,255,.04);display:grid;place-items:center;overflow:hidden}
+.garage-card .gc-logo img{width:80%;height:80%;object-fit:contain}
+.garage-card .gc-name{font-size:15px;font-weight:700}.garage-card .gc-plate{font-size:11px;color:var(--muted);margin-top:3px}
+.garage-card .gc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.garage-card .gc-stat{padding:8px;border-radius:10px;background:rgba(255,255,255,.03)}.gc-stat span{font-size:8px;color:var(--muted);display:block}.gc-stat strong{font-size:13px;color:var(--cyan)}
+.garage-card .gc-actions{display:flex;gap:6px;margin-top:12px}
+.garage-card .gc-actions button{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px;font-size:10px;color:var(--muted);background:transparent}
+.garage-card .gc-actions button:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* Service History */
+.service-record-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr)) auto;gap:10px;align-items:end}
+.service-record-form label{display:grid;gap:4px;color:var(--muted);font-size:10px}.service-record-form input,.service-record-form select{border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:14px;padding:12px}
+.service-history-list{display:grid;gap:8px;margin-top:14px}
+.service-history-row{display:grid;grid-template-columns:100px 1fr 80px 100px auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.sh-type{font-weight:700;font-size:12px;color:var(--cyan)}.sh-note{font-size:10px;color:var(--muted)}.sh-km{font-size:11px;color:var(--muted)}.sh-cost{font-weight:800;color:var(--orange);font-size:12px;font-family:'SF Mono',monospace}
+.service-history-row button{border:1px solid color-mix(in srgb,var(--red) 35%,transparent);background:color-mix(in srgb,var(--red) 8%,transparent);color:var(--red);border-radius:10px;padding:6px 10px;font-size:10px}
+
+/* News & Learn */
+.news-tabs{display:flex;gap:8px;margin-bottom:14px}.news-tabs button{padding:10px 18px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:12px}.news-tabs button.active{background:linear-gradient(135deg,#0788a7,#12b8a6);color:#fff;border-color:transparent}
+.news-grid,.learn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.news-card,.learn-card{border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,var(--panel2),var(--panel));padding:18px;box-shadow:var(--shadow);transition:.2s;cursor:pointer}
+.news-card:hover,.learn-card:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.news-card .nc-date,.learn-card .lc-level{font-size:9px;color:var(--cyan);margin-bottom:8px}
+.news-card h3,.learn-card h3{font-size:14px;margin-bottom:8px}
+.news-card p,.learn-card p{font-size:11px;color:var(--muted);line-height:1.8}
+.news-card .nc-tag,.learn-card .lc-tag{display:inline-block;margin-top:10px;padding:3px 10px;border-radius:8px;font-size:9px;background:color-mix(in srgb,var(--cyan) 10%,transparent);color:var(--cyan)}
+
+/* Dashboard Signs */
+.dashsigns-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:14px}
+.dashsign-card{border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,var(--panel2),var(--panel));padding:18px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;transition:.2s;box-shadow:var(--shadow)}
+.dashsign-card:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.dashsign-card .ds-icon{width:48px;height:48px;color:var(--orange)}
+.dashsign-card .ds-icon.on{color:var(--red)}
+.dashsign-card .ds-icon.info{color:var(--cyan)}
+.dashsign-card .ds-icon.ok{color:var(--green)}
+.dashsign-card strong{font-size:11px;color:var(--text)}
+.dashsign-card .ds-level{font-size:8px;padding:2px 8px;border-radius:6px;font-weight:700}
+.dashsign-card .ds-level.danger{background:rgba(255,111,125,.15);color:var(--red)}
+.dashsign-card .ds-level.warning{background:rgba(255,154,84,.15);color:var(--orange)}
+.dashsign-card .ds-level.info{background:rgba(85,223,246,.15);color:var(--cyan)}
+.dashsign-card .ds-level.ok{background:rgba(85,217,154,.15);color:var(--green)}
+.dashsign-detail{margin-top:20px;border:1px solid var(--line);border-radius:22px;background:var(--panel);padding:24px;box-shadow:var(--shadow)}
+.dashsign-detail .dsd-header{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.dashsign-detail .dsd-icon{width:64px;height:64px;color:var(--orange);flex-shrink:0}
+.dashsign-detail .dsd-title{font-size:18px;font-weight:700}
+.dashsign-detail .dsd-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.dashsign-detail .dsd-body{font-size:12px;color:var(--muted);line-height:2}
+.dashsign-detail .dsd-actions{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+.dashsign-detail .dsd-actions button{border:1px solid color-mix(in srgb,var(--cyan) 35%,transparent);background:color-mix(in srgb,var(--cyan) 10%,transparent);color:var(--cyan);border-radius:12px;padding:10px 18px;font-size:11px}
+
 /* Responsive */
 @media(max-width:1050px){.shell{padding-right:0}aside{transform:translateX(110%);transition:.25s;right:0}aside.open{transform:none}header #menuBtn{visibility:visible}.vehicle-grid{grid-template-columns:repeat(3,1fr)}.trip-layout{grid-template-columns:1fr}}
 @media(max-width:900px){.advanced-grid{grid-template-columns:repeat(2,1fr)}.scanner-grid.two,.scanner-grid.console-layout{grid-template-columns:1fr}.scanner-form{grid-template-columns:1fr}.ecu-terminal,.ecu-monitor-log{min-height:300px}}
@@ -244,7 +353,11 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
   .map-stage{min-height:390px}.trip-head-actions button{flex:1}.map-toolbar{font-size:10px;height:auto;min-height:48px;gap:8px;padding-block:6px}.map-toolbar-actions{gap:5px}.map-toolbar-actions button{font-size:10px;padding-inline:7px}.offline-labels text{font-size:14px}.selectors button{grid-column:auto}
 }
 @media(orientation:landscape) and (max-height:600px){header{height:66px}.vehicle-hero{padding:14px}.logo-box{width:80px;height:80px}.gauge-grid{grid-template-columns:repeat(2,1fr)}.gauge-grid>article{min-height:280px}.gauge-grid object{height:220px}.bottom{grid-template-columns:repeat(4,110px);justify-content:center}}
-</style></head>
+</style>
+<link rel="stylesheet" href="./assets/adminkit/css/app.css"/>
+<link rel="stylesheet" href="./assets/adminkit/css/ecu-pulse-rtl.css"/>
+<script defer src="./assets/adminkit/js/app.js"></script>
+</head>
 <body>
 
 <svg class="sprite"><defs>
@@ -267,33 +380,98 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <symbol id="i-plug" viewBox="0 0 24 24"><path d="M8 3v5M16 3v5M6 8h12v3a6 6 0 0 1-6 6v4M9 21h6"/></symbol>
 <symbol id="i-register" viewBox="0 0 24 24"><path d="M4 17V7h13v10M2 17h20v4H2z"/><path d="M8 7l2-4h5l2 4M12 11v4M10 13h4"/></symbol>
 <symbol id="i-buy" viewBox="0 0 24 24"><path d="M3 5h2l2 11h10l3-8H6"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></symbol>
+<symbol id="i-chip" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7h18v12H3z"/><path d="M3 7l2-4h12l2 4"/><circle cx="17" cy="13" r="1.5"/></symbol>
+<symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 5-6"/></symbol>
+<!-- Dashboard Warning Signs -->
+<symbol id="dw-engine" viewBox="0 0 48 48"><path d="M10 28h6v-8h6l4-4h8v12h4v8H10z" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="16" cy="36" r="2" fill="currentColor"/></symbol>
+<symbol id="dw-oil" viewBox="0 0 48 48"><path d="M24 6c-1 4-8 12-8 20 0 5 4 8 8 8s8-3 8-8c0-8-7-16-8-20z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M20 30a4 4 0 008 0" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-battery" viewBox="0 0 48 48"><rect x="8" y="14" width="32" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><rect x="40" y="20" width="4" height="10" fill="currentColor"/><path d="M18 25h6v-8l8 14h-6v8z" fill="currentColor"/></symbol>
+<symbol id="dw-temp" viewBox="0 0 48 48"><path d="M24 6a4 4 0 00-4 4v22a6 6 0 1012 0V10a4 4 0 00-4-4z" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="24" cy="36" r="4" fill="currentColor"/><line x1="24" y1="14" x2="24" y2="32" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-fuel" viewBox="0 0 48 48"><path d="M14 8h16v32H14z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M14 20h16" stroke="currentColor" stroke-width="3"/><path d="M30 14h6v18a4 4 0 01-4 4" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="22" cy="28" r="3" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-abs" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="3"/><text x="24" y="29" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">ABS</text></symbol>
+<symbol id="dw-airbag" viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="24" cy="24" r="4" fill="currentColor"/><path d="M24 8v8M24 32v8M8 24h8M32 24h8" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-seatbelt" viewBox="0 0 48 48"><circle cx="24" cy="14" r="6" fill="none" stroke="currentColor" stroke-width="3"/><path d="M18 22l12 18M30 22L18 40" stroke="currentColor" stroke-width="3"/><path d="M14 40h20" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-door" viewBox="0 0 48 48"><rect x="12" y="8" width="24" height="34" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="30" cy="24" r="2" fill="currentColor"/></symbol>
+<symbol id="dw-lights" viewBox="0 0 48 48"><path d="M18 8c-8 2-12 10-12 16s4 14 12 16c-4-6-4-26 0-32z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M18 16h10M18 24h12M18 32h10" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-fog" viewBox="0 0 48 48"><path d="M10 16h22M8 24h28M12 32h20" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M36 14l4 4M36 34l4-4" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-wipers" viewBox="0 0 48 48"><circle cx="24" cy="36" r="3" fill="currentColor"/><path d="M24 36L12 14M24 36L36 14" stroke="currentColor" stroke-width="3"/><path d="M10 14h28" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-handbrake" viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="24" cy="24" r="4" fill="currentColor"/><path d="M24 8v12" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-tpms" viewBox="0 0 48 48"><path d="M24 6a8 8 0 00-8 8c0 4 8 14 8 14s8-10 8-14a8 8 0 00-8-8z" fill="none" stroke="currentColor" stroke-width="3"/><text x="24" y="16" text-anchor="middle" font-size="8" font-weight="bold" fill="currentColor">!</text></symbol>
+<symbol id="dw-eps" viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="currentColor" stroke-width="3"/><path d="M18 24l4 4 8-8" stroke="currentColor" stroke-width="3"/><text x="24" y="42" text-anchor="middle" font-size="6" fill="currentColor">EPS</text></symbol>
+<symbol id="dw-esp" viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="currentColor" stroke-width="3"/><text x="24" y="28" text-anchor="middle" font-size="10" font-weight="bold" fill="currentColor">ESP</text><path d="M24 8v4M24 36v4M8 24h4M36 24h4" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-check-engine" viewBox="0 0 48 48"><path d="M8 30h6v-10h8l4-6h10v16h4v6H8z" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="14" cy="36" r="2" fill="currentColor"/><path d="M22 18l4 4 8-8" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-coolant" viewBox="0 0 48 48"><path d="M24 8a3 3 0 00-3 3v18a5 5 0 1010 0V11a3 3 0 00-3-3z" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="24" cy="32" r="3" fill="currentColor"/><path d="M24 14v14" stroke="currentColor" stroke-width="3"/><path d="M14 20h4M14 28h4M30 20h4M30 28h4" stroke="currentColor" stroke-width="2"/></symbol>
+<symbol id="dw-charging" viewBox="0 0 48 48"><rect x="10" y="12" width="28" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><rect x="38" y="18" width="4" height="10" fill="currentColor"/><path d="M20 18l-4 8h6l-4 8" stroke="currentColor" stroke-width="3" fill="none"/></symbol>
+<symbol id="dw-filter" viewBox="0 0 48 48"><path d="M12 10h24l-10 14v14l-4-2v-12z" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-key" viewBox="0 0 48 48"><circle cx="14" cy="24" r="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M22 24h18M36 24v6M30 24v4" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-snowflake" viewBox="0 0 48 48"><path d="M24 6v36M8 16l32 16M8 32L40 16" stroke="currentColor" stroke-width="3"/><path d="M20 10l4 4 4-4M20 38l4-4 4 4M10 20l4 4-4 4M38 20l-4 4 4 4" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-heated" viewBox="0 0 48 48"><path d="M12 14h24M10 24h28M12 34h24" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M14 10l4 4-4 4M34 10l4 4-4 4M14 30l4 4-4 4M34 30l4 4-4 4" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="dw-fuel-pump" viewBox="0 0 48 48"><path d="M10 10h16v30H10z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M10 22h16" stroke="currentColor" stroke-width="3"/><rect x="14" y="14" width="8" height="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M26 16h6v18a4 4 0 01-4 4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M34 12l4 4-4 4" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-garage" viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M6 21V12h12v9M6 18h12M6 15h12"/></symbol>
+<symbol id="i-news" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+<symbol id="i-ambulance" viewBox="0 0 24 24"><path d="M3 17V7h11v10M14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M9 12h2M10 11v2"/></symbol>
 </svg>
 
-<div class="shell">
-<aside>
-<div class="brand"><div>EP</div><strong>ECU Pulse<small>DIAGEMAN.IR</small></strong></div>
-<nav>
-<button class="active" data-page="mydiag"><svg><use href="#i-home"/></svg>خانه MyDiag</button>
-<button data-page="dashboard"><svg><use href="#i-gauge"/></svg>داشبورد</button>
-<button data-page="vehicles"><svg><use href="#i-car"/></svg>خودرو</button>
-<button data-page="trips"><svg><use href="#i-route"/></svg>سفرها</button>
-<button data-page="analysis"><svg><use href="#i-scan"/></svg>تحلیل ماشین من</button>
-<button class="advanced-nav" data-page="procenter"><svg><use href="#i-crown"/></svg><span>مرکز پیشرفته</span><b id="proNavBadge">قفل</b></button>
-<button data-page="store"><svg><use href="#i-crown"/></svg>خرید و فعال‌سازی</button>
-<button data-page="errors"><svg><use href="#i-error"/></svg>خطا و پشتیبانی</button>
-<button data-page="scanner"><svg><use href="#i-plug"/></svg>اسکنر ECU</button>
-<button data-page="settings"><svg><use href="#i-settings"/></svg>تنظیمات</button>
+<div class="wrapper">
+<nav id="sidebar" class="sidebar js-sidebar">
+<div class="sidebar-content js-simplebar">
+<a class="sidebar-brand text-decoration-none" href="#" data-page="mydiag">
+  <span class="align-middle">ECU Pulse</span>
+  <small class="d-block text-white-50 mt-1">DIAGEMAN.IR</small>
+</a>
+<ul class="sidebar-nav">
+<li class="sidebar-item active"><button type="button" class="sidebar-link w-100 text-end" data-page="mydiag"><i class="bi bi-house-fill align-middle"></i><span class="align-middle">خانه MyDiag</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="dashboard"><i class="bi bi-speedometer2 align-middle"></i><span class="align-middle">داشبورد</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="vehicles"><i class="bi bi-car-front align-middle"></i><span class="align-middle">خودرو</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="trips"><i class="bi bi-geo-alt align-middle"></i><span class="align-middle">سفرها</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="analysis"><i class="bi bi-activity align-middle"></i><span class="align-middle">تحلیل ماشین من</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="procenter"><i class="bi bi-trophy align-middle"></i><span class="align-middle"><span>مرکز پیشرفته</span><b id="proNavBadge">قفل</b></span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="store"><i class="bi bi-bag-check align-middle"></i><span class="align-middle">خرید و فعال‌سازی</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="errors"><i class="bi bi-exclamation-triangle align-middle"></i><span class="align-middle">خطا و پشتیبانی</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="scanner"><i class="bi bi-plug align-middle"></i><span class="align-middle">اسکنر ECU</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="sensors"><i class="bi bi-cpu align-middle"></i><span class="align-middle">سنسورهای سازنده</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="expenses"><i class="bi bi-wallet2 align-middle"></i><span class="align-middle">هزینه‌های خودرو</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="maintenance"><i class="bi bi-wrench-adjustable align-middle"></i><span class="align-middle">مدیریت قطعات</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="services"><i class="bi bi-shield-check align-middle"></i><span class="align-middle">سرویس‌های خودرویی</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="garage"><i class="bi bi-car-front-fill align-middle"></i><span class="align-middle">گاراژ شخصی</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="servicehistory"><i class="bi bi-clipboard-history align-middle"></i><span class="align-middle">تاریخچه سرویس</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="news"><i class="bi bi-newspaper align-middle"></i><span class="align-middle">اخبار و آموزش</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="dashsigns"><i class="bi bi-exclamation-diamond align-middle"></i><span class="align-middle">علائم داشبورد</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="gaugegallery"><i class="bi bi-speedometer align-middle"></i><span class="align-middle">گالری گیج</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="settings"><i class="bi bi-gear align-middle"></i><span class="align-middle">تنظیمات</span></button></li>
+</ul>
+<div class="sidebar-cta">
+  <div class="sidebar-cta-content text-center">
+    <strong id="sidePlan">FREE</strong>
+    <small class="d-block mt-1" id="clearQuotaSide">۵ پاک‌کردن باقی مانده</small>
+  </div>
+</div>
+</div>
 </nav>
-<div class="plan-card"><span id="sidePlan">FREE</span><small id="clearQuotaSide">۵ پاک‌کردن باقی مانده</small></div>
-</aside>
 
-<header>
-<button id="menuBtn">☰</button>
-<div><small id="eyebrow">SMART VEHICLE</small><strong id="title">خانه خودرو</strong></div>
-<button class="icon" id="themeBtn"><svg><use href="#i-theme"/></svg></button>
-</header>
-
-<main>
+<div class="main">
+<nav class="navbar navbar-expand navbar-light navbar-bg px-3">
+  <a id="menuBtn" class="sidebar-toggle js-sidebar-toggle me-2" href="#" aria-label="باز و بسته کردن منو">
+    <i class="hamburger align-self-center"></i>
+  </a>
+  <div class="d-flex flex-column align-items-start">
+    <small id="eyebrow" class="text-muted">SMART VEHICLE</small>
+    <strong id="title">خانه خودرو</strong>
+  </div>
+  <div class="navbar-collapse collapse">
+    <ul class="navbar-nav navbar-align">
+      <li class="nav-item">
+        <button class="btn btn-light border-0" id="themeBtn" type="button" aria-label="تغییر تم"><i class="bi bi-palette"></i></button>
+      </li>
+    </ul>
+  </div>
+</nav>
+<main class="content">
+<div class="container-fluid p-0" dir="rtl">
 
 <!-- MYDIAG HOME -->
 <section class="page active mydiag-page" data-page="mydiag">
@@ -312,19 +490,19 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </section>
 <div class="mydiag-section-title"><div><small>SMART VEHICLE MANAGEMENT</small><h2>منوهای اصلی</h2></div><span>۱۳ بخش</span></div>
 <section class="mydiag-menu-grid">
-<button class="mydiag-menu-card" data-target="dashboard"><svg><use href="#i-gauge"/></svg><strong>داشبورد</strong><small>گیج‌ها و داده زنده</small></button>
-<button class="mydiag-menu-card" data-target="dashboard" data-anchor="dtcList"><svg><use href="#i-error"/></svg><strong>عیب‌یابی خودرو</strong><small>خواندن و پاک‌کردن خطا</small></button>
-<button class="mydiag-menu-card" data-target="trips"><svg><use href="#i-history"/></svg><strong>سوابق رانندگی</strong><small>مسیر، توقف و بازپخش</small></button>
-<button class="mydiag-menu-card" data-special="driving-style"><svg><use href="#i-style"/></svg><strong>سبک رانندگی</strong><small>شتاب، ترمز و امتیاز</small></button>
-<button class="mydiag-menu-card" data-target="vehicles"><svg><use href="#i-car"/></svg><strong>مدیریت خودرو</strong><small>پروفایل و مدل خودرو</small></button>
-<button class="mydiag-menu-card" data-special="parking"><svg><use href="#i-parking"/></svg><strong>پارکینگ</strong><small>ذخیره محل پارک</small></button>
-<button class="mydiag-menu-card" data-special="dashcam"><svg><use href="#i-camera"/></svg><strong>دوربین خودرو</strong><small>مشاهده ویدئوی محلی</small></button>
-<button class="mydiag-menu-card" data-target="store"><svg><use href="#i-shop"/></svg><strong>فروشگاه تجهیزات</strong><small>دانگل و خدمات</small></button>
-<button class="mydiag-menu-card" data-target="scanner"><svg><use href="#i-plug"/></svg><strong>اسکنر و اتصال</strong><small>Bluetooth و Wi‑Fi</small></button>
-<button class="mydiag-menu-card pro-menu" data-target="procenter"><svg><use href="#i-crown"/></svg><strong>ارتقای Pro</strong><small>امکانات پیشرفته</small></button>
-<button class="mydiag-menu-card" data-target="vehicles"><svg><use href="#i-register"/></svg><strong>ثبت خودرو</strong><small>افزودن پروفایل جدید</small></button>
-<button class="mydiag-menu-card" data-target="settings"><svg><use href="#i-settings"/></svg><strong>تنظیمات</strong><small>ظاهر، API و اتصال</small></button>
-<button class="mydiag-menu-card" data-target="store"><svg><use href="#i-buy"/></svg><strong>خرید اشتراک</strong><small>فعال‌سازی و تخفیف</small></button>
+<button class="mydiag-menu-card" data-target="dashboard"><i class="bi bi-speedometer2"></i><strong>داشبورد</strong><small>گیج‌ها و داده زنده</small></button>
+<button class="mydiag-menu-card" data-target="dashboard" data-anchor="dtcList"><i class="bi bi-exclamation-triangle"></i><strong>عیب‌یابی خودرو</strong><small>خواندن و پاک‌کردن خطا</small></button>
+<button class="mydiag-menu-card" data-target="trips"><i class="bi bi-clock-history"></i><strong>سوابق رانندگی</strong><small>مسیر، توقف و بازپخش</small></button>
+<button class="mydiag-menu-card" data-special="driving-style"><i class="bi bi-lightning-charge"></i><strong>سبک رانندگی</strong><small>شتاب، ترمز و امتیاز</small></button>
+<button class="mydiag-menu-card" data-target="vehicles"><i class="bi bi-car-front"></i><strong>مدیریت خودرو</strong><small>پروفایل و مدل خودرو</small></button>
+<button class="mydiag-menu-card" data-special="parking"><i class="bi bi-p-circle"></i><strong>پارکینگ</strong><small>ذخیره محل پارک</small></button>
+<button class="mydiag-menu-card" data-special="dashcam"><i class="bi bi-camera-video"></i><strong>دوربین خودرو</strong><small>مشاهده ویدئوی محلی</small></button>
+<button class="mydiag-menu-card" data-target="store"><i class="bi bi-bag-check"></i><strong>فروشگاه تجهیزات</strong><small>دانگل و خدمات</small></button>
+<button class="mydiag-menu-card" data-target="scanner"><i class="bi bi-plug"></i><strong>اسکنر و اتصال</strong><small>Bluetooth و Wi‑Fi</small></button>
+<button class="mydiag-menu-card pro-menu" data-target="procenter"><i class="bi bi-trophy"></i><strong>ارتقای Pro</strong><small>امکانات پیشرفته</small></button>
+<button class="mydiag-menu-card" data-target="vehicles"><i class="bi bi-plus-circle"></i><strong>ثبت خودرو</strong><small>افزودن پروفایل جدید</small></button>
+<button class="mydiag-menu-card" data-target="settings"><i class="bi bi-gear"></i><strong>تنظیمات</strong><small>ظاهر، API و اتصال</small></button>
+<button class="mydiag-menu-card" data-target="store"><i class="bi bi-credit-card"></i><strong>خرید اشتراک</strong><small>فعال‌سازی و تخفیف</small></button>
 </section>
 </section>
 
@@ -347,7 +525,7 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <section class="page mydiag-feature-page" data-page="parking">
 <div class="page-head"><div><small>PARKING MEMORY</small><h1>محل پارک خودرو</h1></div><button data-page="mydiag">بازگشت</button></div>
 <section class="card parking-card">
-<div class="parking-marker"><svg><use href="#i-parking"/></svg></div>
+<div class="parking-marker"><i class="bi bi-p-circle"></i></div>
 <div><h2>ذخیره آخرین موقعیت</h2><p id="parkingStatus">هنوز موقعیتی ذخیره نشده است.</p><div class="parking-actions"><button id="saveParking">ذخیره موقعیت فعلی</button><button id="clearParking">حذف موقعیت</button></div></div>
 </section>
 </section>
@@ -371,26 +549,22 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </div>
 <div class="hero-actions"><span class="demo-badge" id="demoBadge">پروفایل دمو</span><span class="online"><i></i><b id="dataModeLabel">داده آزمایشی</b></span><button id="mockToggle">توقف دمو</button></div>
 </article>
-<div class="gauge-grid">
-<article>
-<header><span>سرعت</span><strong id="speedValue">۰ km/h</strong></header>
-<div class="gauge-svg-wrap" id="speedGauge"><svg viewBox="0 0 280 280"><defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="var(--green)"/><stop offset="60%" stop-color="var(--cyan)"/><stop offset="100%" stop-color="var(--red)"/></linearGradient></defs><path d="M140 260 A120 120 0 0 1 36 140" fill="none" stroke="#1d3557" stroke-width="28" stroke-linecap="round"/><path id="speedArc" d="M140 260 A120 120 0 0 1 36 140" fill="none" stroke="url(#sg)" stroke-width="26" stroke-linecap="round" stroke-dasharray="188.5 377" stroke-dashoffset="188.5"/><line id="speedNeedle" x1="140" y1="240" x2="140" y2="48" stroke="var(--red)" stroke-width="4" stroke-linecap="round"/><circle cx="140" cy="240" r="12" fill="#1d3557" stroke="var(--red)" stroke-width="3"/><text x="140" y="180" text-anchor="middle" fill="var(--muted)" font-size="10">km/h</text><text x="50" y="130" fill="var(--muted)" font-size="9">0</text><text x="140" y="32" fill="var(--muted)" font-size="9">220</text></svg></div>
-</article>
-<article>
-<header><span>دور موتور</span><strong id="rpmValue">۰ rpm</strong></header>
-<div class="gauge-svg-wrap" id="rpmGauge"><svg viewBox="0 0 280 280"><path d="M140 260 A120 120 0 0 1 36 140" fill="none" stroke="#1d3557" stroke-width="28" stroke-linecap="round"/><path id="rpmArc" d="M140 260 A120 120 0 0 1 36 140" fill="none" stroke="var(--cyan)" stroke-width="26" stroke-linecap="round" stroke-dasharray="188.5 377" stroke-dashoffset="188.5"/><line id="rpmNeedle" x1="140" y1="240" x2="140" y2="48" stroke="var(--cyan)" stroke-width="4" stroke-linecap="round"/><circle cx="140" cy="240" r="12" fill="#1d3557" stroke="var(--cyan)" stroke-width="3"/><text x="140" y="180" text-anchor="middle" fill="var(--muted)" font-size="10">x1000</text><text x="50" y="130" fill="var(--muted)" font-size="9">0</text><text x="140" y="32" fill="var(--muted)" font-size="9">7</text></svg></div>
-</article>
+<div class="row">
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">سرعت</h5><strong id="speedValue">۰ km/h</strong></div><div class="card-body p-2"><div id="speedGauge" class="adminkit-gauge"></div></div></div></div>
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">دور موتور</h5><strong id="rpmValue">۰ rpm</strong></div><div class="card-body p-2"><div id="rpmGauge" class="adminkit-gauge"></div></div></div></div>
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">دمای آب</h5><strong id="coolant">--</strong></div><div class="card-body p-2"><div id="coolantGauge" class="adminkit-gauge"></div></div></div></div>
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">ولتاژ باتری</h5><strong id="voltage">--</strong></div><div class="card-body p-2"><div id="voltageGauge" class="adminkit-gauge"></div></div></div></div>
 </div>
-<div class="metric-grid">
-<article><span>دمای آب</span><strong id="coolant">--</strong></article>
-<article><span>ولتاژ</span><strong id="voltage">--</strong></article>
-<article><span>بار موتور</span><strong id="engineLoad">--</strong></article>
-<article><span>مصرف تقریبی</span><strong id="fuelUse">--</strong></article>
+<div class="row g-2 mb-3">
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><div class="d-flex align-items-center"><div class="stat text-primary"><i class="bi bi-activity"></i></div><div class="ms-3"><span class="text-muted">بار موتور</span><h4 id="engineLoad" class="mb-0">--</h4></div></div></div></div></div>
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><div class="d-flex align-items-center"><div class="stat text-success"><i class="bi bi-fuel-pump"></i></div><div class="ms-3"><span class="text-muted">مصرف تقریبی</span><h4 id="fuelUse" class="mb-0">--</h4></div></div></div></div></div>
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><div class="d-flex align-items-center"><div class="stat text-warning"><i class="bi bi-fuel-pump-fill"></i></div><div class="ms-3"><span class="text-muted">سطح بنزین</span><h4 id="fuelLevel" class="mb-0">--</h4></div></div></div></div></div>
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><div class="d-flex align-items-center"><div class="stat text-danger"><i class="bi bi-droplet-half"></i></div><div class="ms-3"><span class="text-muted">فشار روغن</span><h4 id="oilPressure" class="mb-0">--</h4></div></div></div></div></div>
 </div>
 <section class="card">
 <div class="section-title"><div><small>DIAGNOSTIC TROUBLE CODES</small><h2>خطاهای ECU</h2></div><button id="readDtcBtn">خواندن نمایشی</button></div>
-<div class="dtc-list" id="dtcList"></div>
-<div class="clear-row"><div><strong>پاک‌کردن خطاهای عمومی</strong><small id="clearQuota">نسخه رایگان: ۵ بار در کل</small></div><button class="danger" id="clearDtcBtn">پاک‌کردن</button></div>
+<div class="d-grid gap-2" id="dtcList"></div>
+<div class="clear-row"><div><strong>پاک‌کردن خطاهای عمومی</strong><small id="clearQuota">نسخه رایگان: ۵ بار در کل</small></div><button class="btn btn-danger btn-sm" id="clearDtcBtn">پاک‌کردن</button></div>
 </section>
 </section>
 
@@ -398,7 +572,54 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <section class="page" data-page="vehicles">
 <div class="page-head"><div><small>FREE CATALOG = 10%</small><h1>انتخاب خودرو</h1></div><span id="catalogBadge">فهرست رایگان</span></div>
 <section class="card selectors"><select id="makeSelect"></select><select id="modelSelect"></select><button id="activateVehicle">فعال‌کردن پروفایل</button><button class="demo-action" id="activateDemo">شروع دمو</button></section>
-<div class="vehicle-grid" id="vehicleGrid"></div>
+<div class="row g-3" id="vehicleGrid"></div>
+</section>
+
+<!-- VEHICLE DETAIL PAGE -->
+<section class="page" data-page="vehicledetail">
+<div class="page-head"><div><small id="vdEyebrow">VEHICLE DETAIL</small><h1 id="vdTitle">پروفایل خودرو</h1></div><button data-page="vehicles">بازگشت به فهرست</button></div>
+<div class="vd-layout">
+<div class="vd-main">
+<article class="vehicle-hero" id="vdHero">
+<div class="vehicle-id">
+<label class="logo-box"><img id="vdLogo" src=""/><span>تعویض لوگو</span></label>
+<div><small>پروفایل فعال</small><h1 id="vdName">—</h1><p id="vdProtocol">—</p></div>
+</div>
+<div class="hero-actions"><span id="vdSegment">—</span><span class="online"><i></i><b id="vdStatus">آماده</b></span><button id="vdActivateBtn">فعال‌سازی پروفایل</button></div>
+</article>
+<div class="row">
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">سرعت</h5><strong id="vdSpeed">۰ km/h</strong></div><div class="card-body p-2"><div id="vdSpeedGauge" class="adminkit-gauge"></div></div></div></div>
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">دور موتور</h5><strong id="vdRpm">۰ rpm</strong></div><div class="card-body p-2"><div id="vdRpmGauge" class="adminkit-gauge"></div></div></div></div>
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">دمای آب</h5><strong id="vdCoolant">--</strong></div><div class="card-body p-2"><div id="vdCoolantGauge" class="adminkit-gauge"></div></div></div></div>
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">ولتاژ</h5><strong id="vdVoltage">--</strong></div><div class="card-body p-2"><div id="vdVoltageGauge" class="adminkit-gauge"></div></div></div></div>
+</div>
+<div class="row g-2 mb-3">
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><span class="text-muted">بار موتور</span><h4 id="vdLoad" class="mb-0">--</h4></div></div></div>
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><span class="text-muted">مصرف</span><h4 id="vdFuel" class="mb-0">--</h4></div></div></div>
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><span class="text-muted">سطح بنزین</span><h4 id="vdFuelLevel" class="mb-0">--</h4></div></div></div>
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><span class="text-muted">فشار روغن</span><h4 id="vdOilPressure" class="mb-0">--</h4></div></div></div>
+</div>
+<section class="card"><div class="section-title"><div><small>OBD-II DTC CODES</small><h2>کدهای خطای این مدل</h2></div><button id="vdReadDtc">خواندن کدها</button></div><div class="d-grid gap-2" id="vdDtcList"></div></section>
+</div>
+<div class="vd-side">
+<section class="card"><div class="section-title"><div><small>OBD CONFIGURATION</small><h2>تنظیمات OBD</h2></div></div>
+<div class="obd-config">
+<div class="obd-row"><span>پروتکل</span><strong id="vdObdProtocol">—</strong></div>
+<div class="obd-row"><span>پروفایل ECU</span><strong id="vdEcuProfile">—</strong></div>
+<div class="obd-row"><span>Baud Rate پیش‌فرض</span><strong id="vdBaud">۳۸۴۰۰</strong></div>
+<div class="obd-row"><span>نوع اتصال</span><strong>Bluetooth / Wi-Fi</strong></div>
+<div class="obd-row"><span>استاندارد</span><strong id="vdStandard">OBD-II</strong></div>
+<div class="obd-row"><span>سال تولید</span><strong id="vdYear">—</strong></div>
+<div class="obd-row"><span>کشور</span><strong id="vdRegion">—</strong></div>
+</div>
+<div class="obd-init-list" id="vdInitSteps"></div>
+<button id="vdGotoScanner" class="btn1 blue" style="width:auto;margin-top:12px">رفتن به اسکنر</button>
+</section>
+<section class="card"><div class="section-title"><div><small>VEHICLE INFO</small><h2>اطلاعات فنی</h2></div></div>
+<div class="obd-config" id="vdInfoGrid"></div>
+</section>
+</div>
+</div>
 </section>
 
 <!-- TRIPS -->
@@ -458,12 +679,12 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <div class="page-head"><div><small>ADVANCED CONTROL CENTER</small><h1>مرکز نسخه پیشرفته</h1></div><span class="pro-badge" id="proCenterBadge">قفل</span></div>
 <section class="card dev-unlock"><div><small>فعال‌سازی آزمایشی</small><h2>کد توسعه نسخه پیشرفته</h2><p>این مسیر فقط برای تست داخلی است و در نسخه انتشار با خرید و اعتبارسنجی سرور جایگزین می‌شود.</p></div><div class="dev-unlock-form"><input id="devProCode" inputmode="numeric" maxlength="8" placeholder="کد فعال‌سازی" type="password"/><button id="unlockProBtn">فعال‌کردن Pro</button><button class="secondary" hidden id="disableProBtn">بازگشت به رایگان</button></div><strong id="proUnlockStatus">نسخه رایگان فعال است</strong></section>
 <div class="advanced-grid">
-<article class="advanced-card pro-feature" data-open="analysis" tabindex="0"><svg><use href="#i-scan"/></svg><strong>تحلیل هوشمند دیاگ</strong><p>ارسال داده به سرور، دریافت امتیاز سلامت و گزارش پویا.</p><button>بازکردن تحلیل</button></article>
-<article class="advanced-card pro-feature" data-open="trips" tabindex="0"><svg><use href="#i-route"/></svg><strong>سفر و بازپخش حرفه‌ای</strong><p>تاریخچه نامحدود و بازپخش ۵× و ۱۰× مسیرها.</p><button>بازکردن سفرها</button></article>
-<article class="advanced-card pro-feature" data-open="vehicles" tabindex="0"><svg><use href="#i-car"/></svg><strong>کاتالوگ کامل خودروها</strong><p>نمایش همه پروفایل‌های سواری و خودروهای تجاری.</p><button>مشاهده خودروها</button></article>
-<article class="advanced-card pro-feature" data-open="dashboard" tabindex="0"><svg><use href="#i-home"/></svg><strong>داده زنده پیشرفته</strong><p>گیج‌های کامل، PIDهای بیشتر و ثبت داده طولانی‌مدت.</p><button>رفتن به داشبورد</button></article>
-<article class="advanced-card pro-feature" data-action="dtc-clear" tabindex="0"><svg><use href="#i-crown"/></svg><strong>پاک‌کردن نامحدود DTC</strong><p>سهمیه نامحدود برای فرمان عمومی Mode 04 با کنترل‌های ایمنی.</p><button>رفتن به خطاهای ECU</button></article>
-<article class="advanced-card pro-feature" data-action="pdf" data-open="analysis" tabindex="0"><svg><use href="#i-scan"/></svg><strong>خروجی PDF</strong><p>دریافت گزارش قابل چاپ از تحلیل سرور.</p><button>ساخت گزارش</button></article>
+<article class="advanced-card pro-feature" data-open="analysis" tabindex="0"><i class="bi bi-activity"></i><strong>تحلیل هوشمند دیاگ</strong><p>ارسال داده به سرور، دریافت امتیاز سلامت و گزارش پویا.</p><button>بازکردن تحلیل</button></article>
+<article class="advanced-card pro-feature" data-open="trips" tabindex="0"><i class="bi bi-geo-alt"></i><strong>سفر و بازپخش حرفه‌ای</strong><p>تاریخچه نامحدود و بازپخش ۵× و ۱۰× مسیرها.</p><button>بازکردن سفرها</button></article>
+<article class="advanced-card pro-feature" data-open="vehicles" tabindex="0"><i class="bi bi-car-front"></i><strong>کاتالوگ کامل خودروها</strong><p>نمایش همه پروفایل‌های سواری و خودروهای تجاری.</p><button>مشاهده خودروها</button></article>
+<article class="advanced-card pro-feature" data-open="dashboard" tabindex="0"><i class="bi bi-house-fill"></i><strong>داده زنده پیشرفته</strong><p>گیج‌های کامل، PIDهای بیشتر و ثبت داده طولانی‌مدت.</p><button>رفتن به داشبورد</button></article>
+<article class="advanced-card pro-feature" data-action="dtc-clear" tabindex="0"><i class="bi bi-trophy"></i><strong>پاک‌کردن نامحدود DTC</strong><p>سهمیه نامحدود برای فرمان عمومی Mode 04 با کنترل‌های ایمنی.</p><button>رفتن به خطاهای ECU</button></article>
+<article class="advanced-card pro-feature" data-action="pdf" data-open="analysis" tabindex="0"><i class="bi bi-activity"></i><strong>خروجی PDF</strong><p>دریافت گزارش قابل چاپ از تحلیل سرور.</p><button>ساخت گزارش</button></article>
 </div>
 </section>
 
@@ -535,33 +756,152 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </section>
 </section>
 
+<!-- MANUFACTURER SENSORS -->
+<section class="page" data-page="sensors">
+<div class="page-head"><div><small>MANUFACTURER DATA · LIVE GRAPHS</small><h1>سنسورهای سازنده</h1></div><span id="sensorCount">۰ سنسور</span></div>
+<section class="card"><p class="note">داده‌های اختصاصی سازنده شامل DPF، دمای گیربکس، وضعیت باتری و بیش از ۲۰۰۰ سنسور اختصاصی. گراف‌های زنده به‌روزرسانی می‌شوند.</p>
+<div class="sensor-controls"><button id="sensorStartBtn">شروع پایش زنده</button><button id="sensorStopBtn" disabled>توقف</button><select id="sensorGroupSelect"><option value="engine">موتور</option><option value="transmission">گیربکس</option><option value="exhaust">اگزوز / DPF</option><option value="battery">باتری / برق</option><option value="fuel">سوخت</option></select></div>
+</section>
+<div class="sensor-grid" id="sensorGrid"></div>
+</section>
+
+<!-- EXPENSES -->
+<section class="page" data-page="expenses">
+<div class="page-head"><div><small>EXPENSE TRACKER · BUDGET</small><h1>هزینه‌های خودرو</h1></div><button id="exportExpenseCsv">📥 خروجی Excel/CSV</button></div>
+<section class="card expense-form">
+<label>نوع هزینه<select id="expenseCategory"><option>سوخت</option><option>روغن موتور</option><option>فیلتر</option><option>لنت ترمز</option><option>تایر</option><option>باطری</option><option>سرویس دوره‌ای</option><option>تعمیر</option><option>بیمه</option><option>هیوان</option><option>سایر</option></select></label>
+<label>مبلغ (تومان)<input id="expenseAmount" type="number" placeholder="مثال ۵۰۰۰۰۰"/></label>
+<label>تاریخ<input id="expenseDate" type="date"/></label>
+<label>توضیح<input id="expenseNote" placeholder="اختیاری"/></label>
+<button id="addExpenseBtn">➕ افزودن هزینه</button>
+</section>
+<div class="expense-summary" id="expenseSummary"></div>
+<div class="expense-list" id="expenseList"></div>
+</section>
+
+<!-- MAINTENANCE / CONSUMABLES -->
+<section class="page" data-page="maintenance">
+<div class="page-head"><div><small>VEHICLE MANAGEMENT · MILEAGE SCHEDULE</small><h1>مدیریت قطعات مصرفی</h1></div><button id="addConsumableBtn">➕ افزودن قطعه</button></div>
+<section class="card maintenance-form" id="consumableForm" hidden>
+<label>نام قطعه<input id="consumableName" placeholder="مثال روغن موتور"/></label>
+<label>فاصله تعویض (km)<input id="consumableInterval" type="number" placeholder="مثال ۱۰۰۰۰"/></label>
+<label>کیلومتر آخرین تعویض<input id="consumableLastKm" type="number" placeholder="مثال ۸۰۰۰۰"/></label>
+<button id="saveConsumableBtn">ذخیره</button>
+</section>
+<div class="consumable-list" id="consumableList"></div>
+</section>
+
+<!-- VEHICLE SERVICES (خلافی، عوارض، بیمه، امداد) -->
+<section class="page" data-page="services">
+<div class="page-head"><div><small>VEHICLE SERVICES · IRAN</small><h1>سرویس‌های خودرویی</h1></div></div>
+<section class="card service-form">
+<label>پلاک خودرو<input id="servicePlate" placeholder="مثال ۱۲۳۴۵ ۲۲ ایران ۱۱"/></label>
+<button id="serviceLookupBtn">استعلام</button>
+</section>
+<div class="service-grid" id="serviceGrid">
+<article class="service-card" data-service="fines"><div class="svc-icon">🚨</div><strong>جرایم رانندگی</strong><small>استعلام و پرداخت خلافی</small><button>استعلام</button></article>
+<article class="service-card" data-service="toll"><div class="svc-icon">🛣️</div><strong>عوارض بزرگراهی</strong><small>عوارض آزادراهی و سالیانه</small><button>استعلام</button></article>
+<article class="service-card" data-service="traffic"><div class="svc-icon">🏙️</div><strong>طرح ترافیک</strong><small>بدهی طرح ترافیک تهران</small><button>استعلام</button></article>
+<article class="service-card" data-service="pollution"><div class="svc-icon">🌫️</div><strong>طرح آلودگی هوا</strong><small>باقیمانده تردد مجاز</small><button>استعلام</button></article>
+<article class="service-card" data-service="insurance"><div class="svc-icon">📋</div><strong>بیمه شخص ثالث</strong><small>خرید و تمدید آنلاین</small><button>خرید</button></article>
+<article class="service-card" data-service="rescue"><div class="svc-icon">🚑</div><strong>امداد خودرو</strong><small>اشتراک سالیانه امداد</small><button>خرید</button></article>
+</div>
+<div class="service-result" id="serviceResult" hidden></div>
+</section>
+
+<!-- PERSONAL GARAGE -->
+<section class="page" data-page="garage">
+<div class="page-head"><div><small>PERSONAL GARAGE · MULTI VEHICLE</small><h1>گاراژ شخصی</h1></div><button id="addGarageVehicle">➕ افزودن خودرو</button></div>
+<div class="garage-grid" id="garageGrid"></div>
+</section>
+
+<!-- SERVICE HISTORY -->
+<section class="page" data-page="servicehistory">
+<div class="page-head"><div><small>SERVICE HISTORY · RECORDS</small><h1>تاریخچه سرویس</h1></div><button id="addServiceRecord">➕ ثبت سرویس</button></div>
+<section class="card service-record-form" id="serviceRecordForm" hidden>
+<label>نوع سرویس<select id="srvType"><option>تعویض روغن</option><option>تعویض فیلتر</option><option>تعویض لنت ترمز</option><option>تعویض تایر</option><option>تعمیر موتور</option><option>تعمیر گیربکس</option><option>تنظیم موتور</option><option>دیاگ و عیب‌یابی</option><option>بازدید دوره‌ای</option><option>تصادف و بدنه</option><option>سایر</option></select></label>
+<label>کیلومتر<input id="srvKm" type="number" placeholder="مثال ۸۵۰۰۰"/></label>
+<label>تاریخ<input id="srvDate" type="date"/></label>
+<label>هزینه (تومان)<input id="srvCost" type="number" placeholder="مثال ۵۰۰۰۰۰"/></label>
+<label>توضیح<input id="srvNote" placeholder="اختیاری"/></label>
+<label>تعمیرگاه<input id="srvShop" placeholder="نام تعمیرگاه"/></label>
+<button id="saveServiceRecord">ذخیره</button>
+</section>
+<div class="service-history-list" id="serviceHistoryList"></div>
+</section>
+
+<!-- NEWS & LEARN -->
+<section class="page" data-page="news">
+<div class="page-head"><div><small>NEWS & LEARN · AUTOMOTIVE</small><h1>اخبار و آموزش خودرو</h1></div></div>
+<div class="news-tabs" id="newsTabs"><button class="active" data-news-tab="news">اخبار</button><button data-news-tab="learn">آموزش</button></div>
+<div class="news-grid" id="newsGrid"></div>
+<div class="learn-grid" id="learnGrid" hidden></div>
+</section>
+
+<!-- DASHBOARD SIGNS -->
+<section class="page" data-page="dashsigns">
+<div class="page-head"><div><small>DASHBOARD SIGNS · CAR WARNING INDICATORS</small><h1>علائم داشبورد</h1></div></div>
+<p class="note" style="margin:0 0 14px">راهنمای کامل علائم هشدار داشبورد خودرو. با کلیک روی هر علامت توضیحات کامل ببینید.</p>
+<div class="dashsigns-grid" id="dashsignsGrid"></div>
+<div class="dashsign-detail" id="dashsignDetail" hidden></div>
+</section>
+
+<!-- GAUGE GALLERY -->
+<section class="page" data-page="gaugegallery">
+<div class="page-head"><div><small>GAUGE GALLERY · INTERACTIVE</small><h1>گالری گیج</h1></div></div>
+<section class="card" style="padding:16px;margin-bottom:14px">
+<p class="note" style="margin-bottom:14px">سبک گیج مورد نظر را انتخاب کنید. با اسلایدر سرعت را تغییر دهید و نحوه نمایش را ببینید.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+<button class="btn btn-primary" id="gaugeStyle1" onclick="setGaugeStyle(1)" style="border-color:var(--cyan);background:color-mix(in srgb,var(--cyan) 20%,transparent)">سبک ۱: نئون</button>
+<button class="btn btn-primary" id="gaugeStyle2" onclick="setGaugeStyle(2)">سبک ۲: کلاسیک</button>
+<button class="btn btn-primary" id="gaugeStyle3" onclick="setGaugeStyle(3)">سبک ۳: دیجیتال</button>
+<button class="btn btn-primary" id="gaugeStyle4" onclick="setGaugeStyle(4)">سبک ۴: دایره کامل</button>
+</div>
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+<label style="font-size:12px;color:var(--muted);min-width:60px">سرعت:</label>
+<input type="range" id="gaugeGallerySlider" min="0" max="220" value="80" oninput="updateGalleryGauge(this.value)" style="flex:1;accent-color:var(--cyan)">
+<strong id="gaugeGalleryVal" style="font-size:22px;color:var(--cyan);font-family:monospace;min-width:80px;text-align:left">۸۰ km/h</strong>
+</div>
+</section>
+<div id="gaugeGalleryContainer" style="display:flex;justify-content:center;align-items:center;min-height:400px">
+<div id="galleryGauge" style="width:100%;max-width:500px;height:400px"></div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+<button class="btn btn-primary" onclick="go('dashboard')">استفاده در داشبورد</button>
+<button class="btn btn-primary" onclick="go('vehicles')">انتخاب خودرو</button>
+<button class="btn btn-primary" onclick="go('scanner')">اتصال به اسکنر</button>
+</div>
+</section>
+
 <!-- SETTINGS -->
 <section class="page" data-page="settings">
 <div class="page-head"><div><small>APPEARANCE & API</small><h1>تنظیمات</h1></div></div>
 <section class="card settings-grid">
 <label>تم<select id="themeSelect">
-<option value="dark">سیاه</option><option value="ivory">سفید شیری</option><option value="mydiag">MyDiag آبی</option>
+<option value="adminkit">AdminKit رسمی</option><option value="dark">سیاه</option><option value="ivory">سفید شیری</option><option value="mydiag">MyDiag آبی</option>
 <option value="eps-neon">EPS نئون آماری</option><option value="eps-color">EPS رنگی متریک</option>
-<option value="eps-mobile">EPS موبایل گرادیانی</option><option value="eps-industrial">EPS صنعتی</option>
+<option value="eps-mobile">EPS موبایل گرادیانی</option><option value="eps-industrial">EPS صنعتی</option><option value="figma-cluster">Figma کلاستر</option>
 </select></label>
 <label>وضعیت دسترسی<input id="planStatusInput" readonly value="رایگان"/></label>
 <label>آدرس اصلی API<input id="remoteApi" value="https://diageman.ir"/></label>
 <label>آدرس محلی API<input id="localApi" value="http://127.0.0.1:4030"/></label>
 <button id="saveSettings">ذخیره تنظیمات</button>
 </section></section>
+</div>
 </main>
 
 <nav class="bottom">
-<button class="active" data-page="mydiag"><svg><use href="#i-home"/></svg><span>خانه</span></button>
-<button data-page="dashboard"><svg><use href="#i-gauge"/></svg><span>داشبورد</span></button>
-<button data-page="trips"><svg><use href="#i-route"/></svg><span>سفر</span></button>
-<button data-page="analysis"><svg><use href="#i-scan"/></svg><span>تحلیل</span></button>
-<button data-page="procenter"><svg><use href="#i-crown"/></svg><span>پیشرفته</span></button>
+<button class="active" data-page="mydiag"><i class="bi bi-house-fill"></i><span>خانه</span></button>
+<button data-page="dashboard"><i class="bi bi-speedometer2"></i><span>داشبورد</span></button>
+<button data-page="trips"><i class="bi bi-geo-alt"></i><span>سفر</span></button>
+<button data-page="analysis"><i class="bi bi-activity"></i><span>تحلیل</span></button>
+<button data-page="procenter"><i class="bi bi-trophy"></i><span>پیشرفته</span></button>
 </nav>
+</div>
 </div>
 
 <div class="dialog" hidden id="errorDialog" role="dialog">
-<div class="dialog-panel"><span class="error-icon"><svg><use href="#i-error"/></svg></span><small id="errorCode"></small><h2 id="errorTitle">خطای ناشناخته</h2><p id="errorDetail"></p><div><button id="dismissError">بستن</button><button id="sendError">ارسال برای رفع عیب</button></div></div>
+<div class="dialog-panel"><span class="error-icon"><i class="bi bi-exclamation-triangle"></i></span><small id="errorCode"></small><h2 id="errorTitle">خطای ناشناخته</h2><p id="errorDetail"></p><div><button id="dismissError">بستن</button><button id="sendError">ارسال برای رفع عیب</button></div></div>
 </div>
 <div id="toast"></div>
 
@@ -570,8 +910,9 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 /* ========================= APP CORE ========================= */
 const $=(s,p=document)=>p.querySelector(s),$$=(s,p=document)=>[...p.querySelectorAll(s)];
 const APP_VERSION='0.13.0';
+if(localStorage.getItem('ecuAdminKitOfficial')!=='1'){localStorage.setItem('ecuTheme','adminkit');localStorage.setItem('ecuAdminKitOfficial','1');}
 const DEV_PRO_CODE='1234';
-const THEME_CYCLE=['mydiag','dark','ivory','eps-neon','eps-color','eps-mobile','eps-industrial'];
+const THEME_CYCLE=['adminkit','mydiag','dark','ivory','eps-neon','eps-color','eps-mobile','eps-industrial','figma-cluster'];
 const hasSavedVehicle=localStorage.getItem('ecuVehicle')!==null;
 
 const state={
@@ -640,17 +981,28 @@ async function api(path,opt={}){const token=await ensureToken();const base=state
 function go(page){
   $$('.page').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
   $$('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
-  const meta={mydiag:['SMART VEHICLE','خانه خودرو'],drivingstyle:['DRIVING STYLE','سبک رانندگی'],parking:['PARKING MEMORY','محل پارک'],dashcam:['DASHCAM','دوربین خودرو'],dashboard:['LIVE VEHICLE','داشبورد خودرو'],vehicles:['VEHICLE PROFILE','انتخاب خودرو'],trips:['GPS TRIP LOGGER','سفرها'],analysis:['DIAGEMAN API','تحلیل ماشین من'],procenter:['ADVANCED CENTER','مرکز نسخه پیشرفته'],store:['UPGRADE','خرید و فعال‌سازی'],errors:['FAULT CENTER','خطا و پشتیبانی'],scanner:['ELM327 CONSOLE','اسکنر و کنسول ECU'],settings:['SETTINGS','تنظیمات']};
+  $$('.sidebar-item').forEach(x=>x.classList.toggle('active',x.querySelector('[data-page]')?.dataset.page===page));
+  const meta={mydiag:['SMART VEHICLE','خانه خودرو'],drivingstyle:['DRIVING STYLE','سبک رانندگی'],parking:['PARKING MEMORY','محل پارک'],dashcam:['DASHCAM','دوربین خودرو'],dashboard:['LIVE VEHICLE','داشبورد خودرو'],vehicles:['VEHICLE PROFILE','انتخاب خودرو'],vehicledetail:['VEHICLE DETAIL','پروفایل خودرو'],trips:['GPS TRIP LOGGER','سفرها'],analysis:['DIAGEMAN API','تحلیل ماشین من'],procenter:['ADVANCED CENTER','مرکز نسخه پیشرفته'],store:['UPGRADE','خرید و فعال‌سازی'],errors:['FAULT CENTER','خطا و پشتیبانی'],scanner:['ELM327 CONSOLE','اسکنر و کنسول ECU'],sensors:['MANUFACTURER DATA','سنسورهای سازنده'],expenses:['EXPENSE TRACKER','هزینه‌های خودرو'],maintenance:['VEHICLE MANAGEMENT','مدیریت قطعات'],services:['VEHICLE SERVICES','سرویس‌های خودرویی'],garage:['PERSONAL GARAGE','گاراژ شخصی'],servicehistory:['SERVICE HISTORY','تاریخچه سرویس'],news:['NEWS & LEARN','اخبار و آموزش'],dashsigns:['DASHBOARD SIGNS','علائم داشبورد'],gaugegallery:['GAUGE GALLERY','گالری گیج'],settings:['SETTINGS','تنظیمات']};
   const selected=meta[page]||meta.dashboard;$('#eyebrow').textContent=selected[0];$('#title').textContent=selected[1];
   $('aside').classList.remove('open');
   if(page==='trips')setTimeout(async()=>{await initMap();previewSelectedTrip();state.map?.invalidateSize?.(true)},80);
+  if(page==='dashboard')setTimeout(()=>{initEChartsGauges();Object.values(gaugeCharts).forEach(c=>c.resize())},100);
   if(page==='store')loadOffers();
   if(page==='mydiag')syncMyDiagHome();
+  if(page==='sensors')renderSensorCards($('#sensorGroupSelect')?.value||'engine');
+  if(page==='expenses')renderExpenses();
+  if(page==='maintenance')renderConsumables();
+  if(page==='services'){}
+  if(page==='garage')renderGarage();
+  if(page==='servicehistory')renderServiceHistory();
+  if(page==='news')renderNews();
+  if(page==='dashsigns')renderDashSigns();
+  if(page==='gaugegallery')setTimeout(initGalleryGauge,100);
 }
 $$('button[data-page], [role="button"][data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));
 $$('.mydiag-menu-card[data-target]').forEach(b=>b.onclick=()=>{go(b.dataset.target);if(b.dataset.anchor)setTimeout(()=>document.getElementById(b.dataset.anchor)?.scrollIntoView({behavior:'smooth',block:'center'}),120)});
 $$('.mydiag-menu-card[data-special]').forEach(b=>b.onclick=()=>go(b.dataset.special.replace('-','')));
-$('#menuBtn').onclick=()=>$('aside').classList.toggle('open');
+// Sidebar toggling is handled by the official AdminKit js-sidebar module.
 
 /* ========================= THEME ========================= */
 function applyTheme(v){
@@ -658,6 +1010,17 @@ function applyTheme(v){
   document.documentElement.dataset.theme=state.theme;
   localStorage.setItem('ecuTheme',state.theme);
   if($('#themeSelect'))$('#themeSelect').value=state.theme;
+  // Re-init gauges when theme changes
+  if(typeof echarts!=='undefined'){
+    Object.values(gaugeCharts).forEach(c=>c.dispose());
+    Object.values(vdGauges).forEach(c=>c.dispose());
+    gaugeCharts={};vdGauges={};
+    setTimeout(()=>{
+      if(state.currentPage==='dashboard'){initEChartsGauges();updateLiveDisplay()}
+      if(state.currentPage==='vehicledetail'&&vdIndex!=null){renderVehicleDetail(document.getElementById('pageContainer'))}
+      if(state.currentPage==='gaugegallery'){initGalleryGauge()}
+    },50);
+  }
 }
 $('#themeBtn').onclick=()=>{const i=THEME_CYCLE.indexOf(state.theme);applyTheme(THEME_CYCLE[(i+1)%THEME_CYCLE.length])};
 
@@ -685,7 +1048,19 @@ const brandRules=[
   ['kamaz',/کاماز|Kamaz/],['dayun',/دایون|Dayun/],['generic',/.*/]
 ];
 function brandKey(v){const text=`${v?.make||''} ${v?.model||''}`;return brandRules.find(x=>x[1].test(text))?.[0]||'generic'}
-function logoPath(v){const key=brandKey(v);return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="var(--panel)"/><text x="50" y="56" text-anchor="middle" font-size="14" fill="var(--text)" font-weight="bold">${v?.make?.slice(0,8)||'?'}</text></svg>`)}`}
+function fallbackLogo(v){return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="var(--panel)"/><text x="50" y="56" text-anchor="middle" font-size="14" fill="var(--text)" font-weight="bold">${v?.make?.slice(0,8)||'?'}</text></svg>`)}`}
+var LOGO_BASE='https://raw.githubusercontent.com/myKotlinApps/Pulse-Platform-v0.12.0-Integrated/main/shared/logos/';
+var LOGO_FILES={'ikco':'ikco-official-v120.png','saipa':'saipa-official-v120.png','zamyad':'zamyad-official-v120.png','bahman':'bahman-official-v120.png','kmc':'kmc-official-v120.png','mvm':'mvm-official-v120.png','fownix':'fownix-official-v120.png','farda':'farda-official-v120.png','lamari':'lamari-official-v120.png','diar':'diar-official-v120.png','mammut':'mammut-official-v120.png','parskhodro':'parskhodro-official-v120.png','bahmandiesel':'bahmandiesel-official-v120.png','ikcodiesel':'ikcodiesel-official-v120.png','modirankhodro':'modirankhodro-official-v120.png','kermanmotor':'kermanmotor-official-v120.png','peugeot':'peugeot-pack-v130.png','citroen':'citroen-pack-v130.png','renault':'renault.svg','dacia':'dacia.svg','mercedesbenz':'mercedesbenz-pack-v130.png','bmw':'bmw-pack-v130.png','mini':'mini.svg','toyota':'toyota-pack-v130.png','lexus':'lexus-pack-v130.png','hyundai':'hyundai-pack-v130.png','kia':'kia-pack-v130.png','nissan':'nissan.svg','mazda':'mazda-pack-v130.png','mitsubishi':'mitsubishi.svg','honda':'honda-pack-v130.png','suzuki':'suzuki-pack-v130.png','subaru':'subaru-pack-v130.png','ford':'ford-pack-v130.png','chevrolet':'chevrolet-pack-v130.png','volkswagen':'volkswagen.svg','audi':'audi-pack-v130.png','skoda':'skoda-pack-v130.png','opel':'opel-pack-v130.png','volvo':'volvo.svg','scania':'scania-pack-v130.png','man':'man.svg','iveco':'iveco-pack-v130.png','daf':'daf.svg','faw':'faw-pack-v130.png','dongfeng':'dongfeng-pack-v130.png','jac':'jac-pack-v130.png','geely':'geely-pack-v130.png','byd':'byd-pack-v130.png','mg':'mg.svg','brilliance':'brilliance.svg','haval':'haval-pack-v130.png','changan':'changan.svg','greatwall':'greatwall-pack-v130.png','baic':'baic-pack-v130.png','lifan':'lifan-pack-v130.png','hyundaicommercial':'hyundaicommercial-pack-v130.png','isuzu':'isuzu-pack-v130.png'};
+function logoPath(v){
+  const key=brandKey(v);
+  const meta=(state.logos?.brands||[]).find(b=>b.key===key);
+  if(meta){
+    const file=meta.png||meta.file||meta.fallback;
+    if(file){const logoName=file.replace(/^assets\/logos\//,'');return LOGO_BASE+logoName}
+  }
+  if(LOGO_FILES[key])return LOGO_BASE+LOGO_FILES[key];
+  return fallbackLogo(v);
+}
 function logoSrc(v){return state.customLogo||logoPath(v)}
 
 function activeVehicle(){return state.demoMode?state.demo?.vehicle:(state.data?.vehicles?.[state.vehicleIndex]||availableVehicles()[0])}
@@ -702,8 +1077,8 @@ function renderVehicles(){
   if(makes.includes(current?.make))$('#makeSelect').value=current.make;
   renderModels();
   const demoCard=state.demo?`<article class="vehicle-card demo-card ${state.demoMode?'selected':''}" data-demo="true"><img src="data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#e5e7eb"/><text x="50" y="60" text-anchor="middle" font-size="30" fill="#374151" font-weight="bold">?</text></svg>')}"><strong>${state.demo.vehicle.model}</strong><small>بدون اتصال واقعی</small></article>`:'';
-  $('#vehicleGrid').innerHTML=demoCard+list.map(v=>`<article class="vehicle-card ${!state.demoMode&&v.index===state.vehicleIndex?'selected':''}" data-index="${v.index}"><img src="${logoPath(v)}"><strong>${v.model}</strong><small>${v.make}</small></article>`).join('');
-  $$('.vehicle-card[data-index]').forEach(c=>c.onclick=()=>{$('#makeSelect').value=state.data.vehicles[c.dataset.index].make;renderModels();$('#modelSelect').value=c.dataset.index});
+  $('#vehicleGrid').innerHTML=demoCard+list.map(v=>`<article class="vehicle-card ${!state.demoMode&&v.index===state.vehicleIndex?'selected':''}" data-index="${v.index}"><img src="${logoPath(v)}" onerror="this.onerror=null;this.src='${fallbackLogo(v)}'"><strong>${v.model}</strong><small>${v.make}</small></article>`).join('');
+  $$('.vehicle-card[data-index]').forEach(c=>c.onclick=()=>{$('#makeSelect').value=state.data.vehicles[c.dataset.index].make;renderModels();$('#modelSelect').value=c.dataset.index;openVehicleDetail(Number(c.dataset.index))});
   document.querySelector('.demo-card')?.addEventListener('click',activateDemo);
   syncDemoButtons()
 }
@@ -715,7 +1090,7 @@ function renderActiveVehicle(){
   const v=activeVehicle();if(!v)return;
   $('#vehicleName').textContent=`${v.make} ${v.model}`;
   $('#vehicleProtocol').textContent=(v.protocols||[]).join(' · ')||v.profile;
-  const hero=$('#vehicleLogo');hero.onerror=()=>{hero.onerror=null;hero.src=logoPath(v)};
+  const hero=$('#vehicleLogo');hero.onerror=()=>{hero.onerror=null;hero.src=fallbackLogo(v)};
   hero.src=logoSrc(v);
   $('#demoBadge').hidden=!state.demoMode;$('#dataModeLabel').textContent=state.demoMode?'داده آزمایشی':'داده خودرو';
   syncDemoButtons()
@@ -723,13 +1098,72 @@ function renderActiveVehicle(){
 $('#logoInput').onchange=e=>{const file=e.target.files[0];if(!file)return;if(file.size>1024*1024)return reportError(new AppFault('LOGO_TOO_LARGE','فایل لوگو بزرگ است','حداکثر اندازه لوگوی سفارشی یک مگابایت است.'));const r=new FileReader();r.onload=()=>{state.customLogo=r.result;localStorage.setItem('ecuCustomLogo',state.customLogo);renderActiveVehicle()};r.readAsDataURL(file)};
 
 /* ========================= GAUGE / LIVE DATA ========================= */
-function setNeedle(id,value,max,minAngle=-135,maxAngle=135){
-  const needle=document.getElementById(id);if(!needle)return;
-  const pct=Math.max(0,Math.min(1,value/max));
-  const angle=minAngle+(maxAngle-minAngle)*pct;
-  needle.setAttribute('transform',`rotate(${angle},140,240)`);
-  const arc=document.getElementById(id==='speedNeedle'?'speedArc':'rpmArc');
-  if(arc){const circ=2*Math.PI*120*.5;arc.setAttribute('stroke-dashoffset',circ-circ*pct)}
+var gaugeCharts={};
+function makeGaugeOpt(id,min,max,splitNum,colors,unit,needleColor){
+  const theme=document.documentElement.dataset.theme;
+  const isFigma=theme==='figma-cluster';
+  const isDark=theme==='dark'||theme==='eps-neon'||theme==='eps-color'||theme==='eps-mobile'||theme==='eps-industrial';
+  const axisColor=isFigma?'#374151':(isDark?'#8ea0b5':'#6f8498');
+  const textColor=isFigma?'#ffffff':(isDark?'#f7f9fb':'#19324a');
+  if(isFigma){
+    // Figma Cluster: minimal, no tick numbers, thin ring, large center text
+    return{
+      type:'gauge',radius:'85%',center:['50%','50%'],
+      startAngle:90,endAngle:-270,min:min,max:max,splitNumber:splitNum,
+      progress:{show:true,width:8,roundCap:true,itemStyle:{color:needleColor}},
+      axisLine:{lineStyle:{width:8,color:[[1,'#1a1a1a']]}},
+      pointer:{show:false},
+      anchor:{show:false},
+      axisTick:{show:false},
+      splitLine:{show:false},
+      axisLabel:{show:false},
+      title:{show:false},
+      detail:{valueAnimation:true,formatter:function(v){return'{a|'+Math.round(v)+'}\n{b|'+unit+'}'},color:textColor,fontSize:36,fontWeight:800,offsetCenter:[0,0],
+        rich:{a:{fontSize:42,color:textColor,fontWeight:800,fontFamily:'SF Mono,monospace',lineHeight:40},b:{fontSize:12,color:axisColor,padding:[4,0,0,0]}}},
+      data:[{value:0}]
+    };
+  }
+  return {
+    type:'gauge',radius:'90%',center:['50%','58%'],
+    startAngle:200,endAngle:-20,
+    min:min,max:max,splitNumber:splitNum,
+    progress:{show:true,width:16,roundCap:true,itemStyle:{color:colors[colors.length-1][1]}},
+    axisLine:{lineStyle:{width:16,color:colors}},
+    pointer:{icon:'path://M -3 70 L 3 70 L 1 0 L -1 0 Z',length:'68%',width:6,offsetCenter:[0,0],itemStyle:{color:needleColor,shadowColor:'rgba(0,0,0,.5)',shadowBlur:8}},
+    anchor:{show:true,size:14,itemStyle:{color:'#1d3557',borderColor:needleColor,borderWidth:3}},
+    axisTick:{length:6,distance:2,lineStyle:{color:axisColor,width:1}},
+    splitLine:{length:12,distance:2,lineStyle:{color:axisColor,width:2}},
+    axisLabel:{color:axisColor,fontSize:9,distance:14},
+    title:{show:true,offsetCenter:[0,'-10%'],fontSize:11,color:axisColor},
+    detail:{valueAnimation:true,formatter:function(v){return Math.round(v)+' '+unit},color:textColor,fontSize:18,fontWeight:700,offsetCenter:[0,'40%']},
+    data:[{value:0}]
+  };
+}
+function initEChartsGauges(){
+  if(typeof echarts==='undefined')return;
+  const gauges=[
+    {id:'speedGauge',key:'speed',min:0,max:220,split:11,colors:[[0.3,'#55d99a'],[0.6,'#55dff6'],[0.85,'#3ca6ff'],[1,'#ff6f7d']],unit:'km/h',needle:'#ff6f7d'},
+    {id:'rpmGauge',key:'rpm',min:0,max:8000,split:8,colors:[[0.3,'#55d99a'],[0.6,'#55dff6'],[0.8,'#ff9a54'],[1,'#ff6f7d']],unit:'rpm',needle:'#55dff6'},
+    {id:'coolantGauge',key:'coolant',min:40,max:140,split:5,colors:[[0.3,'#55dff6'],[0.5,'#55d99a'],[0.75,'#ff9a54'],[1,'#ff6f7d']],unit:'°C',needle:'#ff9a54'},
+    {id:'voltageGauge',key:'voltage',min:0,max:16,split:8,colors:[[0.2,'#ff6f7d'],[0.4,'#ff9a54'],[0.5,'#55d99a'],[0.85,'#55d99a'],[1,'#ff9a54']],unit:'V',needle:'#55d99a'}
+  ];
+  gauges.forEach(g=>{
+    const el=document.getElementById(g.id);
+    if(el&&!gaugeCharts[g.key]){
+      gaugeCharts[g.key]=echarts.init(el);
+      gaugeCharts[g.key].setOption({series:[makeGaugeOpt(g.key,g.min,g.max,g.split,g.colors,g.unit,g.needle)]});
+    }
+  });
+}
+function setNeedle(id,value,max){
+  const map={'speedNeedle':'speed','rpmNeedle':'rpm'};
+  const key=map[id];
+  if(key&&gaugeCharts[key]){
+    gaugeCharts[key].setOption({series:[{data:[{value:Math.round((value||0)*100)/100}]}]});
+  }
+}
+function setGaugeValue(key,value){
+  if(gaugeCharts[key])gaugeCharts[key].setOption({series:[{data:[{value:Math.round(value*100)/100}]}]});
 }
 function renderLive(){
   const l=state.live;
@@ -739,7 +1173,12 @@ function renderLive(){
   $('#voltage').textContent=l.voltage==null?'--':`${fa(l.voltage.toFixed(1))} V`;
   $('#engineLoad').textContent=l.engineLoad==null?'--':`${fa(Math.round(l.engineLoad))}٪`;
   $('#fuelUse').textContent=l.speedKph>5?`${fa((5.5+l.engineLoad/20).toFixed(1))} L/100`:'--';
-  setNeedle('speedNeedle',l.speedKph,220);setNeedle('rpmNeedle',l.rpm,7000);
+  $('#fuelLevel').textContent=l.fuelLevel!=null?`${fa(Math.round(l.fuelLevel))}٪`:'۶۸٪';
+  $('#oilPressure').textContent=l.oilPressure!=null?`${fa(l.oilPressure.toFixed(1))} bar`:'۴.۲ bar';
+  setGaugeValue('speed',l.speedKph||0);
+  setGaugeValue('rpm',l.rpm||0);
+  setGaugeValue('coolant',l.coolantC||0);
+  setGaugeValue('voltage',l.voltage||0);
 }
 function demoSnapshot(tick){
   const phase=(tick%112)/112,drive=Math.sin(phase*Math.PI);
@@ -755,9 +1194,18 @@ $('#activateDemo').onclick=activateDemo;$('#mockToggle').onclick=()=>state.mockT
 
 /* ========================= DTC ========================= */
 $('#readDtcBtn').onclick=()=>{state.dtcs=(state.demoMode?state.demo.scenario.dtcs:[{code:'P0133',kind:'STORED',description:'پاسخ کند سنسور اکسیژن بانک ۱'},{code:'P0420',kind:'PENDING',description:'بازده کاتالیست پایین‌تر از آستانه'}]).map(x=>({...x}));renderDtcs()};
-function renderDtcs(){$('#dtcList').innerHTML=state.dtcs.length?state.dtcs.map(x=>`<article class="dtc-item"><strong>${x.code}</strong><p>${x.description}<br>${x.kind}</p></article>`).join(''):'<p class="note">هنوز کدی خوانده نشده است.</p>'}
+function renderDtcs(){$('#dtcList').innerHTML=state.dtcs.length?state.dtcs.map((x,i)=>`<div class="list-group-item d-flex align-items-start gap-3"><code class="text-warning fw-bold">${x.code}</code><div class="flex-grow-1"><p class="mb-0 text-muted">${x.description}</p><small class="badge bg-secondary mt-1">${x.kind}</small></div><button class="btn btn-outline-danger btn-sm ms-auto" onclick="clearSingleDtc(${i})"><i class="bi bi-trash"></i> پاک‌کردن</button></div>`).join(''):'<p class="text-muted mb-0">هنوز کدی خوانده نشده است.</p>'}
 async function clearDtcs(){if(!state.dtcs.length)return toast('خطایی برای پاک‌کردن وجود ندارد');if(!confirm('موتور خاموش و سوییچ باز است؟'))return;if(state.demoMode){await new Promise(r=>setTimeout(r,450));state.dtcs=[];renderDtcs();return toast('خطاهای دمو پاک شدند')}try{const a=await api('/api/v1/actions/dtc-clear/authorize',{method:'POST',body:'{}'}).then(r=>r.json());await new Promise(r=>setTimeout(r,500));state.dtcs=[];renderDtcs();await fetchTimeout(`${state.activeApi}/api/v1/actions/dtc-clear/complete`,{method:'POST',headers:{'content-type':'application/json',authorization:`Bearer ${a.actionToken}`},body:JSON.stringify({success:true})});toast('خطاها پاک شدند');await refreshEntitlement()}catch(e){reportError(e,{feature:'clear-dtc'})}}
 $('#clearDtcBtn').onclick=clearDtcs;
+function clearSingleDtc(index){
+  if(!state.dtcs[index])return;
+  const dtc=state.dtcs[index];
+  if(!confirm(`پاک‌کردن خطای ${dtc.code}؟\n\n${dtc.description}\n\nموتور خاموش و سوییچ باز است؟`))return;
+  state.dtcs.splice(index,1);
+  renderDtcs();
+  toast(`خطای ${dtc.code} پاک شد`);
+}
+window.clearSingleDtc=clearSingleDtc;
 async function refreshEntitlement(){try{const x=await api('/api/v1/entitlements/me').then(r=>r.json());const left=x.clearDtcLimit<0?'نامحدود':Math.max(0,x.clearDtcLimit-x.clearDtcUsed);$('#clearQuota').textContent=x.pro?'نسخه پیشرفته: نامحدود':`نسخه رایگان: ${fa(left)} بار باقی مانده`;$('#clearQuotaSide').textContent=x.pro?'پاک‌کردن نامحدود':`${fa(left)} پاک‌کردن باقی مانده`}catch(e){$('#clearQuota').textContent='برای بررسی سهمیه، سرور را اجرا کن'}}
 
 /* ========================= TRIPS ========================= */
@@ -862,7 +1310,7 @@ $$('.pro-feature').forEach(card=>{card.addEventListener('click',e=>{if(e.target.
 function applyPlan(){const pro=state.plan==='pro';$('#sidePlan').textContent=pro?'PRO DEV':'FREE';$('#catalogBadge').textContent=pro?'کاتالوگ کامل':'فهرست رایگان ۱۰٪';$$('.pro-only').forEach(x=>x.classList.toggle('locked',!pro));$$('.pro-feature').forEach(x=>x.classList.toggle('locked',!pro));$('.advanced-nav')?.classList.toggle('unlocked',pro);if($('#proNavBadge'))$('#proNavBadge').textContent=pro?'فعال':'قفل';if($('#proCenterBadge'))$('#proCenterBadge').textContent=pro?'PRO فعال':'قفل';if($('#proUnlockStatus'))$('#proUnlockStatus').textContent=pro?'نسخه پیشرفته آزمایشی فعال است':'نسخه رایگان فعال است';$('.dev-unlock')?.classList.toggle('unlocked',pro);if($('#unlockProBtn'))$('#unlockProBtn').hidden=pro;if($('#disableProBtn'))$('#disableProBtn').hidden=!pro;if($('#planStatusInput'))$('#planStatusInput').value=pro?'پیشرفته آزمایشی':'رایگان';renderVehicles();renderActiveVehicle();refreshEntitlement()}
 
 /* ========================= MYDIAG HOME ========================= */
-function syncMyDiagHome(){const v=activeVehicle();if(!v)return;$('#mydiagVehicleName').textContent=`${v.make} ${v.model}`;$('#mydiagVehicleLogo').src=logoSrc(v);$('#mydiagSpeed').textContent=`${fa(Math.round(state.live.speedKph||0))} km/h`;$('#mydiagRpm').textContent=`${fa(Math.round(state.live.rpm||0))} rpm`;$('#mydiagDtcCount').textContent=fa(state.dtcs.length);$('#mydiagConnectionState').textContent=state.demoMode?'اتصال شبیه‌ساز فعال است':'منتظر اتصال ELM327'}
+function syncMyDiagHome(){const v=activeVehicle();if(!v)return;$('#mydiagVehicleName').textContent=`${v.make} ${v.model}`;const myLogo=$('#mydiagVehicleLogo');myLogo.onerror=()=>{myLogo.onerror=null;myLogo.src=fallbackLogo(v)};myLogo.src=logoSrc(v);$('#mydiagSpeed').textContent=`${fa(Math.round(state.live.speedKph||0))} km/h`;$('#mydiagRpm').textContent=`${fa(Math.round(state.live.rpm||0))} rpm`;$('#mydiagDtcCount').textContent=fa(state.dtcs.length);$('#mydiagConnectionState').textContent=state.demoMode?'اتصال شبیه‌ساز فعال است':'منتظر اتصال ELM327'}
 
 /* ========================= DRIVING STYLE ========================= */
 function selectedTripForStyle(){return selectedTrip?.()||trips?.().at(-1)||null}
@@ -935,6 +1383,406 @@ $('#ecuApplyFilter').onclick=async()=>{if(!ecuTransport||ecuTransport.closed)ret
 $('#ecuChooseLogFile').onclick=()=>sessionLogger.chooseFile();$('#ecuCloseLogFile').onclick=()=>sessionLogger.closeFile();
 $('#ecuDownloadJsonl').onclick=()=>sessionLogger.download('jsonl');$('#ecuDownloadCsv').onclick=()=>sessionLogger.download('csv');$('#ecuClearLogs').onclick=()=>sessionLogger.clear();
 
+/* ========================= MANUFACTURER SENSORS ========================= */
+const SENSOR_DEFS=[
+  {key:'engineRpm',label:'دور موتور',unit:'rpm',group:'engine',min:0,max:8000,color:'#55dff6'},
+  {key:'engineLoad',label:'بار موتور',unit:'%',group:'engine',min:0,max:100,color:'#b28eff'},
+  {key:'coolantTemp',label:'دمای آب',unit:'°C',group:'engine',min:0,max:130,color:'#ff9a54'},
+  {key:'oilTemp',label:'دمای روغن',unit:'°C',group:'engine',min:0,max:150,color:'#ff6f7d'},
+  {key:'intakeTemp',label:'دمای هوای ورودی',unit:'°C',group:'engine',min:-20,max:80,color:'#3ca6ff'},
+  {key:'throttlePos',label:'دریچه گاز',unit:'%',group:'engine',min:0,max:100,color:'#55d99a'},
+  {key:'mapPressure',label:'فشار مانیفولد',unit:'kPa',group:'engine',min:0,max:255,color:'#b28eff'},
+  {key:'mafRate',label:'نرخ جرم هوا',unit:'g/s',group:'engine',min:0,max:200,color:'#55dff6'},
+  {key:'gearTemp',label:'دمای گیربکس',unit:'°C',group:'transmission',min:0,max:120,color:'#ff9a54'},
+  {key:'gearPressure',label:'فشار گیربکس',unit:'bar',group:'transmission',min:0,max:20,color:'#3ca6ff'},
+  {key:'dpfSoot',label:'رسوب DPF',unit:'%',group:'exhaust',min:0,max:100,color:'#ff6f7d'},
+  {key:'dpfRegen',label:'بازسازی DPF',unit:'وضعیت',group:'exhaust',min:0,max:1,color:'#55d99a'},
+  {key:'noxDpf',label:'NOx',unit:'ppm',group:'exhaust',min:0,max:500,color:'#b28eff'},
+  {key:'batteryVolt',label:'ولتاژ باتری',unit:'V',group:'battery',min:0,max:16,color:'#55d99a'},
+  {key:'batteryHealth',label:'سلامت باتری',unit:'%',group:'battery',min:0,max:100,color:'#55dff6'},
+  {key:'alternatorLoad',label:'بار دینام',unit:'%',group:'battery',min:0,max:100,color:'#ff9a54'},
+  {key:'fuelLevel',label:'سطح سوخت',unit:'%',group:'fuel',min:0,max:100,color:'#55d99a'},
+  {key:'fuelRate',label:'نرخ مصرف سوخت',unit:'L/h',group:'fuel',min:0,max:30,color:'#ff6f7d'},
+  {key:'fuelEconomy',label:'مصرف سوخت',unit:'L/100km',group:'fuel',min:0,max:30,color:'#55dff6'}
+];
+var sensorTimer=null;var sensorData={};
+function renderSensorCards(group){
+  const grid=$('#sensorGrid');if(!grid)return;
+  const filtered=SENSOR_DEFS.filter(s=>s.group===group);
+  $('#sensorCount').textContent=`${fa(filtered.length)} سنسور`;
+  grid.innerHTML=filtered.map(s=>`<article class="sensor-card"><header><span>${s.group.toUpperCase()}</span><strong>${s.label}</strong></header><div class="sensor-value" id="sv_${s.key}">--</div><div class="sensor-unit">${s.unit}</div><div class="sensor-graph" id="sg_${s.key}"><svg viewBox="0 0 200 60"><polyline id="sp_${s.key}" points="" fill="none" stroke="${s.color}" stroke-width="2"/></svg></div></article>`).join('');
+  sensorData={};filtered.forEach(s=>sensorData[s.key]=[]);
+}
+function updateSensorValues(){
+  SENSOR_DEFS.filter(s=>s.group===$('#sensorGroupSelect').value).forEach(s=>{
+    let val;
+    if(s.key==='engineRpm')val=state.live.rpm||Math.round(700+Math.random()*3000);
+    else if(s.key==='coolantTemp')val=state.live.coolantC||Math.round(82+Math.random()*15);
+    else if(s.key==='engineLoad')val=state.live.engineLoad||Math.round(20+Math.random()*55);
+    else if(s.key==='batteryVolt')val=state.live.voltage||(13.2+Math.random()*1.4).toFixed(1);
+    else if(s.key==='throttlePos')val=Math.round(10+Math.random()*40);
+    else if(s.key==='intakeTemp')val=Math.round(20+Math.random()*20);
+    else if(s.key==='mapPressure')val=Math.round(30+Math.random()*50);
+    else if(s.key==='mafRate')val=(5+Math.random()*20).toFixed(1);
+    else if(s.key==='oilTemp')val=Math.round(85+Math.random()*25);
+    else if(s.key==='gearTemp')val=Math.round(60+Math.random()*30);
+    else if(s.key==='gearPressure')val=(3+Math.random()*8).toFixed(1);
+    else if(s.key==='dpfSoot')val=Math.round(20+Math.random()*60);
+    else if(s.key==='dpfRegen')val=Math.random()>0.9?'در حال':'خاموش';
+    else if(s.key==='noxDpf')val=Math.round(50+Math.random()*200);
+    else if(s.key==='batteryHealth')val=Math.round(80+Math.random()*20);
+    else if(s.key==='alternatorLoad')val=Math.round(30+Math.random()*50);
+    else if(s.key==='fuelLevel')val=Math.round(30+Math.random()*60);
+    else if(s.key==='fuelRate')val=(2+Math.random()*8).toFixed(1);
+    else if(s.key==='fuelEconomy')val=(5+Math.random()*8).toFixed(1);
+    else val=Math.round(Math.random()*100);
+    const el=$('#sv_'+s.key);if(el)el.textContent=typeof val==='string'?val:fa(val);
+    const arr=sensorData[s.key]||[];arr.push(Number(val)||0);if(arr.length>40)arr.shift();sensorData[s.key]=arr;
+    const sp=$('#sp_'+s.key);if(sp&&arr.length>1){const min=s.min,max=s.max;const pts=arr.map((v,i)=>`${(i/(arr.length-1)*200).toFixed(1)},${(55-(v-min)/(max-min||1)*45).toFixed(1)}`).join(' ');sp.setAttribute('points',pts)}
+  });
+}
+function startSensorMonitor(){if(sensorTimer)clearInterval(sensorTimer);renderSensorCards($('#sensorGroupSelect').value);updateSensorValues();sensorTimer=setInterval(updateSensorValues,1000);$('#sensorStartBtn').disabled=true;$('#sensorStopBtn').disabled=false}
+function stopSensorMonitor(){if(sensorTimer){clearInterval(sensorTimer);sensorTimer=null}$('#sensorStartBtn').disabled=false;$('#sensorStopBtn').disabled=true}
+$('#sensorStartBtn').onclick=startSensorMonitor;
+$('#sensorStopBtn').onclick=stopSensorMonitor;
+$('#sensorGroupSelect').onchange=()=>{if(sensorTimer){renderSensorCards($('#sensorGroupSelect').value)}else{renderSensorCards($('#sensorGroupSelect').value)}};
+
+/* ========================= EXPENSES ========================= */
+function expenses(){return JSON.parse(localStorage.getItem('ecuExpenses')||'[]')}
+function saveExpenses(x){localStorage.setItem('ecuExpenses',JSON.stringify(x.slice(-200)));renderExpenses()}
+function renderExpenses(){
+  const list=expenses();const grid=$('#expenseList');const summary=$('#expenseSummary');if(!grid||!summary)return;
+  const today=new Date();const thisMonth=list.filter(e=>{const d=new Date(e.date);return d.getMonth()===today.getMonth()&&d.getFullYear()===today.getFullYear()});
+  const total=list.reduce((a,e)=>a+e.amount,0);
+  const monthTotal=thisMonth.reduce((a,e)=>a+e.amount,0);
+  const fuelTotal=list.filter(e=>e.category==='سوخت').reduce((a,e)=>a+e.amount,0);
+  const serviceTotal=list.filter(e=>e.category==='سرویس دوره‌ای'||e.category==='تعمیر').reduce((a,e)=>a+e.amount,0);
+  summary.innerHTML=`<article><span>مجموع کل</span><strong>${fa(total.toLocaleString())}</strong></article><article><span>این ماه</span><strong>${fa(monthTotal.toLocaleString())}</strong></article><article><span>سوخت</span><strong>${fa(fuelTotal.toLocaleString())}</strong></article><article><span>سرویس/تعمیر</span><strong>${fa(serviceTotal.toLocaleString())}</strong></article>`;
+  grid.innerHTML=list.length?[...list].reverse().map((e,i)=>`<div class="expense-row"><div class="ex-cat">${e.category}</div><div class="ex-note">${e.note||'—'}</div><div class="ex-amount">${fa(e.amount.toLocaleString())} ت</div><button data-exp="${list.length-1-i}" class="ex-del">حذف</button></div>`).join(''):'<p class="note">هنوز هزینه‌ای ثبت نشده است.</p>';
+  $$('.ex-del').forEach(b=>b.onclick=()=>{const idx=Number(b.dataset.exp);const all=expenses();all.splice(idx,1);saveExpenses(all);toast('هزینه حذف شد')});
+}
+$('#addExpenseBtn').onclick=()=>{
+  const cat=$('#expenseCategory').value;const amt=Number($('#expenseAmount').value);const date=$('#expenseDate').value||new Date().toISOString().slice(0,10);const note=$('#expenseNote').value;
+  if(!amt||amt<=0)return toast('مبلغ معتبر وارد کنید');
+  const all=expenses();all.push({category:cat,amount:amt,date,note,at:Date.now()});saveExpenses(all);
+  $('#expenseAmount').value='';$('#expenseNote').value='';toast('هزینه ثبت شد');
+};
+$('#exportExpenseCsv').onclick=()=>{
+  const list=expenses();if(!list.length)return toast('هزینه‌ای برای خروجی وجود ندارد');
+  const rows=[['تاریخ','دسته','مبلغ (تومان)','توضیح']];list.forEach(e=>rows.push([e.date,e.category,e.amount,e.note||'']));
+  const csv='\ufeff'+rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a'),blob=new Blob([csv],{type:'text/csv;charset=utf-8'});a.href=URL.createObjectURL(blob);a.download=`ecu-expenses-${new Date().toISOString().slice(0,10)}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),3000);toast('فایل CSV دانلود شد');
+};
+
+/* ========================= MAINTENANCE / CONSUMABLES ========================= */
+const DEFAULT_CONSUMABLES=[
+  {name:'روغن موتور',interval:10000,lastKm:0,color:'#55dff6'},
+  {name:'فیلتر روغن',interval:10000,lastKm:0,color:'#55d99a'},
+  {name:'فیلتر هوا',interval:20000,lastKm:0,color:'#3ca6ff'},
+  {name:'فیلتر کابین',interval:15000,lastKm:0,color:'#b28eff'},
+  {name:'لنت ترمز جلو',interval:30000,lastKm:0,color:'#ff9a54'},
+  {name:'لنت ترمز عقب',interval:45000,lastKm:0,color:'#ff9a54'},
+  {name:'شمع موتور',interval:40000,lastKm:0,color:'#ff6f7d'},
+  {name:'تسمه تایم',interval:80000,lastKm:0,color:'#ff6f7d'},
+  {name:'تایر',interval:50000,lastKm:0,color:'#55d99a'},
+  {name:'روغن گیربکس',interval:60000,lastKm:0,color:'#3ca6ff'},
+  {name:'باطری',interval:40000,lastKm:0,color:'#b28eff'},
+  {name:'مایع خنک‌کننده',interval:30000,lastKm:0,color:'#55dff6'}
+];
+function consumables(){const stored=JSON.parse(localStorage.getItem('ecuConsumables')||'null');if(stored)return stored;return DEFAULT_CONSUMABLES.map(c=>({...c}))}
+function saveConsumables(x){localStorage.setItem('ecuConsumables',JSON.stringify(x));renderConsumables()}
+function currentMileage(){return Number(localStorage.getItem('ecuMileage')||0)||Math.round(85000+Math.random()*5000)}
+function renderConsumables(){
+  const list=consumables();const grid=$('#consumableList');if(!grid)return;
+  const mileage=currentMileage();
+  grid.innerHTML=list.map((c,i)=>{
+    const sinceMileage=mileage-c.lastKm;const pct=Math.min(100,(sinceMileage/c.interval)*100);
+    const remainKm=Math.max(0,c.interval-sinceMileage);
+    const status=remainKm<=0?'urgent':remainKm<c.interval*0.15?'warn':'ok';
+    const statusText=remainKm<=0?'تعویض لازم':remainKm<c.interval*0.15?`(${fa(remainKm)} km)`:fa(remainKm)+' km';
+    const barColor=status==='urgent'?'var(--red)':status==='warn'?'var(--orange)':'var(--green)';
+    return `<div class="consumable-row"><div class="c-name">${c.name}</div><div class="c-interval">${fa(c.interval.toLocaleString())} km</div><div class="c-last">${fa(c.lastKm.toLocaleString())} km</div><div class="c-bar"><div style="width:${pct}%;background:${barColor}"></div></div><div class="c-status ${status}">${statusText}</div></div>`;
+  }).join('');
+}
+$('#addConsumableBtn').onclick=()=>{const f=$('#consumableForm');f.hidden=!f.hidden;if(!f.hidden){$('#consumableName').focus()}};
+$('#saveConsumableBtn').onclick=()=>{
+  const name=$('#consumableName').value.trim();const interval=Number($('#consumableInterval').value);const lastKm=Number($('#consumableLastKm').value);
+  if(!name||!interval)return toast('نام و فاصله تعویض الزامی است');
+  const all=consumables();all.push({name,interval,lastKm:lastKm||0,color:'#55dff6'});saveConsumables(all);
+  $('#consumableName').value='';$('#consumableInterval').value='';$('#consumableLastKm').value='';$('#consumableForm').hidden=true;toast('قطعه اضافه شد');
+};
+
+/* ========================= VEHICLE DETAIL PAGE ========================= */
+var vdVehicleIndex=null;var vdLiveTimer=null;
+const OBD_INIT_SEQUENCES={
+  'ISO 15765-4 CAN':['ATZ','ATE0','ATL0','ATH0','ATS0','ATSP6'],
+  'ISO 14230-4 KWP2000':['ATZ','ATE0','ATL0','ATH0','ATS0','ATSP3'],
+  'ISO 9141-2':['ATZ','ATE0','ATL0','ATH0','ATS0','ATSP3'],
+  'J1850 PWM':['ATZ','ATE0','ATL0','ATH0','ATS0','ATSP1'],
+  'J1850 VPW':['ATZ','ATE0','ATL0','ATH0','ATS0','ATSP2'],
+  'generic':['ATZ','ATE0','ATL0','ATH0','ATS0','ATSP0']
+};
+function openVehicleDetail(index){
+  vdVehicleIndex=index;go('vehicledetail');renderVehicleDetail();
+}
+function renderVehicleDetail(){
+  if(vdVehicleIndex==null)return;
+  const v=state.data.vehicles[vdVehicleIndex];if(!v)return;
+  const bkey=brandKey(v);
+  $('#vdTitle').textContent=`${v.make} ${v.model}`;
+  $('#vdEyebrow').textContent=(v.protocols||[])[0]||'VEHICLE DETAIL';
+  $('#vdName').textContent=`${v.make} ${v.model}`;
+  $('#vdProtocol').textContent=(v.protocols||[]).join(' · ')||v.profile||'Generic OBD-II';
+  $('#vdSegment').textContent=v.segment||'passenger';
+  $('#vdStatus').textContent=state.demoMode?'داده آزمایشی':'آماده اتصال';
+  $('#vdYear').textContent=fa(v.year||'—');
+  $('#vdRegion').textContent=v.region==='iran'?'ایران':v.region||'—';
+  $('#vdObdProtocol').textContent=(v.protocols||[]).join(' / ')||'Auto Detect';
+  $('#vdEcuProfile').textContent=v.profile||'Generic OBD-II';
+  $('#vdStandard').textContent=(v.protocols||[]).some(p=>p.includes('CAN'))?'ISO 15765-4 (CAN)':'OBD-II';
+  const logoUrl=logoPath(v);const logo=$('#vdLogo');logo.onerror=()=>{logo.onerror=null;logo.src=fallbackLogo(v)};logo.src=logoUrl;
+  // Init steps
+  const protKey=(v.protocols||[])[0]||'generic';const key=protKey.includes('CAN')?'ISO 15765-4 CAN':protKey.includes('14230')||protKey.includes('KWP')?'ISO 14230-4 KWP2000':protKey.includes('9141')?'ISO 9141-2':'generic';
+  const steps=OBD_INIT_SEQUENCES[key]||OBD_INIT_SEQUENCES.generic;
+  $('#vdInitSteps').innerHTML=steps.map((cmd,i)=>`<div><code>${cmd}</code><span>مرحله ${fa(i+1)}</span></div>`).join('');
+  // Info grid
+  const infoRows=[['برند',v.make],['مدل',v.model],['سال',fa(v.year||'—')],['کشور',v.region==='iran'?'ایران':v.region||'—'],['بخش بازار',v.segment==='passenger'?'سواری':v.segment||'سواری'],['پروفایل ECU',v.profile||'Generic'],['تعداد پروتکل‌ها',fa((v.protocols||[]).length)],['وضعیت',v.status==='probe-required'?'نیاز به تست':'فعال']];
+  $('#vdInfoGrid').innerHTML=infoRows.map(r=>`<div class="vd-info-row"><span>${r[0]}</span><strong>${r[1]}</strong></div>`).join('');
+  // DTC list for this model — use fallback DTCs
+  const modelDtcs=(state.data?.fallbackDtcs||[]).slice(0,4);
+  if(!modelDtcs.length){
+    modelDtcs.push({code:'P0133',description:'پاسخ کند سنسور اکسیژن بانک ۱',kind:'STORED'});
+    modelDtcs.push({code:'P0420',description:'بازدهی کاتالیست زیر آستانه',kind:'PENDING'});
+  }
+  $('#vdDtcList').innerHTML=modelDtcs.map(d=>`<article class="dtc-item"><strong>${d.code}</strong><p>${d.description||''}<br>${d.kind||'STORED'}</p></article>`).join('');
+  // Start live data
+  startVdLive();
+}
+var vdGauges={};
+function startVdLive(){
+  if(vdLiveTimer)clearInterval(vdLiveTimer);
+  // Init ECharts gauges for vehicle detail page
+  if(typeof echarts!=='undefined'){
+    const vdGaugeDefs=[
+      {id:'vdSpeedGauge',key:'vdSpeed',min:0,max:220,split:11,colors:[[0.3,'#55d99a'],[0.6,'#55dff6'],[0.85,'#3ca6ff'],[1,'#ff6f7d']],unit:'km/h',needle:'#ff6f7d'},
+      {id:'vdRpmGauge',key:'vdRpm',min:0,max:8000,split:8,colors:[[0.3,'#55d99a'],[0.6,'#55dff6'],[0.8,'#ff9a54'],[1,'#ff6f7d']],unit:'rpm',needle:'#55dff6'},
+      {id:'vdCoolantGauge',key:'vdCoolant',min:40,max:140,split:5,colors:[[0.3,'#55dff6'],[0.5,'#55d99a'],[0.75,'#ff9a54'],[1,'#ff6f7d']],unit:'°C',needle:'#ff9a54'},
+      {id:'vdVoltageGauge',key:'vdVoltage',min:0,max:16,split:8,colors:[[0.2,'#ff6f7d'],[0.4,'#ff9a54'],[0.5,'#55d99a'],[0.85,'#55d99a'],[1,'#ff9a54']],unit:'V',needle:'#55d99a'}
+    ];
+    vdGaugeDefs.forEach(g=>{
+      const el=document.getElementById(g.id);
+      if(el&&!vdGauges[g.key]){
+        vdGauges[g.key]=echarts.init(el);
+        vdGauges[g.key].setOption({series:[makeGaugeOpt(g.key,g.min,g.max,g.split,g.colors,g.unit,g.needle)]});
+      }
+    });
+  }
+  const step=()=>{
+    const l=state.live;
+    $('#vdSpeed').textContent=`${fa(Math.round(l.speedKph||0))} km/h`;
+    $('#vdRpm').textContent=`${fa(Math.round(l.rpm||0))} rpm`;
+    $('#vdCoolant').textContent=l.coolantC==null?'--':`${fa(l.coolantC)} °C`;
+    $('#vdVoltage').textContent=l.voltage==null?'--':`${fa(l.voltage.toFixed(1))} V`;
+    $('#vdLoad').textContent=l.engineLoad==null?'--':`${fa(Math.round(l.engineLoad))}٪`;
+    $('#vdFuel').textContent=l.speedKph>5?`${fa((5.5+l.engineLoad/20).toFixed(1))} L/100`:'--';
+    $('#vdFuelLevel').textContent='۶۸٪';
+    $('#vdOilPressure').textContent='۴.۲ bar';
+    if(vdGauges.vdSpeed)vdGauges.vdSpeed.setOption({series:[{data:[{value:Math.round(l.speedKph||0)}]}]});
+    if(vdGauges.vdRpm)vdGauges.vdRpm.setOption({series:[{data:[{value:Math.round(l.rpm||0)}]}]});
+    if(vdGauges.vdCoolant)vdGauges.vdCoolant.setOption({series:[{data:[{value:Math.round(l.coolantC||0)}]}]});
+    if(vdGauges.vdVoltage)vdGauges.vdVoltage.setOption({series:[{data:[{value:Math.round((l.voltage||0)*10)/10}]}]});
+  };
+  step();vdLiveTimer=setInterval(step,1000);
+}
+$('#vdReadDtc').onclick=()=>{toast('کدهای خطای این مدل نمایش داده شد');const list=$('#vdDtcList');list.style.opacity='0.4';setTimeout(()=>{list.style.opacity='1'},300)};
+$('#vdGotoScanner').onclick=()=>{state.vehicleIndex=vdVehicleIndex;state.demoMode=false;localStorage.setItem('ecuVehicle',vdVehicleIndex);localStorage.setItem('ecuDemoMode','false');stopDemo();renderActiveVehicle();renderVehicles();go('scanner')};
+$('#vdActivateBtn').onclick=()=>{state.vehicleIndex=vdVehicleIndex;state.demoMode=false;state.customLogo='';localStorage.removeItem('ecuCustomLogo');localStorage.setItem('ecuVehicle',vdVehicleIndex);localStorage.setItem('ecuDemoMode','false');stopDemo();renderActiveVehicle();renderVehicles();toast('پروفایل خودرو فعال شد');go('dashboard')};
+
+/* ========================= VEHICLE SERVICES ========================= */
+function lookupService(type){
+  const plate=$('#servicePlate').value.trim();if(!plate)return toast('پلاک خودرو را وارد کنید');
+  const result=$('#serviceResult');result.hidden=false;
+  const demos={
+    fines:{title:'جرایم رانندگی',rows:[['تعداد جریمه','۳'],['مبلغ کل','۴۵۰,۰۰۰ تومان'],['آخرین جریمه','۱۴۰۳/۰۴/۱۵'],['وضعیت','پرداخت نشده']]},
+    toll:{title:'عوارض بزرگراهی',rows:[['بدهی آزادراهی','۱۲۰,۰۰۰ تومان'],['عوارض سالیانه','پرداخت شده'],['سال','۱۴۰۳']]},
+    traffic:{title:'طرح ترافیک',rows:[['بدهی طرح ترافیک','۸۰,۰۰۰ تومان'],['آخرین تردد','۱۴۰۳/۰۴/۲۰']]},
+    pollution:{title:'طرح آلودگی هوا',rows:[['تردد باقیمانده','۱۲ روز'],['محدوده','مرکز تهران'],['وضعیت','فعال']]},
+    insurance:{title:'بیمه شخص ثالث',rows:[['شرکت','ایران'],['تاریخ انقراض','۱۴۰۳/۰۶/۱۵'],['روزهای باقیمانده','۲۳ روز'],['وضعیت','نیاز به تمدید']]},
+    rescue:{title:'امداد خودرو',rows:[['وضعیت اشتراک','غیرفعال'],['پوشش','۲۴ ساعته'],['هزینه سالیانه','۹۸۰,۰۰۰ تومان']]}
+  };
+  const d=demos[type];if(!d)return;
+  result.innerHTML=`<h3>${d.title} — پلاک ${plate}</h3>${d.rows.map(r=>`<div class="sr-row"><span>${r[0]}</span><strong>${r[1]}</strong></div>`).join('')}<div style="margin-top:14px;display:flex;gap:8px"><button class="btn1 blue" style="width:auto;padding:10px 20px" onclick="toast('پرداخت شبیه‌سازی شد — API واقعی بعداً وصل می‌شود')">پرداخت آنلاین</button></div>`;
+}
+$$('.service-card button').forEach(b=>b.onclick=()=>{const card=b.closest('.service-card');lookupService(card.dataset.service)});
+
+/* ========================= PERSONAL GARAGE ========================= */
+function garageVehicles(){return JSON.parse(localStorage.getItem('ecuGarage')||'[]')}
+function saveGarage(x){localStorage.setItem('ecuGarage',JSON.stringify(x));renderGarage()}
+function renderGarage(){
+  const list=garageVehicles();const grid=$('#garageGrid');if(!grid)return;
+  grid.innerHTML=list.length?list.map((v,i)=>`<div class="garage-card"><div class="gc-header"><div class="gc-logo"><img src="${v.logo||fallbackLogo(v)}" alt=""/></div><div><div class="gc-name">${v.make} ${v.model}</div><div class="gc-plate">پلاک: ${v.plate||'—'} · ${v.year||''}</div></div></div><div class="gc-stats"><div class="gc-stat"><span>کیلومتر</span><strong>${fa((v.mileage||0).toLocaleString())}</strong></div><div class="gc-stat"><span>آخرین سرویس</span><strong>${v.lastService||'—'}</strong></div><div class="gc-stat"><span>وضعیت</span><strong style="color:var(--green)">فعال</strong></div></div><div class="gc-actions"><button onclick="go('dashboard')">داشبورد</button><button onclick="go('servicehistory')">سرویس</button><button onclick="go('expenses')">هزینه</button></div></div>`).join(''):'<p class="note" style="text-align:center;padding:30px">هنوز خودرویی به گاراژ اضافه نشده است.</p>';
+}
+$('#addGarageVehicle').onclick=()=>{
+  const active=activeVehicle();const all=garageVehicles();
+  all.push({make:active?.make||'پژو',model:active?.model||'۲۰۶',year:active?.year||1398,plate:'۱۲۳۴۵ ۲۲ ایران ۱۱',mileage:85000,lastService:'۱۴۰۳/۰۳/۰۱',logo:logoSrc(active),at:Date.now()});
+  saveGarage(all);toast('خودرو به گاراژ اضافه شد');
+};
+
+/* ========================= SERVICE HISTORY ========================= */
+function serviceRecords(){return JSON.parse(localStorage.getItem('ecuServiceHistory')||'[]')}
+function saveServiceRecords(x){localStorage.setItem('ecuServiceHistory',JSON.stringify(x.slice(-200)));renderServiceHistory()}
+function renderServiceHistory(){
+  const list=serviceRecords();const grid=$('#serviceHistoryList');if(!grid)return;
+  grid.innerHTML=list.length?[...list].reverse().map((r,i)=>`<div class="service-history-row"><div class="sh-type">${r.type}</div><div class="sh-note">${r.note||'—'} · ${r.shop||''}</div><div class="sh-km">${fa(r.km?.toLocaleString()||'0')} km</div><div class="sh-cost">${fa(r.cost?.toLocaleString()||'0')} ت</div><button data-srv="${list.length-1-i}">حذف</button></div>`).join(''):'<p class="note" style="text-align:center;padding:30px">هنوز سرویسی ثبت نشده است.</p>';
+  $$('.service-history-row button').forEach(b=>b.onclick=()=>{const idx=Number(b.dataset.srv);const all=serviceRecords();all.splice(idx,1);saveServiceRecords(all);toast('رکورد حذف شد')});
+}
+$('#addServiceRecord').onclick=()=>{const f=$('#serviceRecordForm');f.hidden=!f.hidden};
+$('#saveServiceRecord').onclick=()=>{
+  const type=$('#srvType').value;const km=Number($('#srvKm').value);const date=$('#srvDate').value||new Date().toISOString().slice(0,10);const cost=Number($('#srvCost').value);const note=$('#srvNote').value;const shop=$('#srvShop').value;
+  if(!km)return toast('کیلومتر الزامی است');
+  const all=serviceRecords();all.push({type,km,date,cost,note,shop,at:Date.now()});saveServiceRecords(all);
+  ['srvKm','srvCost','srvNote','srvShop'].forEach(id=>$('#'+id).value='');$('#serviceRecordForm').hidden=true;toast('سرویس ثبت شد');
+};
+
+/* ========================= NEWS & LEARN ========================= */
+const NEWS_ITEMS=[
+  {date:'۱۴۰۳/۰۴/۲۲',title:'افزایش قیمت بنزین و تأثیر آن بر بازار خودرو',text:'شورای اقتصاد تصویب کرد که قیمت بنزین از ماه آینده ۱۵ درصد افزایش یابد. کارشناسان معتقدند این افزایش بر قیمت دست‌دوم خودرو نیز اثر خواهد داشت.',tag:'خبر'},
+  {date:'۱۴۰۳/۰۴/۲۰',title:'عرضه رسمی پژو ۲۰۷ مدل ۱۴۰۴',text:'ایران‌خودرو اعلام کرد تولید و عرضه پژو ۲۰۷ با موتور Euro 4 از هفته آینده آغاز می‌شود. این خودرو با امکانات جدید و ایمنی بهبودیافته به بازار عرضه می‌گردد.',tag:'عرضه'},
+  {date:'۱۴۰۳/۰۴/۱۸',title:'یارانه خرید خودروهای هیبریدی برای رانندگان اسنپ',text:'وزارت صنعت اعلام کرد به رانندگان تاکسی‌های اینترنتی که خودروهای هیبریدی یا برقی خریداری کنند، تا سقف ۵۰ میلیون تومان یارانه پرداخت خواهد شد.',tag:'یارانه'},
+  {date:'۱۴۰۳/۰۴/۱۵',title:'تشدید فیلترینگ روی اسکنرهای چینی وارداتی',text:'سازمان استاندارد اعلام کرد اسکنرهای تشخیصی که گواهی استاندارد ندارند، از واردات و فروش منع می‌شوند. کارشناسان دیاگ توصیه می‌کنند از برندهای معتبر استفاده شود.',tag:'خبر'},
+  {date:'۱۴۰۳/۰۴/۱۰',title:'آغاز بهره‌برداری از طرح نظارت هوشمند ترافیک تهران',text:'پلیس راهور تهران اعلام کرد سیستم نظارت هوشمند جدید برای تشخیص خودکار تخلفات در ۱۲۰ موقعیت تهران نصب و فعال شد.',tag:'ترافیک'}
+];
+const LEARN_ITEMS=[
+  {level:'مقدماتی',title:'سیستم OBD-II چیست و چگونه کار می‌کند؟',text:'OBD-II (On-Board Diagnostics) یک سیستم استاندارد تشخیصی است که در تمام خودروهای بعد از ۱۹۹۶ (آمریکا) و ۲۰۰۱ (اروپا) وجود دارد. این سیستم خطاهای خودرو را شناسایی و ذخیره می‌کند و از طریق پورت OBD قابل دسترسی است.',tag:'OBD'},
+  {level:'متوسط',title:'تفسیر کدهای خطای P0xxx و P1xxx',text:'کدهای خطای P0 استاندارد جهانی هستند و برای همه خودروها یکسان‌اند. کدهای P1 اختصاصی سازنده هستند و برای هر برند ممکن است معنی متفاوتی داشته باشند.',tag:'کد خطا'},
+  {level:'متوسط',title:'چگونه دمای موتور را کنترل کنیم؟',text:'دمای موتور باید بین ۸۰ تا ۱۰۵ درجه سانتی‌گراد باشد. دمای بالاتر از ۱۱۰ درجه نشانه مشکل در سیستم خنک‌کننده، کمبود آب یا خرابی ترموستات است.',tag:'موتور'},
+  {level:'پیشرفته',title:'تشخیص خرابی سنسور اکسیژن (O2 Sensor)',text:'سنسور اکسیژن نسبت هوا به سوخت را تنظیم می‌کند. کدهای P0130 تا P0167 معمولاً به خرابی این سنسور مربوط‌اند. مصرف سوخت زیاد و بوی خام‌سوز نشانه‌های رایج هستند.',tag:'سنسور'},
+  {level:'پیشرفته',title:'پروتکل‌های ارتباطی CAN، KWP و ISO9141',text:'CAN (ISO 15765) مدرن‌ترین پروتکل OBD است و در خودروهای بعد از ۲۰۰۸ اجباری است. KWP2000 در خودروهای اروپایی و ISO9141 در خودروهای ژاپنی و کره‌ای قدیمی رایج بود.',tag:'پروتکل'},
+  {level:'مقدماتی',title:'مهم‌ترین قطعات مصرفی خودرو و زمان تعویض',text:'روغن موتور هر ۱۰ هزار کیلومتر، فیلتر روغن همزمان، فیلتر هوا هر ۲۰ هزار، لنت ترمز هر ۳۰-۴۰ هزار و تسمه تایم هر ۸۰-۱۰۰ هزار کیلومتر نیاز به تعویض دارند.',tag:'نگهداری'}
+];
+function renderNews(){
+  $('#newsGrid').innerHTML=NEWS_ITEMS.map(n=>`<article class="news-card"><div class="nc-date">${n.date}</div><h3>${n.title}</h3><p>${n.text}</p><span class="nc-tag">${n.tag}</span></article>`).join('');
+  $('#learnGrid').innerHTML=LEARN_ITEMS.map(l=>`<article class="learn-card"><div class="lc-level">سطح: ${l.level}</div><h3>${l.title}</h3><p>${l.text}</p><span class="lc-tag">${l.tag}</span></article>`).join('');
+}
+$$('#newsTabs button').forEach(b=>b.onclick=()=>{$$('#newsTabs button').forEach(x=>x.classList.toggle('active',x===b));const tab=b.dataset.newsTab;$('#newsGrid').hidden=tab!=='news';$('#learnGrid').hidden=tab!=='learn'});
+
+/* ========================= DASHBOARD SIGNS ========================= */
+const DASH_SIGNS=[
+  {id:'engine',icon:'dw-engine',name:'چراغ موتور',level:'danger',levelText:'بحرانی',color:'on',desc:'این چراغ نشان‌دهنده مشکل در سیستم موتور است. اگر روشن باشد، ممکن است مشکل در احتراق، سنسور اکسیژن، کاتالیست یا سیستم سوخت‌رسانی وجود داشته باشد. در صورت روشن شدن، رانندگی را کاهش داده و در اولین فرصت عیب‌یابی کنید.',action:'دیاگ'},
+  {id:'oil',icon:'dw-oil',name:'فشار روغن موتور',level:'danger',levelText:'بحرانی',color:'on',desc:'افزایش یا کاهش فشار روغن موتور. اگر این چراغ روشن شود، بلافاصله توقف کنید چون کارکرد موتور بدون روغن کافی باعث خرابی جدی می‌شود. سطح روغن را بررسی کنید.',action:'بررسی روغن'},
+  {id:'battery',icon:'dw-battery',name:'شارژ باتری / دینام',level:'warning',levelText:'هشدار',color:'warning',desc:'این علامت نشان می‌دهد باتری شارژ نمی‌شود. ممکن است دینام، تسمه دینام یا خود باتری مشکل داشته باشد. اگر موتور خاموش شود، روشن کردن مجدد ممکن است دشوار باشد.',action:'بررسی باتری'},
+  {id:'temp',icon:'dw-temp',name:'دمای موتور',level:'danger',levelText:'بحرانی',color:'on',desc:'دمای مایع خنک‌کننده از حد مجاز افزایش یافته. بلافاصله توقف کنید، موتور را خاموش کنید و سطح آب رادیاتور را بررسی کنید. کارکرد موتور در دمای بالا باعث آسیب جدی می‌شود.',action:'بررسی دما'},
+  {id:'fuel',icon:'dw-fuel',name:'سوخت',level:'warning',levelText:'هشدار',color:'warning',desc:'سطح سوخت پایین است. در اولین فرصت سوخت‌گیری کنید. در خودروهای دوگانه‌سوز، این علامت ممکن است به مشکل سیستم CNG نیز اشاره داشته باشد.',action:'سوخت‌گیری'},
+  {id:'abs',icon:'dw-abs',name:'سیستم ترمز ABS',level:'warning',levelText:'هشدار',color:'warning',desc:'سیستم ترمز ضدقفل (ABS) غیرفعال شده. ترمز کردن همچنان ممکن است ولی بدون قابلیت ضدقفل. در سطح جاده‌های لغزنده احتیاط کنید. در اولین فرصت سیستم را بررسی کنید.',action:'دیاگ ترمز'},
+  {id:'airbag',icon:'dw-airbag',name:'ایربگ / SRS',level:'danger',levelText:'بحرانی',color:'on',desc:'سیستم کیسه هوای ایمنی (SRS) غیرفعال است. در صورت تصادف، ایربگ‌ها ممکن است کار نکنند. این مشکل جدی است و باید فوراً بررسی شود.',action:'بررسی ایربگ'},
+  {id:'seatbelt',icon:'dw-seatbelt',name:'کمربند ایمنی',level:'info',levelText:'یادآوری',color:'info',desc:'یادآوری برای بستن کمربند ایمنی. در صورت روشن بودن، کمربند را ببندید. در برخی خودروها همراه با بوق هشدار است.',action:'بستن کمربند'},
+  {id:'door',icon:'dw-door',name:'درها',level:'info',levelText:'یادآوری',color:'info',desc:'یکی از درهای خودرو باز است. قبل از حرکت همه درها را ببندید.',action:'بستن در'},
+  {id:'lights',icon:'dw-lights',name:'چراغ‌ها',level:'info',levelText:'یادآوری',color:'info',desc:'چراغ‌های خودرو روشن هستند. در روزهای آفتابی یا هنگام خاموش کردن موتور، چراغ‌ها را خاموش کنید تا باتری تخلیه نشود.',action:'بررسی چراغ'},
+  {id:'fog',icon:'dw-fog',name:'مه‌شکن',level:'info',levelText:'یادآوری',color:'info',desc:'چراغ مه‌شکن روشن است. فقط در شرایط مهی یا دید کم استفاده کنید و پس از بهبود دید آن را خاموش کنید.',action:'خاموش کردن'},
+  {id:'wipers',icon:'dw-wipers',name:'برف‌پاک‌کن',level:'info',levelText:'یادآوری',color:'info',desc:'برف‌پاک‌کن فعال است. در صورت توقف، آن را خاموش کنید تا باتری مصرف نشود.',action:'خاموش کردن'},
+  {id:'handbrake',icon:'dw-handbrake',name:'ترمز دستی',level:'warning',levelText:'هشدار',color:'warning',desc:'ترمز دستی کشیده شده. قبل از حرکت ترمز دستی را رها کنید. رانندگی با ترمز دستی کشیده باعث آسیب به سیستم ترمز می‌شود.',action:'رها کردن ترمز'},
+  {id:'tpms',icon:'dw-tpms',name:'فشار تایر (TPMS)',level:'warning',levelText:'هشدار',color:'warning',desc:'فشار یکی از تایرها پایین یا نامناسب است. فشار تایرها را بررسی کنید. فشار نامناسب باعث مصرف سوخت بیشتر و خطر پارگی می‌شود.',action:'بررسی تایر'},
+  {id:'eps',icon:'dw-eps',name:'فرمان برقی (EPS)',level:'warning',levelText:'هشدار',color:'warning',desc:'سیستم فرمان برقی الکتریکی دچار مشکل است. فرمان سنگین‌تر از حالت عادی ممکن است باشد. با احتیاط رانندگی کنید و سیستم را بررسی کنید.',action:'دیاگ فرمان'},
+  {id:'esp',icon:'dw-esp',name:'سیستم پایداری (ESP)',level:'warning',levelText:'هشدار',color:'warning',desc:'سیستم پایداری الکترونیکی غیرفعال یا دچار مشکل است. در پیچ‌ها و سطح لغزنده احتیاط کنید. دکمه ESP را بررسی کنید یا سیستم را دیاگ کنید.',action:'دیاگ ESP'},
+  {id:'check-engine',icon:'dw-check-engine',name:'بررسی موتور',level:'warning',levelText:'هشدار',color:'warning',desc:'این علامت مشابه چراغ موتور است ولی با اولویت کمتر. ممکن است مربوط به سنسورها، سیستم تخلیه یا کاتالیست باشد. عیب‌یابی OBD-II را انجام دهید.',action:'دیاگ OBD'},
+  {id:'coolant',icon:'dw-coolant',name:'مایع خنک‌کننده',level:'warning',levelText:'هشدار',color:'warning',desc:'سطح مایع خنک‌کننده پایین است. قبل از رانندگی طولانی، سطح آب رادیاتور را بررسی و در صورت نیاز مایع خنک‌کننده اضافه کنید.',action:'بررسی آب'},
+  {id:'charging',icon:'dw-charging',name:'شارژ (خودروی برقی)',level:'info',levelText:'یادآوری',color:'info',desc:'سیستم شارژ خودروی برقی یا هیبریدی در حال کار است. در صورت خطا، شارژ کامل ممکن است نشود.',action:'بررسی شارژ'},
+  {id:'filter',icon:'dw-filter',name:'فیلتر DPF',level:'warning',levelText:'هشدار',color:'warning',desc:'فیلتر ذرات دیزل (DPF) نیاز به بازسازی دارد. در خودروهای دیزلی، این علامت به تجمع رسوب در فیلتر اشاره دارد. رانندگی در بزرگراه برای مدتی می‌تواند کمک کند.',action:'بازسازی DPF'},
+  {id:'key',icon:'dw-key',name:'کلید / ایموبیلایزر',level:'info',levelText:'یادآوری',color:'info',desc:'سیستم ایموبیلایزر یا کلید هوشمند. اگر چراغ روشن بماند، ممکن است کلید شناسایی نشود یا باتری کلید ضعیف باشد.',action:'بررسی کلید'},
+  {id:'snowflake',icon:'dw-snowflake',name:'حالت زمستانی',level:'info',levelText:'یادآوری',color:'info',desc:'حالت زمستانی یا برفی فعال است. در برخی خودروهای اتوماتیک، این حالت برای شروع حرکت در سطح لغزنده استفاده می‌شود.',action:'خاموش کردن'},
+  {id:'heated',icon:'dw-heated',name:'گرمکن شیشه',level:'info',levelText:'یادآوری',color:'info',desc:'گرمکن شیشه عقب فعال است. برای صرفه‌جویی در مصرف برق، پس از ذوب برف یا یخ آن را خاموش کنید.',action:'خاموش کردن'}
+];
+function renderDashSigns(){
+  const grid=$('#dashsignsGrid');if(!grid)return;
+  grid.innerHTML=DASH_SIGNS.map(s=>`<article class="dashsign-card" data-sign="${s.id}"><svg class="ds-icon ${s.color}"><use href="#${s.icon}"/></svg><strong>${s.name}</strong><span class="ds-level ${s.level}">${s.levelText}</span></article>`).join('');
+  $$('.dashsign-card').forEach(c=>c.onclick=()=>{
+    const s=DASH_SIGNS.find(x=>x.id===c.dataset.sign);if(!s)return;
+    const det=$('#dashsignDetail');det.hidden=false;
+    det.innerHTML=`<div class="dsd-header"><svg class="dsd-icon" style="color:var(--${s.color==='on'?'red':s.color==='warning'?'orange':'cyan'})"><use href="#${s.icon}"/></svg><div><div class="dsd-title">${s.name}</div><div class="dsd-sub">سطح: ${s.levelText}</div></div></div><div class="dsd-body">${s.desc}</div><div class="dsd-actions"><button onclick="go('scanner')">دیاگ با ELM327</button><button onclick="go('sensors')">سنسورهای سازنده</button><button onclick="$('#dashsignDetail').hidden=true">بستن</button></div>`;
+    det.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+}
+
+/* ========================= GAUGE GALLERY ========================= */
+var galleryChart=null;var galleryStyle=1;
+function getGaugeStyleOpt(style,val){
+  const isDark=document.documentElement.dataset.theme==='dark'||!document.documentElement.dataset.theme;
+  const ac=isDark?'#8ea0b5':'#6f8498',tc=isDark?'#f7f9fb':'#19324a';
+  const v=Number(val)||0;
+  if(style===1){
+    // Neon style
+    return{series:[{type:'gauge',radius:'85%',center:['50%','55%'],startAngle:200,endAngle:-20,min:0,max:220,splitNumber:11,
+      progress:{show:true,width:18,roundCap:true,itemStyle:{color:{type:'linear',x:0,y:0,x2:1,y2:0,colorStops:[{offset:0,color:'#55d99a'},{offset:0.5,color:'#55dff6'},{offset:1,color:'#ff6f7d'}]}}},
+      axisLine:{lineStyle:{width:18,color:[[0.3,'#55d99a'],[0.65,'#55dff6'],[0.85,'#3ca6ff'],[1,'#ff6f7d']]}},
+      pointer:{icon:'path://M -3 70 L 3 70 L 1 0 L -1 0 Z',length:'68%',width:6,itemStyle:{color:'#55dff6',shadowColor:'rgba(85,223,246,.6)',shadowBlur:15}},
+      anchor:{show:true,size:16,itemStyle:{color:'#1d3557',borderColor:'#55dff6',borderWidth:4}},
+      axisTick:{length:6,distance:2,lineStyle:{color:ac,width:1}},
+      splitLine:{length:14,distance:2,lineStyle:{color:ac,width:2}},
+      axisLabel:{color:ac,fontSize:10,distance:16},
+      detail:{valueAnimation:true,formatter:v=>Math.round(v)+' km/h',color:tc,fontSize:24,fontWeight:800,offsetCenter:[0,'45%']},
+      title:{show:true,offsetCenter:[0,'20%'],fontSize:12,color:ac},
+      data:[{value:v}]}]}
+  }else if(style===2){
+    // Classic analog
+    return{series:[{type:'gauge',radius:'85%',center:['50%','55%'],startAngle:225,endAngle:-45,min:0,max:220,splitNumber:11,
+      axisLine:{lineStyle:{width:6,color:[[1,'#2a3a5a']]}},
+      progress:{show:false},
+      pointer:{icon:'path://M -2 75 L 2 75 L 1 0 L -1 0 Z',length:'75%',width:4,itemStyle:{color:'#ff6f7d'}},
+      anchor:{show:true,size:10,itemStyle:{color:'#ff6f7d'}},
+      axisTick:{length:8,distance:2,lineStyle:{color:ac,width:1}},
+      splitLine:{length:16,distance:2,lineStyle:{color:ac,width:2}},
+      axisLabel:{color:ac,fontSize:11,distance:18},
+      detail:{valueAnimation:true,formatter:v=>Math.round(v),color:tc,fontSize:28,fontWeight:700,offsetCenter:[0,'50%']},
+      title:{show:true,offsetCenter:[0,'25%'],fontSize:11,color:ac},
+      data:[{value:v}]}]}
+  }else if(style===3){
+    // Digital
+    return{series:[{type:'gauge',radius:'80%',center:['50%','50%'],startAngle:90,endAngle:-270,min:0,max:220,splitNumber:22,
+      progress:{show:true,width:10,roundCap:false,itemStyle:{color:{type:'linear',x:0,y:0,x2:1,y2:0,colorStops:[{offset:0,color:'#3ca6ff'},{offset:1,color:'#55dff6'}]}}},
+      axisLine:{lineStyle:{width:10,color:[[1,'rgba(60,166,255,.15)']]}},
+      pointer:{show:false},
+      anchor:{show:false},
+      axisTick:{show:false},
+      splitLine:{show:false},
+      axisLabel:{show:false},
+      detail:{valueAnimation:true,formatter:v=>{return'{a|'+Math.round(v)+'}\n{b|km/h}'},color:tc,fontSize:40,fontWeight:800,offsetCenter:[0,0],rich:{a:{fontSize:48,color:'#55dff6',fontWeight:800,fontFamily:'SF Mono,monospace'},b:{fontSize:14,color:ac,padding:[6,0,0,0]}}},
+      title:{show:false},
+      data:[{value:v}]}]}
+  }else{
+    // Full circle
+    return{series:[{type:'gauge',radius:'82%',center:['50%','50%'],startAngle:90,endAngle:-270,min:0,max:220,splitNumber:11,
+      progress:{show:true,width:14,roundCap:true,itemStyle:{color:{type:'linear',x:0,y:0,x2:1,y2:0,colorStops:[{offset:0,color:'#55d99a'},{offset:0.5,color:'#55dff6'},{offset:1,color:'#ff6f7d'}]}}},
+      axisLine:{lineStyle:{width:14,color:[[0.3,'#55d99a'],[0.6,'#55dff6'],[1,'#ff6f7d']]}},
+      pointer:{icon:'path://M -3 70 L 3 70 L 1 0 L -1 0 Z',length:'60%',width:5,itemStyle:{color:'#ff6f7d',shadowColor:'rgba(255,111,125,.5)',shadowBlur:10}},
+      anchor:{show:true,size:14,itemStyle:{color:'#1d3557',borderColor:'#ff6f7d',borderWidth:3}},
+      axisTick:{length:5,distance:2,lineStyle:{color:ac,width:1}},
+      splitLine:{length:12,distance:2,lineStyle:{color:ac,width:2}},
+      axisLabel:{color:ac,fontSize:9,distance:14},
+      detail:{valueAnimation:true,formatter:v=>Math.round(v)+' km/h',color:tc,fontSize:20,fontWeight:700,offsetCenter:[0,'40%']},
+      title:{show:false},
+      data:[{value:v}]}]}
+  }
+}
+function initGalleryGauge(){
+  if(typeof echarts==='undefined')return;
+  const el=document.getElementById('galleryGauge');
+  if(!el)return;
+  if(galleryChart){galleryChart.dispose();galleryChart=null}
+  galleryChart=echarts.init(el);
+  const val=$('#gaugeGallerySlider')?.value||80;
+  galleryChart.setOption(getGaugeStyleOpt(galleryStyle,val));
+}
+function setGaugeStyle(s){
+  galleryStyle=s;
+  for(let i=1;i<=4;i++){const b=$('#gaugeStyle'+i);if(b){b.style.borderColor='';b.style.background='color-mix(in srgb,var(--cyan) 10%,transparent)'}}
+  const cur=$('#gaugeStyle'+s);if(cur){cur.style.borderColor='var(--cyan)';cur.style.background='color-mix(in srgb,var(--cyan) 20%,transparent)'}
+  initGalleryGauge();
+}
+function updateGalleryGauge(v){
+  const el=$('#gaugeGalleryVal');if(el)el.textContent=fa(v)+' km/h';
+  if(galleryChart)galleryChart.setOption(getGaugeStyleOpt(galleryStyle,v));
+}
+
 /* ========================= INIT ========================= */
 async function loadData(){
   try{
@@ -948,6 +1796,8 @@ async function loadData(){
     state.demo={vehicle:{make:'ایران خودرو',model:'ECU Pulse Demo',protocols:['Generic OBD-II','ELM327'],profile:'DEMO',segment:'passenger'},scenario:{sampleIntervalMs:800,dtcs:[{code:'P0133',kind:'STORED',description:'پاسخ کند سنسور اکسیژن بانک ۱'},{code:'P0420',kind:'PENDING',description:'بازده کاتالیست پایین‌تر از آستانه'}]},demoTrip:{id:'demo-tehran-west-east',titleFa:'تهران: غرب به شرق و بازگشت',descriptionFa:'مسیر نمایشی از میدان آزادی به تهرانپارس و بازگشت از شمال',stops:[{lat:35.7037,lon:51.4195,nameFa:'توقف ۱ - میدان ولیعصر',durationSeconds:120},{lat:35.7292,lon:51.4396,nameFa:'توقف ۲ - پمپ بنزین',durationSeconds:90}],points:[{lat:35.7005,lon:51.3382,offsetSeconds:0,speedKph:0,rpm:800},{lat:35.7008,lon:51.3507,offsetSeconds:12,speedKph:45,rpm:1900},{lat:35.7021,lon:51.3724,offsetSeconds:28,speedKph:72,rpm:2400},{lat:35.7037,lon:51.3990,offsetSeconds:44,speedKph:58,rpm:2100},{lat:35.7037,lon:51.4195,offsetSeconds:60,speedKph:0,rpm:800,label:'میدان ولیعصر',stop:true},{lat:35.7052,lon:51.4298,offsetSeconds:80,speedKph:38,rpm:1750},{lat:35.7201,lon:51.4350,offsetSeconds:96,speedKph:55,rpm:2200},{lat:35.7292,lon:51.4396,offsetSeconds:108,speedKph:0,rpm:800,label:'پمپ بنزین',stop:true},{lat:35.7348,lon:51.4210,offsetSeconds:128,speedKph:42,rpm:1950},{lat:35.7203,lon:51.3957,offsetSeconds:140,speedKph:68,rpm:2350},{lat:35.7245,lon:51.3823,offsetSeconds:152,speedKph:52,rpm:2100},{lat:35.7098,lon:51.3650,offsetSeconds:168,speedKph:60,rpm:2250},{lat:35.7005,lon:51.3382,offsetSeconds:184,speedKph:0,rpm:800,label:'پایان مسیر'}]}};
   }
   renderVehicles();renderActiveVehicle();renderTripSelect();applyPlan();
+  setTimeout(initEChartsGauges,200);
+  setTimeout(()=>{Object.values(gaugeCharts).forEach(c=>c.resize())},500);
   if(state.plan==='pro')applyPlan();
   const setVal=()=>{$('#themeSelect').value=state.theme;$('#remoteApi').value=localStorage.getItem('ecuRemoteApi')||'https://diageman.ir';$('#localApi').value=localStorage.getItem('ecuLocalApi')||'http://127.0.0.1:4030'};setVal();
   if(state.demoMode||!localStorage.getItem('ecuVehicle'))startDemo();else syncDemoButtons();
@@ -955,6 +1805,22 @@ async function loadData(){
   renderErrors();refreshEntitlement().catch(()=>{});
   return true;
 }
+function normalizeAdminKitComponents(root=document){
+  const scope=root.querySelectorAll?root:document;
+  scope.querySelectorAll('main button:not(.btn)').forEach(b=>{
+    if(b.closest('.sidebar-nav')||b.closest('.bottom'))return;
+    if(b.classList.contains('mydiag-menu-card'))return;
+    b.classList.add('btn','btn-sm');
+    if(b.classList.contains('danger')||b.classList.contains('ep-btn-danger'))b.classList.add('btn-danger');
+    else b.classList.add('btn-primary');
+  });
+  scope.querySelectorAll('main input:not([type="range"]):not([type="checkbox"]):not([type="file"])').forEach(x=>x.classList.add('form-control','form-control-sm'));
+  scope.querySelectorAll('main select').forEach(x=>x.classList.add('form-select','form-select-sm'));
+  scope.querySelectorAll('.page-head').forEach(x=>x.classList.add('d-flex','justify-content-between','align-items-center','mb-3'));
+}
+normalizeAdminKitComponents();
+const adminKitObserver=new MutationObserver(mutations=>mutations.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1)normalizeAdminKitComponents(n)})));
+adminKitObserver.observe(document.querySelector('main.content'),{childList:true,subtree:true});
 loadData();
 </script>
 </body>

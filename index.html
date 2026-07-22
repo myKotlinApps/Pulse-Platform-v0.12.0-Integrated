@@ -263,6 +263,14 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 .consumable-row .c-status.ok{background:rgba(85,217,154,.15);color:var(--green)}.consumable-row .c-status.warn{background:rgba(255,154,84,.15);color:var(--orange)}.consumable-row .c-status.urgent{background:rgba(255,111,125,.15);color:var(--red)}
 .consumable-row button{border:1px solid color-mix(in srgb,var(--red) 35%,transparent);background:color-mix(in srgb,var(--red) 8%,transparent);color:var(--red);border-radius:10px;padding:6px 10px;font-size:10px}
 
+/* Vehicle Detail Page */
+.vd-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(320px,.8fr);gap:14px}
+.vd-main,.vd-side{display:flex;flex-direction:column;gap:14px}
+.obd-config{display:grid;gap:8px}.obd-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}.obd-row span{font-size:10px;color:var(--muted)}.obd-row strong{font-size:12px;color:var(--text)}
+.obd-init-list{display:grid;gap:6px;margin-top:14px}.obd-init-list>div{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:9px;background:rgba(120,140,160,.08);font-size:11px}.obd-init-list code{color:#79d7ff;direction:ltr;font-family:monospace}.obd-init-list span{color:var(--muted);font-size:10px}
+.vd-info-row{display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--line);font-size:11px}.vd-info-row span{color:var(--muted)}.vd-info-row strong{color:var(--text)}
+@media(max-width:1050px){.vd-layout{grid-template-columns:1fr}}
+
 /* Vehicle Services */
 .service-form{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
 .service-form label{display:grid;gap:4px;color:var(--muted);font-size:10px}.service-form input{border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:14px;padding:12px}
@@ -489,6 +497,46 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <div class="page-head"><div><small>FREE CATALOG = 10%</small><h1>انتخاب خودرو</h1></div><span id="catalogBadge">فهرست رایگان</span></div>
 <section class="card selectors"><select id="makeSelect"></select><select id="modelSelect"></select><button id="activateVehicle">فعال‌کردن پروفایل</button><button class="demo-action" id="activateDemo">شروع دمو</button></section>
 <div class="vehicle-grid" id="vehicleGrid"></div>
+</section>
+
+<!-- VEHICLE DETAIL PAGE -->
+<section class="page" data-page="vehicledetail">
+<div class="page-head"><div><small id="vdEyebrow">VEHICLE DETAIL</small><h1 id="vdTitle">پروفایل خودرو</h1></div><button data-page="vehicles">بازگشت به فهرست</button></div>
+<div class="vd-layout">
+<div class="vd-main">
+<article class="vehicle-hero" id="vdHero">
+<div class="vehicle-id">
+<label class="logo-box"><img id="vdLogo" src=""/><span>تعویض لوگو</span></label>
+<div><small>پروفایل فعال</small><h1 id="vdName">—</h1><p id="vdProtocol">—</p></div>
+</div>
+<div class="hero-actions"><span id="vdSegment">—</span><span class="online"><i></i><b id="vdStatus">آماده</b></span><button id="vdActivateBtn">فعال‌سازی پروفایل</button></div>
+</article>
+<div class="gauge-grid">
+<article><header><span>سرعت</span><strong id="vdSpeed">۰ km/h</strong></header><div class="gauge-svg-wrap"><svg viewBox="0 0 280 260"><path d="M40 140 A100 100 0 0 1 240 140" fill="none" stroke="#1d3557" stroke-width="24" stroke-linecap="round"/><path id="vdSpeedArc" d="M40 140 A100 100 0 0 1 240 140" fill="none" stroke="url(#sg)" stroke-width="22" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="314.16"/><line id="vdSpeedNeedle" x1="140" y1="140" x2="140" y2="50" stroke="var(--red)" stroke-width="4" stroke-linecap="round" transform="rotate(-90,140,140)"/><circle cx="140" cy="140" r="10" fill="#1d3557" stroke="var(--red)" stroke-width="3"/></svg></div></article>
+<article><header><span>دور موتور</span><strong id="vdRpm">۰ rpm</strong></header><div class="gauge-svg-wrap"><svg viewBox="0 0 280 260"><path d="M40 140 A100 100 0 0 1 240 140" fill="none" stroke="#1d3557" stroke-width="24" stroke-linecap="round"/><path id="vdRpmArc" d="M40 140 A100 100 0 0 1 240 140" fill="none" stroke="var(--cyan)" stroke-width="22" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="314.16"/><line id="vdRpmNeedle" x1="140" y1="140" x2="140" y2="50" stroke="var(--cyan)" stroke-width="4" stroke-linecap="round" transform="rotate(-90,140,140)"/><circle cx="140" cy="140" r="10" fill="#1d3557" stroke="var(--cyan)" stroke-width="3"/></svg></div></article>
+</div>
+<div class="metric-grid"><article><span>دمای آب</span><strong id="vdCoolant">--</strong></article><article><span>ولتاژ</span><strong id="vdVoltage">--</strong></article><article><span>بار موتور</span><strong id="vdLoad">--</strong></article><article><span>مصرف تقریبی</span><strong id="vdFuel">--</strong></article></div>
+<section class="card"><div class="section-title"><div><small>OBD-II DTC CODES</small><h2>کدهای خطای این مدل</h2></div><button id="vdReadDtc">خواندن کدها</button></div><div class="dtc-list" id="vdDtcList"></div></section>
+</div>
+<div class="vd-side">
+<section class="card"><div class="section-title"><div><small>OBD CONFIGURATION</small><h2>تنظیمات OBD</h2></div></div>
+<div class="obd-config">
+<div class="obd-row"><span>پروتکل</span><strong id="vdObdProtocol">—</strong></div>
+<div class="obd-row"><span>پروفایل ECU</span><strong id="vdEcuProfile">—</strong></div>
+<div class="obd-row"><span>Baud Rate پیش‌فرض</span><strong id="vdBaud">۳۸۴۰۰</strong></div>
+<div class="obd-row"><span>نوع اتصال</span><strong>Bluetooth / Wi-Fi</strong></div>
+<div class="obd-row"><span>استاندارد</span><strong id="vdStandard">OBD-II</strong></div>
+<div class="obd-row"><span>سال تولید</span><strong id="vdYear">—</strong></div>
+<div class="obd-row"><span>کشور</span><strong id="vdRegion">—</strong></div>
+</div>
+<div class="obd-init-list" id="vdInitSteps"></div>
+<button id="vdGotoScanner" class="btn1 blue" style="width:auto;margin-top:12px">رفتن به اسکنر</button>
+</section>
+<section class="card"><div class="section-title"><div><small>VEHICLE INFO</small><h2>اطلاعات فنی</h2></div></div>
+<div class="obd-config" id="vdInfoGrid"></div>
+</section>
+</div>
+</div>
 </section>
 
 <!-- TRIPS -->
@@ -812,7 +860,7 @@ async function api(path,opt={}){const token=await ensureToken();const base=state
 function go(page){
   $$('.page').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
   $$('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
-  const meta={mydiag:['SMART VEHICLE','خانه خودرو'],drivingstyle:['DRIVING STYLE','سبک رانندگی'],parking:['PARKING MEMORY','محل پارک'],dashcam:['DASHCAM','دوربین خودرو'],dashboard:['LIVE VEHICLE','داشبورد خودرو'],vehicles:['VEHICLE PROFILE','انتخاب خودرو'],trips:['GPS TRIP LOGGER','سفرها'],analysis:['DIAGEMAN API','تحلیل ماشین من'],procenter:['ADVANCED CENTER','مرکز نسخه پیشرفته'],store:['UPGRADE','خرید و فعال‌سازی'],errors:['FAULT CENTER','خطا و پشتیبانی'],scanner:['ELM327 CONSOLE','اسکنر و کنسول ECU'],sensors:['MANUFACTURER DATA','سنسورهای سازنده'],expenses:['EXPENSE TRACKER','هزینه‌های خودرو'],maintenance:['VEHICLE MANAGEMENT','مدیریت قطعات'],services:['VEHICLE SERVICES','سرویس‌های خودرویی'],garage:['PERSONAL GARAGE','گاراژ شخصی'],servicehistory:['SERVICE HISTORY','تاریخچه سرویس'],news:['NEWS & LEARN','اخبار و آموزش'],settings:['SETTINGS','تنظیمات']};
+  const meta={mydiag:['SMART VEHICLE','خانه خودرو'],drivingstyle:['DRIVING STYLE','سبک رانندگی'],parking:['PARKING MEMORY','محل پارک'],dashcam:['DASHCAM','دوربین خودرو'],dashboard:['LIVE VEHICLE','داشبورد خودرو'],vehicles:['VEHICLE PROFILE','انتخاب خودرو'],vehicledetail:['VEHICLE DETAIL','پروفایل خودرو'],trips:['GPS TRIP LOGGER','سفرها'],analysis:['DIAGEMAN API','تحلیل ماشین من'],procenter:['ADVANCED CENTER','مرکز نسخه پیشرفته'],store:['UPGRADE','خرید و فعال‌سازی'],errors:['FAULT CENTER','خطا و پشتیبانی'],scanner:['ELM327 CONSOLE','اسکنر و کنسول ECU'],sensors:['MANUFACTURER DATA','سنسورهای سازنده'],expenses:['EXPENSE TRACKER','هزینه‌های خودرو'],maintenance:['VEHICLE MANAGEMENT','مدیریت قطعات'],services:['VEHICLE SERVICES','سرویس‌های خودرویی'],garage:['PERSONAL GARAGE','گاراژ شخصی'],servicehistory:['SERVICE HISTORY','تاریخچه سرویس'],news:['NEWS & LEARN','اخبار و آموزش'],settings:['SETTINGS','تنظیمات']};
   const selected=meta[page]||meta.dashboard;$('#eyebrow').textContent=selected[0];$('#title').textContent=selected[1];
   $('aside').classList.remove('open');
   if(page==='trips')setTimeout(async()=>{await initMap();previewSelectedTrip();state.map?.invalidateSize?.(true)},80);
@@ -894,7 +942,7 @@ function renderVehicles(){
   renderModels();
   const demoCard=state.demo?`<article class="vehicle-card demo-card ${state.demoMode?'selected':''}" data-demo="true"><img src="data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#e5e7eb"/><text x="50" y="60" text-anchor="middle" font-size="30" fill="#374151" font-weight="bold">?</text></svg>')}"><strong>${state.demo.vehicle.model}</strong><small>بدون اتصال واقعی</small></article>`:'';
   $('#vehicleGrid').innerHTML=demoCard+list.map(v=>`<article class="vehicle-card ${!state.demoMode&&v.index===state.vehicleIndex?'selected':''}" data-index="${v.index}"><img src="${logoPath(v)}"><strong>${v.model}</strong><small>${v.make}</small></article>`).join('');
-  $$('.vehicle-card[data-index]').forEach(c=>c.onclick=()=>{$('#makeSelect').value=state.data.vehicles[c.dataset.index].make;renderModels();$('#modelSelect').value=c.dataset.index});
+  $$('.vehicle-card[data-index]').forEach(c=>c.onclick=()=>{$('#makeSelect').value=state.data.vehicles[c.dataset.index].make;renderModels();$('#modelSelect').value=c.dataset.index;openVehicleDetail(Number(c.dataset.index))});
   document.querySelector('.demo-card')?.addEventListener('click',activateDemo);
   syncDemoButtons()
 }
@@ -1254,6 +1302,76 @@ $('#saveConsumableBtn').onclick=()=>{
   const all=consumables();all.push({name,interval,lastKm:lastKm||0,color:'#55dff6'});saveConsumables(all);
   $('#consumableName').value='';$('#consumableInterval').value='';$('#consumableLastKm').value='';$('#consumableForm').hidden=true;toast('قطعه اضافه شد');
 };
+
+/* ========================= VEHICLE DETAIL PAGE ========================= */
+var vdVehicleIndex=null;var vdLiveTimer=null;
+const OBD_INIT_SEQUENCES={
+  'ISO 15765-4 CAN':['ATZ','ATE0','ATL0','ATH0','ATS0','ATSP6'],
+  'ISO 14230-4 KWP2000':['ATZ','ATE0','ATL0','ATH0','ATS0','ATSP3'],
+  'ISO 9141-2':['ATZ','ATE0','ATL0','ATH0','ATS0','ATSP3'],
+  'J1850 PWM':['ATZ','ATE0','ATL0','ATH0','ATS0','ATSP1'],
+  'J1850 VPW':['ATZ','ATE0','ATL0','ATH0','ATS0','ATSP2'],
+  'generic':['ATZ','ATE0','ATL0','ATH0','ATS0','ATSP0']
+};
+function openVehicleDetail(index){
+  vdVehicleIndex=index;go('vehicledetail');renderVehicleDetail();
+}
+function renderVehicleDetail(){
+  if(vdVehicleIndex==null)return;
+  const v=state.data.vehicles[vdVehicleIndex];if(!v)return;
+  const bkey=brandKey(v);
+  $('#vdTitle').textContent=`${v.make} ${v.model}`;
+  $('#vdEyebrow').textContent=(v.protocols||[])[0]||'VEHICLE DETAIL';
+  $('#vdName').textContent=`${v.make} ${v.model}`;
+  $('#vdProtocol').textContent=(v.protocols||[]).join(' · ')||v.profile||'Generic OBD-II';
+  $('#vdSegment').textContent=v.segment||'passenger';
+  $('#vdStatus').textContent=state.demoMode?'داده آزمایشی':'آماده اتصال';
+  $('#vdYear').textContent=fa(v.year||'—');
+  $('#vdRegion').textContent=v.region==='iran'?'ایران':v.region||'—';
+  $('#vdObdProtocol').textContent=(v.protocols||[]).join(' / ')||'Auto Detect';
+  $('#vdEcuProfile').textContent=v.profile||'Generic OBD-II';
+  $('#vdStandard').textContent=(v.protocols||[]).some(p=>p.includes('CAN'))?'ISO 15765-4 (CAN)':'OBD-II';
+  const logoUrl=logoPath(v);const logo=$('#vdLogo');logo.onerror=()=>{logo.onerror=null;logo.src=fallbackLogo(v)};logo.src=logoUrl;
+  // Init steps
+  const protKey=(v.protocols||[])[0]||'generic';const key=protKey.includes('CAN')?'ISO 15765-4 CAN':protKey.includes('14230')||protKey.includes('KWP')?'ISO 14230-4 KWP2000':protKey.includes('9141')?'ISO 9141-2':'generic';
+  const steps=OBD_INIT_SEQUENCES[key]||OBD_INIT_SEQUENCES.generic;
+  $('#vdInitSteps').innerHTML=steps.map((cmd,i)=>`<div><code>${cmd}</code><span>مرحله ${fa(i+1)}</span></div>`).join('');
+  // Info grid
+  const infoRows=[['برند',v.make],['مدل',v.model],['سال',fa(v.year||'—')],['کشور',v.region==='iran'?'ایران':v.region||'—'],['بخش بازار',v.segment==='passenger'?'سواری':v.segment||'سواری'],['پروفایل ECU',v.profile||'Generic'],['تعداد پروتکل‌ها',fa((v.protocols||[]).length)],['وضعیت',v.status==='probe-required'?'نیاز به تست':'فعال']];
+  $('#vdInfoGrid').innerHTML=infoRows.map(r=>`<div class="vd-info-row"><span>${r[0]}</span><strong>${r[1]}</strong></div>`).join('');
+  // DTC list for this model — use fallback DTCs
+  const modelDtcs=(state.data?.fallbackDtcs||[]).slice(0,4);
+  if(!modelDtcs.length){
+    modelDtcs.push({code:'P0133',description:'پاسخ کند سنسور اکسیژن بانک ۱',kind:'STORED'});
+    modelDtcs.push({code:'P0420',description:'بازدهی کاتالیست زیر آستانه',kind:'PENDING'});
+  }
+  $('#vdDtcList').innerHTML=modelDtcs.map(d=>`<article class="dtc-item"><strong>${d.code}</strong><p>${d.description||''}<br>${d.kind||'STORED'}</p></article>`).join('');
+  // Start live data
+  startVdLive();
+}
+function startVdLive(){
+  if(vdLiveTimer)clearInterval(vdLiveTimer);
+  const step=()=>{
+    const l=state.live;
+    $('#vdSpeed').textContent=`${fa(Math.round(l.speedKph||0))} km/h`;
+    $('#vdRpm').textContent=`${fa(Math.round(l.rpm||0))} rpm`;
+    $('#vdCoolant').textContent=l.coolantC==null?'--':`${fa(l.coolantC)} °C`;
+    $('#vdVoltage').textContent=l.voltage==null?'--':`${fa(l.voltage.toFixed(1))} V`;
+    $('#vdLoad').textContent=l.engineLoad==null?'--':`${fa(Math.round(l.engineLoad))}٪`;
+    $('#vdFuel').textContent=l.speedKph>5?`${fa((5.5+l.engineLoad/20).toFixed(1))} L/100`:'--';
+    const sp=Math.max(0,Math.min(1,(l.speedKph||0)/220));
+    const rp=Math.max(0,Math.min(1,(l.rpm||0)/7000));
+    const circ=Math.PI*100;
+    $('#vdSpeedArc')?.setAttribute('stroke-dashoffset',circ-circ*sp);
+    $('#vdRpmArc')?.setAttribute('stroke-dashoffset',circ-circ*rp);
+    $('#vdSpeedNeedle')?.setAttribute('transform',`rotate(${-90+180*sp},140,140)`);
+    $('#vdRpmNeedle')?.setAttribute('transform',`rotate(${-90+180*rp},140,140)`);
+  };
+  step();vdLiveTimer=setInterval(step,1000);
+}
+$('#vdReadDtc').onclick=()=>{toast('کدهای خطای این مدل نمایش داده شد');const list=$('#vdDtcList');list.style.opacity='0.4';setTimeout(()=>{list.style.opacity='1'},300)};
+$('#vdGotoScanner').onclick=()=>{state.vehicleIndex=vdVehicleIndex;state.demoMode=false;localStorage.setItem('ecuVehicle',vdVehicleIndex);localStorage.setItem('ecuDemoMode','false');stopDemo();renderActiveVehicle();renderVehicles();go('scanner')};
+$('#vdActivateBtn').onclick=()=>{state.vehicleIndex=vdVehicleIndex;state.demoMode=false;state.customLogo='';localStorage.removeItem('ecuCustomLogo');localStorage.setItem('ecuVehicle',vdVehicleIndex);localStorage.setItem('ecuDemoMode','false');stopDemo();renderActiveVehicle();renderVehicles();toast('پروفایل خودرو فعال شد');go('dashboard')};
 
 /* ========================= VEHICLE SERVICES ========================= */
 function lookupService(type){

@@ -1,0 +1,11 @@
+{
+  "freeVehicleIndexes": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "clearDtcLimit": 5,
+  "clearDtcUsed": 0,
+  "pro": false
+}

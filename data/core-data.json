@@ -1,0 +1,4783 @@
+{
+  "meta": {
+    "version": "0.4.0",
+    "generated": "2026-07-20",
+    "readOnly": true,
+    "localPidCount": 86,
+    "localDtcFallbackCount": 36,
+    "vehicleCatalogCount": 245,
+    "j1939StarterCount": 15
+  },
+  "pids": [
+    {
+      "mode": "01",
+      "pid": "00",
+      "command": "0100",
+      "name_en": "Supported PIDs 01-20",
+      "name_fa": "PIDهای پشتیبانی‌شده ۰۱ تا ۲۰",
+      "formula": "bitmask",
+      "unit": "4 bytes",
+      "category": "support",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "01",
+      "command": "0101",
+      "name_en": "Monitor status since DTCs cleared",
+      "name_fa": "وضعیت مانیتورها از زمان پاک‌شدن خطا",
+      "formula": "bitfield",
+      "unit": "4 bytes",
+      "category": "diagnostics",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "02",
+      "command": "0102",
+      "name_en": "Freeze DTC",
+      "name_fa": "کد خطای فریزفریم",
+      "formula": "DTC",
+      "unit": "2 bytes",
+      "category": "diagnostics",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "03",
+      "command": "0103",
+      "name_en": "Fuel system status",
+      "name_fa": "وضعیت سیستم سوخت",
+      "formula": "bitfield",
+      "unit": "2 bytes",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "04",
+      "command": "0104",
+      "name_en": "Calculated engine load",
+      "name_fa": "بار محاسبه‌شده موتور",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "05",
+      "command": "0105",
+      "name_en": "Engine coolant temperature",
+      "name_fa": "دمای مایع خنک‌کننده",
+      "formula": "A-40",
+      "unit": "°C",
+      "category": "temperature",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "06",
+      "command": "0106",
+      "name_en": "Short term fuel trim—Bank 1",
+      "name_fa": "اصلاح کوتاه‌مدت سوخت بانک ۱",
+      "formula": "(A-128)*100/128",
+      "unit": "%",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "07",
+      "command": "0107",
+      "name_en": "Long term fuel trim—Bank 1",
+      "name_fa": "اصلاح بلندمدت سوخت بانک ۱",
+      "formula": "(A-128)*100/128",
+      "unit": "%",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "08",
+      "command": "0108",
+      "name_en": "Short term fuel trim—Bank 2",
+      "name_fa": "اصلاح کوتاه‌مدت سوخت بانک ۲",
+      "formula": "(A-128)*100/128",
+      "unit": "%",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "09",
+      "command": "0109",
+      "name_en": "Long term fuel trim—Bank 2",
+      "name_fa": "اصلاح بلندمدت سوخت بانک ۲",
+      "formula": "(A-128)*100/128",
+      "unit": "%",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "0A",
+      "command": "010A",
+      "name_en": "Fuel pressure",
+      "name_fa": "فشار سوخت",
+      "formula": "A*3",
+      "unit": "kPa",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "0B",
+      "command": "010B",
+      "name_en": "Intake manifold absolute pressure",
+      "name_fa": "فشار مطلق منیفولد",
+      "formula": "A",
+      "unit": "kPa",
+      "category": "air",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "0C",
+      "command": "010C",
+      "name_en": "Engine speed",
+      "name_fa": "دور موتور",
+      "formula": "(A*256+B)/4",
+      "unit": "rpm",
+      "category": "engine",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "0D",
+      "command": "010D",
+      "name_en": "Vehicle speed",
+      "name_fa": "سرعت خودرو",
+      "formula": "A",
+      "unit": "km/h",
+      "category": "vehicle",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "0E",
+      "command": "010E",
+      "name_en": "Timing advance",
+      "name_fa": "آوانس جرقه",
+      "formula": "A/2-64",
+      "unit": "°",
+      "category": "engine",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "0F",
+      "command": "010F",
+      "name_en": "Intake air temperature",
+      "name_fa": "دمای هوای ورودی",
+      "formula": "A-40",
+      "unit": "°C",
+      "category": "temperature",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "10",
+      "command": "0110",
+      "name_en": "MAF air flow rate",
+      "name_fa": "دبی جرمی هوا",
+      "formula": "(A*256+B)/100",
+      "unit": "g/s",
+      "category": "air",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "11",
+      "command": "0111",
+      "name_en": "Throttle position",
+      "name_fa": "موقعیت دریچه گاز",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "12",
+      "command": "0112",
+      "name_en": "Commanded secondary air status",
+      "name_fa": "وضعیت هوای ثانویه",
+      "formula": "bitfield",
+      "unit": "1 byte",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "13",
+      "command": "0113",
+      "name_en": "Oxygen sensors present (2 banks)",
+      "name_fa": "سنسورهای اکسیژن موجود",
+      "formula": "bitfield",
+      "unit": "1 byte",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "14",
+      "command": "0114",
+      "name_en": "Oxygen sensor 1 voltage / STFT",
+      "name_fa": "ولتاژ سنسور اکسیژن ۱",
+      "formula": "A/200; (B-128)*100/128",
+      "unit": "V / %",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "15",
+      "command": "0115",
+      "name_en": "Oxygen sensor 2 voltage / STFT",
+      "name_fa": "ولتاژ سنسور اکسیژن ۲",
+      "formula": "A/200; (B-128)*100/128",
+      "unit": "V / %",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "16",
+      "command": "0116",
+      "name_en": "Oxygen sensor 3 voltage / STFT",
+      "name_fa": "ولتاژ سنسور اکسیژن ۳",
+      "formula": "A/200; (B-128)*100/128",
+      "unit": "V / %",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "17",
+      "command": "0117",
+      "name_en": "Oxygen sensor 4 voltage / STFT",
+      "name_fa": "ولتاژ سنسور اکسیژن ۴",
+      "formula": "A/200; (B-128)*100/128",
+      "unit": "V / %",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "18",
+      "command": "0118",
+      "name_en": "Oxygen sensor 5 voltage / STFT",
+      "name_fa": "ولتاژ سنسور اکسیژن ۵",
+      "formula": "A/200; (B-128)*100/128",
+      "unit": "V / %",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "19",
+      "command": "0119",
+      "name_en": "Oxygen sensor 6 voltage / STFT",
+      "name_fa": "ولتاژ سنسور اکسیژن ۶",
+      "formula": "A/200; (B-128)*100/128",
+      "unit": "V / %",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "1A",
+      "command": "011A",
+      "name_en": "Oxygen sensor 7 voltage / STFT",
+      "name_fa": "ولتاژ سنسور اکسیژن ۷",
+      "formula": "A/200; (B-128)*100/128",
+      "unit": "V / %",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "1B",
+      "command": "011B",
+      "name_en": "Oxygen sensor 8 voltage / STFT",
+      "name_fa": "ولتاژ سنسور اکسیژن ۸",
+      "formula": "A/200; (B-128)*100/128",
+      "unit": "V / %",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "1C",
+      "command": "011C",
+      "name_en": "OBD standards supported",
+      "name_fa": "استاندارد OBD پشتیبانی‌شده",
+      "formula": "enum",
+      "unit": "1 byte",
+      "category": "diagnostics",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "1D",
+      "command": "011D",
+      "name_en": "Oxygen sensors present (4 banks)",
+      "name_fa": "سنسورهای اکسیژن موجود در چهار بانک",
+      "formula": "bitfield",
+      "unit": "1 byte",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "1E",
+      "command": "011E",
+      "name_en": "Auxiliary input status",
+      "name_fa": "وضعیت ورودی کمکی",
+      "formula": "bitfield",
+      "unit": "1 byte",
+      "category": "vehicle",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "1F",
+      "command": "011F",
+      "name_en": "Run time since engine start",
+      "name_fa": "زمان کارکرد از روشن‌شدن موتور",
+      "formula": "A*256+B",
+      "unit": "s",
+      "category": "engine",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "20",
+      "command": "0120",
+      "name_en": "Supported PIDs 21-40",
+      "name_fa": "PIDهای پشتیبانی‌شده ۲۱ تا ۴۰",
+      "formula": "bitmask",
+      "unit": "4 bytes",
+      "category": "support",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "21",
+      "command": "0121",
+      "name_en": "Distance traveled with MIL on",
+      "name_fa": "مسافت طی‌شده با چراغ چک روشن",
+      "formula": "A*256+B",
+      "unit": "km",
+      "category": "diagnostics",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "22",
+      "command": "0122",
+      "name_en": "Fuel rail pressure relative to manifold",
+      "name_fa": "فشار ریل سوخت نسبت به منیفولد",
+      "formula": "(A*256+B)*0.079",
+      "unit": "kPa",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "23",
+      "command": "0123",
+      "name_en": "Fuel rail gauge pressure",
+      "name_fa": "فشار گیج ریل سوخت",
+      "formula": "(A*256+B)*10",
+      "unit": "kPa",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "2C",
+      "command": "012C",
+      "name_en": "Commanded EGR",
+      "name_fa": "فرمان EGR",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "2D",
+      "command": "012D",
+      "name_en": "EGR error",
+      "name_fa": "خطای EGR",
+      "formula": "(A-128)*100/128",
+      "unit": "%",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "2E",
+      "command": "012E",
+      "name_en": "Commanded evaporative purge",
+      "name_fa": "فرمان شیر کنیستر",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "2F",
+      "command": "012F",
+      "name_en": "Fuel tank level input",
+      "name_fa": "سطح باک سوخت",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "30",
+      "command": "0130",
+      "name_en": "Warm-ups since codes cleared",
+      "name_fa": "تعداد گرم‌شدن از زمان پاک‌شدن خطا",
+      "formula": "A",
+      "unit": "count",
+      "category": "diagnostics",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "31",
+      "command": "0131",
+      "name_en": "Distance since codes cleared",
+      "name_fa": "مسافت از زمان پاک‌شدن خطا",
+      "formula": "A*256+B",
+      "unit": "km",
+      "category": "diagnostics",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "32",
+      "command": "0132",
+      "name_en": "Evap system vapor pressure",
+      "name_fa": "فشار بخار سیستم تبخیر",
+      "formula": "signed(A*256+B)/4",
+      "unit": "Pa",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "33",
+      "command": "0133",
+      "name_en": "Absolute barometric pressure",
+      "name_fa": "فشار بارومتریک مطلق",
+      "formula": "A",
+      "unit": "kPa",
+      "category": "air",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "3C",
+      "command": "013C",
+      "name_en": "Catalyst temperature Bank 1 Sensor 1",
+      "name_fa": "دمای کاتالیست بانک ۱ سنسور ۱",
+      "formula": "(A*256+B)/10-40",
+      "unit": "°C",
+      "category": "temperature",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "3D",
+      "command": "013D",
+      "name_en": "Catalyst temperature Bank 2 Sensor 1",
+      "name_fa": "دمای کاتالیست بانک ۲ سنسور ۱",
+      "formula": "(A*256+B)/10-40",
+      "unit": "°C",
+      "category": "temperature",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "3E",
+      "command": "013E",
+      "name_en": "Catalyst temperature Bank 1 Sensor 2",
+      "name_fa": "دمای کاتالیست بانک ۱ سنسور ۲",
+      "formula": "(A*256+B)/10-40",
+      "unit": "°C",
+      "category": "temperature",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "3F",
+      "command": "013F",
+      "name_en": "Catalyst temperature Bank 2 Sensor 2",
+      "name_fa": "دمای کاتالیست بانک ۲ سنسور ۲",
+      "formula": "(A*256+B)/10-40",
+      "unit": "°C",
+      "category": "temperature",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "40",
+      "command": "0140",
+      "name_en": "Supported PIDs 41-60",
+      "name_fa": "PIDهای پشتیبانی‌شده ۴۱ تا ۶۰",
+      "formula": "bitmask",
+      "unit": "4 bytes",
+      "category": "support",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "42",
+      "command": "0142",
+      "name_en": "Control module voltage",
+      "name_fa": "ولتاژ ماژول کنترل",
+      "formula": "(A*256+B)/1000",
+      "unit": "V",
+      "category": "electrical",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "43",
+      "command": "0143",
+      "name_en": "Absolute load value",
+      "name_fa": "بار مطلق موتور",
+      "formula": "(A*256+B)*100/255",
+      "unit": "%",
+      "category": "engine",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "44",
+      "command": "0144",
+      "name_en": "Commanded equivalence ratio",
+      "name_fa": "نسبت هم‌ارزی سوخت فرمان‌داده‌شده",
+      "formula": "(A*256+B)/32768",
+      "unit": "ratio",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "45",
+      "command": "0145",
+      "name_en": "Relative throttle position",
+      "name_fa": "موقعیت نسبی دریچه گاز",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "46",
+      "command": "0146",
+      "name_en": "Ambient air temperature",
+      "name_fa": "دمای هوای محیط",
+      "formula": "A-40",
+      "unit": "°C",
+      "category": "temperature",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "47",
+      "command": "0147",
+      "name_en": "Absolute throttle position B",
+      "name_fa": "موقعیت مطلق دریچه گاز B",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "48",
+      "command": "0148",
+      "name_en": "Absolute throttle position C",
+      "name_fa": "موقعیت مطلق دریچه گاز C",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "49",
+      "command": "0149",
+      "name_en": "Accelerator pedal position D",
+      "name_fa": "موقعیت پدال گاز D",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "vehicle",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "4A",
+      "command": "014A",
+      "name_en": "Accelerator pedal position E",
+      "name_fa": "موقعیت پدال گاز E",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "vehicle",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "4B",
+      "command": "014B",
+      "name_en": "Accelerator pedal position F",
+      "name_fa": "موقعیت پدال گاز F",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "vehicle",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "4C",
+      "command": "014C",
+      "name_en": "Commanded throttle actuator",
+      "name_fa": "فرمان عملگر دریچه گاز",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "4D",
+      "command": "014D",
+      "name_en": "Time run with MIL on",
+      "name_fa": "زمان کارکرد با چراغ چک روشن",
+      "formula": "A*256+B",
+      "unit": "min",
+      "category": "diagnostics",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "4E",
+      "command": "014E",
+      "name_en": "Time since trouble codes cleared",
+      "name_fa": "زمان از پاک‌شدن خطاها",
+      "formula": "A*256+B",
+      "unit": "min",
+      "category": "diagnostics",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "51",
+      "command": "0151",
+      "name_en": "Fuel type",
+      "name_fa": "نوع سوخت",
+      "formula": "enum",
+      "unit": "1 byte",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "52",
+      "command": "0152",
+      "name_en": "Ethanol fuel percentage",
+      "name_fa": "درصد اتانول سوخت",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "5A",
+      "command": "015A",
+      "name_en": "Relative accelerator pedal position",
+      "name_fa": "موقعیت نسبی پدال گاز",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "vehicle",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "5B",
+      "command": "015B",
+      "name_en": "Hybrid battery pack remaining life",
+      "name_fa": "عمر باقی‌مانده باتری هیبرید",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "electrical",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "5C",
+      "command": "015C",
+      "name_en": "Engine oil temperature",
+      "name_fa": "دمای روغن موتور",
+      "formula": "A-40",
+      "unit": "°C",
+      "category": "temperature",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "5D",
+      "command": "015D",
+      "name_en": "Fuel injection timing",
+      "name_fa": "زمان‌بندی تزریق سوخت",
+      "formula": "(A*256+B)/128-210",
+      "unit": "°",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "5E",
+      "command": "015E",
+      "name_en": "Engine fuel rate",
+      "name_fa": "نرخ مصرف سوخت موتور",
+      "formula": "(A*256+B)/20",
+      "unit": "L/h",
+      "category": "fuel",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "60",
+      "command": "0160",
+      "name_en": "Supported PIDs 61-80",
+      "name_fa": "PIDهای پشتیبانی‌شده ۶۱ تا ۸۰",
+      "formula": "bitmask",
+      "unit": "4 bytes",
+      "category": "support",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "61",
+      "command": "0161",
+      "name_en": "Driver demanded engine torque",
+      "name_fa": "گشتاور درخواستی راننده",
+      "formula": "A-125",
+      "unit": "%",
+      "category": "engine",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "62",
+      "command": "0162",
+      "name_en": "Actual engine torque",
+      "name_fa": "گشتاور واقعی موتور",
+      "formula": "A-125",
+      "unit": "%",
+      "category": "engine",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "63",
+      "command": "0163",
+      "name_en": "Engine reference torque",
+      "name_fa": "گشتاور مرجع موتور",
+      "formula": "A*256+B",
+      "unit": "Nm",
+      "category": "engine",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "6F",
+      "command": "016F",
+      "name_en": "Turbocharger compressor inlet pressure",
+      "name_fa": "فشار ورودی کمپرسور توربو",
+      "formula": "varies",
+      "unit": "kPa",
+      "category": "air",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "70",
+      "command": "0170",
+      "name_en": "Boost pressure control",
+      "name_fa": "کنترل فشار بوست",
+      "formula": "varies",
+      "unit": "kPa / %",
+      "category": "air",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "7A",
+      "command": "017A",
+      "name_en": "Diesel particulate filter pressure",
+      "name_fa": "فشار فیلتر ذرات دیزل",
+      "formula": "varies",
+      "unit": "kPa",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "01",
+      "pid": "7B",
+      "command": "017B",
+      "name_en": "Diesel particulate filter status",
+      "name_fa": "وضعیت فیلتر ذرات دیزل",
+      "formula": "varies",
+      "unit": "%",
+      "category": "emissions",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "09",
+      "pid": "00",
+      "command": "0900",
+      "name_en": "Supported vehicle information PIDs",
+      "name_fa": "PIDهای اطلاعات خودرو",
+      "formula": "bitmask",
+      "unit": "4 bytes",
+      "category": "support",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "09",
+      "pid": "01",
+      "command": "0901",
+      "name_en": "VIN message count",
+      "name_fa": "تعداد پیام‌های VIN",
+      "formula": "A",
+      "unit": "count",
+      "category": "vehicle-info",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "09",
+      "pid": "02",
+      "command": "0902",
+      "name_en": "Vehicle Identification Number",
+      "name_fa": "شماره شناسایی خودرو VIN",
+      "formula": "ASCII",
+      "unit": "17 chars",
+      "category": "vehicle-info",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "09",
+      "pid": "03",
+      "command": "0903",
+      "name_en": "Calibration ID message count",
+      "name_fa": "تعداد پیام شناسه کالیبراسیون",
+      "formula": "A",
+      "unit": "count",
+      "category": "vehicle-info",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "09",
+      "pid": "04",
+      "command": "0904",
+      "name_en": "Calibration IDs",
+      "name_fa": "شناسه‌های کالیبراسیون",
+      "formula": "ASCII",
+      "unit": "text",
+      "category": "vehicle-info",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "09",
+      "pid": "05",
+      "command": "0905",
+      "name_en": "CVN message count",
+      "name_fa": "تعداد پیام CVN",
+      "formula": "A",
+      "unit": "count",
+      "category": "vehicle-info",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "09",
+      "pid": "06",
+      "command": "0906",
+      "name_en": "Calibration Verification Numbers",
+      "name_fa": "شماره‌های تأیید کالیبراسیون",
+      "formula": "hex",
+      "unit": "4 bytes each",
+      "category": "vehicle-info",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "09",
+      "pid": "08",
+      "command": "0908",
+      "name_en": "In-use performance tracking",
+      "name_fa": "ردیابی عملکرد در استفاده",
+      "formula": "counters",
+      "unit": "varies",
+      "category": "vehicle-info",
+      "source": "generic-standard"
+    },
+    {
+      "mode": "09",
+      "pid": "0A",
+      "command": "090A",
+      "name_en": "ECU name",
+      "name_fa": "نام ECU",
+      "formula": "ASCII",
+      "unit": "20 chars",
+      "category": "vehicle-info",
+      "source": "generic-standard"
+    }
+  ],
+  "fallbackDtcs": [
+    {
+      "code": "P0001",
+      "title_en": "Fuel Volume Regulator Control Circuit/Open",
+      "title_fa": "مدار کنترل رگولاتور حجم سوخت باز است",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0010",
+      "title_en": "A Camshaft Position Actuator Circuit (Bank 1)",
+      "title_fa": "مدار عملگر موقعیت میل‌سوپاپ A بانک ۱",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0011",
+      "title_en": "A Camshaft Position Timing Over-Advanced (Bank 1)",
+      "title_fa": "تایمینگ میل‌سوپاپ A بیش از حد جلو بانک ۱",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0016",
+      "title_en": "Crankshaft/Camshaft Position Correlation Bank 1 Sensor A",
+      "title_fa": "عدم تطابق موقعیت میل‌لنگ و میل‌سوپاپ بانک ۱",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0100",
+      "title_en": "Mass or Volume Air Flow Circuit Malfunction",
+      "title_fa": "اشکال مدار سنسور جریان هوای ورودی",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0105",
+      "title_en": "Manifold Absolute Pressure/Barometric Pressure Circuit",
+      "title_fa": "اشکال مدار فشار مطلق منیفولد",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0110",
+      "title_en": "Intake Air Temperature Sensor Circuit",
+      "title_fa": "اشکال مدار سنسور دمای هوای ورودی",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0115",
+      "title_en": "Engine Coolant Temperature Sensor Circuit",
+      "title_fa": "اشکال مدار سنسور دمای مایع خنک‌کننده",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0120",
+      "title_en": "Throttle/Pedal Position Sensor A Circuit",
+      "title_fa": "اشکال مدار سنسور موقعیت دریچه گاز/پدال A",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0128",
+      "title_en": "Coolant Thermostat Temperature Below Regulating Temperature",
+      "title_fa": "دمای موتور پایین‌تر از محدوده تنظیم ترموستات",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0130",
+      "title_en": "O2 Sensor Circuit Bank 1 Sensor 1",
+      "title_fa": "اشکال مدار سنسور اکسیژن بانک ۱ سنسور ۱",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0133",
+      "title_en": "O2 Sensor Circuit Slow Response Bank 1 Sensor 1",
+      "title_fa": "پاسخ کند سنسور اکسیژن بانک ۱ سنسور ۱",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0171",
+      "title_en": "System Too Lean Bank 1",
+      "title_fa": "مخلوط سوخت بیش از حد رقیق بانک ۱",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0172",
+      "title_en": "System Too Rich Bank 1",
+      "title_fa": "مخلوط سوخت بیش از حد غنی بانک ۱",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0201",
+      "title_en": "Injector Circuit/Open Cylinder 1",
+      "title_fa": "مدار انژکتور سیلندر ۱ باز است",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0217",
+      "title_en": "Engine Coolant Over Temperature Condition",
+      "title_fa": "دمای بیش از حد موتور",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0234",
+      "title_en": "Turbocharger/Supercharger Overboost Condition",
+      "title_fa": "فشار بوست بیش از حد توربو/سوپرشارژر",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0299",
+      "title_en": "Turbocharger/Supercharger Underboost",
+      "title_fa": "فشار بوست کمتر از حد",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0300",
+      "title_en": "Random/Multiple Cylinder Misfire Detected",
+      "title_fa": "احتراق ناقص تصادفی/چندسیلندر",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0301",
+      "title_en": "Cylinder 1 Misfire Detected",
+      "title_fa": "احتراق ناقص سیلندر ۱",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0325",
+      "title_en": "Knock Sensor 1 Circuit Bank 1",
+      "title_fa": "اشکال مدار سنسور ضربه ۱ بانک ۱",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0335",
+      "title_en": "Crankshaft Position Sensor A Circuit",
+      "title_fa": "اشکال مدار سنسور موقعیت میل‌لنگ A",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0340",
+      "title_en": "Camshaft Position Sensor A Circuit Bank 1",
+      "title_fa": "اشکال مدار سنسور موقعیت میل‌سوپاپ A بانک ۱",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0400",
+      "title_en": "Exhaust Gas Recirculation Flow Malfunction",
+      "title_fa": "اشکال جریان بازچرخانی گاز اگزوز",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0420",
+      "title_en": "Catalyst System Efficiency Below Threshold Bank 1",
+      "title_fa": "بازده کاتالیست پایین‌تر از آستانه بانک ۱",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0440",
+      "title_en": "Evaporative Emission Control System Malfunction",
+      "title_fa": "اشکال سیستم کنترل بخارات سوخت",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0500",
+      "title_en": "Vehicle Speed Sensor A Malfunction",
+      "title_fa": "اشکال سنسور سرعت خودرو A",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0505",
+      "title_en": "Idle Air Control System Malfunction",
+      "title_fa": "اشکال سیستم کنترل دور آرام",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0560",
+      "title_en": "System Voltage Malfunction",
+      "title_fa": "اشکال ولتاژ سیستم",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0601",
+      "title_en": "Internal Control Module Memory Check Sum Error",
+      "title_fa": "خطای جمع کنترلی حافظه داخلی ECU",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P0700",
+      "title_en": "Transmission Control System Malfunction",
+      "title_fa": "اشکال سیستم کنترل گیربکس",
+      "category": "powertrain",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "P1100",
+      "title_en": "Manufacturer-specific powertrain code",
+      "title_fa": "کد اختصاصی سازنده در قوای محرکه",
+      "category": "manufacturer",
+      "scope": "manufacturer-placeholder"
+    },
+    {
+      "code": "B0001",
+      "title_en": "Driver Frontal Stage 1 Deployment Control",
+      "title_fa": "مدار کنترل مرحله اول ایربگ راننده",
+      "category": "body",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "C0035",
+      "title_en": "Left Front Wheel Speed Sensor",
+      "title_fa": "اشکال سنسور سرعت چرخ جلو چپ",
+      "category": "chassis",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "U0001",
+      "title_en": "High Speed CAN Communication Bus",
+      "title_fa": "اشکال گذرگاه ارتباطی CAN پرسرعت",
+      "category": "network",
+      "scope": "generic-fallback"
+    },
+    {
+      "code": "U0100",
+      "title_en": "Lost Communication With ECM/PCM A",
+      "title_fa": "قطع ارتباط با ECU/PCM",
+      "category": "network",
+      "scope": "generic-fallback"
+    }
+  ],
+  "j1939Pgns": [
+    {
+      "pgn": 61443,
+      "hex": "F003",
+      "acronym": "EEC2",
+      "name_en": "Electronic Engine Controller 2",
+      "name_fa": "کنترلر الکترونیکی موتور ۲",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 61444,
+      "hex": "F004",
+      "acronym": "EEC1",
+      "name_en": "Electronic Engine Controller 1",
+      "name_fa": "کنترلر الکترونیکی موتور ۱",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 65226,
+      "hex": "FECA",
+      "acronym": "DM1",
+      "name_en": "Active Diagnostic Trouble Codes",
+      "name_fa": "کدهای خطای فعال",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 65227,
+      "hex": "FECB",
+      "acronym": "DM2",
+      "name_en": "Previously Active Diagnostic Trouble Codes",
+      "name_fa": "کدهای خطای قبلی",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 65253,
+      "hex": "FEE5",
+      "acronym": "HOURS",
+      "name_en": "Engine Hours/Revolutions",
+      "name_fa": "ساعت و دور تجمعی موتور",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 65257,
+      "hex": "FEE9",
+      "acronym": "FC",
+      "name_en": "Fuel Consumption",
+      "name_fa": "مصرف سوخت تجمعی",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 65259,
+      "hex": "FEEB",
+      "acronym": "VH",
+      "name_en": "Vehicle Identification",
+      "name_fa": "شناسه خودرو",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 65262,
+      "hex": "FEEE",
+      "acronym": "ET1",
+      "name_en": "Engine Temperature 1",
+      "name_fa": "دمای موتور ۱",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 65263,
+      "hex": "FEEF",
+      "acronym": "EFL/P1",
+      "name_en": "Engine Fluid Level/Pressure 1",
+      "name_fa": "سطح و فشار سیالات موتور ۱",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 65265,
+      "hex": "FEF1",
+      "acronym": "CCVS",
+      "name_en": "Cruise Control/Vehicle Speed",
+      "name_fa": "کروز کنترل و سرعت خودرو",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 65266,
+      "hex": "FEF2",
+      "acronym": "LFE",
+      "name_en": "Fuel Economy",
+      "name_fa": "اقتصاد سوخت",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 65269,
+      "hex": "FEF5",
+      "acronym": "AMB",
+      "name_en": "Ambient Conditions",
+      "name_fa": "شرایط محیطی",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 65270,
+      "hex": "FEF6",
+      "acronym": "IC1",
+      "name_en": "Inlet/Exhaust Conditions 1",
+      "name_fa": "شرایط ورودی و اگزوز ۱",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 65271,
+      "hex": "FEF7",
+      "acronym": "VEP1",
+      "name_en": "Vehicle Electrical Power 1",
+      "name_fa": "توان الکتریکی خودرو ۱",
+      "coverage": "public-starter"
+    },
+    {
+      "pgn": 65276,
+      "hex": "FEFC",
+      "acronym": "DD",
+      "name_en": "Dash Display",
+      "name_fa": "اطلاعات صفحه آمپر",
+      "coverage": "public-starter"
+    }
+  ],
+  "j1939Fmis": [
+    {
+      "fmi": 0,
+      "name_en": "Data valid but above normal operational range — most severe"
+    },
+    {
+      "fmi": 1,
+      "name_en": "Data valid but below normal operational range — most severe"
+    },
+    {
+      "fmi": 2,
+      "name_en": "Data erratic, intermittent, or incorrect"
+    },
+    {
+      "fmi": 3,
+      "name_en": "Voltage above normal or shorted high"
+    },
+    {
+      "fmi": 4,
+      "name_en": "Voltage below normal or shorted low"
+    },
+    {
+      "fmi": 5,
+      "name_en": "Current below normal or open circuit"
+    },
+    {
+      "fmi": 6,
+      "name_en": "Current above normal or grounded circuit"
+    },
+    {
+      "fmi": 7,
+      "name_en": "Mechanical system not responding properly"
+    },
+    {
+      "fmi": 8,
+      "name_en": "Abnormal frequency, pulse width, or period"
+    },
+    {
+      "fmi": 9,
+      "name_en": "Abnormal update rate"
+    },
+    {
+      "fmi": 10,
+      "name_en": "Abnormal rate of change"
+    },
+    {
+      "fmi": 11,
+      "name_en": "Failure mode not identifiable"
+    },
+    {
+      "fmi": 12,
+      "name_en": "Bad intelligent device or component"
+    },
+    {
+      "fmi": 13,
+      "name_en": "Out of calibration"
+    },
+    {
+      "fmi": 14,
+      "name_en": "Special instructions"
+    },
+    {
+      "fmi": 15,
+      "name_en": "Above normal operational range — least severe"
+    },
+    {
+      "fmi": 16,
+      "name_en": "Above normal operational range — moderately severe"
+    },
+    {
+      "fmi": 17,
+      "name_en": "Below normal operational range — least severe"
+    },
+    {
+      "fmi": 18,
+      "name_en": "Below normal operational range — moderately severe"
+    },
+    {
+      "fmi": 19,
+      "name_en": "Received network data in error"
+    },
+    {
+      "fmi": 20,
+      "name_en": "Data drifted high"
+    },
+    {
+      "fmi": 21,
+      "name_en": "Data drifted low"
+    },
+    {
+      "fmi": 22,
+      "name_en": "Reserved"
+    },
+    {
+      "fmi": 23,
+      "name_en": "Reserved"
+    },
+    {
+      "fmi": 24,
+      "name_en": "Reserved"
+    },
+    {
+      "fmi": 25,
+      "name_en": "Reserved"
+    },
+    {
+      "fmi": 26,
+      "name_en": "Reserved"
+    },
+    {
+      "fmi": 27,
+      "name_en": "Reserved"
+    },
+    {
+      "fmi": 28,
+      "name_en": "Reserved"
+    },
+    {
+      "fmi": 29,
+      "name_en": "Reserved"
+    },
+    {
+      "fmi": 30,
+      "name_en": "Reserved"
+    },
+    {
+      "fmi": 31,
+      "name_en": "Condition exists"
+    }
+  ],
+  "vehicles": [
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "پژو ۲۰۶",
+      "profile": "generic-psa-tu5",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "ECU و سال ساخت باید Auto Detect شود",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "پژو ۲۰۷",
+      "profile": "generic-psa-tu5",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "ECU و سال ساخت باید Auto Detect شود",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "رانا",
+      "profile": "generic-psa-tu5",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "ECU و سال ساخت باید Auto Detect شود",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "رانا پلاس",
+      "profile": "generic-psa-tu5",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "ECU و سال ساخت باید Auto Detect شود",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "پژو ۴۰۵",
+      "profile": "generic-ikco-xu7",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "پژو پارس",
+      "profile": "generic-ikco-xu7",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "سمند XU7",
+      "profile": "generic-ikco-xu7",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "سمند EF7",
+      "profile": "generic-ikco-ef7",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "ISO 14230-4"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "سورن",
+      "profile": "generic-ikco-ef7",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "ISO 14230-4"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "دنا",
+      "profile": "generic-ikco-ef7",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "ISO 14230-4"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "دنا پلاس",
+      "profile": "generic-ikco-ef7",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "ISO 14230-4"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "تارا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "ری‌را",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "هایما S5",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "هایما S7",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ایران‌خودرو",
+      "model": "هایما 8S",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "سایپا",
+      "model": "پراید ۱۱۱",
+      "profile": "generic-saipa-legacy",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "سایپا",
+      "model": "پراید ۱۳۱",
+      "profile": "generic-saipa-legacy",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "سایپا",
+      "model": "پراید ۱۳۲",
+      "profile": "generic-saipa-legacy",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "سایپا",
+      "model": "پراید ۱۴۱",
+      "profile": "generic-saipa-legacy",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "سایپا",
+      "model": "تیبا",
+      "profile": "generic-saipa-m15",
+      "protocols": [
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "سایپا",
+      "model": "ساینا",
+      "profile": "generic-saipa-m15",
+      "protocols": [
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "سایپا",
+      "model": "کوییک",
+      "profile": "generic-saipa-m15",
+      "protocols": [
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "سایپا",
+      "model": "اطلس",
+      "profile": "generic-saipa-m15",
+      "protocols": [
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "سایپا",
+      "model": "شاهین",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "پارس‌خودرو",
+      "model": "تندر ۹۰",
+      "profile": "renault-ddt",
+      "protocols": [
+        "ISO 14230-4",
+        "ISO 15765-4 CAN",
+        "DDT4All JSON import"
+      ],
+      "notes": "برای داده اختصاصی از دیتابیس مجاز DDT استفاده شود",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "پارس‌خودرو",
+      "model": "پارس تندر",
+      "profile": "renault-ddt",
+      "protocols": [
+        "ISO 14230-4",
+        "ISO 15765-4 CAN",
+        "DDT4All JSON import"
+      ],
+      "notes": "برای داده اختصاصی از دیتابیس مجاز DDT استفاده شود",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "پارس‌خودرو",
+      "model": "ساندرو",
+      "profile": "renault-ddt",
+      "protocols": [
+        "ISO 14230-4",
+        "ISO 15765-4 CAN",
+        "DDT4All JSON import"
+      ],
+      "notes": "برای داده اختصاصی از دیتابیس مجاز DDT استفاده شود",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "پارس‌خودرو",
+      "model": "مگان",
+      "profile": "renault-ddt",
+      "protocols": [
+        "ISO 14230-4",
+        "ISO 15765-4 CAN",
+        "DDT4All JSON import"
+      ],
+      "notes": "برای داده اختصاصی از دیتابیس مجاز DDT استفاده شود",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "pickup",
+      "make": "زامیاد",
+      "model": "نیسان زامیاد",
+      "profile": "generic-commercial-light",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "pickup",
+      "make": "زامیاد",
+      "model": "پادرا",
+      "profile": "generic-commercial-light",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "pickup",
+      "make": "زامیاد",
+      "model": "کارون",
+      "profile": "generic-commercial-light",
+      "protocols": [
+        "ISO 9141-2",
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "مدیران خودرو",
+      "model": "MVM 110",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "مدیران خودرو",
+      "model": "MVM 315",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "مدیران خودرو",
+      "model": "X22",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "مدیران خودرو",
+      "model": "X33",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "مدیران خودرو",
+      "model": "X55",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "مدیران خودرو",
+      "model": "آریزو 5",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "مدیران خودرو",
+      "model": "آریزو 6",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "مدیران خودرو",
+      "model": "فونیکس تیگو 7",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "مدیران خودرو",
+      "model": "فونیکس تیگو 8",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "کرمان موتور",
+      "model": "جک J3",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "کرمان موتور",
+      "model": "جک J5",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "کرمان موتور",
+      "model": "جک S3",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "کرمان موتور",
+      "model": "جک S5",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "کرمان موتور",
+      "model": "KMC J7",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "کرمان موتور",
+      "model": "KMC K7",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "کرمان موتور",
+      "model": "KMC X5",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "کرمان موتور",
+      "model": "لیفان 520",
+      "profile": "generic-china-legacy",
+      "protocols": [
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "کرمان موتور",
+      "model": "لیفان 620",
+      "profile": "generic-china-legacy",
+      "protocols": [
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "کرمان موتور",
+      "model": "لیفان X50",
+      "profile": "generic-china-legacy",
+      "protocols": [
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "کرمان موتور",
+      "model": "لیفان X60",
+      "profile": "generic-china-legacy",
+      "protocols": [
+        "ISO 14230-4",
+        "ISO 15765-4 CAN"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "بهمن موتور",
+      "model": "مزدا ۳",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "بهمن موتور",
+      "model": "بسترن B30",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "بهمن موتور",
+      "model": "فیدلیتی",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "بهمن موتور",
+      "model": "دیگنیتی",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "بهمن موتور",
+      "model": "ریسپکت",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "pickup",
+      "make": "بهمن موتور",
+      "model": "کاپرا",
+      "profile": "generic-commercial-light",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "pickup",
+      "make": "بهمن موتور",
+      "model": "G9",
+      "profile": "generic-commercial-light",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "دیار خودرو",
+      "model": "گریت‌وال M4",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "دیار خودرو",
+      "model": "وینگل",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "دیار خودرو",
+      "model": "BAIC X25",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "فردا موتورز",
+      "model": "FMC SX5",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "فردا موتورز",
+      "model": "FMC T5",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "فردا موتورز",
+      "model": "سابا 511",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "آرین پارس موتور",
+      "model": "لاماری ایما",
+      "profile": "generic-china-can",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ماموت خودرو",
+      "model": "جتا VS5",
+      "profile": "vw-uds-import",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "passenger",
+      "make": "ماموت خودرو",
+      "model": "جتا VS7",
+      "profile": "vw-uds-import",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "پژو/سیتروئن",
+      "model": "۲۰۶ وارداتی",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "پژو/سیتروئن",
+      "model": "۳۰۱",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "پژو/سیتروئن",
+      "model": "۲۰۰۸",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "پژو/سیتروئن",
+      "model": "C3",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "پژو/سیتروئن",
+      "model": "C5",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "رنو/داچیا",
+      "model": "لوگان",
+      "profile": "renault-ddt",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "رنو/داچیا",
+      "model": "ساندرو",
+      "profile": "renault-ddt",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "رنو/داچیا",
+      "model": "داستر",
+      "profile": "renault-ddt",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "رنو/داچیا",
+      "model": "کپچر",
+      "profile": "renault-ddt",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "رنو/داچیا",
+      "model": "کولئوس",
+      "profile": "renault-ddt",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "رنو/داچیا",
+      "model": "تلیسمان",
+      "profile": "renault-ddt",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "نیسان",
+      "model": "ماکسیما",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "نیسان",
+      "model": "مورانو",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "نیسان",
+      "model": "قشقایی",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "نیسان",
+      "model": "جوک",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "نیسان",
+      "model": "ایکس‌تریل",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "نیسان",
+      "model": "تیانا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هیوندای",
+      "model": "اکسنت",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هیوندای",
+      "model": "النترا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هیوندای",
+      "model": "سوناتا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هیوندای",
+      "model": "آزرا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هیوندای",
+      "model": "توسان",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هیوندای",
+      "model": "سانتافه",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هیوندای",
+      "model": "i20",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هیوندای",
+      "model": "i30",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "کیا",
+      "model": "ریو",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "کیا",
+      "model": "سراتو",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "کیا",
+      "model": "اپتیما",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "کیا",
+      "model": "کادنزا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "کیا",
+      "model": "اسپورتیج",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "کیا",
+      "model": "سورنتو",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "کیا",
+      "model": "پیکانتو",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "تویوتا/لکسوس",
+      "model": "کرولا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "تویوتا/لکسوس",
+      "model": "کمری",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "تویوتا/لکسوس",
+      "model": "پریوس",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "تویوتا/لکسوس",
+      "model": "RAV4",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "تویوتا/لکسوس",
+      "model": "لندکروزر",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "تویوتا/لکسوس",
+      "model": "هایلوکس",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "تویوتا/لکسوس",
+      "model": "RX",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "تویوتا/لکسوس",
+      "model": "NX",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "میتسوبیشی",
+      "model": "لنسر",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "میتسوبیشی",
+      "model": "ASX",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "میتسوبیشی",
+      "model": "اوتلندر",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "میتسوبیشی",
+      "model": "پاجرو",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "مزدا",
+      "model": "مزدا ۲",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "مزدا",
+      "model": "مزدا ۳",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "مزدا",
+      "model": "مزدا ۶",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "مزدا",
+      "model": "CX-5",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "سوزوکی",
+      "model": "ویتارا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "سوزوکی",
+      "model": "کیزاشی",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "سوزوکی",
+      "model": "سیاز",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "فولکس‌واگن/آئودی/اشکودا",
+      "model": "گلف",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "فولکس‌واگن/آئودی/اشکودا",
+      "model": "پاسات",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "فولکس‌واگن/آئودی/اشکودا",
+      "model": "تیگوان",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "فولکس‌واگن/آئودی/اشکودا",
+      "model": "A3",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "فولکس‌واگن/آئودی/اشکودا",
+      "model": "A4",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "فولکس‌واگن/آئودی/اشکودا",
+      "model": "Q5",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "فولکس‌واگن/آئودی/اشکودا",
+      "model": "اوکتاویا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "ب‌ام‌و/MINI",
+      "model": "سری ۱",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "ب‌ام‌و/MINI",
+      "model": "سری ۳",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "ب‌ام‌و/MINI",
+      "model": "سری ۵",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "ب‌ام‌و/MINI",
+      "model": "X1",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "ب‌ام‌و/MINI",
+      "model": "X3",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "ب‌ام‌و/MINI",
+      "model": "X5",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "ب‌ام‌و/MINI",
+      "model": "MINI Cooper",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "مرسدس‌بنز",
+      "model": "کلاس C",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "مرسدس‌بنز",
+      "model": "کلاس E",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "مرسدس‌بنز",
+      "model": "کلاس S",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "مرسدس‌بنز",
+      "model": "GLK",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "مرسدس‌بنز",
+      "model": "GLE",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import",
+        "manufacturer database import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "ولوو",
+      "model": "C30",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "ولوو",
+      "model": "S60",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "ولوو",
+      "model": "XC60",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "ولوو",
+      "model": "XC90",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هوندا",
+      "model": "سیویک",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هوندا",
+      "model": "آکورد",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هوندا",
+      "model": "CR-V",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "اوپل",
+      "model": "آسترا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "اوپل",
+      "model": "کورسا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "اوپل",
+      "model": "اینسیگنیا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "اوپل",
+      "model": "موکا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "فورد",
+      "model": "فوکس",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "فورد",
+      "model": "فیستا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "فورد",
+      "model": "اکسپلورر",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "شورولت",
+      "model": "کروز",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "شورولت",
+      "model": "کاپتیوا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "شورولت",
+      "model": "تاهو",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "سابارو",
+      "model": "فارستر",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "سابارو",
+      "model": "اوت‌بک",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "سابارو",
+      "model": "لگاسی",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "MG",
+      "model": "MG3",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "MG",
+      "model": "MG6",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "MG",
+      "model": "GS",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "MG",
+      "model": "RX5",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "جیلی",
+      "model": "امگرند 7",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "جیلی",
+      "model": "امگرند X7",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "جیلی",
+      "model": "آزکارا",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "چانگان",
+      "model": "CS35",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "چانگان",
+      "model": "CS55",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "چانگان",
+      "model": "CS75",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "چانگان",
+      "model": "UNI-T",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "BYD",
+      "model": "F3",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "BYD",
+      "model": "S6",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "BYD",
+      "model": "Song Plus",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هاوال",
+      "model": "H2",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هاوال",
+      "model": "H6",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "هاوال",
+      "model": "H9",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "دانگ‌فنگ",
+      "model": "H30 Cross",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "دانگ‌فنگ",
+      "model": "S30",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "دانگ‌فنگ",
+      "model": "Shine Max",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "فاو/بسترن",
+      "model": "B30",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "فاو/بسترن",
+      "model": "B50",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "فاو/بسترن",
+      "model": "X40",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "برلیانس",
+      "model": "H220",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "برلیانس",
+      "model": "H230",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "برلیانس",
+      "model": "H320",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "برلیانس",
+      "model": "H330",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "imported",
+      "segment": "passenger",
+      "make": "برلیانس",
+      "model": "V5",
+      "profile": "generic-can-uds",
+      "protocols": [
+        "ISO 15765-4 CAN",
+        "UDS import"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "ایران‌خودرو دیزل/مرسدس‌بنز",
+      "model": "خاور ۶۰۸",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "J1708/J1587 for legacy",
+        "proprietary legacy"
+      ],
+      "notes": "مدل‌های قدیمی ممکن است اصلاً OBD-II سواری نداشته باشند",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "ایران‌خودرو دیزل/مرسدس‌بنز",
+      "model": "خاور ۸۰۸",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "J1708/J1587 for legacy",
+        "proprietary legacy"
+      ],
+      "notes": "مدل‌های قدیمی ممکن است اصلاً OBD-II سواری نداشته باشند",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "ایران‌خودرو دیزل/مرسدس‌بنز",
+      "model": "بنز ۹۱۱",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "J1708/J1587 for legacy",
+        "proprietary legacy"
+      ],
+      "notes": "مدل‌های قدیمی ممکن است اصلاً OBD-II سواری نداشته باشند",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "ایران‌خودرو دیزل/مرسدس‌بنز",
+      "model": "بنز ۱۹۲۴",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "J1708/J1587 for legacy",
+        "proprietary legacy"
+      ],
+      "notes": "مدل‌های قدیمی ممکن است اصلاً OBD-II سواری نداشته باشند",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "ایران‌خودرو دیزل/مرسدس‌بنز",
+      "model": "واگن‌هود",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "J1708/J1587 for legacy",
+        "proprietary legacy"
+      ],
+      "notes": "مدل‌های قدیمی ممکن است اصلاً OBD-II سواری نداشته باشند",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "ایران‌خودرو دیزل/مرسدس‌بنز",
+      "model": "آکسور",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "J1708/J1587 for legacy",
+        "proprietary legacy"
+      ],
+      "notes": "مدل‌های قدیمی ممکن است اصلاً OBD-II سواری نداشته باشند",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "بهمن دیزل/ایسوزو",
+      "model": "ایسوزو NPR",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "بهمن دیزل/ایسوزو",
+      "model": "ایسوزو NQR",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "بهمن دیزل/ایسوزو",
+      "model": "ایسوزو FVR",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "بهمن دیزل/ایسوزو",
+      "model": "ایسوزو GIGA",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "ولوو تراکس",
+      "model": "FH",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "ولوو تراکس",
+      "model": "FM",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "ولوو تراکس",
+      "model": "FMX",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "ولوو تراکس",
+      "model": "NH",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "اسکانیا",
+      "model": "P Series",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "اسکانیا",
+      "model": "G Series",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "اسکانیا",
+      "model": "R Series",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "اسکانیا",
+      "model": "S Series",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "رنو تراکس",
+      "model": "Premium",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "رنو تراکس",
+      "model": "Kerax",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "رنو تراکس",
+      "model": "Midlum",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "رنو تراکس",
+      "model": "T Series",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "مان",
+      "model": "TGA",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "مان",
+      "model": "TGS",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "مان",
+      "model": "TGX",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "ایویکو",
+      "model": "Eurocargo",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "ایویکو",
+      "model": "Stralis",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "ایویکو",
+      "model": "Trakker",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "داف",
+      "model": "CF",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "داف",
+      "model": "XF",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "فوتون/آومان",
+      "model": "Auman H4",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "فوتون/آومان",
+      "model": "Auman H5",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "فوتون/آومان",
+      "model": "Auman EST",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "فوتون/آومان",
+      "model": "Foton M4",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "دانگ‌فنگ",
+      "model": "KC",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "دانگ‌فنگ",
+      "model": "KX",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "دانگ‌فنگ",
+      "model": "KR",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "فاو",
+      "model": "J6",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "فاو",
+      "model": "J7",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "فاو",
+      "model": "Tiger V",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "جک",
+      "model": "N60",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "جک",
+      "model": "N75",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "جک",
+      "model": "N90",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "جک",
+      "model": "K5",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "جک",
+      "model": "K7",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "شاکمن",
+      "model": "X3000",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "شاکمن",
+      "model": "X5000",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "شاکمن",
+      "model": "L3000",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "کاماز",
+      "model": "۵۴۶۰",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "کاماز",
+      "model": "۶۵۲۰",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "کاماز",
+      "model": "۶۵۲۲",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "هیوندای تجاری",
+      "model": "HD65",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "هیوندای تجاری",
+      "model": "HD78",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "هیوندای تجاری",
+      "model": "Xcient",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "دایون/کامیونت‌های چینی",
+      "model": "V5",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "دایون/کامیونت‌های چینی",
+      "model": "V7",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "دایون/کامیونت‌های چینی",
+      "model": "V9",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 250/500 kbps",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "مک",
+      "model": "R Model",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 or J1708/J1587 depending year",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    },
+    {
+      "region": "iran",
+      "segment": "heavy",
+      "make": "مک",
+      "model": "Vision",
+      "profile": "heavy-auto",
+      "protocols": [
+        "J1939 or J1708/J1587 depending year",
+        "manufacturer diagnostics"
+      ],
+      "notes": "",
+      "status": "probe-required"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "generic-obd2",
+      "title_fa": "OBD-II عمومی",
+      "scope": "همه خودروهای سازگار",
+      "read": [
+        "Mode 01 live data",
+        "Mode 02 freeze frame",
+        "Mode 03 stored DTC",
+        "Mode 07 pending DTC",
+        "Mode 09 vehicle info"
+      ],
+      "write": [],
+      "status": "built-in"
+    },
+    {
+      "id": "renault-ddt",
+      "title_fa": "رنو/داچیا با واردکردن DDT",
+      "scope": "خودروهای خانواده رنو",
+      "read": [
+        "ECU identification",
+        "screens/parameters from imported JSON",
+        "DTC read"
+      ],
+      "write": [],
+      "status": "import-required"
+    },
+    {
+      "id": "generic-can-uds",
+      "title_fa": "CAN/UDS عمومی + افزونه سازنده",
+      "scope": "خودروهای جدید",
+      "read": [
+        "Generic OBD-II",
+        "UDS identification after imported profile"
+      ],
+      "write": [],
+      "status": "import-required"
+    },
+    {
+      "id": "heavy-auto",
+      "title_fa": "تشخیص خودکار خودرو سنگین",
+      "scope": "کامیون/کامیونت/اتوبوس",
+      "read": [
+        "J1939 public starter PGNs",
+        "DM1/DM2 decoder",
+        "licensed Digital Annex import",
+        "legacy warning"
+      ],
+      "write": [],
+      "status": "built-in+import"
+    },
+    {
+      "id": "j1708-legacy",
+      "title_fa": "J1708/J1587 قدیمی",
+      "scope": "کامیون‌های قدیمی",
+      "read": [
+        "MID/PID/SID/FMI after licensed/imported database"
+      ],
+      "write": [],
+      "status": "different-adapter-required"
+    }
+  ],
+  "sources": {
+    "obdex": {
+      "name": "OBDex",
+      "url": "https://foerbsnavi.github.io/obdex/generic.min.json",
+      "license": "CC0 data / MIT tooling",
+      "coverage": "9,533 generic DTCs + 132 Mode 01/09 PIDs",
+      "runtime": true
+    },
+    "obdb": {
+      "name": "OBDb SAEJ1979",
+      "url": "https://github.com/OBDb/SAEJ1979",
+      "license": "CC-BY-SA-4.0",
+      "coverage": "standard PID definitions",
+      "runtime": false
+    },
+    "j1939": {
+      "name": "SAE J1939 Digital Annex",
+      "url": "licensed-import",
+      "license": "SAE licensed",
+      "coverage": "complete SPN/PGN definitions",
+      "runtime": false
+    },
+    "ddt4all": {
+      "name": "DDT4All",
+      "url": "https://github.com/cedricp/ddt4all",
+      "license": "GPL application / database terms vary",
+      "coverage": "Renault-family ECU definitions through user-supplied JSON",
+      "runtime": false
+    }
+  }
+}

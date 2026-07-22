@@ -354,7 +354,10 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 }
 @media(orientation:landscape) and (max-height:600px){header{height:66px}.vehicle-hero{padding:14px}.logo-box{width:80px;height:80px}.gauge-grid{grid-template-columns:repeat(2,1fr)}.gauge-grid>article{min-height:280px}.gauge-grid object{height:220px}.bottom{grid-template-columns:repeat(4,110px);justify-content:center}}
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/sandstone/bootstrap.min.css"/>
 <link rel="stylesheet" href="./assets/adminkit/css/app.css"/>
+<link rel="stylesheet" href="./assets/adminkit/css/ecu-pulse-sandstone.css"/>
 <link rel="stylesheet" href="./assets/adminkit/css/ecu-pulse-rtl.css"/>
 <script defer src="./assets/adminkit/js/app.js"></script>
 </head>
@@ -1129,8 +1132,8 @@ function makeGaugeOpt(id,min,max,splitNum,colors,unit,needleColor){
     min:min,max:max,splitNumber:splitNum,
     progress:{show:true,width:16,roundCap:true,itemStyle:{color:colors[colors.length-1][1]}},
     axisLine:{lineStyle:{width:16,color:colors}},
-    pointer:{icon:'path://M -3 70 L 3 70 L 1 0 L -1 0 Z',length:'68%',width:6,offsetCenter:[0,0],itemStyle:{color:needleColor,shadowColor:'rgba(0,0,0,.5)',shadowBlur:8}},
-    anchor:{show:true,size:14,itemStyle:{color:'#1d3557',borderColor:needleColor,borderWidth:3}},
+    anchor:{show:true,size:18,itemStyle:{color:'#fff',borderColor:needleColor,borderWidth:4,shadowColor:'rgba(0,0,0,.3)',shadowBlur:6}},
+    pointer:{icon:'path://M -3 70 L 3 70 L 1 0 L -1 0 Z',length:'65%',width:6,offsetCenter:[0,0],itemStyle:{color:needleColor,shadowColor:'rgba(0,0,0,.5)',shadowBlur:8},z:2},
     axisTick:{length:6,distance:2,lineStyle:{color:axisColor,width:1}},
     splitLine:{length:12,distance:2,lineStyle:{color:axisColor,width:2}},
     axisLabel:{color:axisColor,fontSize:9,distance:14},
@@ -1238,7 +1241,7 @@ function loadCss(href){if([...document.styleSheets].some(x=>x.href===href))retur
 async function ensureLeaflet(){if(window.L)return true;for(const c of LEAFLET_CDNS){try{loadCss(c.css);await loadScript(c.js);if(window.L)return true}catch{}}return false}
 async function initMap(){if(state.map)return true;if(state.mapLoading)return state.mapLoading;state.mapLoading=(async()=>{$('#mapStatus').textContent='نقشه آفلاین آماده؛ تلاش برای نقشه آنلاین…';const ok=await ensureLeaflet();if(!ok){$('#mapStatus').textContent='نقشه آنلاین در دسترس نیست';$('#mapProvider').textContent='Offline SVG';return false}try{state.map=L.map('leafletMap',{zoomControl:true,preferCanvas:true}).setView([35.6892,51.389],12);let tileErrors=0;const tiles=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap',crossOrigin:true});tiles.on('tileerror',()=>{tileErrors++;if(tileErrors===4){$('#mapStatus').textContent='کاشی‌های آنلاین مسدودند';$('#leafletMap').classList.remove('ready');$('#mapProvider').textContent='Offline SVG'}});tiles.on('load',()=>{$('#leafletMap').classList.add('ready');$('#mapStatus').textContent='نقشه آنلاین و مسیر آفلاین آماده‌اند';$('#mapProvider').textContent='OpenStreetMap + Offline'});tiles.addTo(state.map);setTimeout(()=>{state.map?.invalidateSize?.(true);if(tileErrors===0)$('#leafletMap').classList.add('ready')},250);return true}catch(e){reportError(e,{feature:'map-init'},false);$('#mapStatus').textContent='خطا در نقشه آنلاین';return false}})().finally(()=>state.mapLoading=null);return state.mapLoading}
 
-function tripCarIconHtml(){return `<svg viewBox="0 0 58 58" width="52" height="52"><rect x="6" y="10" width="46" height="30" rx="10" fill="#ff9a54" stroke="#fff" stroke-width="2"/><rect x="12" y="4" width="14" height="14" rx="4" fill="#ffd7ba" stroke="#fff" stroke-width="1.5"/><rect x="42" y="4" width="4" height="10" rx="2" fill="#fff"/><circle cx="16" cy="42" r="7" fill="#0f2030" stroke="#fff" stroke-width="1.5"/><circle cx="42" cy="42" r="7" fill="#0f2030" stroke="#fff" stroke-width="1.5"/></svg>`}
+function tripCarIconHtml(){return `<svg viewBox="0 0 64 32" width="64" height="32" style="filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))"><path d="M2 16c0-3 2-5 5-5h8l3-4h22l4 4h8c3 0 5 2 5 5v4c0 2-1 3-3 3h-2c-1-3-4-5-7-5s-6 2-7 5h-10c-1-3-4-5-7-5s-6 2-7 5h-2c-2 0-3-1-3-3v-4z" fill="#e54b40" stroke="#c43a30" stroke-width="1.5"/><path d="M18 7h22l3 4h-28z" fill="#ff6f5f"/><rect x="8" y="11" width="4" height="3" rx="1" fill="#ffd700"/><rect x="52" y="11" width="4" height="3" rx="1" fill="#ffd700"/><ellipse cx="14" cy="22" rx="5" ry="5" fill="#1a1a2e" stroke="#c43a30" stroke-width="1.5"/><ellipse cx="50" cy="22" rx="5" ry="5" fill="#1a1a2e" stroke="#c43a30" stroke-width="1.5"/><ellipse cx="14" cy="22" rx="2.5" ry="2.5" fill="#333"/><ellipse cx="50" cy="22" rx="2.5" ry="2.5" fill="#333"/></svg>`}
 function ensureReplayMarker(lat,lon,angle=0){if(!(state.map&&window.L))return;const position=[lat,lon];if(!state.replayMarker){state.replayMarker=L.marker(position,{icon:L.divIcon({className:'trip-car-div-icon',html:tripCarIconHtml(),iconSize:[52,52],iconAnchor:[26,26]})}).addTo(state.map)}else state.replayMarker.setLatLng(position);const el=state.replayMarker?.getElement?.();el?.style?.setProperty('--car-heading',`${angle}deg`);state.trip.currentHeading=angle}
 
 function projectOffline(points){const minLat=Math.min(...points.map(p=>p.lat)),maxLat=Math.max(...points.map(p=>p.lat)),minLon=Math.min(...points.map(p=>p.lon)),maxLon=Math.max(...points.map(p=>p.lon));const pad=58,w=884,h=504;return points.map(p=>({x:pad+(p.lon-minLon)/(maxLon-minLon||1)*w,y:560-(p.lat-minLat)/(maxLat-minLat||1)*h}))}
@@ -1267,7 +1270,7 @@ function renderStops(trip){$('#stopList').innerHTML=(trip.stops||[]).length?(tri
 $('#tripSelect').onchange=previewSelectedTrip;
 $('#loadDemoTrip').onclick=()=>{seedDemoTrip();renderTripSelect();const d=trips().find(x=>x.demo);if(d){$('#tripSelect').value=d.id;previewSelectedTrip();toast('سفر نمایشی تهران بارگذاری شد')}};
 
-$$('.speed-buttons button').forEach(b=>b.onclick=()=>{const v=Number(b.dataset.speed);if(state.plan!=='pro'&&v>2)return go('store');state.trip.replaySpeed=v;$$('.speed-buttons button').forEach(x=>x.classList.toggle('active',x===b));if(state.trip.replayTimer||state.trip.replayFrame){stopReplay(false);state.trip.paused=false;replay(false)}});
+$$('.speed-buttons button').forEach(b=>b.onclick=()=>{const v=Number(b.dataset.speed);if(state.plan!=='pro'&&v>2)return go('store');state.trip.replaySpeed=v;$$('.speed-buttons button').forEach(x=>x.classList.toggle('active',x===b));});
 function stopReplay(resetButton=true){if(state.trip.replayTimer){clearTimeout(state.trip.replayTimer);state.trip.replayTimer=null}if(state.trip.replayFrame){cancelAnimationFrame(state.trip.replayFrame);state.trip.replayFrame=null}if(resetButton)$('#replayTrip').textContent='پخش'}
 function updateReplayPoint(index,follow=true){const trip=state.trip.currentTrip||selectedTrip();if(!trip?.points?.length)return;const i=Math.max(0,Math.min(index,trip.points.length-1)),p=trip.points[i];state.trip.replayIndex=i;$('#timeline').value=i;const elapsed=Math.max(0,((p.t||0)-(trip.points[0].t||0))/1000);$('#replayInfo').textContent=`${p.label?`${p.label} · `:''}سرعت ${fa(Math.round(p.speed||p.speedKph||0))} km/h · RPM ${fa(Math.round(p.rpm||0))}${p.stop?' · توقف':''} · زمان ${time(elapsed)}`;const xy=state.trip.projection||projectOffline(trip.points);const current=xy[i],next=xy[Math.min(xy.length-1,i+1)]||current;const angle=routeHeading(current,next);renderOfflineRoute(trip.points,trip,i,null,angle);if(state.map&&window.L){ensureReplayMarker(p.lat,p.lon,angle);if(follow)fitTripMap(trip.points,false)}}
 function animateReplaySegment(i){const trip=state.trip.currentTrip||selectedTrip();if(!trip?.points?.length)return;if(i>=trip.points.length-1){updateReplayPoint(trip.points.length-1,false);stopReplay();toast('بازپخش تمام شد');return}const points=trip.points,xy=state.trip.projection||projectOffline(points),from=points[i],to=points[i+1],fromXY=xy[i],toXY=xy[i+1],targetAngle=routeHeading(fromXY,toXY),startAngle=state.trip.currentHeading||targetAngle,started=performance.now(),recordedDelta=Math.max(0,(to.t||0)-(from.t||0)),duration=Math.max(240,Math.min(1600,(recordedDelta||850)/state.trip.replaySpeed));const step=now=>{if(state.trip.paused)return;const t=Math.min(1,(now-started)/duration),marker={x:fromXY.x+(toXY.x-fromXY.x)*t,y:fromXY.y+(toXY.y-fromXY.y)*t},lat=from.lat+(to.lat-from.lat)*t,lon=from.lon+(to.lon-from.lon)*t,speed=(from.speed||0)+((to.speed||0)-(from.speed||0))*t,rpm=(from.rpm||0)+((to.rpm||0)-(from.rpm||0))*t,elapsed=Math.max(0,(((from.t||0)+((to.t||from.t||0)-(from.t||0))*t)-(points[0].t||0))/1000),angle=lerpHeading(startAngle,targetAngle,Math.min(1,t*2.2));state.trip.replayIndex=i;$('#timeline').value=(i+t).toFixed(3);$('#replayInfo').textContent=`${(t<.5?from.label:to.label)?`${t<.5?from.label:to.label} · `:''}سرعت ${fa(Math.round(speed))} km/h · RPM ${fa(Math.round(rpm))}${t>.6&&to.stop?' · توقف':''} · زمان ${time(elapsed)}`;renderOfflineRoute(points,trip,i,marker,angle);if(state.map&&window.L)ensureReplayMarker(lat,lon,angle);if(t<1)state.trip.replayFrame=requestAnimationFrame(step);else{state.trip.replayIndex=i+1;animateReplaySegment(i+1)}};state.trip.replayFrame=requestAnimationFrame(step)}
@@ -1714,8 +1717,8 @@ function getGaugeStyleOpt(style,val){
     return{series:[{type:'gauge',radius:'85%',center:['50%','55%'],startAngle:200,endAngle:-20,min:0,max:220,splitNumber:11,
       progress:{show:true,width:18,roundCap:true,itemStyle:{color:{type:'linear',x:0,y:0,x2:1,y2:0,colorStops:[{offset:0,color:'#55d99a'},{offset:0.5,color:'#55dff6'},{offset:1,color:'#ff6f7d'}]}}},
       axisLine:{lineStyle:{width:18,color:[[0.3,'#55d99a'],[0.65,'#55dff6'],[0.85,'#3ca6ff'],[1,'#ff6f7d']]}},
-      pointer:{icon:'path://M -3 70 L 3 70 L 1 0 L -1 0 Z',length:'68%',width:6,itemStyle:{color:'#55dff6',shadowColor:'rgba(85,223,246,.6)',shadowBlur:15}},
-      anchor:{show:true,size:16,itemStyle:{color:'#1d3557',borderColor:'#55dff6',borderWidth:4}},
+      anchor:{show:true,size:18,itemStyle:{color:'#fff',borderColor:'#55dff6',borderWidth:4,shadowColor:'rgba(0,0,0,.3)',shadowBlur:6}},
+      pointer:{icon:'path://M -3 70 L 3 70 L 1 0 L -1 0 Z',length:'65%',width:6,itemStyle:{color:'#55dff6',shadowColor:'rgba(85,223,246,.6)',shadowBlur:15},z:2},
       axisTick:{length:6,distance:2,lineStyle:{color:ac,width:1}},
       splitLine:{length:14,distance:2,lineStyle:{color:ac,width:2}},
       axisLabel:{color:ac,fontSize:10,distance:16},
@@ -1727,8 +1730,8 @@ function getGaugeStyleOpt(style,val){
     return{series:[{type:'gauge',radius:'85%',center:['50%','55%'],startAngle:225,endAngle:-45,min:0,max:220,splitNumber:11,
       axisLine:{lineStyle:{width:6,color:[[1,'#2a3a5a']]}},
       progress:{show:false},
-      pointer:{icon:'path://M -2 75 L 2 75 L 1 0 L -1 0 Z',length:'75%',width:4,itemStyle:{color:'#ff6f7d'}},
-      anchor:{show:true,size:10,itemStyle:{color:'#ff6f7d'}},
+      anchor:{show:true,size:14,itemStyle:{color:'#fff',borderColor:'#ff6f7d',borderWidth:3}},
+      pointer:{icon:'path://M -2 75 L 2 75 L 1 0 L -1 0 Z',length:'72%',width:4,itemStyle:{color:'#ff6f7d'},z:2},
       axisTick:{length:8,distance:2,lineStyle:{color:ac,width:1}},
       splitLine:{length:16,distance:2,lineStyle:{color:ac,width:2}},
       axisLabel:{color:ac,fontSize:11,distance:18},
@@ -1753,8 +1756,8 @@ function getGaugeStyleOpt(style,val){
     return{series:[{type:'gauge',radius:'82%',center:['50%','50%'],startAngle:90,endAngle:-270,min:0,max:220,splitNumber:11,
       progress:{show:true,width:14,roundCap:true,itemStyle:{color:{type:'linear',x:0,y:0,x2:1,y2:0,colorStops:[{offset:0,color:'#55d99a'},{offset:0.5,color:'#55dff6'},{offset:1,color:'#ff6f7d'}]}}},
       axisLine:{lineStyle:{width:14,color:[[0.3,'#55d99a'],[0.6,'#55dff6'],[1,'#ff6f7d']]}},
-      pointer:{icon:'path://M -3 70 L 3 70 L 1 0 L -1 0 Z',length:'60%',width:5,itemStyle:{color:'#ff6f7d',shadowColor:'rgba(255,111,125,.5)',shadowBlur:10}},
-      anchor:{show:true,size:14,itemStyle:{color:'#1d3557',borderColor:'#ff6f7d',borderWidth:3}},
+      anchor:{show:true,size:16,itemStyle:{color:'#fff',borderColor:'#ff6f7d',borderWidth:3}},
+      pointer:{icon:'path://M -3 70 L 3 70 L 1 0 L -1 0 Z',length:'58%',width:5,itemStyle:{color:'#ff6f7d',shadowColor:'rgba(255,111,125,.5)',shadowBlur:10},z:2},
       axisTick:{length:5,distance:2,lineStyle:{color:ac,width:1}},
       splitLine:{length:12,distance:2,lineStyle:{color:ac,width:2}},
       axisLabel:{color:ac,fontSize:9,distance:14},

@@ -576,10 +576,12 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <div class="hero-actions"><span id="vdSegment">—</span><span class="online"><i></i><b id="vdStatus">آماده</b></span><button id="vdActivateBtn">فعال‌سازی پروفایل</button></div>
 </article>
 <div class="gauge-grid">
-<article><header><span>سرعت</span><strong id="vdSpeed">۰ km/h</strong></header><div class="gauge-svg-wrap"><svg viewBox="0 0 280 260"><path d="M40 140 A100 100 0 0 1 240 140" fill="none" stroke="#1d3557" stroke-width="24" stroke-linecap="round"/><path id="vdSpeedArc" d="M40 140 A100 100 0 0 1 240 140" fill="none" stroke="url(#sg)" stroke-width="22" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="314.16"/><line id="vdSpeedNeedle" x1="140" y1="140" x2="140" y2="50" stroke="var(--red)" stroke-width="4" stroke-linecap="round" transform="rotate(-90,140,140)"/><circle cx="140" cy="140" r="10" fill="#1d3557" stroke="var(--red)" stroke-width="3"/></svg></div></article>
-<article><header><span>دور موتور</span><strong id="vdRpm">۰ rpm</strong></header><div class="gauge-svg-wrap"><svg viewBox="0 0 280 260"><path d="M40 140 A100 100 0 0 1 240 140" fill="none" stroke="#1d3557" stroke-width="24" stroke-linecap="round"/><path id="vdRpmArc" d="M40 140 A100 100 0 0 1 240 140" fill="none" stroke="var(--cyan)" stroke-width="22" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="314.16"/><line id="vdRpmNeedle" x1="140" y1="140" x2="140" y2="50" stroke="var(--cyan)" stroke-width="4" stroke-linecap="round" transform="rotate(-90,140,140)"/><circle cx="140" cy="140" r="10" fill="#1d3557" stroke="var(--cyan)" stroke-width="3"/></svg></div></article>
+<article><header><span>سرعت</span><strong id="vdSpeed">۰ km/h</strong></header><div class="gauge-svg-wrap" id="vdSpeedGauge" style="width:100%;height:280px"></div></article>
+<article><header><span>دور موتور</span><strong id="vdRpm">۰ rpm</strong></header><div class="gauge-svg-wrap" id="vdRpmGauge" style="width:100%;height:280px"></div></article>
+<article><header><span>دمای آب</span><strong id="vdCoolant">--</strong></header><div class="gauge-svg-wrap" id="vdCoolantGauge" style="width:100%;height:280px"></div></article>
+<article><header><span>ولتاژ باتری</span><strong id="vdVoltage">--</strong></header><div class="gauge-svg-wrap" id="vdVoltageGauge" style="width:100%;height:280px"></div></article>
 </div>
-<div class="metric-grid"><article><span>دمای آب</span><strong id="vdCoolant">--</strong></article><article><span>ولتاژ</span><strong id="vdVoltage">--</strong></article><article><span>بار موتور</span><strong id="vdLoad">--</strong></article><article><span>مصرف تقریبی</span><strong id="vdFuel">--</strong></article></div>
+<div class="metric-grid"><article><span>بار موتور</span><strong id="vdLoad">--</strong></article><article><span>مصرف تقریبی</span><strong id="vdFuel">--</strong></article><article><span>سطح بنزین</span><strong id="vdFuelLevel">--</strong></article><article><span>فشار روغن</span><strong id="vdOilPressure">--</strong></article></div>
 <section class="card"><div class="section-title"><div><small>OBD-II DTC CODES</small><h2>کدهای خطای این مدل</h2></div><button id="vdReadDtc">خواندن کدها</button></div><div class="dtc-list" id="vdDtcList"></div></section>
 </div>
 <div class="vd-side">
@@ -1467,8 +1469,25 @@ function renderVehicleDetail(){
   // Start live data
   startVdLive();
 }
+var vdGauges={};
 function startVdLive(){
   if(vdLiveTimer)clearInterval(vdLiveTimer);
+  // Init ECharts gauges for vehicle detail page
+  if(typeof echarts!=='undefined'){
+    const vdGaugeDefs=[
+      {id:'vdSpeedGauge',key:'vdSpeed',min:0,max:220,split:11,colors:[[0.3,'#55d99a'],[0.6,'#55dff6'],[0.85,'#3ca6ff'],[1,'#ff6f7d']],unit:'km/h',needle:'#ff6f7d'},
+      {id:'vdRpmGauge',key:'vdRpm',min:0,max:8000,split:8,colors:[[0.3,'#55d99a'],[0.6,'#55dff6'],[0.8,'#ff9a54'],[1,'#ff6f7d']],unit:'rpm',needle:'#55dff6'},
+      {id:'vdCoolantGauge',key:'vdCoolant',min:40,max:140,split:5,colors:[[0.3,'#55dff6'],[0.5,'#55d99a'],[0.75,'#ff9a54'],[1,'#ff6f7d']],unit:'°C',needle:'#ff9a54'},
+      {id:'vdVoltageGauge',key:'vdVoltage',min:0,max:16,split:8,colors:[[0.2,'#ff6f7d'],[0.4,'#ff9a54'],[0.5,'#55d99a'],[0.85,'#55d99a'],[1,'#ff9a54']],unit:'V',needle:'#55d99a'}
+    ];
+    vdGaugeDefs.forEach(g=>{
+      const el=document.getElementById(g.id);
+      if(el&&!vdGauges[g.key]){
+        vdGauges[g.key]=echarts.init(el);
+        vdGauges[g.key].setOption({series:[makeGaugeOpt(g.key,g.min,g.max,g.split,g.colors,g.unit,g.needle)]});
+      }
+    });
+  }
   const step=()=>{
     const l=state.live;
     $('#vdSpeed').textContent=`${fa(Math.round(l.speedKph||0))} km/h`;
@@ -1477,13 +1496,12 @@ function startVdLive(){
     $('#vdVoltage').textContent=l.voltage==null?'--':`${fa(l.voltage.toFixed(1))} V`;
     $('#vdLoad').textContent=l.engineLoad==null?'--':`${fa(Math.round(l.engineLoad))}٪`;
     $('#vdFuel').textContent=l.speedKph>5?`${fa((5.5+l.engineLoad/20).toFixed(1))} L/100`:'--';
-    const sp=Math.max(0,Math.min(1,(l.speedKph||0)/220));
-    const rp=Math.max(0,Math.min(1,(l.rpm||0)/7000));
-    const circ=Math.PI*100;
-    $('#vdSpeedArc')?.setAttribute('stroke-dashoffset',circ-circ*sp);
-    $('#vdRpmArc')?.setAttribute('stroke-dashoffset',circ-circ*rp);
-    $('#vdSpeedNeedle')?.setAttribute('transform',`rotate(${-90+180*sp},140,140)`);
-    $('#vdRpmNeedle')?.setAttribute('transform',`rotate(${-90+180*rp},140,140)`);
+    $('#vdFuelLevel').textContent='۶۸٪';
+    $('#vdOilPressure').textContent='۴.۲ bar';
+    if(vdGauges.vdSpeed)vdGauges.vdSpeed.setOption({series:[{data:[{value:Math.round(l.speedKph||0)}]}]});
+    if(vdGauges.vdRpm)vdGauges.vdRpm.setOption({series:[{data:[{value:Math.round(l.rpm||0)}]}]});
+    if(vdGauges.vdCoolant)vdGauges.vdCoolant.setOption({series:[{data:[{value:Math.round(l.coolantC||0)}]}]});
+    if(vdGauges.vdVoltage)vdGauges.vdVoltage.setOption({series:[{data:[{value:Math.round((l.voltage||0)*10)/10}]}]});
   };
   step();vdLiveTimer=setInterval(step,1000);
 }

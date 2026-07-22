@@ -420,6 +420,32 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </svg>
 
 <div class="wrapper">
+<nav id="leftGaugeSidebar" class="sidebar left-gauge-sidebar d-none d-xl-flex flex-column border-end p-3" style="width: 220px !important; min-width: 220px !important; max-width: 220px !important; background: var(--ss-darker) !important; position: static !important; height: 100vh !important; overflow-y: auto !important;">
+  <h5 class="text-white fw-bold mb-3 border-bottom pb-2 text-center" style="font-size: 0.875rem;">گیج‌های ستونی</h5>
+  <div class="d-flex flex-column gap-3">
+    <div class="card p-2 bg-dark text-white border-0 text-center select-gauge-item active" data-gauge="speed" style="cursor: pointer; border: 1.5px solid var(--ss-primary) !important;">
+      <span class="small d-block text-white-50">سرعت</span>
+      <strong id="sideSpeedVal" class="text-white">۰ km/h</strong>
+      <div id="sideSpeedGauge" style="width:100%; height:110px;"></div>
+    </div>
+    <div class="card p-2 bg-dark text-white border-0 text-center select-gauge-item active" data-gauge="rpm" style="cursor: pointer; border: 1.5px solid var(--ss-primary) !important;">
+      <span class="small d-block text-white-50">دور موتور</span>
+      <strong id="sideRpmVal" class="text-white">۰ rpm</strong>
+      <div id="sideRpmGauge" style="width:100%; height:110px;"></div>
+    </div>
+    <div class="card p-2 bg-dark text-white border-0 text-center select-gauge-item active" data-gauge="coolant" style="cursor: pointer; border: 1.5px solid var(--ss-primary) !important;">
+      <span class="small d-block text-white-50">دمای آب</span>
+      <strong id="sideCoolantVal" class="text-white">--</strong>
+      <div id="sideCoolantGauge" style="width:100%; height:110px;"></div>
+    </div>
+    <div class="card p-2 bg-dark text-white border-0 text-center select-gauge-item active" data-gauge="voltage" style="cursor: pointer; border: 1.5px solid var(--ss-primary) !important;">
+      <span class="small d-block text-white-50">ولتاژ باتری</span>
+      <strong id="sideVoltageVal" class="text-white">--</strong>
+      <div id="sideVoltageGauge" style="width:100%; height:110px;"></div>
+    </div>
+  </div>
+</nav>
+
 <nav id="sidebar" class="sidebar js-sidebar">
 <div class="sidebar-content js-simplebar">
 <a class="sidebar-brand text-decoration-none" href="#" data-page="mydiag">
@@ -989,7 +1015,7 @@ function go(page){
   const selected=meta[page]||meta.dashboard;$('#eyebrow').textContent=selected[0];$('#title').textContent=selected[1];
   $('aside').classList.remove('open');
   if(page==='trips')setTimeout(async()=>{await initMap();previewSelectedTrip();state.map?.invalidateSize?.(true)},80);
-  if(page==='dashboard')setTimeout(()=>{initEChartsGauges();Object.values(gaugeCharts).forEach(c=>c.resize())},100);
+  if(page==='dashboard')setTimeout(()=>{initEChartsGauges();initSideGauges();Object.values(gaugeCharts).forEach(c=>c.resize());Object.values(sideGaugeCharts).forEach(c=>c.resize())},100);
   if(page==='store')loadOffers();
   if(page==='mydiag')syncMyDiagHome();
   if(page==='sensors')renderSensorCards($('#sensorGroupSelect')?.value||'engine');
@@ -1017,14 +1043,48 @@ function applyTheme(v){
   if(typeof echarts!=='undefined'){
     Object.values(gaugeCharts).forEach(c=>c.dispose());
     Object.values(vdGauges).forEach(c=>c.dispose());
-    gaugeCharts={};vdGauges={};
+    Object.values(sideGaugeCharts).forEach(c=>c.dispose());
+    gaugeCharts={};vdGauges={};sideGaugeCharts={};
     setTimeout(()=>{
-      if(state.currentPage==='dashboard'){initEChartsGauges();updateLiveDisplay()}
+      if(state.currentPage==='dashboard'){initEChartsGauges();initSideGauges();updateLiveDisplay()}
       if(state.currentPage==='vehicledetail'&&vdIndex!=null){renderVehicleDetail(document.getElementById('pageContainer'))}
       if(state.currentPage==='gaugegallery'){initGalleryGauge()}
     },50);
   }
 }
+
+// Left side gauge click interactions to toggle main page visibility
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.select-gauge-item').forEach(card => {
+      card.onclick = () => {
+        const gaugeType = card.dataset.gauge;
+        card.classList.toggle('active');
+        if (card.classList.contains('active')) {
+          card.style.border = '1.5px solid var(--ss-primary)';
+          card.style.opacity = '1';
+        } else {
+          card.style.border = '1.5px solid transparent';
+          card.style.opacity = '0.4';
+        }
+        // Sync with dashboard page components
+        const dashboardCards = {
+          speed: document.getElementById('speedGauge')?.closest('.col-12'),
+          rpm: document.getElementById('rpmGauge')?.closest('.col-12'),
+          coolant: document.getElementById('coolantGauge')?.closest('.col-12'),
+          voltage: document.getElementById('voltageGauge')?.closest('.col-12')
+        };
+        const target = dashboardCards[gaugeType];
+        if (target) {
+          target.style.display = card.classList.contains('active') ? 'block' : 'none';
+          setTimeout(() => {
+            if (gaugeCharts[gaugeType]) gaugeCharts[gaugeType].resize();
+          }, 100);
+        }
+      };
+    });
+  }, 1000);
+});
 $('#themeBtn').onclick=()=>{const i=THEME_CYCLE.indexOf(state.theme);applyTheme(THEME_CYCLE[(i+1)%THEME_CYCLE.length])};
 
 /* ========================= BRAND RULES ========================= */
@@ -1102,6 +1162,42 @@ $('#logoInput').onchange=e=>{const file=e.target.files[0];if(!file)return;if(fil
 
 /* ========================= GAUGE / LIVE DATA ========================= */
 var gaugeCharts={};
+var sideGaugeCharts={};
+
+function makeSideGaugeOpt(min,max,colors,needleColor){
+  return {
+    type:'gauge',radius:'100%',center:['50%','65%'],
+    startAngle:200,endAngle:-20,
+    min:min,max:max,splitNumber:4,
+    progress:{show:true,width:8,roundCap:true,itemStyle:{color:colors[colors.length-1][1]}},
+    axisLine:{lineStyle:{width:8,color:colors}},
+    anchor:{show:true,size:8,itemStyle:{color:'#fff',borderColor:needleColor,borderWidth:2}},
+    pointer:{icon:'path://M -2 70 L 2 70 L 1 0 L -1 0 Z',length:'65%',width:3,offsetCenter:[0,0],itemStyle:{color:needleColor}},
+    axisTick:{show:false},
+    splitLine:{show:false},
+    axisLabel:{show:false},
+    title:{show:false},
+    detail:{show:false},
+    data:[{value:0}]
+  };
+}
+
+function initSideGauges(){
+  if(typeof echarts==='undefined')return;
+  const gauges=[
+    {id:'sideSpeedGauge',key:'speed',min:0,max:220,colors:[[0.3,'#55d99a'],[0.6,'#55dff6'],[0.85,'#3ca6ff'],[1,'#ff6f7d']],needle:'#ff6f7d'},
+    {id:'sideRpmGauge',key:'rpm',min:0,max:8000,colors:[[0.3,'#55d99a'],[0.6,'#55dff6'],[0.8,'#ff9a54'],[1,'#ff6f7d']],needle:'#55dff6'},
+    {id:'sideCoolantGauge',key:'coolant',min:40,max:140,colors:[[0.3,'#55dff6'],[0.5,'#55d99a'],[0.75,'#ff9a54'],[1,'#ff6f7d']],needle:'#ff9a54'},
+    {id:'sideVoltageGauge',key:'voltage',min:0,max:16,colors:[[0.2,'#ff6f7d'],[0.4,'#ff9a54'],[0.5,'#55d99a'],[0.85,'#55d99a'],[1,'#ff9a54']],needle:'#55d99a'}
+  ];
+  gauges.forEach(g=>{
+    const el=document.getElementById(g.id);
+    if(el&&!sideGaugeCharts[g.key]){
+      sideGaugeCharts[g.key]=echarts.init(el);
+      sideGaugeCharts[g.key].setOption({series:[makeSideGaugeOpt(g.min,g.max,g.colors,g.needle)]});
+    }
+  });
+}
 function makeGaugeOpt(id,min,max,splitNum,colors,unit,needleColor){
   const theme=document.documentElement.dataset.theme;
   const isFigma=theme==='figma-cluster';
@@ -1167,6 +1263,7 @@ function setNeedle(id,value,max){
 }
 function setGaugeValue(key,value){
   if(gaugeCharts[key])gaugeCharts[key].setOption({series:[{data:[{value:Math.round(value*100)/100}]}]});
+  if(sideGaugeCharts[key])sideGaugeCharts[key].setOption({series:[{data:[{value:Math.round(value*100)/100}]}]});
 }
 function renderLive(){
   const l=state.live;
@@ -1178,6 +1275,12 @@ function renderLive(){
   $('#fuelUse').textContent=l.speedKph>5?`${fa((5.5+l.engineLoad/20).toFixed(1))} L/100`:'--';
   $('#fuelLevel').textContent=l.fuelLevel!=null?`${fa(Math.round(l.fuelLevel))}٪`:'۶۸٪';
   $('#oilPressure').textContent=l.oilPressure!=null?`${fa(l.oilPressure.toFixed(1))} bar`:'۴.۲ bar';
+  
+  if($('#sideSpeedVal'))$('#sideSpeedVal').textContent=`${fa(Math.round(l.speedKph||0))} km/h`;
+  if($('#sideRpmVal'))$('#sideRpmVal').textContent=`${fa(Math.round(l.rpm||0))} rpm`;
+  if($('#sideCoolantVal'))$('#sideCoolantVal').textContent=l.coolantC==null?'--':`${fa(l.coolantC)} °C`;
+  if($('#sideVoltageVal'))$('#sideVoltageVal').textContent=l.voltage==null?'--':`${fa(l.voltage.toFixed(1))} V`;
+
   setGaugeValue('speed',l.speedKph||0);
   setGaugeValue('rpm',l.rpm||0);
   setGaugeValue('coolant',l.coolantC||0);
@@ -1799,8 +1902,8 @@ async function loadData(){
     state.demo={vehicle:{make:'ایران خودرو',model:'ECU Pulse Demo',protocols:['Generic OBD-II','ELM327'],profile:'DEMO',segment:'passenger'},scenario:{sampleIntervalMs:800,dtcs:[{code:'P0133',kind:'STORED',description:'پاسخ کند سنسور اکسیژن بانک ۱'},{code:'P0420',kind:'PENDING',description:'بازده کاتالیست پایین‌تر از آستانه'}]},demoTrip:{id:'demo-tehran-west-east',titleFa:'تهران: غرب به شرق و بازگشت',descriptionFa:'مسیر نمایشی از میدان آزادی به تهرانپارس و بازگشت از شمال',stops:[{lat:35.7037,lon:51.4195,nameFa:'توقف ۱ - میدان ولیعصر',durationSeconds:120},{lat:35.7292,lon:51.4396,nameFa:'توقف ۲ - پمپ بنزین',durationSeconds:90}],points:[{lat:35.7005,lon:51.3382,offsetSeconds:0,speedKph:0,rpm:800},{lat:35.7008,lon:51.3507,offsetSeconds:12,speedKph:45,rpm:1900},{lat:35.7021,lon:51.3724,offsetSeconds:28,speedKph:72,rpm:2400},{lat:35.7037,lon:51.3990,offsetSeconds:44,speedKph:58,rpm:2100},{lat:35.7037,lon:51.4195,offsetSeconds:60,speedKph:0,rpm:800,label:'میدان ولیعصر',stop:true},{lat:35.7052,lon:51.4298,offsetSeconds:80,speedKph:38,rpm:1750},{lat:35.7201,lon:51.4350,offsetSeconds:96,speedKph:55,rpm:2200},{lat:35.7292,lon:51.4396,offsetSeconds:108,speedKph:0,rpm:800,label:'پمپ بنزین',stop:true},{lat:35.7348,lon:51.4210,offsetSeconds:128,speedKph:42,rpm:1950},{lat:35.7203,lon:51.3957,offsetSeconds:140,speedKph:68,rpm:2350},{lat:35.7245,lon:51.3823,offsetSeconds:152,speedKph:52,rpm:2100},{lat:35.7098,lon:51.3650,offsetSeconds:168,speedKph:60,rpm:2250},{lat:35.7005,lon:51.3382,offsetSeconds:184,speedKph:0,rpm:800,label:'پایان مسیر'}]}};
   }
   renderVehicles();renderActiveVehicle();renderTripSelect();applyPlan();
-  setTimeout(initEChartsGauges,200);
-  setTimeout(()=>{Object.values(gaugeCharts).forEach(c=>c.resize())},500);
+  setTimeout(()=>{initEChartsGauges();initSideGauges();},200);
+  setTimeout(()=>{Object.values(gaugeCharts).forEach(c=>c.resize());Object.values(sideGaugeCharts).forEach(c=>c.resize());},500);
   if(state.plan==='pro')applyPlan();
   const setVal=()=>{$('#themeSelect').value=state.theme;$('#remoteApi').value=localStorage.getItem('ecuRemoteApi')||'https://diageman.ir';$('#localApi').value=localStorage.getItem('ecuLocalApi')||'http://127.0.0.1:4030'};setVal();
   if(state.demoMode||!localStorage.getItem('ecuVehicle'))startDemo();else syncDemoButtons();

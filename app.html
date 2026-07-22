@@ -31,10 +31,11 @@ aside{position:fixed;z-index:50;right:max(0px,calc((100vw - 1560px)/2));top:0;wi
 .brand{display:flex;align-items:center;gap:12px;padding:4px 6px 22px;border-bottom:1px solid var(--line)}
 .brand>div{width:50px;height:50px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(145deg,var(--cyan),var(--blue));color:#04131f;font-weight:800}
 .brand strong,.brand small{display:block}.brand small{font-size:9px;color:var(--muted);margin-top:3px}
-aside nav{display:grid;gap:5px;margin-top:20px}
+aside nav{display:grid;gap:4px;margin-top:16px;overflow-y:auto;flex:1 1 auto;min-height:0;padding-bottom:8px}
+aside nav::-webkit-scrollbar{width:4px}aside nav::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
 aside nav button,.bottom button{border:0;background:transparent;color:var(--muted);display:flex;align-items:center;gap:12px;padding:13px;border-radius:15px}
 aside nav button.active,aside nav button:hover{background:color-mix(in srgb,var(--cyan) 12%,transparent);color:var(--cyan)}
-.plan-card{margin-top:auto;border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.035)}
+.plan-card{margin-top:auto;border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.035);flex-shrink:0}
 .plan-card span,.plan-card small{display:block}.plan-card span{color:var(--cyan);font-weight:800}.plan-card small{font-size:9px;color:var(--muted);margin-top:5px}
 header{height:84px;padding:16px clamp(18px,4vw,46px);display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:12px;position:sticky;top:0;z-index:40;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 96%,transparent) 72%,transparent);backdrop-filter:blur(14px)}
 header #menuBtn{visibility:hidden}.icon,#menuBtn{width:45px;height:45px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.04);color:var(--text)}

@@ -30,12 +30,12 @@ html[data-theme="adminkit"] .sidebar {
   transition: margin-right .35s ease-in-out, transform .35s ease-in-out !important;
 }
 
-html[data-theme="adminkit"] .sidebar-content,
-html[data-theme="adminkit"] .sidebar .simplebar-content {
+html[data-theme="adminkit"] .sidebar-content {
   display: flex;
   flex-direction: column;
   height: 100vh;
   min-height: 0;
+  overflow: hidden;
   background: #fbfcfe !important;
 }
 
@@ -43,6 +43,8 @@ html[data-theme="adminkit"] .sidebar-nav {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   direction: rtl;
   margin: 0;
   padding: .65rem .65rem .8rem !important;
@@ -126,6 +128,7 @@ html[data-theme="adminkit"] .sidebar-item.active > .sidebar-link svg {
 html[data-theme="adminkit"] .sidebar-cta {
   flex: 0 0 auto;
   border-top: 1px solid #e9edf2;
+  background: #fbfcfe;
 }
 
 html[data-theme="adminkit"] .sidebar-cta-content {
@@ -387,7 +390,13 @@ html[data-theme="adminkit"] .sidebar.collapsed {
     margin: 0 !important;
     transform: translateX(100%);
     height: 100dvh !important;
+    max-height: 100dvh !important;
     box-shadow: -.5rem 0 1.5rem rgba(33,37,41,.14);
+  }
+  html[data-theme="adminkit"] .sidebar-content {
+    height: 100dvh;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
   }
   html[data-theme="adminkit"] .sidebar.collapsed {
     margin: 0 !important;

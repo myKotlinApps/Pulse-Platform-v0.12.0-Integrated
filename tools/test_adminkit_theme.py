@@ -23,6 +23,8 @@ check("legacy theme cycle button is absent", 'id="themeBtn"' not in HTML)
 check("mobile bottom navigation is absent", '<nav class="bottom"' not in HTML)
 check("RTL AdminKit stylesheet is loaded", './assets/adminkit/css/ecu-pulse-rtl.css' in HTML)
 check("RTL stylesheet is scoped to AdminKit", 'html[data-theme="adminkit"]' in CSS)
+check("sidebar is lighter than the page", 'background: #fbfcfe !important;' in CSS)
+check("active sidebar item uses a light blue state", 'background: #eaf2fd !important;' in CSS)
 check("logos do not depend on a GitHub branch", "raw.githubusercontent.com" not in HTML)
 check("sidebar toggle has one owner", "js-sidebar-toggle" not in HTML)
 

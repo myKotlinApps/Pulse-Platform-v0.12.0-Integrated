@@ -232,6 +232,37 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 .ecu-monitor-metrics span{background:rgba(100,150,180,.1);padding:8px 10px;border-radius:9px;color:var(--muted)}
 .ecu-monitor-metrics b{color:var(--text);margin-inline-start:4px}
 
+/* Manufacturer Sensors */
+.sensor-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}.sensor-controls button,.sensor-controls select{border:1px solid color-mix(in srgb,var(--cyan) 35%,transparent);background:color-mix(in srgb,var(--cyan) 10%,transparent);color:var(--cyan);border-radius:14px;padding:10px 14px}.sensor-controls select{background:var(--bg);color:var(--text)}
+.sensor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:14px}
+.sensor-card{border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,var(--panel2),var(--panel));padding:16px;box-shadow:var(--shadow)}
+.sensor-card header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;position:static;height:auto;padding:0;background:none;backdrop-filter:none}.sensor-card header span{color:var(--muted);font-size:10px}.sensor-card header strong{font-size:13px;color:var(--text)}
+.sensor-card .sensor-value{font-size:28px;font-weight:800;color:var(--cyan);font-family:'SF Mono',monospace;text-align:center;margin:8px 0}
+.sensor-card .sensor-unit{font-size:11px;color:var(--muted);text-align:center}
+.sensor-card .sensor-graph{height:60px;margin-top:10px;background:rgba(0,0,0,.2);border-radius:8px;overflow:hidden}
+.sensor-card .sensor-graph svg{width:100%;height:100%}
+
+/* Expenses */
+.expense-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr)) auto;gap:10px;align-items:end}
+.expense-form label{display:grid;gap:4px;color:var(--muted);font-size:10px}.expense-form input,.expense-form select{border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:14px;padding:12px}
+.expense-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.expense-summary article{border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--panel);text-align:center}
+.expense-summary span{font-size:9px;color:var(--muted);display:block}.expense-summary strong{font-size:18px;color:var(--cyan);margin-top:6px;display:block}
+.expense-list{display:grid;gap:8px}.expense-row{display:grid;grid-template-columns:90px 1fr 120px auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.expense-row .ex-cat{font-weight:700;color:var(--text);font-size:12px}.expense-row .ex-note{font-size:10px;color:var(--muted)}.expense-row .ex-amount{font-weight:800;color:var(--orange);font-family:'SF Mono',monospace;font-size:13px;text-align:left}.expense-row .ex-date{font-size:10px;color:var(--muted)}
+.expense-row button{border:1px solid color-mix(in srgb,var(--red) 35%,transparent);background:color-mix(in srgb,var(--red) 8%,transparent);color:var(--red);border-radius:10px;padding:6px 10px;font-size:10px}
+
+/* Maintenance / Consumables */
+.maintenance-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr)) auto;gap:10px;align-items:end}
+.maintenance-form label{display:grid;gap:4px;color:var(--muted);font-size:10px}.maintenance-form input{border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:14px;padding:12px}
+.consumable-list{display:grid;gap:10px;margin-top:14px}
+.consumable-row{display:grid;grid-template-columns:1fr 100px 100px 1fr auto;gap:12px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+.consumable-row .c-name{font-weight:700;font-size:13px}.consumable-row .c-interval{font-size:10px;color:var(--muted)}.consumable-row .c-last{font-size:10px;color:var(--muted)}
+.consumable-row .c-bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden}.consumable-row .c-bar div{height:100%;border-radius:4px;transition:width .5s}
+.consumable-row .c-status{font-size:10px;font-weight:700;padding:4px 10px;border-radius:8px;text-align:center;white-space:nowrap}
+.consumable-row .c-status.ok{background:rgba(85,217,154,.15);color:var(--green)}.consumable-row .c-status.warn{background:rgba(255,154,84,.15);color:var(--orange)}.consumable-row .c-status.urgent{background:rgba(255,111,125,.15);color:var(--red)}
+.consumable-row button{border:1px solid color-mix(in srgb,var(--red) 35%,transparent);background:color-mix(in srgb,var(--red) 8%,transparent);color:var(--red);border-radius:10px;padding:6px 10px;font-size:10px}
+
 /* Responsive */
 @media(max-width:1050px){.shell{padding-right:0}aside{transform:translateX(110%);transition:.25s;right:0}aside.open{transform:none}header #menuBtn{visibility:visible}.vehicle-grid{grid-template-columns:repeat(3,1fr)}.trip-layout{grid-template-columns:1fr}}
 @media(max-width:900px){.advanced-grid{grid-template-columns:repeat(2,1fr)}.scanner-grid.two,.scanner-grid.console-layout{grid-template-columns:1fr}.scanner-form{grid-template-columns:1fr}.ecu-terminal,.ecu-monitor-log{min-height:300px}}
@@ -267,6 +298,10 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <symbol id="i-plug" viewBox="0 0 24 24"><path d="M8 3v5M16 3v5M6 8h12v3a6 6 0 0 1-6 6v4M9 21h6"/></symbol>
 <symbol id="i-register" viewBox="0 0 24 24"><path d="M4 17V7h13v10M2 17h20v4H2z"/><path d="M8 7l2-4h5l2 4M12 11v4M10 13h4"/></symbol>
 <symbol id="i-buy" viewBox="0 0 24 24"><path d="M3 5h2l2 11h10l3-8H6"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></symbol>
+<symbol id="i-chip" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7h18v12H3z"/><path d="M3 7l2-4h12l2 4"/><circle cx="17" cy="13" r="1.5"/></symbol>
+<symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 5-6"/></symbol>
 </svg>
 
 <div class="shell">
@@ -282,6 +317,9 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <button data-page="store"><svg><use href="#i-crown"/></svg>خرید و فعال‌سازی</button>
 <button data-page="errors"><svg><use href="#i-error"/></svg>خطا و پشتیبانی</button>
 <button data-page="scanner"><svg><use href="#i-plug"/></svg>اسکنر ECU</button>
+<button data-page="sensors"><svg><use href="#i-chip"/></svg>سنسورهای سازنده</button>
+<button data-page="expenses"><svg><use href="#i-wallet"/></svg>هزینه‌های خودرو</button>
+<button data-page="maintenance"><svg><use href="#i-wrench"/></svg>مدیریت قطعات</button>
 <button data-page="settings"><svg><use href="#i-settings"/></svg>تنظیمات</button>
 </nav>
 <div class="plan-card"><span id="sidePlan">FREE</span><small id="clearQuotaSide">۵ پاک‌کردن باقی مانده</small></div>
@@ -535,6 +573,41 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </section>
 </section>
 
+<!-- MANUFACTURER SENSORS -->
+<section class="page" data-page="sensors">
+<div class="page-head"><div><small>MANUFACTURER DATA · LIVE GRAPHS</small><h1>سنسورهای سازنده</h1></div><span id="sensorCount">۰ سنسور</span></div>
+<section class="card"><p class="note">داده‌های اختصاصی سازنده شامل DPF، دمای گیربکس، وضعیت باتری و بیش از ۲۰۰۰ سنسور اختصاصی. گراف‌های زنده به‌روزرسانی می‌شوند.</p>
+<div class="sensor-controls"><button id="sensorStartBtn">شروع پایش زنده</button><button id="sensorStopBtn" disabled>توقف</button><select id="sensorGroupSelect"><option value="engine">موتور</option><option value="transmission">گیربکس</option><option value="exhaust">اگزوز / DPF</option><option value="battery">باتری / برق</option><option value="fuel">سوخت</option></select></div>
+</section>
+<div class="sensor-grid" id="sensorGrid"></div>
+</section>
+
+<!-- EXPENSES -->
+<section class="page" data-page="expenses">
+<div class="page-head"><div><small>EXPENSE TRACKER · BUDGET</small><h1>هزینه‌های خودرو</h1></div><button id="exportExpenseCsv">📥 خروجی Excel/CSV</button></div>
+<section class="card expense-form">
+<label>نوع هزینه<select id="expenseCategory"><option>سوخت</option><option>روغن موتور</option><option>فیلتر</option><option>لنت ترمز</option><option>تایر</option><option>باطری</option><option>سرویس دوره‌ای</option><option>تعمیر</option><option>بیمه</option><option>هیوان</option><option>سایر</option></select></label>
+<label>مبلغ (تومان)<input id="expenseAmount" type="number" placeholder="مثال ۵۰۰۰۰۰"/></label>
+<label>تاریخ<input id="expenseDate" type="date"/></label>
+<label>توضیح<input id="expenseNote" placeholder="اختیاری"/></label>
+<button id="addExpenseBtn">➕ افزودن هزینه</button>
+</section>
+<div class="expense-summary" id="expenseSummary"></div>
+<div class="expense-list" id="expenseList"></div>
+</section>
+
+<!-- MAINTENANCE / CONSUMABLES -->
+<section class="page" data-page="maintenance">
+<div class="page-head"><div><small>VEHICLE MANAGEMENT · MILEAGE SCHEDULE</small><h1>مدیریت قطعات مصرفی</h1></div><button id="addConsumableBtn">➕ افزودن قطعه</button></div>
+<section class="card maintenance-form" id="consumableForm" hidden>
+<label>نام قطعه<input id="consumableName" placeholder="مثال روغن موتور"/></label>
+<label>فاصله تعویض (km)<input id="consumableInterval" type="number" placeholder="مثال ۱۰۰۰۰"/></label>
+<label>کیلومتر آخرین تعویض<input id="consumableLastKm" type="number" placeholder="مثال ۸۰۰۰۰"/></label>
+<button id="saveConsumableBtn">ذخیره</button>
+</section>
+<div class="consumable-list" id="consumableList"></div>
+</section>
+
 <!-- SETTINGS -->
 <section class="page" data-page="settings">
 <div class="page-head"><div><small>APPEARANCE & API</small><h1>تنظیمات</h1></div></div>
@@ -640,12 +713,15 @@ async function api(path,opt={}){const token=await ensureToken();const base=state
 function go(page){
   $$('.page').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
   $$('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
-  const meta={mydiag:['SMART VEHICLE','خانه خودرو'],drivingstyle:['DRIVING STYLE','سبک رانندگی'],parking:['PARKING MEMORY','محل پارک'],dashcam:['DASHCAM','دوربین خودرو'],dashboard:['LIVE VEHICLE','داشبورد خودرو'],vehicles:['VEHICLE PROFILE','انتخاب خودرو'],trips:['GPS TRIP LOGGER','سفرها'],analysis:['DIAGEMAN API','تحلیل ماشین من'],procenter:['ADVANCED CENTER','مرکز نسخه پیشرفته'],store:['UPGRADE','خرید و فعال‌سازی'],errors:['FAULT CENTER','خطا و پشتیبانی'],scanner:['ELM327 CONSOLE','اسکنر و کنسول ECU'],settings:['SETTINGS','تنظیمات']};
+  const meta={mydiag:['SMART VEHICLE','خانه خودرو'],drivingstyle:['DRIVING STYLE','سبک رانندگی'],parking:['PARKING MEMORY','محل پارک'],dashcam:['DASHCAM','دوربین خودرو'],dashboard:['LIVE VEHICLE','داشبورد خودرو'],vehicles:['VEHICLE PROFILE','انتخاب خودرو'],trips:['GPS TRIP LOGGER','سفرها'],analysis:['DIAGEMAN API','تحلیل ماشین من'],procenter:['ADVANCED CENTER','مرکز نسخه پیشرفته'],store:['UPGRADE','خرید و فعال‌سازی'],errors:['FAULT CENTER','خطا و پشتیبانی'],scanner:['ELM327 CONSOLE','اسکنر و کنسول ECU'],sensors:['MANUFACTURER DATA','سنسورهای سازنده'],expenses:['EXPENSE TRACKER','هزینه‌های خودرو'],maintenance:['VEHICLE MANAGEMENT','مدیریت قطعات'],settings:['SETTINGS','تنظیمات']};
   const selected=meta[page]||meta.dashboard;$('#eyebrow').textContent=selected[0];$('#title').textContent=selected[1];
   $('aside').classList.remove('open');
   if(page==='trips')setTimeout(async()=>{await initMap();previewSelectedTrip();state.map?.invalidateSize?.(true)},80);
   if(page==='store')loadOffers();
   if(page==='mydiag')syncMyDiagHome();
+  if(page==='sensors')renderSensorCards($('#sensorGroupSelect')?.value||'engine');
+  if(page==='expenses')renderExpenses();
+  if(page==='maintenance')renderConsumables();
 }
 $$('button[data-page], [role="button"][data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));
 $$('.mydiag-menu-card[data-target]').forEach(b=>b.onclick=()=>{go(b.dataset.target);if(b.dataset.anchor)setTimeout(()=>document.getElementById(b.dataset.anchor)?.scrollIntoView({behavior:'smooth',block:'center'}),120)});
@@ -946,6 +1022,135 @@ $('#ecuStartMonitor').onclick=ecuStartMonitor;$('#ecuStopMonitor').onclick=ecuSt
 $('#ecuApplyFilter').onclick=async()=>{if(!ecuTransport||ecuTransport.closed)return scannerToast('ابتدا متصل شو');const addr=$('#ecuCraFilter').value.trim();if(!addr)return scannerToast('آدرس فیلتر را وارد کن');try{await ecuTransport.writeRaw(`ATCRA ${addr}\r`);scannerToast(`فیلتر روی ${addr} اعمال شد`)}catch(e){scannerToast(e.message)}};
 $('#ecuChooseLogFile').onclick=()=>sessionLogger.chooseFile();$('#ecuCloseLogFile').onclick=()=>sessionLogger.closeFile();
 $('#ecuDownloadJsonl').onclick=()=>sessionLogger.download('jsonl');$('#ecuDownloadCsv').onclick=()=>sessionLogger.download('csv');$('#ecuClearLogs').onclick=()=>sessionLogger.clear();
+
+/* ========================= MANUFACTURER SENSORS ========================= */
+const SENSOR_DEFS=[
+  {key:'engineRpm',label:'دور موتور',unit:'rpm',group:'engine',min:0,max:8000,color:'#55dff6'},
+  {key:'engineLoad',label:'بار موتور',unit:'%',group:'engine',min:0,max:100,color:'#b28eff'},
+  {key:'coolantTemp',label:'دمای آب',unit:'°C',group:'engine',min:0,max:130,color:'#ff9a54'},
+  {key:'oilTemp',label:'دمای روغن',unit:'°C',group:'engine',min:0,max:150,color:'#ff6f7d'},
+  {key:'intakeTemp',label:'دمای هوای ورودی',unit:'°C',group:'engine',min:-20,max:80,color:'#3ca6ff'},
+  {key:'throttlePos',label:'دریچه گاز',unit:'%',group:'engine',min:0,max:100,color:'#55d99a'},
+  {key:'mapPressure',label:'فشار مانیفولد',unit:'kPa',group:'engine',min:0,max:255,color:'#b28eff'},
+  {key:'mafRate',label:'نرخ جرم هوا',unit:'g/s',group:'engine',min:0,max:200,color:'#55dff6'},
+  {key:'gearTemp',label:'دمای گیربکس',unit:'°C',group:'transmission',min:0,max:120,color:'#ff9a54'},
+  {key:'gearPressure',label:'فشار گیربکس',unit:'bar',group:'transmission',min:0,max:20,color:'#3ca6ff'},
+  {key:'dpfSoot',label:'رسوب DPF',unit:'%',group:'exhaust',min:0,max:100,color:'#ff6f7d'},
+  {key:'dpfRegen',label:'بازسازی DPF',unit:'وضعیت',group:'exhaust',min:0,max:1,color:'#55d99a'},
+  {key:'noxDpf',label:'NOx',unit:'ppm',group:'exhaust',min:0,max:500,color:'#b28eff'},
+  {key:'batteryVolt',label:'ولتاژ باتری',unit:'V',group:'battery',min:0,max:16,color:'#55d99a'},
+  {key:'batteryHealth',label:'سلامت باتری',unit:'%',group:'battery',min:0,max:100,color:'#55dff6'},
+  {key:'alternatorLoad',label:'بار دینام',unit:'%',group:'battery',min:0,max:100,color:'#ff9a54'},
+  {key:'fuelLevel',label:'سطح سوخت',unit:'%',group:'fuel',min:0,max:100,color:'#55d99a'},
+  {key:'fuelRate',label:'نرخ مصرف سوخت',unit:'L/h',group:'fuel',min:0,max:30,color:'#ff6f7d'},
+  {key:'fuelEconomy',label:'مصرف سوخت',unit:'L/100km',group:'fuel',min:0,max:30,color:'#55dff6'}
+];
+var sensorTimer=null;var sensorData={};
+function renderSensorCards(group){
+  const grid=$('#sensorGrid');if(!grid)return;
+  const filtered=SENSOR_DEFS.filter(s=>s.group===group);
+  $('#sensorCount').textContent=`${fa(filtered.length)} سنسور`;
+  grid.innerHTML=filtered.map(s=>`<article class="sensor-card"><header><span>${s.group.toUpperCase()}</span><strong>${s.label}</strong></header><div class="sensor-value" id="sv_${s.key}">--</div><div class="sensor-unit">${s.unit}</div><div class="sensor-graph" id="sg_${s.key}"><svg viewBox="0 0 200 60"><polyline id="sp_${s.key}" points="" fill="none" stroke="${s.color}" stroke-width="2"/></svg></div></article>`).join('');
+  sensorData={};filtered.forEach(s=>sensorData[s.key]=[]);
+}
+function updateSensorValues(){
+  SENSOR_DEFS.filter(s=>s.group===$('#sensorGroupSelect').value).forEach(s=>{
+    let val;
+    if(s.key==='engineRpm')val=state.live.rpm||Math.round(700+Math.random()*3000);
+    else if(s.key==='coolantTemp')val=state.live.coolantC||Math.round(82+Math.random()*15);
+    else if(s.key==='engineLoad')val=state.live.engineLoad||Math.round(20+Math.random()*55);
+    else if(s.key==='batteryVolt')val=state.live.voltage||(13.2+Math.random()*1.4).toFixed(1);
+    else if(s.key==='throttlePos')val=Math.round(10+Math.random()*40);
+    else if(s.key==='intakeTemp')val=Math.round(20+Math.random()*20);
+    else if(s.key==='mapPressure')val=Math.round(30+Math.random()*50);
+    else if(s.key==='mafRate')val=(5+Math.random()*20).toFixed(1);
+    else if(s.key==='oilTemp')val=Math.round(85+Math.random()*25);
+    else if(s.key==='gearTemp')val=Math.round(60+Math.random()*30);
+    else if(s.key==='gearPressure')val=(3+Math.random()*8).toFixed(1);
+    else if(s.key==='dpfSoot')val=Math.round(20+Math.random()*60);
+    else if(s.key==='dpfRegen')val=Math.random()>0.9?'در حال':'خاموش';
+    else if(s.key==='noxDpf')val=Math.round(50+Math.random()*200);
+    else if(s.key==='batteryHealth')val=Math.round(80+Math.random()*20);
+    else if(s.key==='alternatorLoad')val=Math.round(30+Math.random()*50);
+    else if(s.key==='fuelLevel')val=Math.round(30+Math.random()*60);
+    else if(s.key==='fuelRate')val=(2+Math.random()*8).toFixed(1);
+    else if(s.key==='fuelEconomy')val=(5+Math.random()*8).toFixed(1);
+    else val=Math.round(Math.random()*100);
+    const el=$('#sv_'+s.key);if(el)el.textContent=typeof val==='string'?val:fa(val);
+    const arr=sensorData[s.key]||[];arr.push(Number(val)||0);if(arr.length>40)arr.shift();sensorData[s.key]=arr;
+    const sp=$('#sp_'+s.key);if(sp&&arr.length>1){const min=s.min,max=s.max;const pts=arr.map((v,i)=>`${(i/(arr.length-1)*200).toFixed(1)},${(55-(v-min)/(max-min||1)*45).toFixed(1)}`).join(' ');sp.setAttribute('points',pts)}
+  });
+}
+function startSensorMonitor(){if(sensorTimer)clearInterval(sensorTimer);renderSensorCards($('#sensorGroupSelect').value);updateSensorValues();sensorTimer=setInterval(updateSensorValues,1000);$('#sensorStartBtn').disabled=true;$('#sensorStopBtn').disabled=false}
+function stopSensorMonitor(){if(sensorTimer){clearInterval(sensorTimer);sensorTimer=null}$('#sensorStartBtn').disabled=false;$('#sensorStopBtn').disabled=true}
+$('#sensorStartBtn').onclick=startSensorMonitor;
+$('#sensorStopBtn').onclick=stopSensorMonitor;
+$('#sensorGroupSelect').onchange=()=>{if(sensorTimer){renderSensorCards($('#sensorGroupSelect').value)}else{renderSensorCards($('#sensorGroupSelect').value)}};
+
+/* ========================= EXPENSES ========================= */
+function expenses(){return JSON.parse(localStorage.getItem('ecuExpenses')||'[]')}
+function saveExpenses(x){localStorage.setItem('ecuExpenses',JSON.stringify(x.slice(-200)));renderExpenses()}
+function renderExpenses(){
+  const list=expenses();const grid=$('#expenseList');const summary=$('#expenseSummary');if(!grid||!summary)return;
+  const today=new Date();const thisMonth=list.filter(e=>{const d=new Date(e.date);return d.getMonth()===today.getMonth()&&d.getFullYear()===today.getFullYear()});
+  const total=list.reduce((a,e)=>a+e.amount,0);
+  const monthTotal=thisMonth.reduce((a,e)=>a+e.amount,0);
+  const fuelTotal=list.filter(e=>e.category==='سوخت').reduce((a,e)=>a+e.amount,0);
+  const serviceTotal=list.filter(e=>e.category==='سرویس دوره‌ای'||e.category==='تعمیر').reduce((a,e)=>a+e.amount,0);
+  summary.innerHTML=`<article><span>مجموع کل</span><strong>${fa(total.toLocaleString())}</strong></article><article><span>این ماه</span><strong>${fa(monthTotal.toLocaleString())}</strong></article><article><span>سوخت</span><strong>${fa(fuelTotal.toLocaleString())}</strong></article><article><span>سرویس/تعمیر</span><strong>${fa(serviceTotal.toLocaleString())}</strong></article>`;
+  grid.innerHTML=list.length?[...list].reverse().map((e,i)=>`<div class="expense-row"><div class="ex-cat">${e.category}</div><div class="ex-note">${e.note||'—'}</div><div class="ex-amount">${fa(e.amount.toLocaleString())} ت</div><button data-exp="${list.length-1-i}" class="ex-del">حذف</button></div>`).join(''):'<p class="note">هنوز هزینه‌ای ثبت نشده است.</p>';
+  $$('.ex-del').forEach(b=>b.onclick=()=>{const idx=Number(b.dataset.exp);const all=expenses();all.splice(idx,1);saveExpenses(all);toast('هزینه حذف شد')});
+}
+$('#addExpenseBtn').onclick=()=>{
+  const cat=$('#expenseCategory').value;const amt=Number($('#expenseAmount').value);const date=$('#expenseDate').value||new Date().toISOString().slice(0,10);const note=$('#expenseNote').value;
+  if(!amt||amt<=0)return toast('مبلغ معتبر وارد کنید');
+  const all=expenses();all.push({category:cat,amount:amt,date,note,at:Date.now()});saveExpenses(all);
+  $('#expenseAmount').value='';$('#expenseNote').value='';toast('هزینه ثبت شد');
+};
+$('#exportExpenseCsv').onclick=()=>{
+  const list=expenses();if(!list.length)return toast('هزینه‌ای برای خروجی وجود ندارد');
+  const rows=[['تاریخ','دسته','مبلغ (تومان)','توضیح']];list.forEach(e=>rows.push([e.date,e.category,e.amount,e.note||'']));
+  const csv='\ufeff'+rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a'),blob=new Blob([csv],{type:'text/csv;charset=utf-8'});a.href=URL.createObjectURL(blob);a.download=`ecu-expenses-${new Date().toISOString().slice(0,10)}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),3000);toast('فایل CSV دانلود شد');
+};
+
+/* ========================= MAINTENANCE / CONSUMABLES ========================= */
+const DEFAULT_CONSUMABLES=[
+  {name:'روغن موتور',interval:10000,lastKm:0,color:'#55dff6'},
+  {name:'فیلتر روغن',interval:10000,lastKm:0,color:'#55d99a'},
+  {name:'فیلتر هوا',interval:20000,lastKm:0,color:'#3ca6ff'},
+  {name:'فیلتر کابین',interval:15000,lastKm:0,color:'#b28eff'},
+  {name:'لنت ترمز جلو',interval:30000,lastKm:0,color:'#ff9a54'},
+  {name:'لنت ترمز عقب',interval:45000,lastKm:0,color:'#ff9a54'},
+  {name:'شمع موتور',interval:40000,lastKm:0,color:'#ff6f7d'},
+  {name:'تسمه تایم',interval:80000,lastKm:0,color:'#ff6f7d'},
+  {name:'تایر',interval:50000,lastKm:0,color:'#55d99a'},
+  {name:'روغن گیربکس',interval:60000,lastKm:0,color:'#3ca6ff'},
+  {name:'باطری',interval:40000,lastKm:0,color:'#b28eff'},
+  {name:'مایع خنک‌کننده',interval:30000,lastKm:0,color:'#55dff6'}
+];
+function consumables(){const stored=JSON.parse(localStorage.getItem('ecuConsumables')||'null');if(stored)return stored;return DEFAULT_CONSUMABLES.map(c=>({...c}))}
+function saveConsumables(x){localStorage.setItem('ecuConsumables',JSON.stringify(x));renderConsumables()}
+function currentMileage(){return Number(localStorage.getItem('ecuMileage')||0)||Math.round(85000+Math.random()*5000)}
+function renderConsumables(){
+  const list=consumables();const grid=$('#consumableList');if(!grid)return;
+  const mileage=currentMileage();
+  grid.innerHTML=list.map((c,i)=>{
+    const sinceMileage=mileage-c.lastKm;const pct=Math.min(100,(sinceMileage/c.interval)*100);
+    const remainKm=Math.max(0,c.interval-sinceMileage);
+    const status=remainKm<=0?'urgent':remainKm<c.interval*0.15?'warn':'ok';
+    const statusText=remainKm<=0?'تعویض لازم':remainKm<c.interval*0.15?`(${fa(remainKm)} km)`:fa(remainKm)+' km';
+    const barColor=status==='urgent'?'var(--red)':status==='warn'?'var(--orange)':'var(--green)';
+    return `<div class="consumable-row"><div class="c-name">${c.name}</div><div class="c-interval">${fa(c.interval.toLocaleString())} km</div><div class="c-last">${fa(c.lastKm.toLocaleString())} km</div><div class="c-bar"><div style="width:${pct}%;background:${barColor}"></div></div><div class="c-status ${status}">${statusText}</div></div>`;
+  }).join('');
+}
+$('#addConsumableBtn').onclick=()=>{const f=$('#consumableForm');f.hidden=!f.hidden;if(!f.hidden){$('#consumableName').focus()}};
+$('#saveConsumableBtn').onclick=()=>{
+  const name=$('#consumableName').value.trim();const interval=Number($('#consumableInterval').value);const lastKm=Number($('#consumableLastKm').value);
+  if(!name||!interval)return toast('نام و فاصله تعویض الزامی است');
+  const all=consumables();all.push({name,interval,lastKm:lastKm||0,color:'#55dff6'});saveConsumables(all);
+  $('#consumableName').value='';$('#consumableInterval').value='';$('#consumableLastKm').value='';$('#consumableForm').hidden=true;toast('قطعه اضافه شد');
+};
 
 /* ========================= INIT ========================= */
 async function loadData(){

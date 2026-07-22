@@ -354,8 +354,9 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 }
 @media(orientation:landscape) and (max-height:600px){header{height:66px}.vehicle-hero{padding:14px}.logo-box{width:80px;height:80px}.gauge-grid{grid-template-columns:repeat(2,1fr)}.gauge-grid>article{min-height:280px}.gauge-grid object{height:220px}.bottom{grid-template-columns:repeat(4,110px);justify-content:center}}
 </style>
-<link rel="stylesheet" href="https://unpkg.com/@adminkit/core@latest/dist/css/app.css"/>
-<script src="https://unpkg.com/@adminkit/core@latest/dist/js/app.js"></script>
+<link rel="stylesheet" href="./assets/adminkit/css/app.css"/>
+<link rel="stylesheet" href="./assets/adminkit/css/ecu-pulse-rtl.css"/>
+<script defer src="./assets/adminkit/js/app.js"></script>
 </head>
 <body>
 
@@ -415,40 +416,62 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <symbol id="i-ambulance" viewBox="0 0 24 24"><path d="M3 17V7h11v10M14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M9 12h2M10 11v2"/></symbol>
 </svg>
 
-<div class="shell container-fluid">
-<aside>
-<div class="sidebar-brand><div>EP</div><strong>ECU Pulse<small>DIAGEMAN.IR</small></strong></div>
-<nav>
-<button class="active" data-page="mydiag"><i class="bi bi-house-fill"></i>خانه MyDiag</button>
-<button data-page="dashboard"><i class="bi bi-speedometer2"></i>داشبورد</button>
-<button data-page="vehicles"><i class="bi bi-car-front"></i>خودرو</button>
-<button data-page="trips"><i class="bi bi-geo-alt"></i>سفرها</button>
-<button data-page="analysis"><i class="bi bi-activity"></i>تحلیل ماشین من</button>
-<button class="advanced-nav" data-page="procenter"><i class="bi bi-trophy"></i><span>مرکز پیشرفته</span><b id="proNavBadge">قفل</b></button>
-<button data-page="store"><i class="bi bi-trophy"></i>خرید و فعال‌سازی</button>
-<button data-page="errors"><i class="bi bi-exclamation-triangle"></i>خطا و پشتیبانی</button>
-<button data-page="scanner"><i class="bi bi-plug"></i>اسکنر ECU</button>
-<button data-page="sensors"><i class="bi bi-cpu"></i>سنسورهای سازنده</button>
-<button data-page="expenses"><i class="bi bi-wallet2"></i>هزینه‌های خودرو</button>
-<button data-page="maintenance"><i class="bi bi-wrench-adjustable"></i>مدیریت قطعات</button>
-<button data-page="services"><i class="bi bi-shield-check"></i>سرویس‌های خودرویی</button>
-<button data-page="garage"><i class="bi bi-garage"></i>گاراژ شخصی</button>
-<button data-page="servicehistory"><i class="bi bi-clipboard-history"></i>تاریخچه سرویس</button>
-<button data-page="news"><i class="bi bi-newspaper"></i>اخبار و آموزش</button>
-<button data-page="dashsigns"><svg><use href="#dw-engine"/></svg>علائم داشبورد</button>
-<button data-page="gaugegallery"><i class="bi bi-speedometer2"></i>گالری گیج</button>
-<button data-page="settings"><i class="bi bi-gear"></i>تنظیمات</button>
+<div class="wrapper">
+<nav id="sidebar" class="sidebar js-sidebar">
+<div class="sidebar-content js-simplebar">
+<a class="sidebar-brand text-decoration-none" href="#" data-page="mydiag">
+  <span class="align-middle">ECU Pulse</span>
+  <small class="d-block text-white-50 mt-1">DIAGEMAN.IR</small>
+</a>
+<ul class="sidebar-nav">
+<li class="sidebar-item active"><button type="button" class="sidebar-link w-100 text-end" data-page="mydiag"><i class="bi bi-house-fill align-middle"></i><span class="align-middle">خانه MyDiag</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="dashboard"><i class="bi bi-speedometer2 align-middle"></i><span class="align-middle">داشبورد</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="vehicles"><i class="bi bi-car-front align-middle"></i><span class="align-middle">خودرو</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="trips"><i class="bi bi-geo-alt align-middle"></i><span class="align-middle">سفرها</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="analysis"><i class="bi bi-activity align-middle"></i><span class="align-middle">تحلیل ماشین من</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="procenter"><i class="bi bi-trophy align-middle"></i><span class="align-middle"><span>مرکز پیشرفته</span><b id="proNavBadge">قفل</b></span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="store"><i class="bi bi-bag-check align-middle"></i><span class="align-middle">خرید و فعال‌سازی</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="errors"><i class="bi bi-exclamation-triangle align-middle"></i><span class="align-middle">خطا و پشتیبانی</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="scanner"><i class="bi bi-plug align-middle"></i><span class="align-middle">اسکنر ECU</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="sensors"><i class="bi bi-cpu align-middle"></i><span class="align-middle">سنسورهای سازنده</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="expenses"><i class="bi bi-wallet2 align-middle"></i><span class="align-middle">هزینه‌های خودرو</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="maintenance"><i class="bi bi-wrench-adjustable align-middle"></i><span class="align-middle">مدیریت قطعات</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="services"><i class="bi bi-shield-check align-middle"></i><span class="align-middle">سرویس‌های خودرویی</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="garage"><i class="bi bi-car-front-fill align-middle"></i><span class="align-middle">گاراژ شخصی</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="servicehistory"><i class="bi bi-clipboard-history align-middle"></i><span class="align-middle">تاریخچه سرویس</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="news"><i class="bi bi-newspaper align-middle"></i><span class="align-middle">اخبار و آموزش</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="dashsigns"><i class="bi bi-exclamation-diamond align-middle"></i><span class="align-middle">علائم داشبورد</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="gaugegallery"><i class="bi bi-speedometer align-middle"></i><span class="align-middle">گالری گیج</span></button></li>
+<li class="sidebar-item"><button type="button" class="sidebar-link w-100 text-end" data-page="settings"><i class="bi bi-gear align-middle"></i><span class="align-middle">تنظیمات</span></button></li>
+</ul>
+<div class="sidebar-cta">
+  <div class="sidebar-cta-content text-center">
+    <strong id="sidePlan">FREE</strong>
+    <small class="d-block mt-1" id="clearQuotaSide">۵ پاک‌کردن باقی مانده</small>
+  </div>
+</div>
+</div>
 </nav>
-<div class="sidebar-footer><span id="sidePlan">FREE</span><small id="clearQuotaSide">۵ پاک‌کردن باقی مانده</small></div>
-</aside>
 
-<header>
-<button id="menuBtn">☰</button>
-<div><small id="eyebrow">SMART VEHICLE</small><strong id="title">خانه خودرو</strong></div>
-<button class="icon" id="themeBtn"><i class="bi bi-palette"></i></button>
-</header>
-
-<main>
+<div class="main">
+<nav class="navbar navbar-expand navbar-light navbar-bg px-3">
+  <a id="menuBtn" class="sidebar-toggle js-sidebar-toggle me-2" href="#" aria-label="باز و بسته کردن منو">
+    <i class="hamburger align-self-center"></i>
+  </a>
+  <div class="d-flex flex-column align-items-start">
+    <small id="eyebrow" class="text-muted">SMART VEHICLE</small>
+    <strong id="title">خانه خودرو</strong>
+  </div>
+  <div class="navbar-collapse collapse">
+    <ul class="navbar-nav navbar-align">
+      <li class="nav-item">
+        <button class="btn btn-light border-0" id="themeBtn" type="button" aria-label="تغییر تم"><i class="bi bi-palette"></i></button>
+      </li>
+    </ul>
+  </div>
+</nav>
+<main class="content">
+<div class="container-fluid p-0" dir="rtl">
 
 <!-- MYDIAG HOME -->
 <section class="page active mydiag-page" data-page="mydiag">
@@ -526,35 +549,17 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </div>
 <div class="hero-actions"><span class="demo-badge" id="demoBadge">پروفایل دمو</span><span class="online"><i></i><b id="dataModeLabel">داده آزمایشی</b></span><button id="mockToggle">توقف دمو</button></div>
 </article>
-<div class="row g-3">
-<article>
-<header><span>سرعت</span><strong id="speedValue">۰ km/h</strong></header>
-<div class="gauge-svg-wrap" id="speedGauge" style="width:100%;height:280px"></div>
-</article>
-<article>
-<header><span>دور موتور</span><strong id="rpmValue">۰ rpm</strong></header>
-<div class="gauge-svg-wrap" id="rpmGauge" style="width:100%;height:280px"></div>
-</article>
-<article>
-<header><span>دمای آب</span><strong id="coolant">--</strong></header>
-<div class="gauge-svg-wrap" id="coolantGauge" style="width:100%;height:280px"></div>
-</article>
-<article>
-<header><span>ولتاژ باتری</span><strong id="voltage">--</strong></header>
-<div class="gauge-svg-wrap" id="voltageGauge" style="width:100%;height:280px"></div>
-</article>
+<div class="row">
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">سرعت</h5><strong id="speedValue">۰ km/h</strong></div><div class="card-body p-2"><div id="speedGauge" class="adminkit-gauge"></div></div></div></div>
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">دور موتور</h5><strong id="rpmValue">۰ rpm</strong></div><div class="card-body p-2"><div id="rpmGauge" class="adminkit-gauge"></div></div></div></div>
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">دمای آب</h5><strong id="coolant">--</strong></div><div class="card-body p-2"><div id="coolantGauge" class="adminkit-gauge"></div></div></div></div>
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">ولتاژ باتری</h5><strong id="voltage">--</strong></div><div class="card-body p-2"><div id="voltageGauge" class="adminkit-gauge"></div></div></div></div>
 </div>
-<div class="row g-2">
-<article><span>بار موتور</span><strong id="engineLoad">--</strong></article>
-<article><span>مصرف تقریبی</span><strong id="fuelUse">--</strong></article>
-<article><span>سطح بنزین</span><strong id="fuelLevel">--</strong></article>
-<article><span>فشار روغن</span><strong id="oilPressure">--</strong></article>
-</div>
-<div class="row g-2">
-<article><span>دمای آب</span><strong id="coolant">--</strong></article>
-<article><span>ولتاژ</span><strong id="voltage">--</strong></article>
-<article><span>بار موتور</span><strong id="engineLoad">--</strong></article>
-<article><span>مصرف تقریبی</span><strong id="fuelUse">--</strong></article>
+<div class="row g-2 mb-3">
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><div class="d-flex align-items-center"><div class="stat text-primary"><i class="bi bi-activity"></i></div><div class="ms-3"><span class="text-muted">بار موتور</span><h4 id="engineLoad" class="mb-0">--</h4></div></div></div></div></div>
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><div class="d-flex align-items-center"><div class="stat text-success"><i class="bi bi-fuel-pump"></i></div><div class="ms-3"><span class="text-muted">مصرف تقریبی</span><h4 id="fuelUse" class="mb-0">--</h4></div></div></div></div></div>
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><div class="d-flex align-items-center"><div class="stat text-warning"><i class="bi bi-fuel-pump-fill"></i></div><div class="ms-3"><span class="text-muted">سطح بنزین</span><h4 id="fuelLevel" class="mb-0">--</h4></div></div></div></div></div>
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><div class="d-flex align-items-center"><div class="stat text-danger"><i class="bi bi-droplet-half"></i></div><div class="ms-3"><span class="text-muted">فشار روغن</span><h4 id="oilPressure" class="mb-0">--</h4></div></div></div></div></div>
 </div>
 <section class="card">
 <div class="section-title"><div><small>DIAGNOSTIC TROUBLE CODES</small><h2>خطاهای ECU</h2></div><button id="readDtcBtn">خواندن نمایشی</button></div>
@@ -582,13 +587,18 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </div>
 <div class="hero-actions"><span id="vdSegment">—</span><span class="online"><i></i><b id="vdStatus">آماده</b></span><button id="vdActivateBtn">فعال‌سازی پروفایل</button></div>
 </article>
-<div class="row g-3">
-<article><header><span>سرعت</span><strong id="vdSpeed">۰ km/h</strong></header><div class="gauge-svg-wrap" id="vdSpeedGauge" style="width:100%;height:280px"></div></article>
-<article><header><span>دور موتور</span><strong id="vdRpm">۰ rpm</strong></header><div class="gauge-svg-wrap" id="vdRpmGauge" style="width:100%;height:280px"></div></article>
-<article><header><span>دمای آب</span><strong id="vdCoolant">--</strong></header><div class="gauge-svg-wrap" id="vdCoolantGauge" style="width:100%;height:280px"></div></article>
-<article><header><span>ولتاژ باتری</span><strong id="vdVoltage">--</strong></header><div class="gauge-svg-wrap" id="vdVoltageGauge" style="width:100%;height:280px"></div></article>
+<div class="row">
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">سرعت</h5><strong id="vdSpeed">۰ km/h</strong></div><div class="card-body p-2"><div id="vdSpeedGauge" class="adminkit-gauge"></div></div></div></div>
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">دور موتور</h5><strong id="vdRpm">۰ rpm</strong></div><div class="card-body p-2"><div id="vdRpmGauge" class="adminkit-gauge"></div></div></div></div>
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">دمای آب</h5><strong id="vdCoolant">--</strong></div><div class="card-body p-2"><div id="vdCoolantGauge" class="adminkit-gauge"></div></div></div></div>
+<div class="col-12 col-md-6 col-xl-4"><div class="card h-100"><div class="card-header pb-0 d-flex justify-content-between"><h5 class="card-title mb-0">ولتاژ</h5><strong id="vdVoltage">--</strong></div><div class="card-body p-2"><div id="vdVoltageGauge" class="adminkit-gauge"></div></div></div></div>
 </div>
-<div class="row g-2"><article><span>بار موتور</span><strong id="vdLoad">--</strong></article><article><span>مصرف تقریبی</span><strong id="vdFuel">--</strong></article><article><span>سطح بنزین</span><strong id="vdFuelLevel">--</strong></article><article><span>فشار روغن</span><strong id="vdOilPressure">--</strong></article></div>
+<div class="row g-2 mb-3">
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><span class="text-muted">بار موتور</span><h4 id="vdLoad" class="mb-0">--</h4></div></div></div>
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><span class="text-muted">مصرف</span><h4 id="vdFuel" class="mb-0">--</h4></div></div></div>
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><span class="text-muted">سطح بنزین</span><h4 id="vdFuelLevel" class="mb-0">--</h4></div></div></div>
+<div class="col-6 col-lg-3"><div class="card mb-0"><div class="card-body py-3"><span class="text-muted">فشار روغن</span><h4 id="vdOilPressure" class="mb-0">--</h4></div></div></div>
+</div>
 <section class="card"><div class="section-title"><div><small>OBD-II DTC CODES</small><h2>کدهای خطای این مدل</h2></div><button id="vdReadDtc">خواندن کدها</button></div><div class="d-grid gap-2" id="vdDtcList"></div></section>
 </div>
 <div class="vd-side">
@@ -868,7 +878,7 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <div class="page-head"><div><small>APPEARANCE & API</small><h1>تنظیمات</h1></div></div>
 <section class="card settings-grid">
 <label>تم<select id="themeSelect">
-<option value="dark">سیاه</option><option value="ivory">سفید شیری</option><option value="mydiag">MyDiag آبی</option>
+<option value="adminkit">AdminKit رسمی</option><option value="dark">سیاه</option><option value="ivory">سفید شیری</option><option value="mydiag">MyDiag آبی</option>
 <option value="eps-neon">EPS نئون آماری</option><option value="eps-color">EPS رنگی متریک</option>
 <option value="eps-mobile">EPS موبایل گرادیانی</option><option value="eps-industrial">EPS صنعتی</option><option value="figma-cluster">Figma کلاستر</option>
 </select></label>
@@ -877,6 +887,7 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <label>آدرس محلی API<input id="localApi" value="http://127.0.0.1:4030"/></label>
 <button id="saveSettings">ذخیره تنظیمات</button>
 </section></section>
+</div>
 </main>
 
 <nav class="bottom">
@@ -886,6 +897,7 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <button data-page="analysis"><i class="bi bi-activity"></i><span>تحلیل</span></button>
 <button data-page="procenter"><i class="bi bi-trophy"></i><span>پیشرفته</span></button>
 </nav>
+</div>
 </div>
 
 <div class="dialog" hidden id="errorDialog" role="dialog">
@@ -898,8 +910,9 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 /* ========================= APP CORE ========================= */
 const $=(s,p=document)=>p.querySelector(s),$$=(s,p=document)=>[...p.querySelectorAll(s)];
 const APP_VERSION='0.13.0';
+if(localStorage.getItem('ecuAdminKitOfficial')!=='1'){localStorage.setItem('ecuTheme','adminkit');localStorage.setItem('ecuAdminKitOfficial','1');}
 const DEV_PRO_CODE='1234';
-const THEME_CYCLE=['mydiag','dark','ivory','eps-neon','eps-color','eps-mobile','eps-industrial','figma-cluster'];
+const THEME_CYCLE=['adminkit','mydiag','dark','ivory','eps-neon','eps-color','eps-mobile','eps-industrial','figma-cluster'];
 const hasSavedVehicle=localStorage.getItem('ecuVehicle')!==null;
 
 const state={
@@ -968,6 +981,7 @@ async function api(path,opt={}){const token=await ensureToken();const base=state
 function go(page){
   $$('.page').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
   $$('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
+  $$('.sidebar-item').forEach(x=>x.classList.toggle('active',x.querySelector('[data-page]')?.dataset.page===page));
   const meta={mydiag:['SMART VEHICLE','خانه خودرو'],drivingstyle:['DRIVING STYLE','سبک رانندگی'],parking:['PARKING MEMORY','محل پارک'],dashcam:['DASHCAM','دوربین خودرو'],dashboard:['LIVE VEHICLE','داشبورد خودرو'],vehicles:['VEHICLE PROFILE','انتخاب خودرو'],vehicledetail:['VEHICLE DETAIL','پروفایل خودرو'],trips:['GPS TRIP LOGGER','سفرها'],analysis:['DIAGEMAN API','تحلیل ماشین من'],procenter:['ADVANCED CENTER','مرکز نسخه پیشرفته'],store:['UPGRADE','خرید و فعال‌سازی'],errors:['FAULT CENTER','خطا و پشتیبانی'],scanner:['ELM327 CONSOLE','اسکنر و کنسول ECU'],sensors:['MANUFACTURER DATA','سنسورهای سازنده'],expenses:['EXPENSE TRACKER','هزینه‌های خودرو'],maintenance:['VEHICLE MANAGEMENT','مدیریت قطعات'],services:['VEHICLE SERVICES','سرویس‌های خودرویی'],garage:['PERSONAL GARAGE','گاراژ شخصی'],servicehistory:['SERVICE HISTORY','تاریخچه سرویس'],news:['NEWS & LEARN','اخبار و آموزش'],dashsigns:['DASHBOARD SIGNS','علائم داشبورد'],gaugegallery:['GAUGE GALLERY','گالری گیج'],settings:['SETTINGS','تنظیمات']};
   const selected=meta[page]||meta.dashboard;$('#eyebrow').textContent=selected[0];$('#title').textContent=selected[1];
   $('aside').classList.remove('open');
@@ -988,7 +1002,7 @@ function go(page){
 $$('button[data-page], [role="button"][data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));
 $$('.mydiag-menu-card[data-target]').forEach(b=>b.onclick=()=>{go(b.dataset.target);if(b.dataset.anchor)setTimeout(()=>document.getElementById(b.dataset.anchor)?.scrollIntoView({behavior:'smooth',block:'center'}),120)});
 $$('.mydiag-menu-card[data-special]').forEach(b=>b.onclick=()=>go(b.dataset.special.replace('-','')));
-$('#menuBtn').onclick=()=>$('aside').classList.toggle('open');
+// Sidebar toggling is handled by the official AdminKit js-sidebar module.
 
 /* ========================= THEME ========================= */
 function applyTheme(v){
@@ -1088,7 +1102,7 @@ var gaugeCharts={};
 function makeGaugeOpt(id,min,max,splitNum,colors,unit,needleColor){
   const theme=document.documentElement.dataset.theme;
   const isFigma=theme==='figma-cluster';
-  const isDark=theme==='dark'||!theme||theme==='eps-neon'||theme==='eps-color'||theme==='eps-mobile'||theme==='eps-industrial';
+  const isDark=theme==='dark'||theme==='eps-neon'||theme==='eps-color'||theme==='eps-mobile'||theme==='eps-industrial';
   const axisColor=isFigma?'#374151':(isDark?'#8ea0b5':'#6f8498');
   const textColor=isFigma?'#ffffff':(isDark?'#f7f9fb':'#19324a');
   if(isFigma){
@@ -1180,7 +1194,7 @@ $('#activateDemo').onclick=activateDemo;$('#mockToggle').onclick=()=>state.mockT
 
 /* ========================= DTC ========================= */
 $('#readDtcBtn').onclick=()=>{state.dtcs=(state.demoMode?state.demo.scenario.dtcs:[{code:'P0133',kind:'STORED',description:'پاسخ کند سنسور اکسیژن بانک ۱'},{code:'P0420',kind:'PENDING',description:'بازده کاتالیست پایین‌تر از آستانه'}]).map(x=>({...x}));renderDtcs()};
-function renderDtcs(){$('#dtcList').innerHTML=state.dtcs.length?state.dtcs.map((x,i)=>`<article class="dtc-item"><strong>${x.code}</strong><div style="flex:1"><p>${x.description}<br>${x.kind}</p></div><button class="btn btn-danger btn-sm" style="border:1px solid color-mix(in srgb,var(--red) 35%,transparent);background:color-mix(in srgb,var(--red) 8%,transparent);color:var(--red);border-radius:10px;padding:6px 12px;font-size:10px;cursor:pointer;white-space:nowrap" onclick="clearSingleDtc(${i})"><i class="bi bi-trash"></i> پاک‌کردن</button></article>`).join(''):'<p class="note">هنوز کدی خوانده نشده است.</p>'}
+function renderDtcs(){$('#dtcList').innerHTML=state.dtcs.length?state.dtcs.map((x,i)=>`<div class="list-group-item d-flex align-items-start gap-3"><code class="text-warning fw-bold">${x.code}</code><div class="flex-grow-1"><p class="mb-0 text-muted">${x.description}</p><small class="badge bg-secondary mt-1">${x.kind}</small></div><button class="btn btn-outline-danger btn-sm ms-auto" onclick="clearSingleDtc(${i})"><i class="bi bi-trash"></i> پاک‌کردن</button></div>`).join(''):'<p class="text-muted mb-0">هنوز کدی خوانده نشده است.</p>'}
 async function clearDtcs(){if(!state.dtcs.length)return toast('خطایی برای پاک‌کردن وجود ندارد');if(!confirm('موتور خاموش و سوییچ باز است؟'))return;if(state.demoMode){await new Promise(r=>setTimeout(r,450));state.dtcs=[];renderDtcs();return toast('خطاهای دمو پاک شدند')}try{const a=await api('/api/v1/actions/dtc-clear/authorize',{method:'POST',body:'{}'}).then(r=>r.json());await new Promise(r=>setTimeout(r,500));state.dtcs=[];renderDtcs();await fetchTimeout(`${state.activeApi}/api/v1/actions/dtc-clear/complete`,{method:'POST',headers:{'content-type':'application/json',authorization:`Bearer ${a.actionToken}`},body:JSON.stringify({success:true})});toast('خطاها پاک شدند');await refreshEntitlement()}catch(e){reportError(e,{feature:'clear-dtc'})}}
 $('#clearDtcBtn').onclick=clearDtcs;
 function clearSingleDtc(index){
@@ -1791,6 +1805,7 @@ async function loadData(){
   renderErrors();refreshEntitlement().catch(()=>{});
   return true;
 }
+normalizeAdminKitComponents();
 loadData();
 </script>
 </body>

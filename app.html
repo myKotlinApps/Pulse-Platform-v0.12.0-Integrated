@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="fa">
+<html dir="rtl" lang="fa" data-theme="adminkit">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<meta name="theme-color" content="#07111f"/>
+<meta name="theme-color" content="#222e3c"/>
 <title>ECU Pulse — دیاگ هوشمند خودرو</title>
 <link crossorigin href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
 <link crossorigin href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
@@ -11,14 +11,7 @@
 <script crossorigin src="https://fastly.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
-:root{--bg:#07111f;--panel:#0e2135;--panel2:#132a42;--text:#f7f9fb;--muted:#8ea0b5;--line:rgba(255,255,255,.09);--cyan:#55dff6;--blue:#3ca6ff;--green:#55d99a;--orange:#ff9a54;--red:#ff6f7d;--violet:#b28eff;--shadow:0 24px 70px rgba(0,0,0,.28);--radius:24px}
-html[data-theme=mydiag]{--bg:#eef4fa;--panel:#ffffff;--panel2:#f5f9fd;--text:#19324a;--muted:#6f8498;--line:rgba(27,74,111,.13);--cyan:#1aa8ef;--blue:#157bd3;--green:#2bbd87;--orange:#ff8a3d;--red:#ef5f69;--violet:#7c5ce7;--shadow:0 18px 45px rgba(31,83,122,.12);--radius:22px}
-html[data-theme=ivory]{--bg:#f5f0e6;--panel:#fffaf1;--panel2:#f0e8da;--text:#1d2731;--muted:#6e7781;--line:rgba(29,39,49,.12);--cyan:#047f9c;--blue:#1675bd;--green:#21885c;--orange:#bf5f1d;--red:#c53f4d;--violet:#6c42b4;--shadow:0 18px 50px rgba(77,62,39,.12)}
-html[data-theme="eps-neon"]{--bg:#09041a;--panel:#100833;--panel2:#160d40;--text:#e8def8;--muted:#8b7fb8;--line:rgba(180,150,255,.12);--cyan:#00f2fe;--blue:#4facfe;--green:#00e676;--orange:#ff9100;--red:#ff1744;--violet:#d500f9;--shadow:0 24px 70px rgba(80,0,180,.22)}
-html[data-theme="eps-color"]{--bg:#0d0221;--panel:#1a0533;--panel2:#220840;--text:#f0e6ff;--muted:#9e8cc4;--line:rgba(160,100,255,.14);--cyan:#00e5ff;--blue:#448aff;--green:#69f0ae;--orange:#ffab40;--red:#ff5252;--violet:#e040fb;--shadow:0 24px 70px rgba(80,20,180,.25)}
-html[data-theme="eps-mobile"]{--bg:#0a0a16;--panel:#161630;--panel2:#1e1e3a;--text:#e8e0f0;--muted:#8880aa;--line:rgba(130,110,190,.11);--cyan:#00d4ff;--blue:#5c8aff;--green:#00e676;--orange:#ff9800;--red:#ff3366;--violet:#c840e9;--shadow:0 20px 60px rgba(60,10,130,.18)}
-html[data-theme="eps-industrial"]{--bg:#0c1218;--panel:#17202a;--panel2:#1e2a36;--text:#e8ebf0;--muted:#728394;--line:rgba(130,160,190,.10);--cyan:#00b8d4;--blue:#2979ff;--green:#00c853;--orange:#ff6d00;--red:#d50000;--violet:#6200ea;--shadow:0 18px 50px rgba(0,0,0,.35)}
-html[data-theme="figma-cluster"]{--bg:#000000;--panel:#0a0a0a;--panel2:#111111;--text:#ffffff;--muted:#6b7280;--line:rgba(255,255,255,.08);--cyan:#3b82f6;--blue:#3b82f6;--green:#10b981;--orange:#f59e0b;--red:#ef4444;--violet:#8b5cf6;--shadow:0 8px 32px rgba(0,0,0,.6);--radius:20px}
+:root{--bg:#f5f7fb;--panel:#ffffff;--panel2:#f3f6f9;--text:#495057;--muted:#6c757d;--line:#dee2e6;--cyan:#3b7ddd;--blue:#3b7ddd;--green:#1cbb8c;--orange:#fcb92c;--red:#dc3545;--violet:#6f42c1;--shadow:0 0 .875rem 0 rgba(33,37,41,.08);--radius:.25rem}
 *{box-sizing:border-box}html{background:var(--bg)}
 body{margin:0;background:radial-gradient(circle at 85% -10%,color-mix(in srgb,var(--blue) 18%,transparent),transparent 35%),var(--bg);color:var(--text);font-family:Vazirmatn,Tahoma,Arial,sans-serif;min-height:100vh}
 .sprite{position:absolute;width:0;height:0;overflow:hidden}
@@ -31,7 +24,7 @@ aside{position:fixed;z-index:50;right:max(0px,calc((100vw - 1560px)/2));top:0;wi
 .brand strong,.brand small{display:block}.brand small{font-size:9px;color:var(--muted);margin-top:3px}
 aside nav{display:grid;gap:4px;margin-top:16px;overflow-y:auto;flex:1 1 auto;min-height:0;padding-bottom:8px}
 aside nav::-webkit-scrollbar{width:4px}aside nav::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
-aside nav button,.bottom button{border:0;background:transparent;color:var(--muted);display:flex;align-items:center;gap:12px;padding:13px;border-radius:15px}
+aside nav button{border:0;background:transparent;color:var(--muted);display:flex;align-items:center;gap:12px;padding:13px;border-radius:15px}
 aside nav button.active,aside nav button:hover{background:color-mix(in srgb,var(--cyan) 12%,transparent);color:var(--cyan)}
 .plan-card{margin-top:auto;border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.035);flex-shrink:0}
 .plan-card span,.plan-card small{display:block}.plan-card span{color:var(--cyan);font-weight:800}.plan-card small{font-size:9px;color:var(--muted);margin-top:5px}
@@ -144,7 +137,7 @@ header strong{font-size:17px}main{padding:2px clamp(18px,4vw,46px) 50px}
 .dialog button{flex:1;padding:10px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--text)}
 .dialog{overscroll-behavior:contain}.dialog[hidden]{display:none!important}.dialog>.dialog-panel{position:relative}
 #toast{position:fixed;z-index:110;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;background:#eafff5;color:#06301f;padding:11px 16px;border-radius:13px;transition:.2s}
-#toast.show{opacity:1;transform:translate(-50%,0)}.bottom{display:none}
+#toast.show{opacity:1;transform:translate(-50%,0)}
 .advanced-nav{position:relative}.advanced-nav b{margin-right:auto;font-size:8px;padding:3px 7px;border-radius:999px;border:1px solid var(--line);color:var(--orange)}
 .advanced-nav.unlocked b{color:var(--green);border-color:color-mix(in srgb,var(--green) 38%,transparent)}
 .demo-badge{border:1px solid color-mix(in srgb,var(--violet) 45%,transparent);background:color-mix(in srgb,var(--violet) 13%,transparent);color:var(--violet);border-radius:999px;padding:8px 11px;font-size:9px;font-weight:700}
@@ -157,12 +150,6 @@ header strong{font-size:17px}main{padding:2px clamp(18px,4vw,46px) 50px}
 .trip-car-pin svg{width:52px;height:52px;display:block}
 
 /* MyDiag */
-html[data-theme=mydiag] body{background:linear-gradient(180deg,#eaf3fb 0,#f7fbfe 32%,#eef5fa 100%)}
-html[data-theme=mydiag] aside{background:linear-gradient(180deg,#153b5d,#102d48);color:#fff}
-html[data-theme=mydiag] aside nav button{color:#b8cce0}
-html[data-theme=mydiag] aside nav button.active,html[data-theme=mydiag] aside nav button:hover{background:#ffffff18;color:#fff}
-html[data-theme=mydiag] header{background:linear-gradient(180deg,rgba(238,244,250,.98),rgba(238,244,250,.82),transparent)}
-html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#1565c0);color:#fff}
 .mydiag-page{max-width:1220px;margin:auto}
 .mydiag-hero{border-radius:28px;padding:25px 28px;background:linear-gradient(135deg,#123a5c,#0e2944 68%,#15547a);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:22px;box-shadow:0 24px 60px rgba(12,49,79,.22);position:relative;overflow:hidden}
 .mydiag-hero:after{content:"";position:absolute;left:-80px;top:-100px;width:310px;height:310px;border-radius:50%;background:radial-gradient(circle,#28b7f555,transparent 68%)}
@@ -347,12 +334,10 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 @media(max-width:1000px){.mydiag-menu-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:720px){
   main{padding-bottom:95px}.vehicle-hero{align-items:flex-start}.vehicle-id{align-items:flex-start}.logo-box{width:92px;height:92px;border-radius:24px}.vehicle-id h1{font-size:21px}.hero-actions{flex-direction:column}.gauge-grid{grid-template-columns:1fr}.metric-grid{grid-template-columns:repeat(2,1fr)}.vehicle-grid{grid-template-columns:repeat(2,1fr)}.selectors,.coupon,.settings-grid{grid-template-columns:1fr}.offer-grid{grid-template-columns:1fr}.advanced-grid{grid-template-columns:1fr}.dev-unlock,.store-dev-access{grid-template-columns:1fr}.dev-unlock-form,.store-dev-access>div:last-child{grid-template-columns:1fr}
-  .bottom{position:fixed;z-index:45;bottom:0;right:0;left:0;display:grid;grid-template-columns:repeat(5,1fr);padding:7px 9px max(8px,env(safe-area-inset-bottom));background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
-  .bottom button{flex-direction:column;gap:3px;padding:6px;font-size:9px}.bottom button.active{color:var(--cyan)}
   .mydiag-hero{align-items:flex-start}.mydiag-car-status{align-items:flex-start}.mydiag-logo-ring{width:82px;height:82px;border-radius:24px}.mydiag-car-status h1{font-size:21px}.mydiag-connect{align-items:stretch}.mydiag-summary{grid-template-columns:repeat(2,1fr)}.mydiag-menu-grid{grid-template-columns:repeat(2,1fr)}.mydiag-menu-card{min-height:145px}.mydiag-score-card,.parking-card{grid-template-columns:1fr}.mydiag-style-grid{grid-template-columns:repeat(2,1fr)}
   .map-stage{min-height:390px}.trip-head-actions button{flex:1}.map-toolbar{font-size:10px;height:auto;min-height:48px;gap:8px;padding-block:6px}.map-toolbar-actions{gap:5px}.map-toolbar-actions button{font-size:10px;padding-inline:7px}.offline-labels text{font-size:14px}.selectors button{grid-column:auto}
 }
-@media(orientation:landscape) and (max-height:600px){header{height:66px}.vehicle-hero{padding:14px}.logo-box{width:80px;height:80px}.gauge-grid{grid-template-columns:repeat(2,1fr)}.gauge-grid>article{min-height:280px}.gauge-grid object{height:220px}.bottom{grid-template-columns:repeat(4,110px);justify-content:center}}
+@media(orientation:landscape) and (max-height:600px){header{height:66px}.vehicle-hero{padding:14px}.logo-box{width:80px;height:80px}.gauge-grid{grid-template-columns:repeat(2,1fr)}.gauge-grid>article{min-height:280px}.gauge-grid object{height:220px}}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/sandstone/bootstrap.min.css"/>
@@ -372,7 +357,6 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 7V4h3M17 4h3v3M20 17v3h-3M7 20H4v-3M7 12h10M12 7v10"/></symbol>
 <symbol id="i-crown" viewBox="0 0 24 24"><path d="m3 7 5 4 4-7 4 7 5-4-2 12H5z"/></symbol>
 <symbol id="i-error" viewBox="0 0 24 24"><path d="M12 3 2 21h20zM12 9v5M12 18h.01"/></symbol>
-<symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
 <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.3 1A7 7 0 0 0 15 6l-.3-2.5h-4L10.4 6A7 7 0 0 0 8.7 7L6.4 6l-2 3.4L6.3 11a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.3-1A7 7 0 0 0 10 18l.3 2.5h4L14.6 18a7 7 0 0 0 1.7-1l2.3 1 2-3.4-1.9-1.5a7 7 0 0 0 .3-1.1z"/></symbol>
 <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 15a8 8 0 1 1 16 0"/><path d="m12 15 4-5"/><circle cx="12" cy="15" r="1"/></symbol>
 <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v6h6M12 7v5l3 2"/></symbol>
@@ -455,22 +439,21 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </div>
 </div>
 </nav>
+<button id="sidebarBackdrop" class="sidebar-backdrop" type="button" aria-label="بستن منو" hidden></button>
 
 <div class="main">
 <nav class="navbar navbar-expand navbar-light navbar-bg px-3">
-  <a id="menuBtn" class="sidebar-toggle js-sidebar-toggle me-2" href="#" aria-label="باز و بسته کردن منو">
+  <button id="menuBtn" class="sidebar-toggle js-sidebar-toggle btn btn-link p-0 me-2" type="button" aria-label="باز و بسته کردن منو" aria-controls="sidebar" aria-expanded="false">
     <i class="hamburger align-self-center"></i>
-  </a>
+  </button>
   <div class="d-flex flex-column align-items-start">
     <small id="eyebrow" class="text-muted">SMART VEHICLE</small>
     <strong id="title">خانه خودرو</strong>
   </div>
   <div class="navbar-collapse collapse">
-    <ul class="navbar-nav navbar-align">
-      <li class="nav-item">
-        <button class="btn btn-light border-0" id="themeBtn" type="button" aria-label="تغییر تم"><i class="bi bi-palette"></i></button>
-      </li>
-    </ul>
+    <div class="navbar-nav navbar-align">
+      <span class="adminkit-theme-badge"><i class="bi bi-check-circle-fill"></i> AdminKit</span>
+    </div>
   </div>
 </nav>
 <main class="content">
@@ -878,13 +861,9 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 
 <!-- SETTINGS -->
 <section class="page" data-page="settings">
-<div class="page-head"><div><small>APPEARANCE & API</small><h1>تنظیمات</h1></div></div>
+<div class="page-head"><div><small>CONNECTION &amp; API</small><h1>تنظیمات</h1></div></div>
 <section class="card settings-grid">
-<label>تم<select id="themeSelect">
-<option value="adminkit">AdminKit رسمی</option><option value="dark">سیاه</option><option value="ivory">سفید شیری</option><option value="mydiag">MyDiag آبی</option>
-<option value="eps-neon">EPS نئون آماری</option><option value="eps-color">EPS رنگی متریک</option>
-<option value="eps-mobile">EPS موبایل گرادیانی</option><option value="eps-industrial">EPS صنعتی</option><option value="figma-cluster">Figma کلاستر</option>
-</select></label>
+<div class="adminkit-theme-lock"><span>ظاهر برنامه</span><strong><i class="bi bi-check-circle-fill"></i> AdminKit رسمی</strong></div>
 <label>وضعیت دسترسی<input id="planStatusInput" readonly value="رایگان"/></label>
 <label>آدرس اصلی API<input id="remoteApi" value="https://diageman.ir"/></label>
 <label>آدرس محلی API<input id="localApi" value="http://127.0.0.1:4030"/></label>
@@ -893,13 +872,6 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </div>
 </main>
 
-<nav class="bottom">
-<button class="active" data-page="mydiag"><i class="bi bi-house-fill"></i><span>خانه</span></button>
-<button data-page="dashboard"><i class="bi bi-speedometer2"></i><span>داشبورد</span></button>
-<button data-page="trips"><i class="bi bi-geo-alt"></i><span>سفر</span></button>
-<button data-page="analysis"><i class="bi bi-activity"></i><span>تحلیل</span></button>
-<button data-page="procenter"><i class="bi bi-trophy"></i><span>پیشرفته</span></button>
-</nav>
 </div>
 </div>
 
@@ -913,15 +885,15 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 /* ========================= APP CORE ========================= */
 const $=(s,p=document)=>p.querySelector(s),$$=(s,p=document)=>[...p.querySelectorAll(s)];
 const APP_VERSION='0.13.0';
-if(localStorage.getItem('ecuAdminKitOfficial')!=='1'){localStorage.setItem('ecuTheme','adminkit');localStorage.setItem('ecuAdminKitOfficial','1');}
 const DEV_PRO_CODE='1234';
-const THEME_CYCLE=['adminkit','mydiag','dark','ivory','eps-neon','eps-color','eps-mobile','eps-industrial','figma-cluster'];
+const APP_THEME='adminkit';
+localStorage.setItem('ecuTheme',APP_THEME);
 const hasSavedVehicle=localStorage.getItem('ecuVehicle')!==null;
 
 const state={
   data:null,tiers:null,logos:null,demo:null,
   plan:localStorage.getItem('ecuDevProUnlocked')==='true'?'pro':'free',
-  theme:localStorage.getItem('ecuTheme')||'dark',
+  theme:APP_THEME,
   vehicleIndex:Number(localStorage.getItem('ecuVehicle')||0),
   demoMode:localStorage.getItem('ecuDemoMode')!==null?localStorage.getItem('ecuDemoMode')==='true':!hasSavedVehicle,
   customLogo:localStorage.getItem('ecuCustomLogo')||'',
@@ -934,7 +906,7 @@ const state={
 };
 const installationId=localStorage.getItem('ecuInstallationId')||crypto.randomUUID();
 localStorage.setItem('ecuInstallationId',installationId);
-document.documentElement.dataset.theme=state.theme;
+document.documentElement.dataset.theme=APP_THEME;
 
 /* ========================= FAULTS & ERRORS ========================= */
 class AppFault extends Error{constructor(code,title,detail,context={}){super(detail||title);this.name='AppFault';this.code=code;this.title=title;this.detail=detail||title;this.context=context}}
@@ -981,13 +953,32 @@ async function ensureToken(force=false){
 async function api(path,opt={}){const token=await ensureToken();const base=state.activeApi||apiBases()[0];return fetchTimeout(`${base}${path}`,{...opt,headers:{'content-type':'application/json',authorization:`Bearer ${token}`,...opt.headers}},10000,1)}
 
 /* ========================= NAVIGATION ========================= */
+const sidebar=$('#sidebar');
+const sidebarBackdrop=$('#sidebarBackdrop');
+const mobileSidebarQuery=window.matchMedia('(max-width: 991.98px)');
+function syncSidebarState(){
+  const opened=mobileSidebarQuery.matches&&sidebar?.classList.contains('collapsed');
+  sidebarBackdrop.hidden=!opened;
+  document.body.classList.toggle('sidebar-open',Boolean(opened));
+  $('#menuBtn').setAttribute('aria-expanded',String(Boolean(opened)));
+}
+function closeMobileSidebar(){
+  if(!mobileSidebarQuery.matches)return;
+  sidebar?.classList.remove('collapsed');
+  syncSidebarState();
+}
+$('#menuBtn').addEventListener('click',()=>setTimeout(syncSidebarState,0));
+sidebarBackdrop.addEventListener('click',closeMobileSidebar);
+mobileSidebarQuery.addEventListener?.('change',syncSidebarState);
+window.addEventListener('keydown',event=>{if(event.key==='Escape')closeMobileSidebar()});
+
 function go(page){
   $$('.page').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
   $$('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
   $$('.sidebar-item').forEach(x=>x.classList.toggle('active',x.querySelector('[data-page]')?.dataset.page===page));
   const meta={mydiag:['SMART VEHICLE','خانه خودرو'],drivingstyle:['DRIVING STYLE','سبک رانندگی'],parking:['PARKING MEMORY','محل پارک'],dashcam:['DASHCAM','دوربین خودرو'],dashboard:['LIVE VEHICLE','داشبورد خودرو'],vehicles:['VEHICLE PROFILE','انتخاب خودرو'],vehicledetail:['VEHICLE DETAIL','پروفایل خودرو'],trips:['GPS TRIP LOGGER','سفرها'],analysis:['DIAGEMAN API','تحلیل ماشین من'],procenter:['ADVANCED CENTER','مرکز نسخه پیشرفته'],store:['UPGRADE','خرید و فعال‌سازی'],errors:['FAULT CENTER','خطا و پشتیبانی'],scanner:['ELM327 CONSOLE','اسکنر و کنسول ECU'],sensors:['MANUFACTURER DATA','سنسورهای سازنده'],expenses:['EXPENSE TRACKER','هزینه‌های خودرو'],maintenance:['VEHICLE MANAGEMENT','مدیریت قطعات'],services:['VEHICLE SERVICES','سرویس‌های خودرویی'],garage:['PERSONAL GARAGE','گاراژ شخصی'],servicehistory:['SERVICE HISTORY','تاریخچه سرویس'],news:['NEWS & LEARN','اخبار و آموزش'],dashsigns:['DASHBOARD SIGNS','علائم داشبورد'],gaugegallery:['GAUGE GALLERY','گالری گیج'],settings:['SETTINGS','تنظیمات']};
   const selected=meta[page]||meta.dashboard;$('#eyebrow').textContent=selected[0];$('#title').textContent=selected[1];
-  $('aside').classList.remove('open');
+  closeMobileSidebar();
   if(page==='trips')setTimeout(async()=>{await initMap();previewSelectedTrip();state.map?.invalidateSize?.(true)},80);
   if(page==='dashboard')setTimeout(()=>{initEChartsGauges();Object.values(gaugeCharts).forEach(c=>c.resize())},100);
   if(page==='store')loadOffers();
@@ -1002,30 +993,10 @@ function go(page){
   if(page==='dashsigns')renderDashSigns();
   if(page==='gaugegallery')setTimeout(initGalleryGauge,100);
 }
-$$('button[data-page], [role="button"][data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));
+$$('button[data-page], a[data-page], [role="button"][data-page]').forEach(b=>b.onclick=event=>{event?.preventDefault();go(b.dataset.page)});
 $$('.mydiag-menu-card[data-target]').forEach(b=>b.onclick=()=>{go(b.dataset.target);if(b.dataset.anchor)setTimeout(()=>document.getElementById(b.dataset.anchor)?.scrollIntoView({behavior:'smooth',block:'center'}),120)});
 $$('.mydiag-menu-card[data-special]').forEach(b=>b.onclick=()=>go(b.dataset.special.replace('-','')));
 // Sidebar toggling is handled by the official AdminKit js-sidebar module.
-
-/* ========================= THEME ========================= */
-function applyTheme(v){
-  state.theme=THEME_CYCLE.includes(v)?v:'dark';
-  document.documentElement.dataset.theme=state.theme;
-  localStorage.setItem('ecuTheme',state.theme);
-  if($('#themeSelect'))$('#themeSelect').value=state.theme;
-  // Re-init gauges when theme changes
-  if(typeof echarts!=='undefined'){
-    Object.values(gaugeCharts).forEach(c=>c.dispose());
-    Object.values(vdGauges).forEach(c=>c.dispose());
-    gaugeCharts={};vdGauges={};
-    setTimeout(()=>{
-      if(state.currentPage==='dashboard'){initEChartsGauges();updateLiveDisplay()}
-      if(state.currentPage==='vehicledetail'&&vdIndex!=null){renderVehicleDetail(document.getElementById('pageContainer'))}
-      if(state.currentPage==='gaugegallery'){initGalleryGauge()}
-    },50);
-  }
-}
-$('#themeBtn').onclick=()=>{const i=THEME_CYCLE.indexOf(state.theme);applyTheme(THEME_CYCLE[(i+1)%THEME_CYCLE.length])};
 
 /* ========================= BRAND RULES ========================= */
 const brandRules=[
@@ -1103,29 +1074,8 @@ $('#logoInput').onchange=e=>{const file=e.target.files[0];if(!file)return;if(fil
 /* ========================= GAUGE / LIVE DATA ========================= */
 var gaugeCharts={};
 function makeGaugeOpt(id,min,max,splitNum,colors,unit,needleColor){
-  const theme=document.documentElement.dataset.theme;
-  const isFigma=theme==='figma-cluster';
-  const isDark=theme==='dark'||theme==='eps-neon'||theme==='eps-color'||theme==='eps-mobile'||theme==='eps-industrial';
-  const axisColor=isFigma?'#374151':(isDark?'#8ea0b5':'#6f8498');
-  const textColor=isFigma?'#ffffff':(isDark?'#f7f9fb':'#19324a');
-  if(isFigma){
-    // Figma Cluster: minimal, no tick numbers, thin ring, large center text
-    return{
-      type:'gauge',radius:'85%',center:['50%','50%'],
-      startAngle:90,endAngle:-270,min:min,max:max,splitNumber:splitNum,
-      progress:{show:true,width:8,roundCap:true,itemStyle:{color:needleColor}},
-      axisLine:{lineStyle:{width:8,color:[[1,'#1a1a1a']]}},
-      pointer:{show:false},
-      anchor:{show:false},
-      axisTick:{show:false},
-      splitLine:{show:false},
-      axisLabel:{show:false},
-      title:{show:false},
-      detail:{valueAnimation:true,formatter:function(v){return'{a|'+Math.round(v)+'}\n{b|'+unit+'}'},color:textColor,fontSize:36,fontWeight:800,offsetCenter:[0,0],
-        rich:{a:{fontSize:42,color:textColor,fontWeight:800,fontFamily:'SF Mono,monospace',lineHeight:40},b:{fontSize:12,color:axisColor,padding:[4,0,0,0]}}},
-      data:[{value:0}]
-    };
-  }
+  const axisColor='#6c757d';
+  const textColor='#495057';
   return {
     type:'gauge',radius:'90%',center:['50%','58%'],
     startAngle:200,endAngle:-20,
@@ -1300,7 +1250,7 @@ async function sendError(id){const item=state.errors.find(x=>x.id===id);if(!item
 $('#sendAllErrors').onclick=async()=>{for(const e of state.errors.filter(x=>!x.sent))await sendError(e.id)};
 
 /* ========================= SETTINGS ========================= */
-$('#saveSettings').onclick=()=>{localStorage.setItem('ecuRemoteApi',$('#remoteApi').value.trim());localStorage.setItem('ecuLocalApi',$('#localApi').value.trim());applyTheme($('#themeSelect').value);state.token=null;applyPlan();toast('تنظیمات ذخیره شد')};
+$('#saveSettings').onclick=()=>{localStorage.setItem('ecuRemoteApi',$('#remoteApi').value.trim());localStorage.setItem('ecuLocalApi',$('#localApi').value.trim());state.token=null;applyPlan();toast('تنظیمات ذخیره شد')};
 
 /* ========================= PRO PLAN ========================= */
 function setDevelopmentPlan(pro){state.plan=pro?'pro':'free';localStorage.setItem('ecuDevProUnlocked',String(pro));state.token=null;applyPlan();toast(pro?'نسخه پیشرفته آزمایشی فعال شد':'نسخه رایگان فعال شد')}
@@ -1709,7 +1659,7 @@ function renderDashSigns(){
 /* ========================= GAUGE GALLERY ========================= */
 var galleryChart=null;var galleryStyle=1;
 function getGaugeStyleOpt(style,val){
-  const isDark=document.documentElement.dataset.theme==='dark'||!document.documentElement.dataset.theme;
+  const isDark=false;
   const ac=isDark?'#8ea0b5':'#6f8498',tc=isDark?'#f7f9fb':'#19324a';
   const v=Number(val)||0;
   if(style===1){
@@ -1802,7 +1752,7 @@ async function loadData(){
   setTimeout(initEChartsGauges,200);
   setTimeout(()=>{Object.values(gaugeCharts).forEach(c=>c.resize())},500);
   if(state.plan==='pro')applyPlan();
-  const setVal=()=>{$('#themeSelect').value=state.theme;$('#remoteApi').value=localStorage.getItem('ecuRemoteApi')||'https://diageman.ir';$('#localApi').value=localStorage.getItem('ecuLocalApi')||'http://127.0.0.1:4030'};setVal();
+  const setVal=()=>{$('#remoteApi').value=localStorage.getItem('ecuRemoteApi')||'https://diageman.ir';$('#localApi').value=localStorage.getItem('ecuLocalApi')||'http://127.0.0.1:4030'};setVal();
   if(state.demoMode||!localStorage.getItem('ecuVehicle'))startDemo();else syncDemoButtons();
   const parking=localStorage.getItem('ecuParking');if(parking){try{const p=JSON.parse(parking);$('#parkingStatus').textContent=`آخرین موقعیت: ${new Date(p.at).toLocaleString('fa-IR')}`}catch{}}
   renderErrors();refreshEntitlement().catch(()=>{});
@@ -1811,7 +1761,7 @@ async function loadData(){
 function normalizeAdminKitComponents(root=document){
   const scope=root.querySelectorAll?root:document;
   scope.querySelectorAll('main button:not(.btn)').forEach(b=>{
-    if(b.closest('.sidebar-nav')||b.closest('.bottom'))return;
+    if(b.closest('.sidebar-nav'))return;
     if(b.classList.contains('mydiag-menu-card'))return;
     b.classList.add('btn','btn-sm');
     if(b.classList.contains('danger')||b.classList.contains('ep-btn-danger'))b.classList.add('btn-danger');

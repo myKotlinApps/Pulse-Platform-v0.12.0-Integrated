@@ -6,7 +6,10 @@
 <meta name="theme-color" content="#07111f"/>
 <title>ECU Pulse — دیاگ هوشمند خودرو</title>
 <link crossorigin href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+<link crossorigin href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet"/>
+<link crossorigin href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
 <script crossorigin src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script crossorigin src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script crossorigin src="https://fastly.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
@@ -409,28 +412,28 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <symbol id="i-ambulance" viewBox="0 0 24 24"><path d="M3 17V7h11v10M14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M9 12h2M10 11v2"/></symbol>
 </svg>
 
-<div class="shell">
+<div class="shell container-fluid">
 <aside>
 <div class="brand"><div>EP</div><strong>ECU Pulse<small>DIAGEMAN.IR</small></strong></div>
 <nav>
-<button class="active" data-page="mydiag"><svg><use href="#i-home"/></svg>خانه MyDiag</button>
-<button data-page="dashboard"><svg><use href="#i-gauge"/></svg>داشبورد</button>
-<button data-page="vehicles"><svg><use href="#i-car"/></svg>خودرو</button>
-<button data-page="trips"><svg><use href="#i-route"/></svg>سفرها</button>
-<button data-page="analysis"><svg><use href="#i-scan"/></svg>تحلیل ماشین من</button>
-<button class="advanced-nav" data-page="procenter"><svg><use href="#i-crown"/></svg><span>مرکز پیشرفته</span><b id="proNavBadge">قفل</b></button>
-<button data-page="store"><svg><use href="#i-crown"/></svg>خرید و فعال‌سازی</button>
-<button data-page="errors"><svg><use href="#i-error"/></svg>خطا و پشتیبانی</button>
-<button data-page="scanner"><svg><use href="#i-plug"/></svg>اسکنر ECU</button>
-<button data-page="sensors"><svg><use href="#i-chip"/></svg>سنسورهای سازنده</button>
-<button data-page="expenses"><svg><use href="#i-wallet"/></svg>هزینه‌های خودرو</button>
-<button data-page="maintenance"><svg><use href="#i-wrench"/></svg>مدیریت قطعات</button>
-<button data-page="services"><svg><use href="#i-shield"/></svg>سرویس‌های خودرویی</button>
-<button data-page="garage"><svg><use href="#i-garage"/></svg>گاراژ شخصی</button>
-<button data-page="servicehistory"><svg><use href="#i-doc"/></svg>تاریخچه سرویس</button>
-<button data-page="news"><svg><use href="#i-news"/></svg>اخبار و آموزش</button>
+<button class="active" data-page="mydiag"><i class="bi bi-house-fill"></i>خانه MyDiag</button>
+<button data-page="dashboard"><i class="bi bi-speedometer2"></i>داشبورد</button>
+<button data-page="vehicles"><i class="bi bi-car-front"></i>خودرو</button>
+<button data-page="trips"><i class="bi bi-geo-alt"></i>سفرها</button>
+<button data-page="analysis"><i class="bi bi-activity"></i>تحلیل ماشین من</button>
+<button class="advanced-nav" data-page="procenter"><i class="bi bi-trophy"></i><span>مرکز پیشرفته</span><b id="proNavBadge">قفل</b></button>
+<button data-page="store"><i class="bi bi-trophy"></i>خرید و فعال‌سازی</button>
+<button data-page="errors"><i class="bi bi-exclamation-triangle"></i>خطا و پشتیبانی</button>
+<button data-page="scanner"><i class="bi bi-plug"></i>اسکنر ECU</button>
+<button data-page="sensors"><i class="bi bi-cpu"></i>سنسورهای سازنده</button>
+<button data-page="expenses"><i class="bi bi-wallet2"></i>هزینه‌های خودرو</button>
+<button data-page="maintenance"><i class="bi bi-wrench-adjustable"></i>مدیریت قطعات</button>
+<button data-page="services"><i class="bi bi-shield-check"></i>سرویس‌های خودرویی</button>
+<button data-page="garage"><i class="bi bi-garage"></i>گاراژ شخصی</button>
+<button data-page="servicehistory"><i class="bi bi-clipboard-history"></i>تاریخچه سرویس</button>
+<button data-page="news"><i class="bi bi-newspaper"></i>اخبار و آموزش</button>
 <button data-page="dashsigns"><svg><use href="#dw-engine"/></svg>علائم داشبورد</button>
-<button data-page="settings"><svg><use href="#i-settings"/></svg>تنظیمات</button>
+<button data-page="settings"><i class="bi bi-gear"></i>تنظیمات</button>
 </nav>
 <div class="plan-card"><span id="sidePlan">FREE</span><small id="clearQuotaSide">۵ پاک‌کردن باقی مانده</small></div>
 </aside>
@@ -438,7 +441,7 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <header>
 <button id="menuBtn">☰</button>
 <div><small id="eyebrow">SMART VEHICLE</small><strong id="title">خانه خودرو</strong></div>
-<button class="icon" id="themeBtn"><svg><use href="#i-theme"/></svg></button>
+<button class="icon" id="themeBtn"><i class="bi bi-palette"></i></button>
 </header>
 
 <main>
@@ -460,19 +463,19 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </section>
 <div class="mydiag-section-title"><div><small>SMART VEHICLE MANAGEMENT</small><h2>منوهای اصلی</h2></div><span>۱۳ بخش</span></div>
 <section class="mydiag-menu-grid">
-<button class="mydiag-menu-card" data-target="dashboard"><svg><use href="#i-gauge"/></svg><strong>داشبورد</strong><small>گیج‌ها و داده زنده</small></button>
-<button class="mydiag-menu-card" data-target="dashboard" data-anchor="dtcList"><svg><use href="#i-error"/></svg><strong>عیب‌یابی خودرو</strong><small>خواندن و پاک‌کردن خطا</small></button>
-<button class="mydiag-menu-card" data-target="trips"><svg><use href="#i-history"/></svg><strong>سوابق رانندگی</strong><small>مسیر، توقف و بازپخش</small></button>
-<button class="mydiag-menu-card" data-special="driving-style"><svg><use href="#i-style"/></svg><strong>سبک رانندگی</strong><small>شتاب، ترمز و امتیاز</small></button>
-<button class="mydiag-menu-card" data-target="vehicles"><svg><use href="#i-car"/></svg><strong>مدیریت خودرو</strong><small>پروفایل و مدل خودرو</small></button>
-<button class="mydiag-menu-card" data-special="parking"><svg><use href="#i-parking"/></svg><strong>پارکینگ</strong><small>ذخیره محل پارک</small></button>
-<button class="mydiag-menu-card" data-special="dashcam"><svg><use href="#i-camera"/></svg><strong>دوربین خودرو</strong><small>مشاهده ویدئوی محلی</small></button>
-<button class="mydiag-menu-card" data-target="store"><svg><use href="#i-shop"/></svg><strong>فروشگاه تجهیزات</strong><small>دانگل و خدمات</small></button>
-<button class="mydiag-menu-card" data-target="scanner"><svg><use href="#i-plug"/></svg><strong>اسکنر و اتصال</strong><small>Bluetooth و Wi‑Fi</small></button>
-<button class="mydiag-menu-card pro-menu" data-target="procenter"><svg><use href="#i-crown"/></svg><strong>ارتقای Pro</strong><small>امکانات پیشرفته</small></button>
-<button class="mydiag-menu-card" data-target="vehicles"><svg><use href="#i-register"/></svg><strong>ثبت خودرو</strong><small>افزودن پروفایل جدید</small></button>
-<button class="mydiag-menu-card" data-target="settings"><svg><use href="#i-settings"/></svg><strong>تنظیمات</strong><small>ظاهر، API و اتصال</small></button>
-<button class="mydiag-menu-card" data-target="store"><svg><use href="#i-buy"/></svg><strong>خرید اشتراک</strong><small>فعال‌سازی و تخفیف</small></button>
+<button class="mydiag-menu-card" data-target="dashboard"><i class="bi bi-speedometer2"></i><strong>داشبورد</strong><small>گیج‌ها و داده زنده</small></button>
+<button class="mydiag-menu-card" data-target="dashboard" data-anchor="dtcList"><i class="bi bi-exclamation-triangle"></i><strong>عیب‌یابی خودرو</strong><small>خواندن و پاک‌کردن خطا</small></button>
+<button class="mydiag-menu-card" data-target="trips"><i class="bi bi-clock-history"></i><strong>سوابق رانندگی</strong><small>مسیر، توقف و بازپخش</small></button>
+<button class="mydiag-menu-card" data-special="driving-style"><i class="bi bi-lightning-charge"></i><strong>سبک رانندگی</strong><small>شتاب، ترمز و امتیاز</small></button>
+<button class="mydiag-menu-card" data-target="vehicles"><i class="bi bi-car-front"></i><strong>مدیریت خودرو</strong><small>پروفایل و مدل خودرو</small></button>
+<button class="mydiag-menu-card" data-special="parking"><i class="bi bi-p-circle"></i><strong>پارکینگ</strong><small>ذخیره محل پارک</small></button>
+<button class="mydiag-menu-card" data-special="dashcam"><i class="bi bi-camera-video"></i><strong>دوربین خودرو</strong><small>مشاهده ویدئوی محلی</small></button>
+<button class="mydiag-menu-card" data-target="store"><i class="bi bi-bag-check"></i><strong>فروشگاه تجهیزات</strong><small>دانگل و خدمات</small></button>
+<button class="mydiag-menu-card" data-target="scanner"><i class="bi bi-plug"></i><strong>اسکنر و اتصال</strong><small>Bluetooth و Wi‑Fi</small></button>
+<button class="mydiag-menu-card pro-menu" data-target="procenter"><i class="bi bi-trophy"></i><strong>ارتقای Pro</strong><small>امکانات پیشرفته</small></button>
+<button class="mydiag-menu-card" data-target="vehicles"><i class="bi bi-plus-circle"></i><strong>ثبت خودرو</strong><small>افزودن پروفایل جدید</small></button>
+<button class="mydiag-menu-card" data-target="settings"><i class="bi bi-gear"></i><strong>تنظیمات</strong><small>ظاهر، API و اتصال</small></button>
+<button class="mydiag-menu-card" data-target="store"><i class="bi bi-credit-card"></i><strong>خرید اشتراک</strong><small>فعال‌سازی و تخفیف</small></button>
 </section>
 </section>
 
@@ -495,7 +498,7 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <section class="page mydiag-feature-page" data-page="parking">
 <div class="page-head"><div><small>PARKING MEMORY</small><h1>محل پارک خودرو</h1></div><button data-page="mydiag">بازگشت</button></div>
 <section class="card parking-card">
-<div class="parking-marker"><svg><use href="#i-parking"/></svg></div>
+<div class="parking-marker"><i class="bi bi-p-circle"></i></div>
 <div><h2>ذخیره آخرین موقعیت</h2><p id="parkingStatus">هنوز موقعیتی ذخیره نشده است.</p><div class="parking-actions"><button id="saveParking">ذخیره موقعیت فعلی</button><button id="clearParking">حذف موقعیت</button></div></div>
 </section>
 </section>
@@ -519,7 +522,7 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </div>
 <div class="hero-actions"><span class="demo-badge" id="demoBadge">پروفایل دمو</span><span class="online"><i></i><b id="dataModeLabel">داده آزمایشی</b></span><button id="mockToggle">توقف دمو</button></div>
 </article>
-<div class="gauge-grid">
+<div class="row g-3">
 <article>
 <header><span>سرعت</span><strong id="speedValue">۰ km/h</strong></header>
 <div class="gauge-svg-wrap" id="speedGauge" style="width:100%;height:280px"></div>
@@ -537,13 +540,13 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <div class="gauge-svg-wrap" id="voltageGauge" style="width:100%;height:280px"></div>
 </article>
 </div>
-<div class="metric-grid">
+<div class="row g-2">
 <article><span>بار موتور</span><strong id="engineLoad">--</strong></article>
 <article><span>مصرف تقریبی</span><strong id="fuelUse">--</strong></article>
 <article><span>سطح بنزین</span><strong id="fuelLevel">--</strong></article>
 <article><span>فشار روغن</span><strong id="oilPressure">--</strong></article>
 </div>
-<div class="metric-grid">
+<div class="row g-2">
 <article><span>دمای آب</span><strong id="coolant">--</strong></article>
 <article><span>ولتاژ</span><strong id="voltage">--</strong></article>
 <article><span>بار موتور</span><strong id="engineLoad">--</strong></article>
@@ -551,7 +554,7 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </div>
 <section class="card">
 <div class="section-title"><div><small>DIAGNOSTIC TROUBLE CODES</small><h2>خطاهای ECU</h2></div><button id="readDtcBtn">خواندن نمایشی</button></div>
-<div class="dtc-list" id="dtcList"></div>
+<div class="d-grid gap-2" id="dtcList"></div>
 <div class="clear-row"><div><strong>پاک‌کردن خطاهای عمومی</strong><small id="clearQuota">نسخه رایگان: ۵ بار در کل</small></div><button class="danger" id="clearDtcBtn">پاک‌کردن</button></div>
 </section>
 </section>
@@ -560,7 +563,7 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <section class="page" data-page="vehicles">
 <div class="page-head"><div><small>FREE CATALOG = 10%</small><h1>انتخاب خودرو</h1></div><span id="catalogBadge">فهرست رایگان</span></div>
 <section class="card selectors"><select id="makeSelect"></select><select id="modelSelect"></select><button id="activateVehicle">فعال‌کردن پروفایل</button><button class="demo-action" id="activateDemo">شروع دمو</button></section>
-<div class="vehicle-grid" id="vehicleGrid"></div>
+<div class="row g-3" id="vehicleGrid"></div>
 </section>
 
 <!-- VEHICLE DETAIL PAGE -->
@@ -575,14 +578,14 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </div>
 <div class="hero-actions"><span id="vdSegment">—</span><span class="online"><i></i><b id="vdStatus">آماده</b></span><button id="vdActivateBtn">فعال‌سازی پروفایل</button></div>
 </article>
-<div class="gauge-grid">
+<div class="row g-3">
 <article><header><span>سرعت</span><strong id="vdSpeed">۰ km/h</strong></header><div class="gauge-svg-wrap" id="vdSpeedGauge" style="width:100%;height:280px"></div></article>
 <article><header><span>دور موتور</span><strong id="vdRpm">۰ rpm</strong></header><div class="gauge-svg-wrap" id="vdRpmGauge" style="width:100%;height:280px"></div></article>
 <article><header><span>دمای آب</span><strong id="vdCoolant">--</strong></header><div class="gauge-svg-wrap" id="vdCoolantGauge" style="width:100%;height:280px"></div></article>
 <article><header><span>ولتاژ باتری</span><strong id="vdVoltage">--</strong></header><div class="gauge-svg-wrap" id="vdVoltageGauge" style="width:100%;height:280px"></div></article>
 </div>
-<div class="metric-grid"><article><span>بار موتور</span><strong id="vdLoad">--</strong></article><article><span>مصرف تقریبی</span><strong id="vdFuel">--</strong></article><article><span>سطح بنزین</span><strong id="vdFuelLevel">--</strong></article><article><span>فشار روغن</span><strong id="vdOilPressure">--</strong></article></div>
-<section class="card"><div class="section-title"><div><small>OBD-II DTC CODES</small><h2>کدهای خطای این مدل</h2></div><button id="vdReadDtc">خواندن کدها</button></div><div class="dtc-list" id="vdDtcList"></div></section>
+<div class="row g-2"><article><span>بار موتور</span><strong id="vdLoad">--</strong></article><article><span>مصرف تقریبی</span><strong id="vdFuel">--</strong></article><article><span>سطح بنزین</span><strong id="vdFuelLevel">--</strong></article><article><span>فشار روغن</span><strong id="vdOilPressure">--</strong></article></div>
+<section class="card"><div class="section-title"><div><small>OBD-II DTC CODES</small><h2>کدهای خطای این مدل</h2></div><button id="vdReadDtc">خواندن کدها</button></div><div class="d-grid gap-2" id="vdDtcList"></div></section>
 </div>
 <div class="vd-side">
 <section class="card"><div class="section-title"><div><small>OBD CONFIGURATION</small><h2>تنظیمات OBD</h2></div></div>
@@ -662,12 +665,12 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 <div class="page-head"><div><small>ADVANCED CONTROL CENTER</small><h1>مرکز نسخه پیشرفته</h1></div><span class="pro-badge" id="proCenterBadge">قفل</span></div>
 <section class="card dev-unlock"><div><small>فعال‌سازی آزمایشی</small><h2>کد توسعه نسخه پیشرفته</h2><p>این مسیر فقط برای تست داخلی است و در نسخه انتشار با خرید و اعتبارسنجی سرور جایگزین می‌شود.</p></div><div class="dev-unlock-form"><input id="devProCode" inputmode="numeric" maxlength="8" placeholder="کد فعال‌سازی" type="password"/><button id="unlockProBtn">فعال‌کردن Pro</button><button class="secondary" hidden id="disableProBtn">بازگشت به رایگان</button></div><strong id="proUnlockStatus">نسخه رایگان فعال است</strong></section>
 <div class="advanced-grid">
-<article class="advanced-card pro-feature" data-open="analysis" tabindex="0"><svg><use href="#i-scan"/></svg><strong>تحلیل هوشمند دیاگ</strong><p>ارسال داده به سرور، دریافت امتیاز سلامت و گزارش پویا.</p><button>بازکردن تحلیل</button></article>
-<article class="advanced-card pro-feature" data-open="trips" tabindex="0"><svg><use href="#i-route"/></svg><strong>سفر و بازپخش حرفه‌ای</strong><p>تاریخچه نامحدود و بازپخش ۵× و ۱۰× مسیرها.</p><button>بازکردن سفرها</button></article>
-<article class="advanced-card pro-feature" data-open="vehicles" tabindex="0"><svg><use href="#i-car"/></svg><strong>کاتالوگ کامل خودروها</strong><p>نمایش همه پروفایل‌های سواری و خودروهای تجاری.</p><button>مشاهده خودروها</button></article>
-<article class="advanced-card pro-feature" data-open="dashboard" tabindex="0"><svg><use href="#i-home"/></svg><strong>داده زنده پیشرفته</strong><p>گیج‌های کامل، PIDهای بیشتر و ثبت داده طولانی‌مدت.</p><button>رفتن به داشبورد</button></article>
-<article class="advanced-card pro-feature" data-action="dtc-clear" tabindex="0"><svg><use href="#i-crown"/></svg><strong>پاک‌کردن نامحدود DTC</strong><p>سهمیه نامحدود برای فرمان عمومی Mode 04 با کنترل‌های ایمنی.</p><button>رفتن به خطاهای ECU</button></article>
-<article class="advanced-card pro-feature" data-action="pdf" data-open="analysis" tabindex="0"><svg><use href="#i-scan"/></svg><strong>خروجی PDF</strong><p>دریافت گزارش قابل چاپ از تحلیل سرور.</p><button>ساخت گزارش</button></article>
+<article class="advanced-card pro-feature" data-open="analysis" tabindex="0"><i class="bi bi-activity"></i><strong>تحلیل هوشمند دیاگ</strong><p>ارسال داده به سرور، دریافت امتیاز سلامت و گزارش پویا.</p><button>بازکردن تحلیل</button></article>
+<article class="advanced-card pro-feature" data-open="trips" tabindex="0"><i class="bi bi-geo-alt"></i><strong>سفر و بازپخش حرفه‌ای</strong><p>تاریخچه نامحدود و بازپخش ۵× و ۱۰× مسیرها.</p><button>بازکردن سفرها</button></article>
+<article class="advanced-card pro-feature" data-open="vehicles" tabindex="0"><i class="bi bi-car-front"></i><strong>کاتالوگ کامل خودروها</strong><p>نمایش همه پروفایل‌های سواری و خودروهای تجاری.</p><button>مشاهده خودروها</button></article>
+<article class="advanced-card pro-feature" data-open="dashboard" tabindex="0"><i class="bi bi-house-fill"></i><strong>داده زنده پیشرفته</strong><p>گیج‌های کامل، PIDهای بیشتر و ثبت داده طولانی‌مدت.</p><button>رفتن به داشبورد</button></article>
+<article class="advanced-card pro-feature" data-action="dtc-clear" tabindex="0"><i class="bi bi-trophy"></i><strong>پاک‌کردن نامحدود DTC</strong><p>سهمیه نامحدود برای فرمان عمومی Mode 04 با کنترل‌های ایمنی.</p><button>رفتن به خطاهای ECU</button></article>
+<article class="advanced-card pro-feature" data-action="pdf" data-open="analysis" tabindex="0"><i class="bi bi-activity"></i><strong>خروجی PDF</strong><p>دریافت گزارش قابل چاپ از تحلیل سرور.</p><button>ساخت گزارش</button></article>
 </div>
 </section>
 
@@ -846,16 +849,16 @@ html[data-theme=mydiag] .brand>div{background:linear-gradient(145deg,#29b6f6,#15
 </main>
 
 <nav class="bottom">
-<button class="active" data-page="mydiag"><svg><use href="#i-home"/></svg><span>خانه</span></button>
-<button data-page="dashboard"><svg><use href="#i-gauge"/></svg><span>داشبورد</span></button>
-<button data-page="trips"><svg><use href="#i-route"/></svg><span>سفر</span></button>
-<button data-page="analysis"><svg><use href="#i-scan"/></svg><span>تحلیل</span></button>
-<button data-page="procenter"><svg><use href="#i-crown"/></svg><span>پیشرفته</span></button>
+<button class="active" data-page="mydiag"><i class="bi bi-house-fill"></i><span>خانه</span></button>
+<button data-page="dashboard"><i class="bi bi-speedometer2"></i><span>داشبورد</span></button>
+<button data-page="trips"><i class="bi bi-geo-alt"></i><span>سفر</span></button>
+<button data-page="analysis"><i class="bi bi-activity"></i><span>تحلیل</span></button>
+<button data-page="procenter"><i class="bi bi-trophy"></i><span>پیشرفته</span></button>
 </nav>
 </div>
 
 <div class="dialog" hidden id="errorDialog" role="dialog">
-<div class="dialog-panel"><span class="error-icon"><svg><use href="#i-error"/></svg></span><small id="errorCode"></small><h2 id="errorTitle">خطای ناشناخته</h2><p id="errorDetail"></p><div><button id="dismissError">بستن</button><button id="sendError">ارسال برای رفع عیب</button></div></div>
+<div class="dialog-panel"><span class="error-icon"><i class="bi bi-exclamation-triangle"></i></span><small id="errorCode"></small><h2 id="errorTitle">خطای ناشناخته</h2><p id="errorDetail"></p><div><button id="dismissError">بستن</button><button id="sendError">ارسال برای رفع عیب</button></div></div>
 </div>
 <div id="toast"></div>
 

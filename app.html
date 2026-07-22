@@ -1146,9 +1146,18 @@ $('#activateDemo').onclick=activateDemo;$('#mockToggle').onclick=()=>state.mockT
 
 /* ========================= DTC ========================= */
 $('#readDtcBtn').onclick=()=>{state.dtcs=(state.demoMode?state.demo.scenario.dtcs:[{code:'P0133',kind:'STORED',description:'پاسخ کند سنسور اکسیژن بانک ۱'},{code:'P0420',kind:'PENDING',description:'بازده کاتالیست پایین‌تر از آستانه'}]).map(x=>({...x}));renderDtcs()};
-function renderDtcs(){$('#dtcList').innerHTML=state.dtcs.length?state.dtcs.map(x=>`<article class="dtc-item"><strong>${x.code}</strong><p>${x.description}<br>${x.kind}</p></article>`).join(''):'<p class="note">هنوز کدی خوانده نشده است.</p>'}
+function renderDtcs(){$('#dtcList').innerHTML=state.dtcs.length?state.dtcs.map((x,i)=>`<article class="dtc-item"><strong>${x.code}</strong><div style="flex:1"><p>${x.description}<br>${x.kind}</p></div><button class="danger" style="border:1px solid color-mix(in srgb,var(--red) 35%,transparent);background:color-mix(in srgb,var(--red) 8%,transparent);color:var(--red);border-radius:10px;padding:6px 12px;font-size:10px;cursor:pointer;white-space:nowrap" onclick="clearSingleDtc(${i})"><i class="bi bi-trash"></i> پاک‌کردن</button></article>`).join(''):'<p class="note">هنوز کدی خوانده نشده است.</p>'}
 async function clearDtcs(){if(!state.dtcs.length)return toast('خطایی برای پاک‌کردن وجود ندارد');if(!confirm('موتور خاموش و سوییچ باز است؟'))return;if(state.demoMode){await new Promise(r=>setTimeout(r,450));state.dtcs=[];renderDtcs();return toast('خطاهای دمو پاک شدند')}try{const a=await api('/api/v1/actions/dtc-clear/authorize',{method:'POST',body:'{}'}).then(r=>r.json());await new Promise(r=>setTimeout(r,500));state.dtcs=[];renderDtcs();await fetchTimeout(`${state.activeApi}/api/v1/actions/dtc-clear/complete`,{method:'POST',headers:{'content-type':'application/json',authorization:`Bearer ${a.actionToken}`},body:JSON.stringify({success:true})});toast('خطاها پاک شدند');await refreshEntitlement()}catch(e){reportError(e,{feature:'clear-dtc'})}}
 $('#clearDtcBtn').onclick=clearDtcs;
+function clearSingleDtc(index){
+  if(!state.dtcs[index])return;
+  const dtc=state.dtcs[index];
+  if(!confirm(`پاک‌کردن خطای ${dtc.code}؟\n\n${dtc.description}\n\nموتور خاموش و سوییچ باز است؟`))return;
+  state.dtcs.splice(index,1);
+  renderDtcs();
+  toast(`خطای ${dtc.code} پاک شد`);
+}
+window.clearSingleDtc=clearSingleDtc;
 async function refreshEntitlement(){try{const x=await api('/api/v1/entitlements/me').then(r=>r.json());const left=x.clearDtcLimit<0?'نامحدود':Math.max(0,x.clearDtcLimit-x.clearDtcUsed);$('#clearQuota').textContent=x.pro?'نسخه پیشرفته: نامحدود':`نسخه رایگان: ${fa(left)} بار باقی مانده`;$('#clearQuotaSide').textContent=x.pro?'پاک‌کردن نامحدود':`${fa(left)} پاک‌کردن باقی مانده`}catch(e){$('#clearQuota').textContent='برای بررسی سهمیه، سرور را اجرا کن'}}
 
 /* ========================= TRIPS ========================= */

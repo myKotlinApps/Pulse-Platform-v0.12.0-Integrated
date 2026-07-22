@@ -686,16 +686,16 @@ const brandRules=[
 ];
 function brandKey(v){const text=`${v?.make||''} ${v?.model||''}`;return brandRules.find(x=>x[1].test(text))?.[0]||'generic'}
 function fallbackLogo(v){return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="var(--panel)"/><text x="50" y="56" text-anchor="middle" font-size="14" fill="var(--text)" font-weight="bold">${v?.make?.slice(0,8)||'?'}</text></svg>`)}`}
+var LOGO_BASE='https://raw.githubusercontent.com/myKotlinApps/Pulse-Platform-v0.12.0-Integrated/main/shared/logos/';
+var LOGO_FILES={'ikco':'ikco-official-v120.png','saipa':'saipa-official-v120.png','zamyad':'zamyad-official-v120.png','bahman':'bahman-official-v120.png','kmc':'kmc-official-v120.png','mvm':'mvm-official-v120.png','fownix':'fownix-official-v120.png','farda':'farda-official-v120.png','lamari':'lamari-official-v120.png','diar':'diar-official-v120.png','mammut':'mammut-official-v120.png','parskhodro':'parskhodro-official-v120.png','bahmandiesel':'bahmandiesel-official-v120.png','ikcodiesel':'ikcodiesel-official-v120.png','modirankhodro':'modirankhodro-official-v120.png','kermanmotor':'kermanmotor-official-v120.png','peugeot':'peugeot-pack-v130.png','citroen':'citroen-pack-v130.png','renault':'renault.svg','dacia':'dacia.svg','mercedesbenz':'mercedesbenz-pack-v130.png','bmw':'bmw-pack-v130.png','mini':'mini.svg','toyota':'toyota-pack-v130.png','lexus':'lexus-pack-v130.png','hyundai':'hyundai-pack-v130.png','kia':'kia-pack-v130.png','nissan':'nissan.svg','mazda':'mazda-pack-v130.png','mitsubishi':'mitsubishi.svg','honda':'honda-pack-v130.png','suzuki':'suzuki-pack-v130.png','subaru':'subaru-pack-v130.png','ford':'ford-pack-v130.png','chevrolet':'chevrolet-pack-v130.png','volkswagen':'volkswagen.svg','audi':'audi-pack-v130.png','skoda':'skoda-pack-v130.png','opel':'opel-pack-v130.png','volvo':'volvo.svg','scania':'scania-pack-v130.png','man':'man.svg','iveco':'iveco-pack-v130.png','daf':'daf.svg','faw':'faw-pack-v130.png','dongfeng':'dongfeng-pack-v130.png','jac':'jac-pack-v130.png','geely':'geely-pack-v130.png','byd':'byd-pack-v130.png','mg':'mg.svg','brilliance':'brilliance.svg','haval':'haval-pack-v130.png','changan':'changan.svg','greatwall':'greatwall-pack-v130.png','baic':'baic-pack-v130.png','lifan':'lifan-pack-v130.png','hyundaicommercial':'hyundaicommercial-pack-v130.png','isuzu':'isuzu-pack-v130.png'};
 function logoPath(v){
   const key=brandKey(v);
   const meta=(state.logos?.brands||[]).find(b=>b.key===key);
   if(meta){
     const file=meta.png||meta.file||meta.fallback;
-    if(file){
-      const logoName=file.replace(/^assets\/logos\//,'');
-      return `https://raw.githubusercontent.com/myKotlinApps/Pulse-Platform-v0.12.0-Integrated/main/shared/logos/${logoName}`;
-    }
+    if(file){const logoName=file.replace(/^assets\/logos\//,'');return LOGO_BASE+logoName}
   }
+  if(LOGO_FILES[key])return LOGO_BASE+LOGO_FILES[key];
   return fallbackLogo(v);
 }
 function logoSrc(v){return state.customLogo||logoPath(v)}

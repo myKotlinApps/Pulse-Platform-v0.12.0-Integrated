@@ -1805,7 +1805,21 @@ async function loadData(){
   renderErrors();refreshEntitlement().catch(()=>{});
   return true;
 }
+function normalizeAdminKitComponents(root=document){
+  const scope=root.querySelectorAll?root:document;
+  scope.querySelectorAll('main button:not(.btn)').forEach(b=>{
+    if(b.closest('.sidebar-nav')||b.closest('.bottom'))return;
+    b.classList.add('btn','btn-sm');
+    if(b.classList.contains('danger')||b.classList.contains('ep-btn-danger'))b.classList.add('btn-danger');
+    else b.classList.add('btn-primary');
+  });
+  scope.querySelectorAll('main input:not([type="range"]):not([type="checkbox"]):not([type="file"])').forEach(x=>x.classList.add('form-control','form-control-sm'));
+  scope.querySelectorAll('main select').forEach(x=>x.classList.add('form-select','form-select-sm'));
+  scope.querySelectorAll('.page-head').forEach(x=>x.classList.add('d-flex','justify-content-between','align-items-center','mb-3'));
+}
 normalizeAdminKitComponents();
+const adminKitObserver=new MutationObserver(mutations=>mutations.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1)normalizeAdminKitComponents(n)})));
+adminKitObserver.observe(document.querySelector('main.content'),{childList:true,subtree:true});
 loadData();
 </script>
 </body>
